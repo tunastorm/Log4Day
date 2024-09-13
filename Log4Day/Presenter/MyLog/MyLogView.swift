@@ -47,15 +47,10 @@ struct MyLogView: View {
     }
     
     private func photoLogBanner() -> some View {
-        ScrollView(.horizontal) {
-            HStack {
-                ForEach(0..<10) { index in
-                    BannerView(index: index,
-                               backgroundWidthHeight: (300,500),
-                               imageHeight: 400)
-                }
-                .padding(.horizontal)
-            }
+        CarouselView(pageCount: 10, visibleEdgeSpace: 10, spacing: 10) { index in
+            BannerView(index: index,
+                       backgroundWidthHeight: (300,500),
+                       imageHeight: 400)
         }
         .frame(height: 500)
         .hideIndicator()

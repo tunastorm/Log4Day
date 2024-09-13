@@ -36,10 +36,10 @@ struct BannerView: View {
                 .background(.gray)
                 .clipShape(.rect(cornerRadius: 15))
             Text("테스트 \(index)")
-                .frame(height: 27.5)
+                .frame(height: 30)
                 .frame(alignment: .leading)
             Text("#테스트 사진 \(index) #입니다만 #???")
-                .frame(height: 27.5)
+                .frame(height: 30)
                 .frame(alignment: .leading)
         }
         .padding()
