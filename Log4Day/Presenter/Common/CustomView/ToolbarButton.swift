@@ -17,6 +17,12 @@ struct ToolbarButton: ToolbarContent {
     
     var action: () -> Void
     
+    @Environment(\.colorScheme) private var colorScheme
+    
+    private var normalColor: Color {
+        colorScheme == .dark ? .white.opacity(0.75) : .black
+    }
+    
     var body: some ToolbarContent {
         ToolbarItem(id: id, placement: placement) {
             Button(action: {
@@ -25,7 +31,7 @@ struct ToolbarButton: ToolbarContent {
                 Image(systemName: image)
             })
             .foregroundStyle(.black)
-            .buttonStyle(IsPressedButtonStyle(normalColor: .black, pressedColor: .gray))
+            .buttonStyle(IsPressedButtonStyle(normalColor: normalColor, pressedColor: .gray))
         }
     }
     

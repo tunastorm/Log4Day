@@ -18,6 +18,16 @@ struct TestSchedule: Hashable, Identifiable {
 
 struct MyLogView: View {
     
+    @Environment(\.colorScheme) private var colorScheme
+    
+    private var baseColor: Color {
+        colorScheme == .dark ? .white.opacity(0.5) : .black.opacity(0.5)
+    }
+    
+    private var contentColor: Color {
+        colorScheme == .dark ? .white : .black
+    }
+
     private static let setDummies = {
         let random = Int.random(in: 5...10)
         print("dummyCount:", random)
@@ -39,32 +49,39 @@ struct MyLogView: View {
                     loglineList()
                 }
             }
-            .toolbar {
-                ToolbarTitle(text: "MyLog", placement: .topBarLeading)
-                ToolbarButton(id: "category", placement: .topBarTrailing, image: "tray") {
-                    print("카테고리 클릭")
-                }
-                SettingButton()
+           
+        }
+        .toolbar {
+            ToolbarTitle(text: "MyLog", placement: .topBarLeading)
+            ToolbarButton(id: "category", placement: .topBarTrailing, image: "tray") {
+                print("카테고리 클릭")
             }
-            .onAppear {
-               
-            }
+            SettingButton()
+        }
+        .onAppear {
+           
         }
     
     }
     
     private func TitleView() -> some View {
-        HStack {
-            VStack(alignment: .leading) {
+        VStack() {
+            HStack {
                 Text("#카테고리")
                     .font(.title)
-                    .padding(.horizontal)
-                    .padding(.top)
-                Text("2024.09.13 / 금")
-                    .padding(.horizontal)
-                    .padding(.bottom)
+                    .foregroundStyle(contentColor)
+                Spacer()
+                Text("Date: ")
+                    .foregroundStyle(baseColor)
+                Text("24.09.13 / 금")
+                    .foregroundStyle(contentColor)
             }
-            Spacer()
+            .padding(.init(top: 10, leading: 20, bottom: 2, trailing: 20))
+            Rectangle()
+                .fill(baseColor)
+                .frame(height: 1)
+                .frame(maxWidth: .infinity)
+                .padding(.init(top: 2, leading: 20, bottom: 20, trailing: 20))
         }
     }
     
@@ -86,9 +103,14 @@ struct MyLogView: View {
     }
     
     private func loglineList() -> some View {
-        VStack {
-            ListHeaderView(text: "Loglines", font: .title, color: .mint)
-            ForEach(0..<10) { index in
+        LazyVStack {
+            ListHeaderView(text: "MyLog", font: .title3)
+            Rectangle()
+                .fill(baseColor)
+                .frame(height: 1)
+                .frame(maxWidth: .infinity)
+                .padding(.bottom)
+            ForEach(0..<100) { index in
                 LoglineCell(index: index)
             }
         }

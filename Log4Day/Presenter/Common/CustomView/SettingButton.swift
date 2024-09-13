@@ -11,6 +11,10 @@ struct SettingButton: ToolbarContent {
     
     @Environment(\.colorScheme) private var colorScheme
     
+    private var normalColor: Color {
+        colorScheme == .dark ? .white.opacity(0.75) : .black
+    }
+    
     struct SettingElement: Hashable, Identifiable {
         
         let id = UUID()
@@ -51,20 +55,18 @@ struct SettingButton: ToolbarContent {
                         } label: {
                             Label(.init(item.name), systemImage: item.image)
                         }
-                        .buttonStyle(IsPressedButtonStyle(normalColor: .black, pressedColor: .mint))
                     } else {
                         Button(role: .destructive) {
                             item.action()
                         } label: {
                             Label(.init(item.name), systemImage: item.image)
                         }
-                        .buttonStyle(IsPressedButtonStyle(normalColor: .black, pressedColor: .mint))
                     }
                 }
             } label: {
                 Image(systemName: "line.3.horizontal")
             }
-            .foregroundStyle(.black)
+            .foregroundStyle(normalColor)
          
         }
         

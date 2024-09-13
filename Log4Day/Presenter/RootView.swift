@@ -11,6 +11,22 @@ struct RootView: View {
     
     @State private var selection = 0
     
+    init() {
+        let navBarAppearance = UINavigationBarAppearance()
+        // 객체 생성
+        navBarAppearance.backgroundColor = .white
+        navBarAppearance.shadowColor = .clear
+        // 객체 속성 변경
+        UINavigationBar.appearance().standardAppearance = navBarAppearance
+        UINavigationBar.appearance().compactAppearance = navBarAppearance
+        UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.backgroundColor = .white
+        tabBarAppearance.shadowColor = .systemGray6
+        UITabBar.appearance().standardAppearance = tabBarAppearance
+        UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+    }
+    
     var body: some View {
         NavigationWrapper {
             TabView(selection: $selection) {
@@ -35,12 +51,12 @@ struct RootView: View {
                         Image(systemName:  selection == 2 ?
                               "mappin.and.ellipse" : "map")
                             .renderingMode(.template)
-                        Text("Logline")
+                        Text("LogMap")
                     }
                     .tag(2)
             }
             .font(.headline)
-            .tint(.mint)
+            .tint(Resource.CIColor.highlightColor)
         }
 
     }

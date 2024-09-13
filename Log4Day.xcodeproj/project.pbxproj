@@ -28,7 +28,6 @@
 		BC404C972C9417A4001BA269 /* UIViewControllerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C962C9417A4001BA269 /* UIViewControllerWrapper.swift */; };
 		BC404C992C941829001BA269 /* NextViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C982C941829001BA269 /* NextViewWrapper.swift */; };
 		BC404C9F2C941920001BA269 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C9E2C941920001BA269 /* CategoryView.swift */; };
-		BC404CA22C941BEA001BA269 /* CustomCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CA12C941BEA001BA269 /* CustomCorners.swift */; };
 		BC404CA42C941E0A001BA269 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CA32C941E0A001BA269 /* SettingView.swift */; };
 		BC404CA62C941F0E001BA269 /* LoglineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CA52C941F0E001BA269 /* LoglineCell.swift */; };
 		BC404CA82C942170001BA269 /* ListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CA72C942170001BA269 /* ListHeaderView.swift */; };
@@ -37,6 +36,7 @@
 		BC404CAE2C942D15001BA269 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CAD2C942D15001BA269 /* BackButton.swift */; };
 		BC404CB02C942E43001BA269 /* SettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CAF2C942E43001BA269 /* SettingButton.swift */; };
 		BC404CB82C9468DE001BA269 /* InfinityCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CB72C9468DE001BA269 /* InfinityCarouselView.swift */; };
+		BC404CBA2C94B0A5001BA269 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CB92C94B0A5001BA269 /* Resource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,7 +81,6 @@
 		BC404C962C9417A4001BA269 /* UIViewControllerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerWrapper.swift; sourceTree = "<group>"; };
 		BC404C982C941829001BA269 /* NextViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextViewWrapper.swift; sourceTree = "<group>"; };
 		BC404C9E2C941920001BA269 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
-		BC404CA12C941BEA001BA269 /* CustomCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCorners.swift; sourceTree = "<group>"; };
 		BC404CA32C941E0A001BA269 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		BC404CA52C941F0E001BA269 /* LoglineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoglineCell.swift; sourceTree = "<group>"; };
 		BC404CA72C942170001BA269 /* ListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListHeaderView.swift; sourceTree = "<group>"; };
@@ -90,6 +89,7 @@
 		BC404CAD2C942D15001BA269 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		BC404CAF2C942E43001BA269 /* SettingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingButton.swift; sourceTree = "<group>"; };
 		BC404CB72C9468DE001BA269 /* InfinityCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfinityCarouselView.swift; sourceTree = "<group>"; };
+		BC404CB92C94B0A5001BA269 /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,6 +240,7 @@
 			isa = PBXGroup;
 			children = (
 				BC404BD22C9077FD001BA269 /* Assets.xcassets */,
+				BC404CB92C94B0A5001BA269 /* Resource.swift */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -335,7 +336,6 @@
 		BC404CA02C941BD9001BA269 /* CustomShape */ = {
 			isa = PBXGroup;
 			children = (
-				BC404CA12C941BEA001BA269 /* CustomCorners.swift */,
 			);
 			path = CustomShape;
 			sourceTree = "<group>";
@@ -479,8 +479,8 @@
 				BC404C8F2C941195001BA269 /* ToolbarButton.swift in Sources */,
 				BC404C872C93FE70001BA269 /* APIKey.swift in Sources */,
 				BC404C912C94142D001BA269 /* ToolbarTitle.swift in Sources */,
-				BC404CA22C941BEA001BA269 /* CustomCorners.swift in Sources */,
 				BC404BD12C9077FC001BA269 /* RootView.swift in Sources */,
+				BC404CBA2C94B0A5001BA269 /* Resource.swift in Sources */,
 				BC404C7D2C93F04D001BA269 /* NavigationWrapper.swift in Sources */,
 				BC404CA62C941F0E001BA269 /* LoglineCell.swift in Sources */,
 				BC404C932C94156E001BA269 /* IsPressedButtonStyle.swift in Sources */,

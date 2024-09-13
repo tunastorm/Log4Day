@@ -75,6 +75,7 @@ public struct InfinityCarouselView<Data: Identifiable, Content: View>: View {
             DragGesture()
                 .onEnded { value in
                     let offsetX = value.translation.width
+                    print(#function, "offsetX:", offsetX)
                     if offsetX < -50 { // 오른쪽으로 스와이프
                         currentIndex = min(currentIndex + 1, CGFloat(data.count)+1)
                     } else if offsetX > 50 { // 왼쪽으로 스와이프

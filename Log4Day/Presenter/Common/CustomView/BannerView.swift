@@ -25,26 +25,52 @@ struct BannerView: View {
     }
     
     private func backgroundView() -> some View {
-        RoundedRectangle(cornerRadius: 25)
-            .background(.white)
+        Rectangle()
+//        RoundedRectangle(cornerRadius: 25)
+            .fill(.white)
             .frame(width: backgroundWidthHeight.0, height: backgroundWidthHeight.1)
+            .shadow(radius: 4)
     }
     
     private func contentsView() -> some View {
         VStack {
-            Image(systemName: "person")
-                .frame(height: imageHeight)
-                .frame(maxWidth: .infinity)
-                .background(.gray)
-                .clipShape(.rect(cornerRadius: 15))
+            ImageGrid()
             Text(title)
                 .frame(height: 30)
                 .frame(alignment: .leading)
+                .foregroundStyle(.black)
             Text(hashTags)
                 .frame(height: 30)
                 .frame(alignment: .leading)
+                .foregroundStyle(.black)
         }
         .padding()
+    }
+    
+    private func ImageGrid() -> some View {
+        VStack {
+            HStack {
+                Image(systemName: "person")
+                    .frame(width: ((backgroundWidthHeight.0 - 10) / 2)-10,height: (imageHeight / 2) - 10)
+                    .background(.gray)
+//                    .cornerRadius(15, corners: [.topLeft])
+                Image(systemName: "person")
+                    .frame(width: ((backgroundWidthHeight.0 - 10) / 2)-10,height: (imageHeight / 2) - 10)
+                    .background(.gray)
+//                    .cornerRadius(15, corners: [.topRight])
+            }
+            HStack {
+                Image(systemName: "person")
+                    .frame(width: ((backgroundWidthHeight.0 - 10) / 2)-10,height: (imageHeight / 2) - 10)
+                    .background(.gray)
+//                    .cornerRadius(15, corners: [.bottomLeft])
+                Image(systemName: "person")
+                    .frame(width: ((backgroundWidthHeight.0 - 10) / 2)-10,height: (imageHeight / 2) - 10)
+                    .background(.gray)
+//                    .cornerRadius(15, corners: [.bottomRight])
+            }
+        }
+        
     }
     
 }
