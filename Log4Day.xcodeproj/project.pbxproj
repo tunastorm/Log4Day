@@ -18,6 +18,7 @@
 		BC404C782C93E1EF001BA269 /* PlannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C772C93E1EF001BA269 /* PlannerView.swift */; };
 		BC404C7A2C93E1F9001BA269 /* LoglineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C792C93E1F9001BA269 /* LoglineView.swift */; };
 		BC404C7D2C93F04D001BA269 /* NavigationWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C7C2C93F04D001BA269 /* NavigationWrapper.swift */; };
+		BC404C852C93F9D3001BA269 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BC404C842C93F9D3001BA269 /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		BC404C772C93E1EF001BA269 /* PlannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerView.swift; sourceTree = "<group>"; };
 		BC404C792C93E1F9001BA269 /* LoglineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoglineView.swift; sourceTree = "<group>"; };
 		BC404C7C2C93F04D001BA269 /* NavigationWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationWrapper.swift; sourceTree = "<group>"; };
+		BC404C842C93F9D3001BA269 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 		BC404BC22C9077FC001BA269 = {
 			isa = PBXGroup;
 			children = (
+				BC404C842C93F9D3001BA269 /* .gitignore */,
 				BC404BCD2C9077FC001BA269 /* Log4Day */,
 				BC404BDE2C9077FE001BA269 /* Log4DayTests */,
 				BC404BE82C9077FE001BA269 /* Log4DayUITests */,
@@ -102,9 +105,9 @@
 		BC404BCD2C9077FC001BA269 /* Log4Day */ = {
 			isa = PBXGroup;
 			children = (
+				BC404C802C93F993001BA269 /* Storage */,
+				BC404C7E2C93F96D001BA269 /* Network */,
 				BC404C742C93E151001BA269 /* Presenter */,
-				BC404BCE2C9077FC001BA269 /* Log4DayApp.swift */,
-				BC404BD22C9077FD001BA269 /* Assets.xcassets */,
 				BC404BD42C9077FD001BA269 /* Preview Content */,
 			);
 			path = Log4Day;
@@ -162,7 +165,9 @@
 		BC404C742C93E151001BA269 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				BC404BCE2C9077FC001BA269 /* Log4DayApp.swift */,
 				BC404BD02C9077FC001BA269 /* RootView.swift */,
+				BC404C7F2C93F974001BA269 /* Resource */,
 				BC404C7B2C93F03D001BA269 /* Common */,
 				BC404C712C93E132001BA269 /* PhotoLog */,
 				BC404C722C93E144001BA269 /* Planner */,
@@ -177,6 +182,52 @@
 				BC404C7C2C93F04D001BA269 /* NavigationWrapper.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		BC404C7E2C93F96D001BA269 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				BC404C822C93F9A3001BA269 /* Resource */,
+				BC404C812C93F99C001BA269 /* Model */,
+				BC404C832C93F9A9001BA269 /* Router */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		BC404C7F2C93F974001BA269 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				BC404BD22C9077FD001BA269 /* Assets.xcassets */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		BC404C802C93F993001BA269 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		BC404C812C93F99C001BA269 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BC404C822C93F9A3001BA269 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		BC404C832C93F9A9001BA269 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Router;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -284,6 +335,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC404BD62C9077FD001BA269 /* Preview Assets.xcassets in Resources */,
+				BC404C852C93F9D3001BA269 /* .gitignore in Resources */,
 				BC404BD32C9077FD001BA269 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
