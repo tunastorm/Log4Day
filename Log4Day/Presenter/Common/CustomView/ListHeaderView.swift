@@ -13,8 +13,6 @@ struct ListHeaderView: View {
     
     var font: Font
     
-    var firstLogDate: String = "24.01.01"
-    
     @Environment(\.colorScheme) private var colorScheme
     
     private var baseColor: Color {
@@ -23,14 +21,12 @@ struct ListHeaderView: View {
  
     var body: some View {
         HStack {
-            Text("Subject: ")
+            Text("Since: ")
+                .font(.caption)
                 .foregroundStyle(baseColor)
             Text(text)
                 .font(font)
             Spacer()
-            Text("Since: ")
-                .foregroundStyle(baseColor)
-            Text(firstLogDate)
         }
     }
 }

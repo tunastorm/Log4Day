@@ -26,8 +26,10 @@ struct LoglineCell: View {
             HStack {
                 Spacer()
                 Text("Date: ")
+                    .font(.caption)
                     .foregroundStyle(baseColor)
                 Text("2024.09.0\(index) / 금")
+                    .font(.callout)
                     .foregroundStyle(contentColor)
             }
             HStack {

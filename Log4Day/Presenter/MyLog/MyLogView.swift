@@ -67,13 +67,18 @@ struct MyLogView: View {
     private func TitleView() -> some View {
         VStack() {
             HStack {
-                Text("#카테고리")
-                    .font(.title)
+                Text("Subject: ")
+                    .font(.caption)
+                    .foregroundStyle(baseColor)
+                Text("카테고리")
+                    .font(.title3)
                     .foregroundStyle(contentColor)
                 Spacer()
                 Text("Date: ")
+                    .font(.caption)
                     .foregroundStyle(baseColor)
                 Text("24.09.13 / 금")
+                    .font(.title3)
                     .foregroundStyle(contentColor)
             }
             .padding(.init(top: 10, leading: 20, bottom: 2, trailing: 20))
@@ -104,7 +109,7 @@ struct MyLogView: View {
     
     private func loglineList() -> some View {
         LazyVStack {
-            ListHeaderView(text: "MyLog", font: .title3)
+            ListHeaderView(text: "24.01.01", font: .title3)
             Rectangle()
                 .fill(baseColor)
                 .frame(height: 1)
