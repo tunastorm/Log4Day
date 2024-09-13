@@ -11,7 +11,7 @@ import SwiftUI
 struct Log4DayApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootView()
         }
     }
 }
