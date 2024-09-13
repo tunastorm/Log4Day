@@ -19,6 +19,8 @@
 		BC404C7A2C93E1F9001BA269 /* LoglineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C792C93E1F9001BA269 /* LoglineView.swift */; };
 		BC404C7D2C93F04D001BA269 /* NavigationWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C7C2C93F04D001BA269 /* NavigationWrapper.swift */; };
 		BC404C852C93F9D3001BA269 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BC404C842C93F9D3001BA269 /* .gitignore */; };
+		BC404C872C93FE70001BA269 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C862C93FE70001BA269 /* APIKey.swift */; };
+		BC404C892C93FEA4001BA269 /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C882C93FEA4001BA269 /* APIConstants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +56,8 @@
 		BC404C792C93E1F9001BA269 /* LoglineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoglineView.swift; sourceTree = "<group>"; };
 		BC404C7C2C93F04D001BA269 /* NavigationWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationWrapper.swift; sourceTree = "<group>"; };
 		BC404C842C93F9D3001BA269 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		BC404C862C93FE70001BA269 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		BC404C882C93FEA4001BA269 /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,6 +223,8 @@
 		BC404C822C93F9A3001BA269 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				BC404C862C93FE70001BA269 /* APIKey.swift */,
+				BC404C882C93FEA4001BA269 /* APIConstants.swift */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -362,8 +368,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC404C7A2C93E1F9001BA269 /* LoglineView.swift in Sources */,
+				BC404C872C93FE70001BA269 /* APIKey.swift in Sources */,
 				BC404BD12C9077FC001BA269 /* RootView.swift in Sources */,
 				BC404C7D2C93F04D001BA269 /* NavigationWrapper.swift in Sources */,
+				BC404C892C93FEA4001BA269 /* APIConstants.swift in Sources */,
 				BC404BCF2C9077FC001BA269 /* Log4DayApp.swift in Sources */,
 				BC404C762C93E1BF001BA269 /* PhotoLogView.swift in Sources */,
 				BC404C782C93E1EF001BA269 /* PlannerView.swift in Sources */,
