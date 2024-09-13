@@ -29,24 +29,28 @@ struct MyLogView: View {
     @State private var dummy: [TestSchedule] = Self.setDummies()
     
     var body: some View {
-        ScrollView {
-            VStack {
-                TitleView()
-                photoLogBanner()
-                Spacer()
-                loglineList()
+        GeometryReader { proxy in
+            print("screenSize:", proxy.size)
+            return ScrollView {
+                VStack {
+                    TitleView()
+                    photoLogBanner(width: proxy.size.width)
+                    Spacer()
+                    loglineList()
+                }
+            }
+            .toolbar {
+                ToolbarTitle(text: "MyLog", placement: .topBarLeading)
+                ToolbarButton(id: "category", placement: .topBarTrailing, image: "tray") {
+                    print("카테고리 클릭")
+                }
+                SettingButton()
+            }
+            .onAppear {
+               
             }
         }
-        .toolbar {
-            ToolbarTitle(text: "MyLog", placement: .topBarLeading)
-            ToolbarButton(id: "category", placement: .topBarTrailing, image: "tray") {
-                print("카테고리 클릭")
-            }
-            SettingButton()
-        }
-        .onAppear {
-           
-        }
+    
     }
     
     private func TitleView() -> some View {
@@ -64,18 +68,20 @@ struct MyLogView: View {
         }
     }
     
-    private func photoLogBanner() -> some View {
-        InfinityCarouselView(data: dummy, edgeSpacing: 20, contentSpacing: 20, totalSpacing: 0, contentHeight: 500, carouselContent: { data  in
-            BannerView(title: data.title, hashTags: data.hashTags, backgroundWidthHeight: (300, 500), imageHeight: 400)
+    private func photoLogBanner(width: CGFloat) -> some View {
+        let bannerWidth = width-75
+        let bannerHeight: CGFloat = 500
+        return InfinityCarouselView(data: dummy, edgeSpacing: 20, contentSpacing: 20, totalSpacing: 20, contentHeight: 500, currentOffset: -(bannerWidth+15), carouselContent: { data  in
+            BannerView(title: data.title, hashTags: data.hashTags, backgroundWidthHeight: (bannerWidth,  bannerHeight), imageHeight: 400)
             }, zeroContent: {
                 let title = dummy.last?.title ?? ""
                 let hashTags = dummy.last?.hashTags ?? ""
-                BannerView(title: title, hashTags: hashTags, backgroundWidthHeight: (300,500), imageHeight: 400)
+                BannerView(title: title, hashTags: hashTags, backgroundWidthHeight: (bannerWidth, bannerHeight), imageHeight: bannerHeight-100)
             }, overContent: {
-                BannerView(title: dummy[0].title, hashTags: dummy[0].hashTags, backgroundWidthHeight: (300,500), imageHeight: 400)
+                BannerView(title: dummy[0].title, hashTags: dummy[0].hashTags, backgroundWidthHeight: (bannerWidth, bannerHeight), imageHeight: bannerHeight-100)
             }
         )
-        .frame(height: 500)
+        .frame(height:  bannerHeight)
         .hideIndicator()
     }
     

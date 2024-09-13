@@ -26,7 +26,7 @@ struct BannerView: View {
     
     private func backgroundView() -> some View {
         RoundedRectangle(cornerRadius: 25)
-            .stroke(lineWidth: 1)
+            .background(.white)
             .frame(width: backgroundWidthHeight.0, height: backgroundWidthHeight.1)
     }
     

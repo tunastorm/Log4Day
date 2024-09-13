@@ -9,9 +9,7 @@ import SwiftUI
 
 struct SettingButton: ToolbarContent {
     
-    @Environment(\.colorScheme) var colorScheme
-
-    
+    @Environment(\.colorScheme) private var colorScheme
     
     struct SettingElement: Hashable, Identifiable {
         
@@ -36,16 +34,14 @@ struct SettingButton: ToolbarContent {
             SettingElement(name: "데이터 초기화", image: "minus.circle", action: resetData)
         ]
     }
-    
-    @State private var elementShowingList: [Bool] = []
+//    
+//    @State private var elementShowingList: [Bool] = []
     
     var body: some ToolbarContent {
+//        let settingCount = settingElements.count
+//        (0..<settingCount).forEach { _ in elementShowingList.append(false) }
         
-        let settingCount = settingElements.count
-        
-        (0..<settingCount).forEach { _ in elementShowingList.append(false) }
-        
-        return ToolbarItem(id: "setting", placement: .topBarTrailing) {
+        ToolbarItem(id: "setting", placement: .topBarTrailing) {
             Menu {
                 ForEach(settingElements.indices, id: \.self) { index in
                     let item = settingElements[index]

@@ -17,16 +17,16 @@ public struct InfinityCarouselView<Data: Identifiable, Content: View>: View {
     private let carouselContent: (Data) -> Content
     private let zeroContent: () -> Content
     private let overContent: () -> Content
-    
+    @State private var currentOffset: CGFloat
     @State private var currentIndex: CGFloat = 1
-    @State private var currentOffset: CGFloat = -315
-    
+   
     public init(
         data: [Data],
         edgeSpacing: CGFloat,
         contentSpacing: CGFloat,
         totalSpacing: CGFloat,
         contentHeight: CGFloat,
+        currentOffset: CGFloat,
         @ViewBuilder carouselContent: @escaping (Data) -> Content,
         @ViewBuilder zeroContent: @escaping () -> Content,
         @ViewBuilder overContent: @escaping () -> Content
@@ -36,6 +36,7 @@ public struct InfinityCarouselView<Data: Identifiable, Content: View>: View {
         self.contentSpacing = contentSpacing
         self.totalSpacing = totalSpacing
         self.contentHeight = contentHeight
+        self.currentOffset = currentOffset
         self.carouselContent = carouselContent
         self.zeroContent = zeroContent
         self.overContent = overContent

@@ -36,7 +36,6 @@
 		BC404CAC2C942835001BA269 /* ToolBarNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CAB2C942835001BA269 /* ToolBarNavigationLink.swift */; };
 		BC404CAE2C942D15001BA269 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CAD2C942D15001BA269 /* BackButton.swift */; };
 		BC404CB02C942E43001BA269 /* SettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CAF2C942E43001BA269 /* SettingButton.swift */; };
-		BC404CB22C945113001BA269 /* IsPressedMenuStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CB12C945113001BA269 /* IsPressedMenuStyle.swift */; };
 		BC404CB82C9468DE001BA269 /* InfinityCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CB72C9468DE001BA269 /* InfinityCarouselView.swift */; };
 /* End PBXBuildFile section */
 
@@ -90,7 +89,6 @@
 		BC404CAB2C942835001BA269 /* ToolBarNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolBarNavigationLink.swift; sourceTree = "<group>"; };
 		BC404CAD2C942D15001BA269 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		BC404CAF2C942E43001BA269 /* SettingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingButton.swift; sourceTree = "<group>"; };
-		BC404CB12C945113001BA269 /* IsPressedMenuStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsPressedMenuStyle.swift; sourceTree = "<group>"; };
 		BC404CB72C9468DE001BA269 /* InfinityCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfinityCarouselView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -303,7 +301,6 @@
 		BC404C942C941752001BA269 /* CustomStyle */ = {
 			isa = PBXGroup;
 			children = (
-				BC404CB12C945113001BA269 /* IsPressedMenuStyle.swift */,
 				BC404C922C94156E001BA269 /* IsPressedButtonStyle.swift */,
 			);
 			path = CustomStyle;
@@ -477,7 +474,6 @@
 				BC404CB02C942E43001BA269 /* SettingButton.swift in Sources */,
 				BC404CAA2C94218C001BA269 /* BannerView.swift in Sources */,
 				BC404C7A2C93E1F9001BA269 /* LoglineView.swift in Sources */,
-				BC404CB22C945113001BA269 /* IsPressedMenuStyle.swift in Sources */,
 				BC404CAE2C942D15001BA269 /* BackButton.swift in Sources */,
 				BC404C992C941829001BA269 /* NextViewWrapper.swift in Sources */,
 				BC404C8F2C941195001BA269 /* ToolbarButton.swift in Sources */,
