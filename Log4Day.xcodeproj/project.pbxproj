@@ -37,7 +37,7 @@
 		BC404CAE2C942D15001BA269 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CAD2C942D15001BA269 /* BackButton.swift */; };
 		BC404CB02C942E43001BA269 /* SettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CAF2C942E43001BA269 /* SettingButton.swift */; };
 		BC404CB22C945113001BA269 /* IsPressedMenuStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CB12C945113001BA269 /* IsPressedMenuStyle.swift */; };
-		BC404CB42C945AC2001BA269 /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CB32C945AC2001BA269 /* CarouselView.swift */; };
+		BC404CB82C9468DE001BA269 /* Carousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CB72C9468DE001BA269 /* Carousel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,7 +91,7 @@
 		BC404CAD2C942D15001BA269 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		BC404CAF2C942E43001BA269 /* SettingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingButton.swift; sourceTree = "<group>"; };
 		BC404CB12C945113001BA269 /* IsPressedMenuStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsPressedMenuStyle.swift; sourceTree = "<group>"; };
-		BC404CB32C945AC2001BA269 /* CarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselView.swift; sourceTree = "<group>"; };
+		BC404CB72C9468DE001BA269 /* Carousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Carousel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -295,7 +295,7 @@
 				BC404CAB2C942835001BA269 /* ToolBarNavigationLink.swift */,
 				BC404CAD2C942D15001BA269 /* BackButton.swift */,
 				BC404CAF2C942E43001BA269 /* SettingButton.swift */,
-				BC404CB32C945AC2001BA269 /* CarouselView.swift */,
+				BC404CB72C9468DE001BA269 /* Carousel.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -484,7 +484,6 @@
 				BC404C872C93FE70001BA269 /* APIKey.swift in Sources */,
 				BC404C912C94142D001BA269 /* ToolbarTitle.swift in Sources */,
 				BC404CA22C941BEA001BA269 /* CustomCorners.swift in Sources */,
-				BC404CB42C945AC2001BA269 /* CarouselView.swift in Sources */,
 				BC404BD12C9077FC001BA269 /* RootView.swift in Sources */,
 				BC404C7D2C93F04D001BA269 /* NavigationWrapper.swift in Sources */,
 				BC404CA62C941F0E001BA269 /* LoglineCell.swift in Sources */,
@@ -497,6 +496,7 @@
 				BC404CA82C942170001BA269 /* ListHeaderView.swift in Sources */,
 				BC404C8D2C94094E001BA269 /* ViewModfiers.swift in Sources */,
 				BC404C782C93E1EF001BA269 /* PlannerView.swift in Sources */,
+				BC404CB82C9468DE001BA269 /* Carousel.swift in Sources */,
 				BC404C9F2C941920001BA269 /* CategoryView.swift in Sources */,
 				BC404CAC2C942835001BA269 /* ToolBarNavigationLink.swift in Sources */,
 			);

@@ -13,12 +13,10 @@ struct IsPressedButtonStyle: ButtonStyle {
     
     var pressedColor: Color
     
-    var isAnimated: Bool
-    
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .foregroundStyle(configuration.isPressed ?  pressedColor : normalColor )
-            .animation(isAnimated ? .spring : nil, value: 2.0)
-            .scaleEffect(configuration.isPressed ? (isAnimated ? 1.3 : 1.0) : 1.0)
+//            .animation(isAnimated ? .spring : nil, value: 2.0)
+//            .scaleEffect(configuration.isPressed ? (isAnimated ? 1.3 : 1.0) : 1.0)
     }
 }

@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct BannerView: View {
+
+    var title: String
     
-    var index: Int
+    var hashTags: String
     
     var backgroundWidthHeight: (CGFloat, CGFloat)
     
@@ -35,10 +37,10 @@ struct BannerView: View {
                 .frame(maxWidth: .infinity)
                 .background(.gray)
                 .clipShape(.rect(cornerRadius: 15))
-            Text("테스트 \(index)")
+            Text(title)
                 .frame(height: 30)
                 .frame(alignment: .leading)
-            Text("#테스트 사진 \(index) #입니다만 #???")
+            Text(hashTags)
                 .frame(height: 30)
                 .frame(alignment: .leading)
         }

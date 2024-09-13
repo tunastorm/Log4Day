@@ -25,7 +25,7 @@ struct ToolbarButton: ToolbarContent {
                 Image(systemName: image)
             })
             .foregroundStyle(.black)
-            .buttonStyle(IsPressedButtonStyle(normalColor: .black, pressedColor: .mint, isAnimated: true))
+            .buttonStyle(IsPressedButtonStyle(normalColor: .black, pressedColor: .gray))
         }
     }
     

@@ -55,20 +55,21 @@ struct SettingButton: ToolbarContent {
                         } label: {
                             Label(.init(item.name), systemImage: item.image)
                         }
-                        .buttonStyle(IsPressedButtonStyle(normalColor: .black, pressedColor: .mint, isAnimated: true))
+                        .buttonStyle(IsPressedButtonStyle(normalColor: .black, pressedColor: .mint))
                     } else {
                         Button(role: .destructive) {
                             item.action()
                         } label: {
                             Label(.init(item.name), systemImage: item.image)
                         }
-                        .buttonStyle(IsPressedButtonStyle(normalColor: .black, pressedColor: .mint, isAnimated: true))
+                        .buttonStyle(IsPressedButtonStyle(normalColor: .black, pressedColor: .mint))
                     }
                 }
             } label: {
                 Image(systemName: "line.3.horizontal")
             }
-            .buttonStyle(IsPressedButtonStyle(normalColor: .black, pressedColor: .mint, isAnimated: true))
+            .foregroundStyle(.black)
+         
         }
         
      }

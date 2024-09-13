@@ -7,7 +7,18 @@
 
 import SwiftUI
 
+struct TestSchedule: Hashable, Identifiable {
+    
+    let id = UUID()
+    var title: String
+    var hashTags: String
+    
+}
+
+
 struct MyLogView: View {
+    
+    @State private var dummy: [TestSchedule] = []
     
     var body: some View {
         ScrollView {
@@ -23,11 +34,12 @@ struct MyLogView: View {
             ToolbarButton(id: "category", placement: .topBarTrailing, image: "tray") {
                 print("카테고리 클릭")
             }
-//            ToolBarNavigationLink(id: "setting",
-//                                  placement: .topBarTrailing,
-//                                  image: "line.3.horizontal",
-//                                  view: SettingView())
             SettingButton()
+        }
+        .onAppear {
+            (0..<Int.random(in: 5...10)).forEach { index in
+                dummy.append(TestSchedule(title: "테스트 \(index)", hashTags: "#테스트 일정 \(index) #입니다만?"))
+            }
         }
     }
     
@@ -47,11 +59,12 @@ struct MyLogView: View {
     }
     
     private func photoLogBanner() -> some View {
-        CarouselView(pageCount: 10, visibleEdgeSpace: 10, spacing: 10) { index in
-            BannerView(index: index,
-                       backgroundWidthHeight: (300,500),
-                       imageHeight: 400)
-        }
+        InfinityCarouselView(data: dummy, edgeSpacing: 20, contentSpacing: 20, totalSpacing: 0, contentHeight: 500, carouselContent: { data  in
+            BannerView(title: data.title, hashTags: data.hashTags, backgroundWidthHeight: (300, 500), imageHeight: 400)
+            }, defaultContent: {
+                BannerView(title: "", hashTags: "", backgroundWidthHeight: (300,500), imageHeight: 400)
+            }
+        )
         .frame(height: 500)
         .hideIndicator()
     }
