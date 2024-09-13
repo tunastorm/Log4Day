@@ -15,8 +15,8 @@ public struct InfinityCarouselView<Data: Identifiable, Content: View>: View {
     private let totalSpacing: CGFloat
     private let contentHeight: CGFloat
     private let carouselContent: (Data) -> Content
-    private let defaultContent: () -> Content
-    
+    private let zeroContent: () -> Content
+    private let overContent: () -> Content
     
     @State private var currentIndex: CGFloat = 1
     @State private var currentOffset: CGFloat = -315
@@ -28,7 +28,8 @@ public struct InfinityCarouselView<Data: Identifiable, Content: View>: View {
         totalSpacing: CGFloat,
         contentHeight: CGFloat,
         @ViewBuilder carouselContent: @escaping (Data) -> Content,
-        @ViewBuilder defaultContent: @escaping () -> Content
+        @ViewBuilder zeroContent: @escaping () -> Content,
+        @ViewBuilder overContent: @escaping () -> Content
     ) {
         self.data = data
         self.edgeSpacing = edgeSpacing
@@ -36,7 +37,8 @@ public struct InfinityCarouselView<Data: Identifiable, Content: View>: View {
         self.totalSpacing = totalSpacing
         self.contentHeight = contentHeight
         self.carouselContent = carouselContent
-        self.defaultContent = defaultContent
+        self.zeroContent = zeroContent
+        self.overContent = overContent
     }
     
     public var body: some View {
@@ -47,7 +49,7 @@ public struct InfinityCarouselView<Data: Identifiable, Content: View>: View {
                 let contentWidth = total - (edgeSpacing * 2) - (2 * contentSpacing)
                 let nextOffset = contentWidth + contentSpacing
                 HStack(spacing: contentSpacing) {
-                    configContentView(contentView: defaultContent(),
+                    configContentView(contentView: zeroContent(),
                                       contentWidth: contentWidth,
                                       nextOffset: nextOffset)
                     ForEach(0..<data.count, id: \.self) { index in
@@ -55,7 +57,7 @@ public struct InfinityCarouselView<Data: Identifiable, Content: View>: View {
                                           contentWidth: contentWidth,
                                           nextOffset: nextOffset)
                     }
-                    configContentView(contentView: defaultContent(),
+                    configContentView(contentView: overContent(),
                                       contentWidth: contentWidth,
                                       nextOffset: nextOffset)
                 }

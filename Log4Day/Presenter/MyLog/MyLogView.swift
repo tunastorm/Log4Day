@@ -18,7 +18,15 @@ struct TestSchedule: Hashable, Identifiable {
 
 struct MyLogView: View {
     
-    @State private var dummy: [TestSchedule] = []
+    private static let setDummies = {
+        let random = Int.random(in: 5...10)
+        print("dummyCount:", random)
+        return (0..<random).map { index in
+            TestSchedule(title: "테스트 \(index)", hashTags: "#테스트 일정 \(index) #입니다만?")
+        }
+    }
+    
+    @State private var dummy: [TestSchedule] = Self.setDummies()
     
     var body: some View {
         ScrollView {
@@ -37,9 +45,7 @@ struct MyLogView: View {
             SettingButton()
         }
         .onAppear {
-            (0..<Int.random(in: 5...10)).forEach { index in
-                dummy.append(TestSchedule(title: "테스트 \(index)", hashTags: "#테스트 일정 \(index) #입니다만?"))
-            }
+           
         }
     }
     
@@ -61,8 +67,12 @@ struct MyLogView: View {
     private func photoLogBanner() -> some View {
         InfinityCarouselView(data: dummy, edgeSpacing: 20, contentSpacing: 20, totalSpacing: 0, contentHeight: 500, carouselContent: { data  in
             BannerView(title: data.title, hashTags: data.hashTags, backgroundWidthHeight: (300, 500), imageHeight: 400)
-            }, defaultContent: {
-                BannerView(title: "", hashTags: "", backgroundWidthHeight: (300,500), imageHeight: 400)
+            }, zeroContent: {
+                let title = dummy.last?.title ?? ""
+                let hashTags = dummy.last?.hashTags ?? ""
+                BannerView(title: title, hashTags: hashTags, backgroundWidthHeight: (300,500), imageHeight: 400)
+            }, overContent: {
+                BannerView(title: dummy[0].title, hashTags: dummy[0].hashTags, backgroundWidthHeight: (300,500), imageHeight: 400)
             }
         )
         .frame(height: 500)
