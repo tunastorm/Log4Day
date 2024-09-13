@@ -12,34 +12,37 @@ struct RootView: View {
     @State private var selection = 0
     
     var body: some View {
-        TabView(selection: $selection) {
-            PhotoLogView()
-                .tabItem {
-                    Image(systemName: selection == 0 ?
-                          "photo.on.rectangle.angled" : "photo.on.rectangle")
-                        .renderingMode(.template)
-                    Text("PhotoLog")
-                }
-                .tag(0)
-            PlannerView()
-                .tabItem {
-                    Image(systemName: selection == 1 ?
-                          "calendar.badge.plus" : "calendar")
-                        .renderingMode(.template)
-                    Text("Planner")
-                }
-                .tag(1)
-            LoglineView()
-                .tabItem {
-                    Image(systemName:  selection == 2 ?
-                          "mappin.and.ellipse" : "map")
-                        .renderingMode(.template)
-                    Text("Logline")
-                }
-                .tag(2)
+        NavigationWrapper {
+            TabView(selection: $selection) {
+                MyLogView()
+                    .tabItem {
+                        Image(systemName: selection == 0 ?
+                              "photo.on.rectangle.angled" : "photo.on.rectangle")
+                            .renderingMode(.template)
+                        Text("MyLog")
+                    }
+                    .tag(0)
+                PlannerView()
+                    .tabItem {
+                        Image(systemName: selection == 1 ?
+                              "calendar.badge.plus" : "calendar")
+                            .renderingMode(.template)
+                        Text("Planner")
+                    }
+                    .tag(1)
+                LoglineView()
+                    .tabItem {
+                        Image(systemName:  selection == 2 ?
+                              "mappin.and.ellipse" : "map")
+                            .renderingMode(.template)
+                        Text("Logline")
+                    }
+                    .tag(2)
+            }
+            .font(.headline)
+            .tint(.mint)
         }
-        .font(.headline)
-        .tint(.mint)
+
     }
 }
 

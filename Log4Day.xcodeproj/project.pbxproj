@@ -14,13 +14,29 @@
 		BC404BE02C9077FE001BA269 /* Log4DayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404BDF2C9077FE001BA269 /* Log4DayTests.swift */; };
 		BC404BEA2C9077FE001BA269 /* Log4DayUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404BE92C9077FE001BA269 /* Log4DayUITests.swift */; };
 		BC404BEC2C9077FE001BA269 /* Log4DayUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404BEB2C9077FE001BA269 /* Log4DayUITestsLaunchTests.swift */; };
-		BC404C762C93E1BF001BA269 /* PhotoLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C752C93E1BF001BA269 /* PhotoLogView.swift */; };
+		BC404C762C93E1BF001BA269 /* MyLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C752C93E1BF001BA269 /* MyLogView.swift */; };
 		BC404C782C93E1EF001BA269 /* PlannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C772C93E1EF001BA269 /* PlannerView.swift */; };
 		BC404C7A2C93E1F9001BA269 /* LoglineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C792C93E1F9001BA269 /* LoglineView.swift */; };
 		BC404C7D2C93F04D001BA269 /* NavigationWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C7C2C93F04D001BA269 /* NavigationWrapper.swift */; };
 		BC404C852C93F9D3001BA269 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BC404C842C93F9D3001BA269 /* .gitignore */; };
 		BC404C872C93FE70001BA269 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C862C93FE70001BA269 /* APIKey.swift */; };
 		BC404C892C93FEA4001BA269 /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C882C93FEA4001BA269 /* APIConstants.swift */; };
+		BC404C8D2C94094E001BA269 /* ViewModfiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C8C2C94094E001BA269 /* ViewModfiers.swift */; };
+		BC404C8F2C941195001BA269 /* ToolbarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C8E2C941195001BA269 /* ToolbarButton.swift */; };
+		BC404C912C94142D001BA269 /* ToolbarTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C902C94142D001BA269 /* ToolbarTitle.swift */; };
+		BC404C932C94156E001BA269 /* IsPressedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C922C94156E001BA269 /* IsPressedButtonStyle.swift */; };
+		BC404C972C9417A4001BA269 /* UIViewControllerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C962C9417A4001BA269 /* UIViewControllerWrapper.swift */; };
+		BC404C992C941829001BA269 /* NextViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C982C941829001BA269 /* NextViewWrapper.swift */; };
+		BC404C9F2C941920001BA269 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C9E2C941920001BA269 /* CategoryView.swift */; };
+		BC404CA22C941BEA001BA269 /* CustomCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CA12C941BEA001BA269 /* CustomCorners.swift */; };
+		BC404CA42C941E0A001BA269 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CA32C941E0A001BA269 /* SettingView.swift */; };
+		BC404CA62C941F0E001BA269 /* LoglineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CA52C941F0E001BA269 /* LoglineCell.swift */; };
+		BC404CA82C942170001BA269 /* ListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CA72C942170001BA269 /* ListHeaderView.swift */; };
+		BC404CAA2C94218C001BA269 /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CA92C94218C001BA269 /* BannerView.swift */; };
+		BC404CAC2C942835001BA269 /* ToolBarNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CAB2C942835001BA269 /* ToolBarNavigationLink.swift */; };
+		BC404CAE2C942D15001BA269 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CAD2C942D15001BA269 /* BackButton.swift */; };
+		BC404CB02C942E43001BA269 /* SettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CAF2C942E43001BA269 /* SettingButton.swift */; };
+		BC404CB22C945113001BA269 /* IsPressedMenuStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CB12C945113001BA269 /* IsPressedMenuStyle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,13 +67,29 @@
 		BC404BE52C9077FE001BA269 /* Log4DayUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Log4DayUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC404BE92C9077FE001BA269 /* Log4DayUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log4DayUITests.swift; sourceTree = "<group>"; };
 		BC404BEB2C9077FE001BA269 /* Log4DayUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log4DayUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		BC404C752C93E1BF001BA269 /* PhotoLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLogView.swift; sourceTree = "<group>"; };
+		BC404C752C93E1BF001BA269 /* MyLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLogView.swift; sourceTree = "<group>"; };
 		BC404C772C93E1EF001BA269 /* PlannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerView.swift; sourceTree = "<group>"; };
 		BC404C792C93E1F9001BA269 /* LoglineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoglineView.swift; sourceTree = "<group>"; };
 		BC404C7C2C93F04D001BA269 /* NavigationWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationWrapper.swift; sourceTree = "<group>"; };
 		BC404C842C93F9D3001BA269 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		BC404C862C93FE70001BA269 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		BC404C882C93FEA4001BA269 /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
+		BC404C8C2C94094E001BA269 /* ViewModfiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModfiers.swift; sourceTree = "<group>"; };
+		BC404C8E2C941195001BA269 /* ToolbarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarButton.swift; sourceTree = "<group>"; };
+		BC404C902C94142D001BA269 /* ToolbarTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarTitle.swift; sourceTree = "<group>"; };
+		BC404C922C94156E001BA269 /* IsPressedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsPressedButtonStyle.swift; sourceTree = "<group>"; };
+		BC404C962C9417A4001BA269 /* UIViewControllerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerWrapper.swift; sourceTree = "<group>"; };
+		BC404C982C941829001BA269 /* NextViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextViewWrapper.swift; sourceTree = "<group>"; };
+		BC404C9E2C941920001BA269 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
+		BC404CA12C941BEA001BA269 /* CustomCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCorners.swift; sourceTree = "<group>"; };
+		BC404CA32C941E0A001BA269 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		BC404CA52C941F0E001BA269 /* LoglineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoglineCell.swift; sourceTree = "<group>"; };
+		BC404CA72C942170001BA269 /* ListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListHeaderView.swift; sourceTree = "<group>"; };
+		BC404CA92C94218C001BA269 /* BannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
+		BC404CAB2C942835001BA269 /* ToolBarNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolBarNavigationLink.swift; sourceTree = "<group>"; };
+		BC404CAD2C942D15001BA269 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
+		BC404CAF2C942E43001BA269 /* SettingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingButton.swift; sourceTree = "<group>"; };
+		BC404CB12C945113001BA269 /* IsPressedMenuStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsPressedMenuStyle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,12 +174,12 @@
 			path = Log4DayUITests;
 			sourceTree = "<group>";
 		};
-		BC404C712C93E132001BA269 /* PhotoLog */ = {
+		BC404C712C93E132001BA269 /* MyLog */ = {
 			isa = PBXGroup;
 			children = (
-				BC404C752C93E1BF001BA269 /* PhotoLogView.swift */,
+				BC404C752C93E1BF001BA269 /* MyLogView.swift */,
 			);
-			path = PhotoLog;
+			path = MyLog;
 			sourceTree = "<group>";
 		};
 		BC404C722C93E144001BA269 /* Planner */ = {
@@ -173,9 +205,11 @@
 				BC404BD02C9077FC001BA269 /* RootView.swift */,
 				BC404C7F2C93F974001BA269 /* Resource */,
 				BC404C7B2C93F03D001BA269 /* Common */,
-				BC404C712C93E132001BA269 /* PhotoLog */,
+				BC404C712C93E132001BA269 /* MyLog */,
 				BC404C722C93E144001BA269 /* Planner */,
 				BC404C732C93E14B001BA269 /* Logline */,
+				BC404C9B2C9418EE001BA269 /* Category */,
+				BC404C9A2C9418E3001BA269 /* Setting */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -183,7 +217,11 @@
 		BC404C7B2C93F03D001BA269 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				BC404C7C2C93F04D001BA269 /* NavigationWrapper.swift */,
+				BC404CA02C941BD9001BA269 /* CustomShape */,
+				BC404C952C94176A001BA269 /* CustomWrapper */,
+				BC404C8B2C940934001BA269 /* CustomView */,
+				BC404C8A2C94092D001BA269 /* CustomModifier */,
+				BC404C942C941752001BA269 /* CustomStyle */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -234,6 +272,72 @@
 			children = (
 			);
 			path = Router;
+			sourceTree = "<group>";
+		};
+		BC404C8A2C94092D001BA269 /* CustomModifier */ = {
+			isa = PBXGroup;
+			children = (
+				BC404C8C2C94094E001BA269 /* ViewModfiers.swift */,
+			);
+			path = CustomModifier;
+			sourceTree = "<group>";
+		};
+		BC404C8B2C940934001BA269 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				BC404C8E2C941195001BA269 /* ToolbarButton.swift */,
+				BC404C902C94142D001BA269 /* ToolbarTitle.swift */,
+				BC404CA52C941F0E001BA269 /* LoglineCell.swift */,
+				BC404CA72C942170001BA269 /* ListHeaderView.swift */,
+				BC404CA92C94218C001BA269 /* BannerView.swift */,
+				BC404CAB2C942835001BA269 /* ToolBarNavigationLink.swift */,
+				BC404CAD2C942D15001BA269 /* BackButton.swift */,
+				BC404CAF2C942E43001BA269 /* SettingButton.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
+		BC404C942C941752001BA269 /* CustomStyle */ = {
+			isa = PBXGroup;
+			children = (
+				BC404CB12C945113001BA269 /* IsPressedMenuStyle.swift */,
+				BC404C922C94156E001BA269 /* IsPressedButtonStyle.swift */,
+			);
+			path = CustomStyle;
+			sourceTree = "<group>";
+		};
+		BC404C952C94176A001BA269 /* CustomWrapper */ = {
+			isa = PBXGroup;
+			children = (
+				BC404C7C2C93F04D001BA269 /* NavigationWrapper.swift */,
+				BC404C962C9417A4001BA269 /* UIViewControllerWrapper.swift */,
+				BC404C982C941829001BA269 /* NextViewWrapper.swift */,
+			);
+			path = CustomWrapper;
+			sourceTree = "<group>";
+		};
+		BC404C9A2C9418E3001BA269 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				BC404CA32C941E0A001BA269 /* SettingView.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		BC404C9B2C9418EE001BA269 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				BC404C9E2C941920001BA269 /* CategoryView.swift */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		BC404CA02C941BD9001BA269 /* CustomShape */ = {
+			isa = PBXGroup;
+			children = (
+				BC404CA12C941BEA001BA269 /* CustomCorners.swift */,
+			);
+			path = CustomShape;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -367,14 +471,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC404CB02C942E43001BA269 /* SettingButton.swift in Sources */,
+				BC404CAA2C94218C001BA269 /* BannerView.swift in Sources */,
 				BC404C7A2C93E1F9001BA269 /* LoglineView.swift in Sources */,
+				BC404CB22C945113001BA269 /* IsPressedMenuStyle.swift in Sources */,
+				BC404CAE2C942D15001BA269 /* BackButton.swift in Sources */,
+				BC404C992C941829001BA269 /* NextViewWrapper.swift in Sources */,
+				BC404C8F2C941195001BA269 /* ToolbarButton.swift in Sources */,
 				BC404C872C93FE70001BA269 /* APIKey.swift in Sources */,
+				BC404C912C94142D001BA269 /* ToolbarTitle.swift in Sources */,
+				BC404CA22C941BEA001BA269 /* CustomCorners.swift in Sources */,
 				BC404BD12C9077FC001BA269 /* RootView.swift in Sources */,
 				BC404C7D2C93F04D001BA269 /* NavigationWrapper.swift in Sources */,
+				BC404CA62C941F0E001BA269 /* LoglineCell.swift in Sources */,
+				BC404C932C94156E001BA269 /* IsPressedButtonStyle.swift in Sources */,
+				BC404CA42C941E0A001BA269 /* SettingView.swift in Sources */,
 				BC404C892C93FEA4001BA269 /* APIConstants.swift in Sources */,
 				BC404BCF2C9077FC001BA269 /* Log4DayApp.swift in Sources */,
-				BC404C762C93E1BF001BA269 /* PhotoLogView.swift in Sources */,
+				BC404C972C9417A4001BA269 /* UIViewControllerWrapper.swift in Sources */,
+				BC404C762C93E1BF001BA269 /* MyLogView.swift in Sources */,
+				BC404CA82C942170001BA269 /* ListHeaderView.swift in Sources */,
+				BC404C8D2C94094E001BA269 /* ViewModfiers.swift in Sources */,
 				BC404C782C93E1EF001BA269 /* PlannerView.swift in Sources */,
+				BC404C9F2C941920001BA269 /* CategoryView.swift in Sources */,
+				BC404CAC2C942835001BA269 /* ToolBarNavigationLink.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,12 +9,16 @@ import SwiftUI
 
 struct LoglineView: View {
     var body: some View {
-        NavigationWrapper {
-            ScrollView {
-                
-            }
-            .navigationTitle("Logline")
+//        NavigationWrapper {
+//            ScrollView {
+//                
+//            }
+//            .navigationTitle("Logline")
+//        }
+        ScrollView {
+            
         }
+        .navigationTitle("Logline")
     }
 }
 

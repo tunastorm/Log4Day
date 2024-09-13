@@ -11,7 +11,7 @@ struct NavigationWrapper<Content: View>: View {
     
     let content: Content
     
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+//    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     init(@ViewBuilder content: () -> Content) {
         self.content = content()
@@ -24,6 +24,7 @@ struct NavigationWrapper<Content: View>: View {
             }
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading: backButton())
+            .background(.white)
             .tint(.mint)
         } else {
             NavigationView {
@@ -31,20 +32,22 @@ struct NavigationWrapper<Content: View>: View {
             }
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading: backButton())
+            .background(.white)
             .tint(.mint)
         }
     }
     
     private func backButton() -> some View {
-        Button {
-            self.presentationMode.wrappedValue.dismiss()
-        } label: {
-            HStack {
-                Image(systemName: "chevron.left")
-                    .aspectRatio(contentMode: .fit)
-            }
-        }
-        .foregroundStyle(.black)
+        BackButton()
+//        Button {
+//            self.presentationMode.wrappedValue.dismiss()
+//        } label: {
+//            HStack {
+//                Image(systemName: "chevron.left")
+//                    .aspectRatio(contentMode: .fit)
+//            }
+//        }
+//        .foregroundStyle(.black)
     }
     
 }

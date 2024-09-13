@@ -9,12 +9,16 @@ import SwiftUI
 
 struct PlannerView: View {
     var body: some View {
-        NavigationWrapper {
-            ScrollView {
-                
-            }
-            .navigationTitle("Planner")
+//        NavigationWrapper {
+//            ScrollView {
+//                
+//            }
+//            .navigationTitle("Planner")
+//        }
+        ScrollView {
+            
         }
+        .navigationTitle("Planner")
     }
 }
 
