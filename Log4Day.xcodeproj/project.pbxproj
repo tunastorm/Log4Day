@@ -31,7 +31,7 @@
 		BC404CA42C941E0A001BA269 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CA32C941E0A001BA269 /* SettingView.swift */; };
 		BC404CA62C941F0E001BA269 /* LoglineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CA52C941F0E001BA269 /* LoglineCell.swift */; };
 		BC404CA82C942170001BA269 /* ListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CA72C942170001BA269 /* ListHeaderView.swift */; };
-		BC404CAA2C94218C001BA269 /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CA92C94218C001BA269 /* BannerView.swift */; };
+		BC404CAA2C94218C001BA269 /* FourCutPictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CA92C94218C001BA269 /* FourCutPictureView.swift */; };
 		BC404CAC2C942835001BA269 /* ToolBarNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CAB2C942835001BA269 /* ToolBarNavigationLink.swift */; };
 		BC404CAE2C942D15001BA269 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CAD2C942D15001BA269 /* BackButton.swift */; };
 		BC404CB02C942E43001BA269 /* SettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CAF2C942E43001BA269 /* SettingButton.swift */; };
@@ -84,7 +84,7 @@
 		BC404CA32C941E0A001BA269 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		BC404CA52C941F0E001BA269 /* LoglineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoglineCell.swift; sourceTree = "<group>"; };
 		BC404CA72C942170001BA269 /* ListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListHeaderView.swift; sourceTree = "<group>"; };
-		BC404CA92C94218C001BA269 /* BannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
+		BC404CA92C94218C001BA269 /* FourCutPictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourCutPictureView.swift; sourceTree = "<group>"; };
 		BC404CAB2C942835001BA269 /* ToolBarNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolBarNavigationLink.swift; sourceTree = "<group>"; };
 		BC404CAD2C942D15001BA269 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		BC404CAF2C942E43001BA269 /* SettingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingButton.swift; sourceTree = "<group>"; };
@@ -203,7 +203,6 @@
 			children = (
 				BC404BCE2C9077FC001BA269 /* Log4DayApp.swift */,
 				BC404BD02C9077FC001BA269 /* RootView.swift */,
-				BC404C7F2C93F974001BA269 /* Resource */,
 				BC404C7B2C93F03D001BA269 /* Common */,
 				BC404C712C93E132001BA269 /* MyLog */,
 				BC404C722C93E144001BA269 /* Planner */,
@@ -217,6 +216,7 @@
 		BC404C7B2C93F03D001BA269 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				BC404C7F2C93F974001BA269 /* Resource */,
 				BC404CA02C941BD9001BA269 /* CustomShape */,
 				BC404C952C94176A001BA269 /* CustomWrapper */,
 				BC404C8B2C940934001BA269 /* CustomView */,
@@ -287,11 +287,11 @@
 			isa = PBXGroup;
 			children = (
 				BC404C8E2C941195001BA269 /* ToolbarButton.swift */,
-				BC404C902C94142D001BA269 /* ToolbarTitle.swift */,
 				BC404CA52C941F0E001BA269 /* LoglineCell.swift */,
 				BC404CA72C942170001BA269 /* ListHeaderView.swift */,
-				BC404CA92C94218C001BA269 /* BannerView.swift */,
+				BC404CA92C94218C001BA269 /* FourCutPictureView.swift */,
 				BC404CAB2C942835001BA269 /* ToolBarNavigationLink.swift */,
+				BC404C902C94142D001BA269 /* ToolbarTitle.swift */,
 				BC404CAD2C942D15001BA269 /* BackButton.swift */,
 				BC404CAF2C942E43001BA269 /* SettingButton.swift */,
 				BC404CB72C9468DE001BA269 /* InfinityCarouselView.swift */,
@@ -472,7 +472,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC404CB02C942E43001BA269 /* SettingButton.swift in Sources */,
-				BC404CAA2C94218C001BA269 /* BannerView.swift in Sources */,
+				BC404CAA2C94218C001BA269 /* FourCutPictureView.swift in Sources */,
 				BC404C7A2C93E1F9001BA269 /* LoglineView.swift in Sources */,
 				BC404CAE2C942D15001BA269 /* BackButton.swift in Sources */,
 				BC404C992C941829001BA269 /* NextViewWrapper.swift in Sources */,

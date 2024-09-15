@@ -7,16 +7,17 @@
 
 import SwiftUI
 
-public struct InfinityCarouselView<Data: Identifiable, Content: View>: View {
+
+struct InfinityCarouselView<Data: Identifiable, Content: View>: View {
     
     private let data: [Data]
     private let edgeSpacing: CGFloat
     private let contentSpacing: CGFloat
     private let totalSpacing: CGFloat
     private let contentHeight: CGFloat
-    private let carouselContent: (Data) -> Content
-    private let zeroContent: () -> Content
-    private let overContent: () -> Content
+    private let carouselContent: (Data, CGFloat, Binding<CGFloat>, CGFloat) -> Content
+    private let zeroContent: (CGFloat, Binding<CGFloat>, CGFloat) -> Content
+    private let overContent: (CGFloat, Binding<CGFloat>, CGFloat) -> Content
     @State private var currentOffset: CGFloat
     @State private var currentIndex: CGFloat = 1
    
@@ -27,9 +28,9 @@ public struct InfinityCarouselView<Data: Identifiable, Content: View>: View {
         totalSpacing: CGFloat,
         contentHeight: CGFloat,
         currentOffset: CGFloat,
-        @ViewBuilder carouselContent: @escaping (Data) -> Content,
-        @ViewBuilder zeroContent: @escaping () -> Content,
-        @ViewBuilder overContent: @escaping () -> Content
+        @ViewBuilder carouselContent: @escaping (Data, CGFloat, Binding<CGFloat>, CGFloat) -> Content,
+        @ViewBuilder zeroContent: @escaping (CGFloat, Binding<CGFloat>, CGFloat) -> Content,
+        @ViewBuilder overContent: @escaping (CGFloat, Binding<CGFloat>, CGFloat) -> Content
     ) {
         self.data = data
         self.edgeSpacing = edgeSpacing
@@ -45,22 +46,27 @@ public struct InfinityCarouselView<Data: Identifiable, Content: View>: View {
     public var body: some View {
         VStack {
             GeometryReader { geometry in
+                let lastCell = CGFloat(data.count)
                 let baseOffset = contentSpacing + edgeSpacing - totalSpacing
                 let total: CGFloat = geometry.size.width + totalSpacing * 2
                 let contentWidth = total - (edgeSpacing * 2) - (2 * contentSpacing)
                 let nextOffset = contentWidth + contentSpacing
+                
                 HStack(spacing: contentSpacing) {
-                    configContentView(contentView: zeroContent(),
+                    configContentView(contentView: zeroContent(0,$currentIndex, lastCell),
                                       contentWidth: contentWidth,
-                                      nextOffset: nextOffset)
+                                      nextOffset: nextOffset, index: 0)
+                   
                     ForEach(0..<data.count, id: \.self) { index in
-                        configContentView(contentView: carouselContent(data[index]),
+                        let view = carouselContent(data[index],CGFloat(index+1),$currentIndex, lastCell)
+                        configContentView(contentView: view,
                                           contentWidth: contentWidth,
-                                          nextOffset: nextOffset)
+                                          nextOffset: nextOffset, index: CGFloat(index + 1))
                     }
-                    configContentView(contentView: overContent(),
+                    
+                    configContentView(contentView: overContent(CGFloat(lastCell + 1), $currentIndex, lastCell),
                                       contentWidth: contentWidth,
-                                      nextOffset: nextOffset)
+                                      nextOffset: nextOffset, index: CGFloat(lastCell + 1))
                 }
                 .offset(x: currentOffset + (currentIndex > 0 ? baseOffset : 0))
             }
@@ -68,31 +74,30 @@ public struct InfinityCarouselView<Data: Identifiable, Content: View>: View {
        .padding(.horizontal, totalSpacing)
     }
     
-    private func configContentView(contentView: Content, contentWidth: CGFloat, nextOffset: CGFloat) -> some View {
+    private func configContentView(contentView: Content, contentWidth: CGFloat, nextOffset: CGFloat, index: CGFloat) -> some View {
         contentView
         .frame(width: contentWidth, height: contentHeight)
         .gesture(
             DragGesture()
                 .onEnded { value in
                     let offsetX = value.translation.width
-                    print(#function, "offsetX:", offsetX)
-                    if offsetX < -50 { // 오른쪽으로 스와이프
-                        currentIndex = min(currentIndex + 1, CGFloat(data.count)+1)
-                    } else if offsetX > 50 { // 왼쪽으로 스와이프
-                        currentIndex = max(currentIndex - 1, 0)
-                    }
                     withAnimation {
+                        if offsetX < -50 { // 오른쪽으로 스와이프
+                            currentIndex = min(currentIndex + 1, CGFloat(data.count)+1)
+                        } else if offsetX > 50 { // 왼쪽으로 스와이프
+                            currentIndex = max(currentIndex - 1, 0)
+                        }
                         currentOffset = -currentIndex * nextOffset
                     }
-                    // infintyScroll
+                    // infinty Scroll
                     if currentIndex > CGFloat(data.count) {
-                        currentOffset = -1 * nextOffset
                         currentIndex = 1
+                        currentOffset = -1 * nextOffset
                         return
                     }
                     if currentIndex < 1 {
-                        currentOffset = -CGFloat(data.count) * nextOffset
                         currentIndex = CGFloat(data.count)
+                        currentOffset = -CGFloat(data.count) * nextOffset
                         return
                     }
                 }

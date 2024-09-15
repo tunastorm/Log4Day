@@ -93,14 +93,14 @@ struct MyLogView: View {
     private func photoLogBanner(width: CGFloat) -> some View {
         let bannerWidth = width-75
         let bannerHeight: CGFloat = 500
-        return InfinityCarouselView(data: dummy, edgeSpacing: 20, contentSpacing: 20, totalSpacing: 20, contentHeight: 500, currentOffset: -(bannerWidth+15), carouselContent: { data  in
-            BannerView(title: data.title, hashTags: data.hashTags, backgroundWidthHeight: (bannerWidth,  bannerHeight), imageHeight: 400)
-            }, zeroContent: {
+        return InfinityCarouselView(data: dummy, edgeSpacing: 20, contentSpacing: 20, totalSpacing: 20, contentHeight: 500, currentOffset: -(bannerWidth+15), carouselContent: { data, index, currentIndex, lastCell in
+            FourCutPictureView(currentIndex: currentIndex, index: index, lastCell: lastCell, title: data.title, hashTags: data.hashTags, backgroundWidthHeight: (bannerWidth,  bannerHeight), imageHeight: 400)
+            }, zeroContent: { index, currentIndex, lastCell in
                 let title = dummy.last?.title ?? ""
                 let hashTags = dummy.last?.hashTags ?? ""
-                BannerView(title: title, hashTags: hashTags, backgroundWidthHeight: (bannerWidth, bannerHeight), imageHeight: bannerHeight-100)
-            }, overContent: {
-                BannerView(title: dummy[0].title, hashTags: dummy[0].hashTags, backgroundWidthHeight: (bannerWidth, bannerHeight), imageHeight: bannerHeight-100)
+                FourCutPictureView(currentIndex: currentIndex, index: index, lastCell: lastCell, title: title, hashTags: hashTags, backgroundWidthHeight: (bannerWidth, bannerHeight), imageHeight: bannerHeight-100)
+            }, overContent: { index, currentIndex, lastCell in
+                FourCutPictureView(currentIndex: currentIndex, index: index, lastCell: lastCell, title: dummy[0].title, hashTags: dummy[0].hashTags, backgroundWidthHeight: (bannerWidth, bannerHeight), imageHeight: bannerHeight-100)
             }
         )
         .frame(height:  bannerHeight)
