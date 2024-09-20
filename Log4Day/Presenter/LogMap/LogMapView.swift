@@ -8,19 +8,33 @@
 import SwiftUI
 
 struct LogMapView: View {
+    
+    @State private var showSide = false
+    
     var body: some View {
-//        NavigationWrapper {
-//            ScrollView {
-//                
-//            }
-//            .navigationTitle("Logline")
-//        }
-        ScrollView {
-            
+        GeometryReader { proxy in
+            ZStack {
+                VStack {
+                    NavigationBar(title: "LogMap", button:
+                        Button(action: {
+                            withAnimation(.spring()){
+                                showSide.toggle()
+                            }
+                        }, label: {
+                            Image(systemName: "tray")
+                        })
+                    )
+                    ScrollView {
+                       UIViewControllerWrapper<MapView>()
+                    }
+                }
+                SideBarView(showSide: $showSide)
+            }
         }
-        .navigationTitle("LogMap")
     }
 }
+
+
 
 #Preview {
     LoglineView()

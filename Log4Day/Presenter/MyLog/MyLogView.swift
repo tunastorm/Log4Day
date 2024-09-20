@@ -19,17 +19,11 @@ struct TestSchedule: Hashable, Identifiable {
 struct MyLogView: View {
     
     @Environment(\.colorScheme) private var colorScheme
-    
-    @State private var selectedTitle = "전체"
     //사이드뷰 버튼용 변수
     @State private var showSide = false
     //Sliding을 위한 변수
     @State private var translation: CGSize = .zero
     @State private var offsetX: CGFloat = -120
-    
-    @State private var categoryList = [
-        "전체", "데이트", "회사", "고등학교 친구", "중학교 친구", "러닝크루", "테스트", "입니다", "람쥐", "맛도리", "유유유", "라라라", "로로로", "무무무", "123","456","789","101112","131415","161718","192021"
-    ]
     
     @State private var dummy: [TestSchedule] = (0..<Int.random(in: 5...100)).map { index in
         TestSchedule(title: "테스트 \(index)", hashTags: "#테스트 일정 \(index) #입니다만?")
@@ -53,30 +47,18 @@ struct MyLogView: View {
         GeometryReader { proxy in
             ZStack {
                 VStack {
-                    HStack {
-                        Text("MyLog")
-                            .frame(width: 80, height: 40)
-                            .font(.headline)
-                            .foregroundStyle(Resource.CIColor.highlightColor)
-                            .padding(.leading)
-                        Spacer()
+                    NavigationBar(title: "MyLog", button: 
                         Button(action: {
                             withAnimation(.spring()){
-                               showSide.toggle()
+                                showSide.toggle()
                             }
                         }, label: {
                             Image(systemName: "tray")
                         })
-                        .foregroundStyle(.black)
-                        .buttonStyle(IsPressedButtonStyle(normalColor: normalColor, pressedColor: .gray))
-                        SettingButton()
-                        .padding(.trailing)
-                    }
-                    .frame(width: screenWidth)
+                    )
                     ScrollView {
                         VStack {
                             TitleView()
-//                            PhotoBannerView()
                             photoLogBanner(width: proxy.size.width)
                             Spacer()
                             LoglineView()
@@ -84,22 +66,7 @@ struct MyLogView: View {
                     }
                     .frame(width: screenWidth)
                 }
-                Rectangle()
-                    .frame(maxWidth: .infinity)
-                    .foregroundStyle(.white)
-                    .opacity(showSide ? 0.6 : 0)
-                    .onTapGesture {
-                        withAnimation {
-                            showSide = false
-                        }
-                    }
-                HStack {
-                    SideView(isShow: $showSide, selectedTitle: $selectedTitle, categoryList: $categoryList)
-                    Rectangle()
-                        .frame(maxWidth: .infinity)
-                        .foregroundStyle(.clear)
-                }
-                .frame(height: UIScreen.main.bounds.height)
+                SideBarView(showSide: $showSide)
             }
         }
     }

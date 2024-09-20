@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		788F41DB2463C44DE47CC0BE /* Pods_Log4Day_Log4DayUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E179730F36192A0721548DDC /* Pods_Log4Day_Log4DayUITests.framework */; };
+		7B1410ACE80F339345ACF6FF /* Pods_Log4DayTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5761BDB6ACE458DE209DD3CD /* Pods_Log4DayTests.framework */; };
 		BC404BCF2C9077FC001BA269 /* Log4DayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404BCE2C9077FC001BA269 /* Log4DayApp.swift */; };
 		BC404BD12C9077FC001BA269 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404BD02C9077FC001BA269 /* RootView.swift */; };
 		BC404BD32C9077FD001BA269 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC404BD22C9077FD001BA269 /* Assets.xcassets */; };
@@ -37,6 +39,7 @@
 		BC404CB02C942E43001BA269 /* SettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CAF2C942E43001BA269 /* SettingButton.swift */; };
 		BC404CB82C9468DE001BA269 /* InfinityCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CB72C9468DE001BA269 /* InfinityCarouselView.swift */; };
 		BC404CBA2C94B0A5001BA269 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CB92C94B0A5001BA269 /* Resource.swift */; };
+		BC4DFDCB2C9D5C22002CDC27 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4DFDCA2C9D5C22002CDC27 /* MapView.swift */; };
 		BC6417242C96EDF30013587A /* SideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6417232C96EDF30013587A /* SideView.swift */; };
 		BC6417262C96EE370013587A /* SidebarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6417252C96EE370013587A /* SidebarButton.swift */; };
 		BC692DFD2C9C482D00374032 /* InfinitePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC692DFC2C9C482D00374032 /* InfinitePageView.swift */; };
@@ -44,6 +47,9 @@
 		BC692E012C9C55F600374032 /* PhotoBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC692E002C9C55F600374032 /* PhotoBannerView.swift */; };
 		BC692E032C9C57F300374032 /* PhotoBannerItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC692E022C9C57F300374032 /* PhotoBannerItemView.swift */; };
 		BC692E052C9D1A9E00374032 /* LoglineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC692E042C9D1A9E00374032 /* LoglineView.swift */; };
+		BC8007AB2C9D4A0300D62778 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8007AA2C9D4A0300D62778 /* NavigationBar.swift */; };
+		BC8007AD2C9D4E3F00D62778 /* SideBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8007AC2C9D4E3F00D62778 /* SideBarView.swift */; };
+		E1E6BCCB5CF29381A429C5B1 /* Pods_Log4Day.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFF233069AF736FA39366B34 /* Pods_Log4Day.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +70,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		15226E134356A9F356454BB0 /* Pods-Log4Day-Log4DayUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Log4Day-Log4DayUITests.debug.xcconfig"; path = "Target Support Files/Pods-Log4Day-Log4DayUITests/Pods-Log4Day-Log4DayUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		28E7C7624EE4AEF89F1D13EE /* Pods-Log4Day-Log4DayUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Log4Day-Log4DayUITests.release.xcconfig"; path = "Target Support Files/Pods-Log4Day-Log4DayUITests/Pods-Log4Day-Log4DayUITests.release.xcconfig"; sourceTree = "<group>"; };
+		5761BDB6ACE458DE209DD3CD /* Pods_Log4DayTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Log4DayTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A70DFB0E03C294DFDC72B19 /* Pods-Log4DayTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Log4DayTests.debug.xcconfig"; path = "Target Support Files/Pods-Log4DayTests/Pods-Log4DayTests.debug.xcconfig"; sourceTree = "<group>"; };
+		901FDFED920330761A94464C /* Pods-Log4Day.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Log4Day.debug.xcconfig"; path = "Target Support Files/Pods-Log4Day/Pods-Log4Day.debug.xcconfig"; sourceTree = "<group>"; };
+		A9A88417ACBED645893DA685 /* Pods-Log4Day.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Log4Day.release.xcconfig"; path = "Target Support Files/Pods-Log4Day/Pods-Log4Day.release.xcconfig"; sourceTree = "<group>"; };
 		BC404BCB2C9077FC001BA269 /* Log4Day.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Log4Day.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC404BCE2C9077FC001BA269 /* Log4DayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log4DayApp.swift; sourceTree = "<group>"; };
 		BC404BD02C9077FC001BA269 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -97,6 +109,8 @@
 		BC404CAF2C942E43001BA269 /* SettingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingButton.swift; sourceTree = "<group>"; };
 		BC404CB72C9468DE001BA269 /* InfinityCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfinityCarouselView.swift; sourceTree = "<group>"; };
 		BC404CB92C94B0A5001BA269 /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
+		BC4DFDC72C9D5B3B002CDC27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		BC4DFDCA2C9D5C22002CDC27 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		BC6417232C96EDF30013587A /* SideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideView.swift; sourceTree = "<group>"; };
 		BC6417252C96EE370013587A /* SidebarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarButton.swift; sourceTree = "<group>"; };
 		BC692DFC2C9C482D00374032 /* InfinitePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfinitePageView.swift; sourceTree = "<group>"; };
@@ -104,6 +118,11 @@
 		BC692E002C9C55F600374032 /* PhotoBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoBannerView.swift; sourceTree = "<group>"; };
 		BC692E022C9C57F300374032 /* PhotoBannerItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoBannerItemView.swift; sourceTree = "<group>"; };
 		BC692E042C9D1A9E00374032 /* LoglineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoglineView.swift; sourceTree = "<group>"; };
+		BC8007AA2C9D4A0300D62778 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
+		BC8007AC2C9D4E3F00D62778 /* SideBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarView.swift; sourceTree = "<group>"; };
+		C857C968335CB304B42A9046 /* Pods-Log4DayTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Log4DayTests.release.xcconfig"; path = "Target Support Files/Pods-Log4DayTests/Pods-Log4DayTests.release.xcconfig"; sourceTree = "<group>"; };
+		CFF233069AF736FA39366B34 /* Pods_Log4Day.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Log4Day.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E179730F36192A0721548DDC /* Pods_Log4Day_Log4DayUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Log4Day_Log4DayUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +130,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1E6BCCB5CF29381A429C5B1 /* Pods_Log4Day.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,6 +138,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B1410ACE80F339345ACF6FF /* Pods_Log4DayTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,12 +146,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				788F41DB2463C44DE47CC0BE /* Pods_Log4Day_Log4DayUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		66AADE4C704BF9EB92536C4C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				901FDFED920330761A94464C /* Pods-Log4Day.debug.xcconfig */,
+				A9A88417ACBED645893DA685 /* Pods-Log4Day.release.xcconfig */,
+				15226E134356A9F356454BB0 /* Pods-Log4Day-Log4DayUITests.debug.xcconfig */,
+				28E7C7624EE4AEF89F1D13EE /* Pods-Log4Day-Log4DayUITests.release.xcconfig */,
+				8A70DFB0E03C294DFDC72B19 /* Pods-Log4DayTests.debug.xcconfig */,
+				C857C968335CB304B42A9046 /* Pods-Log4DayTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		8B97248B2AD9AB85E11FF024 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CFF233069AF736FA39366B34 /* Pods_Log4Day.framework */,
+				E179730F36192A0721548DDC /* Pods_Log4Day_Log4DayUITests.framework */,
+				5761BDB6ACE458DE209DD3CD /* Pods_Log4DayTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		BC404BC22C9077FC001BA269 = {
 			isa = PBXGroup;
 			children = (
@@ -139,6 +184,8 @@
 				BC404BDE2C9077FE001BA269 /* Log4DayTests */,
 				BC404BE82C9077FE001BA269 /* Log4DayUITests */,
 				BC404BCC2C9077FC001BA269 /* Products */,
+				66AADE4C704BF9EB92536C4C /* Pods */,
+				8B97248B2AD9AB85E11FF024 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -155,6 +202,7 @@
 		BC404BCD2C9077FC001BA269 /* Log4Day */ = {
 			isa = PBXGroup;
 			children = (
+				BC4DFDC72C9D5B3B002CDC27 /* Info.plist */,
 				BC404C802C93F993001BA269 /* Storage */,
 				BC404C7E2C93F96D001BA269 /* Network */,
 				BC404C742C93E151001BA269 /* Presenter */,
@@ -301,21 +349,8 @@
 		BC404C8B2C940934001BA269 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
-				BC404CA52C941F0E001BA269 /* LoglineCell.swift */,
-				BC404C8E2C941195001BA269 /* ToolbarButton.swift */,
-				BC404CA72C942170001BA269 /* ListFooterView.swift */,
-				BC404CA92C94218C001BA269 /* FourCutPictureView.swift */,
-				BC404CAB2C942835001BA269 /* ToolBarNavigationLink.swift */,
-				BC404C902C94142D001BA269 /* ToolbarTitle.swift */,
-				BC404CAD2C942D15001BA269 /* BackButton.swift */,
-				BC404CAF2C942E43001BA269 /* SettingButton.swift */,
-				BC404CB72C9468DE001BA269 /* InfinityCarouselView.swift */,
-				BC6417232C96EDF30013587A /* SideView.swift */,
-				BC6417252C96EE370013587A /* SidebarButton.swift */,
-				BC692DFC2C9C482D00374032 /* InfinitePageView.swift */,
-				BC692E002C9C55F600374032 /* PhotoBannerView.swift */,
-				BC692E022C9C57F300374032 /* PhotoBannerItemView.swift */,
-				BC692E042C9D1A9E00374032 /* LoglineView.swift */,
+				BC4DFDC92C9D5C05002CDC27 /* SwiftUI */,
+				BC4DFDC82C9D5C01002CDC27 /* UIKit */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -361,6 +396,38 @@
 			path = CustomShape;
 			sourceTree = "<group>";
 		};
+		BC4DFDC82C9D5C01002CDC27 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				BC4DFDCA2C9D5C22002CDC27 /* MapView.swift */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
+		BC4DFDC92C9D5C05002CDC27 /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				BC404CA52C941F0E001BA269 /* LoglineCell.swift */,
+				BC404C8E2C941195001BA269 /* ToolbarButton.swift */,
+				BC404CA72C942170001BA269 /* ListFooterView.swift */,
+				BC404CA92C94218C001BA269 /* FourCutPictureView.swift */,
+				BC404CAB2C942835001BA269 /* ToolBarNavigationLink.swift */,
+				BC404C902C94142D001BA269 /* ToolbarTitle.swift */,
+				BC404CAD2C942D15001BA269 /* BackButton.swift */,
+				BC404CAF2C942E43001BA269 /* SettingButton.swift */,
+				BC404CB72C9468DE001BA269 /* InfinityCarouselView.swift */,
+				BC6417232C96EDF30013587A /* SideView.swift */,
+				BC6417252C96EE370013587A /* SidebarButton.swift */,
+				BC692DFC2C9C482D00374032 /* InfinitePageView.swift */,
+				BC692E002C9C55F600374032 /* PhotoBannerView.swift */,
+				BC692E022C9C57F300374032 /* PhotoBannerItemView.swift */,
+				BC692E042C9D1A9E00374032 /* LoglineView.swift */,
+				BC8007AA2C9D4A0300D62778 /* NavigationBar.swift */,
+				BC8007AC2C9D4E3F00D62778 /* SideBarView.swift */,
+			);
+			path = SwiftUI;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -368,9 +435,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BC404BEF2C9077FE001BA269 /* Build configuration list for PBXNativeTarget "Log4Day" */;
 			buildPhases = (
+				6B5D9097A0C1DB25829E074A /* [CP] Check Pods Manifest.lock */,
 				BC404BC72C9077FC001BA269 /* Sources */,
 				BC404BC82C9077FC001BA269 /* Frameworks */,
 				BC404BC92C9077FC001BA269 /* Resources */,
+				8FB0A57DC0D912D25410DC39 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -385,6 +454,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BC404BF22C9077FE001BA269 /* Build configuration list for PBXNativeTarget "Log4DayTests" */;
 			buildPhases = (
+				7BD1B41ED5F16DB4A2012062 /* [CP] Check Pods Manifest.lock */,
 				BC404BD72C9077FE001BA269 /* Sources */,
 				BC404BD82C9077FE001BA269 /* Frameworks */,
 				BC404BD92C9077FE001BA269 /* Resources */,
@@ -403,9 +473,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BC404BF52C9077FE001BA269 /* Build configuration list for PBXNativeTarget "Log4DayUITests" */;
 			buildPhases = (
+				5A462E2DFF9B682E6380A1EA /* [CP] Check Pods Manifest.lock */,
 				BC404BE12C9077FE001BA269 /* Sources */,
 				BC404BE22C9077FE001BA269 /* Frameworks */,
 				BC404BE32C9077FE001BA269 /* Resources */,
+				AE481C2CD567F106FAF68B16 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -487,6 +559,109 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5A462E2DFF9B682E6380A1EA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Log4Day-Log4DayUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6B5D9097A0C1DB25829E074A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Log4Day-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7BD1B41ED5F16DB4A2012062 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Log4DayTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8FB0A57DC0D912D25410DC39 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Log4Day/Pods-Log4Day-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Log4Day/Pods-Log4Day-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Log4Day/Pods-Log4Day-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AE481C2CD567F106FAF68B16 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Log4Day-Log4DayUITests/Pods-Log4Day-Log4DayUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Log4Day-Log4DayUITests/Pods-Log4Day-Log4DayUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Log4Day-Log4DayUITests/Pods-Log4Day-Log4DayUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		BC404BC72C9077FC001BA269 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -501,6 +676,7 @@
 				BC404C872C93FE70001BA269 /* APIKey.swift in Sources */,
 				BC404C912C94142D001BA269 /* ToolbarTitle.swift in Sources */,
 				BC692E032C9C57F300374032 /* PhotoBannerItemView.swift in Sources */,
+				BC4DFDCB2C9D5C22002CDC27 /* MapView.swift in Sources */,
 				BC404BD12C9077FC001BA269 /* RootView.swift in Sources */,
 				BC692DFD2C9C482D00374032 /* InfinitePageView.swift in Sources */,
 				BC404CBA2C94B0A5001BA269 /* Resource.swift in Sources */,
@@ -511,6 +687,7 @@
 				BC404C892C93FEA4001BA269 /* APIConstants.swift in Sources */,
 				BC692E052C9D1A9E00374032 /* LoglineView.swift in Sources */,
 				BC6417242C96EDF30013587A /* SideView.swift in Sources */,
+				BC8007AB2C9D4A0300D62778 /* NavigationBar.swift in Sources */,
 				BC404BCF2C9077FC001BA269 /* Log4DayApp.swift in Sources */,
 				BC404C972C9417A4001BA269 /* UIViewControllerWrapper.swift in Sources */,
 				BC404C762C93E1BF001BA269 /* MyLogView.swift in Sources */,
@@ -518,6 +695,7 @@
 				BC404CA82C942170001BA269 /* ListFooterView.swift in Sources */,
 				BC6417262C96EE370013587A /* SidebarButton.swift in Sources */,
 				BC404C8D2C94094E001BA269 /* ViewModfiers.swift in Sources */,
+				BC8007AD2C9D4E3F00D62778 /* SideBarView.swift in Sources */,
 				BC692DFF2C9C495300374032 /* PhotoBannerViewModel.swift in Sources */,
 				BC404C782C93E1EF001BA269 /* PlannerView.swift in Sources */,
 				BC404CB82C9468DE001BA269 /* InfinityCarouselView.swift in Sources */,
@@ -596,7 +774,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -659,7 +837,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -680,6 +858,7 @@
 		};
 		BC404BF02C9077FE001BA269 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 901FDFED920330761A94464C /* Pods-Log4Day.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -689,6 +868,7 @@
 				DEVELOPMENT_TEAM = F8FT97JYZT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Log4Day/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -699,7 +879,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = tunastorm.com.Log4Day;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tunastorm.Log4Day;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -713,6 +893,7 @@
 		};
 		BC404BF12C9077FE001BA269 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A9A88417ACBED645893DA685 /* Pods-Log4Day.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -722,6 +903,7 @@
 				DEVELOPMENT_TEAM = F8FT97JYZT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Log4Day/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -732,7 +914,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = tunastorm.com.Log4Day;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tunastorm.Log4Day;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -746,6 +928,7 @@
 		};
 		BC404BF32C9077FE001BA269 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8A70DFB0E03C294DFDC72B19 /* Pods-Log4DayTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -766,6 +949,7 @@
 		};
 		BC404BF42C9077FE001BA269 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C857C968335CB304B42A9046 /* Pods-Log4DayTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -786,6 +970,7 @@
 		};
 		BC404BF62C9077FE001BA269 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 15226E134356A9F356454BB0 /* Pods-Log4Day-Log4DayUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -804,6 +989,7 @@
 		};
 		BC404BF72C9077FE001BA269 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 28E7C7624EE4AEF89F1D13EE /* Pods-Log4Day-Log4DayUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

@@ -29,42 +29,6 @@ struct LoglineView: View {
             }
         }
     }
-//    
-//    @ViewBuilder
-//    private func animate() -> some View {
-//        ZStack(alignment: .bottom) {
-//            Rectangle()
-//                .fill(.black.opacity(0.5))
-//                .frame(height: 1)
-//                .frame(maxWidth: .infinity)
-//                .padding(.horizontal)
-//                .padding(.bottom)
-//            HStack {
-//                ForEach(tapInfo.allCases, id: \.self) { item in
-//                    VStack {
-//                        Text(item.rawValue)
-//                            .font(.title3)
-//                            .frame(maxWidth: .infinity/4, minHeight: 50)
-//                            .foregroundColor(selectedPicker == item ?
-//                                .mint: .gray)
-//                        if selectedPicker == item {
-//                            Capsule()
-//                                .foregroundColor(Resource.CIColor.highlightColor)
-//                                .frame(height: 3)
-//                                .matchedGeometryEffect(id: "info", in: animation)
-//                                .padding(.horizontal)
-//                        }
-//                    }
-//                    .padding(.bottom)
-//                    .onTapGesture {
-//                        withAnimation(.easeInOut) {
-//                            self.selectedPicker = item
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
     
     private func loglineList() -> some View {
         LazyVStack {
