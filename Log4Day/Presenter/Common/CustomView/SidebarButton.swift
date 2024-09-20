@@ -29,11 +29,11 @@ struct SidebarButton: View {
             }
         }) {
             HStack(spacing: 20){
-                Spacer()
                 Text(title)
                     .fontWeight(.semibold)
                     .foregroundStyle(selectedTitle == title ? Resource.CIColor.highlightColor  :  baseColor)
-                    .padding(.init(top: 0, leading: 0, bottom: 0, trailing: 60))
+                    .padding(.init(top: 0, leading: 20, bottom: 0, trailing: 60))
+                Spacer()
             }
         }
         .frame(height: 40)
@@ -57,7 +57,7 @@ struct SidebarButton: View {
                             baseColor
                         }
                     }
-                    .frame(height: 1)
+                    .frame(height: selectedTitle == title ? 1 : 0)
                 }
                 .padding(.init(top: 0, leading: 0, bottom: 0, trailing: 50))
             }

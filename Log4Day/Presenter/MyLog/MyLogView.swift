@@ -28,7 +28,7 @@ struct MyLogView: View {
     @State private var offsetX: CGFloat = -120
     
     @State private var categoryList = [
-        "전체", "데이트", "회사", "고등학교 친구", "중학교 친구", "러닝크루"
+        "전체", "데이트", "회사", "고등학교 친구", "중학교 친구", "러닝크루", "테스트", "입니다", "람쥐", "맛도리", "유유유", "라라라", "로로로", "무무무", "123","456","789","101112","131415","161718","192021"
     ]
     
     @State private var dummy: [TestSchedule] = (0..<Int.random(in: 5...100)).map { index in
@@ -86,8 +86,13 @@ struct MyLogView: View {
                 }
                 Rectangle()
                     .frame(maxWidth: .infinity)
-                    .foregroundStyle(.black)
-                    .opacity(showSide ? 0.7 : 0)
+                    .foregroundStyle(.white)
+                    .opacity(showSide ? 0.6 : 0)
+                    .onTapGesture {
+                        withAnimation {
+                            showSide = false
+                        }
+                    }
                 HStack {
                     SideView(isShow: $showSide, selectedTitle: $selectedTitle, categoryList: $categoryList)
                     Rectangle()
@@ -129,15 +134,18 @@ struct MyLogView: View {
         let bannerWidth = width-75
         let bannerHeight: CGFloat = 500
         return VStack {
-            InfinityCarouselView(data: dummy, edgeSpacing: 20, contentSpacing: 20, totalSpacing: 20, contentHeight: 500, currentOffset: -(bannerWidth+15), carouselContent: { data, index, currentIndex, lastCell in
-            FourCutPictureView(currentIndex: currentIndex, index: index, lastCell: lastCell, title: data.title, hashTags: data.hashTags, backgroundWidthHeight: (bannerWidth,  bannerHeight), imageHeight: 400)
-            }, zeroContent: { index, currentIndex, lastCell in
-                let title = dummy.last?.title ?? ""
-                let hashTags = dummy.last?.hashTags ?? ""
-                FourCutPictureView(currentIndex: currentIndex, index: index, lastCell: lastCell, title: title, hashTags: hashTags, backgroundWidthHeight: (bannerWidth, bannerHeight), imageHeight: bannerHeight-100)
-            }, overContent: { index, currentIndex, lastCell in
-                FourCutPictureView(currentIndex: currentIndex, index: index, lastCell: lastCell, title: dummy[0].title, hashTags: dummy[0].hashTags, backgroundWidthHeight: (bannerWidth, bannerHeight), imageHeight: bannerHeight-100)
-            }
+            InfinityCarouselView(data: dummy, edgeSpacing: 20, contentSpacing: 20, totalSpacing: 20, contentHeight: 500, currentOffset: -(bannerWidth+15), 
+                carouselContent: { data, index, currentIndex, lastCell in
+                FourCutPictureView(currentIndex: currentIndex, index: index, lastCell: lastCell, title: data.title, hashTags: data.hashTags, backgroundWidthHeight: (bannerWidth,  bannerHeight), imageHeight: 400)
+                }, 
+                zeroContent: { index, currentIndex, lastCell in
+                    let title = dummy.last?.title ?? ""
+                    let hashTags = dummy.last?.hashTags ?? ""
+                    FourCutPictureView(currentIndex: currentIndex, index: index, lastCell: lastCell, title: title, hashTags: hashTags, backgroundWidthHeight: (bannerWidth, bannerHeight), imageHeight: bannerHeight-100)
+                }, 
+                overContent: { index, currentIndex, lastCell in
+                    FourCutPictureView(currentIndex: currentIndex, index: index, lastCell: lastCell, title: dummy[0].title, hashTags: dummy[0].hashTags, backgroundWidthHeight: (bannerWidth, bannerHeight), imageHeight: bannerHeight-100)
+                }
             )
             .frame(height:  bannerHeight)
             .hideIndicator()

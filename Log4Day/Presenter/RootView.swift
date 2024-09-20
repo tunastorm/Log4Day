@@ -9,7 +9,13 @@ import SwiftUI
 
 struct RootView: View {
     
+//    @Environment(\.colorScheme) var colorScheme
+    
     @State private var selection = 0
+    
+//    private var backgroundColor: UIColor {
+//        colorScheme == .dark ? .black : .white
+//    }
     
     init() {
         let navBarAppearance = UINavigationBarAppearance()
