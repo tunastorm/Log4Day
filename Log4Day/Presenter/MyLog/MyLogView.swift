@@ -20,6 +20,27 @@ struct MyLogView: View {
     
     @Environment(\.colorScheme) private var colorScheme
     
+    @State private var selectedTitle = "전체"
+    //사이드뷰 버튼용 변수
+    @State private var showSide = false
+    //Sliding을 위한 변수
+    @State private var translation: CGSize = .zero
+    @State private var offsetX: CGFloat = -120
+    
+    @State private var categoryList = [
+        "전체", "데이트", "회사", "고등학교 친구", "중학교 친구", "러닝크루"
+    ]
+    
+    @State private var dummy: [TestSchedule] = (0..<Int.random(in: 5...100)).map { index in
+        TestSchedule(title: "테스트 \(index)", hashTags: "#테스트 일정 \(index) #입니다만?")
+    }
+    
+    private var screenWidth = UIScreen.main.bounds.width
+    
+    private var normalColor: Color {
+        colorScheme == .dark ? .white.opacity(0.75) : .black
+    }
+    
     private var baseColor: Color {
         colorScheme == .dark ? .white.opacity(0.5) : .black.opacity(0.5)
     }
@@ -27,41 +48,82 @@ struct MyLogView: View {
     private var contentColor: Color {
         colorScheme == .dark ? .white : .black
     }
-
-    private static let setDummies = {
-        let random = Int.random(in: 5...10)
-        print("dummyCount:", random)
-        return (0..<random).map { index in
-            TestSchedule(title: "테스트 \(index)", hashTags: "#테스트 일정 \(index) #입니다만?")
-        }
-    }
-    
-    @State private var dummy: [TestSchedule] = Self.setDummies()
     
     var body: some View {
         GeometryReader { proxy in
-            print("screenSize:", proxy.size)
-            return ScrollView {
+            ZStack {
                 VStack {
-                    TitleView()
-                    photoLogBanner(width: proxy.size.width)
-                    Spacer()
-                    loglineList()
+                    HStack {
+                        Text("MyLog")
+                            .frame(width: 80, height: 40)
+                            .font(.headline)
+                            .foregroundStyle(Resource.CIColor.highlightColor)
+                            .padding(.leading)
+                        Spacer()
+                        Button(action: {
+                            withAnimation(.spring()){
+                               showSide.toggle()
+                            }
+                        }, label: {
+                            Image(systemName: "tray")
+                        })
+                        .foregroundStyle(.black)
+                        .buttonStyle(IsPressedButtonStyle(normalColor: normalColor, pressedColor: .gray))
+                        SettingButton()
+                        .padding(.trailing)
+                    }
+                    .frame(width: screenWidth)
+                    ScrollView {
+                        VStack {
+                            TitleView()
+//                            PhotoBannerView()
+                            photoLogBanner(width: proxy.size.width)
+                            Spacer()
+                            loglineList()
+                        }
+                    }
+                    .frame(width: screenWidth)
                 }
+                Rectangle()
+                    .frame(maxWidth: .infinity)
+                    .foregroundStyle(.black)
+                    .opacity(showSide ? 0.7 : 0)
+                HStack {
+                    SideView(isShow: $showSide, selectedTitle: $selectedTitle, categoryList: $categoryList)
+                    Rectangle()
+                        .frame(maxWidth: .infinity)
+                        .foregroundStyle(.clear)
+                }
+                .frame(height: UIScreen.main.bounds.height)
+//                .frame(maxHeight: .infinity)
+//                //홈과 사이드 메뉴가 움직이도록 하는 오프셋
+//                .offset(x: (translation.width + offsetX) > -120 ?
+//                        ((translation.width + offsetX) < 120 ? translation.width + offsetX : 0) : -2)
+//                //사이드메뉴 버튼으로 showSide값에 변화가 있을 때, 사이드 메뉴 열기
+//                .onChange(of: showSide) {_ in
+//                    withAnimation(.spring()) {
+//                        print("showSide:", showSide)
+//                        print("offsetX:", offsetX)
+//                        if showSide {
+//                            offsetX = 120
+//                        }
+//                        if !showSide && offsetX == 120 {
+//                            offsetX = -120
+//                            print("showSide OFF")
+//                        }
+//                    }
+//                }
             }
-           
+//            .toolbar {
+//                ToolbarTitle(text: "MyLog", placement: .topBarLeading)
+//                ToolbarButton(id: "category", placement: .topBarTrailing, image: "tray") {
+//                    withAnimation(.spring()){
+//                       showSide.toggle()
+//                    }
+//                }
+//                SettingButton()
+//            }
         }
-        .toolbar {
-            ToolbarTitle(text: "MyLog", placement: .topBarLeading)
-            ToolbarButton(id: "category", placement: .topBarTrailing, image: "tray") {
-                print("카테고리 클릭")
-            }
-            SettingButton()
-        }
-        .onAppear {
-           
-        }
-    
     }
     
     private func TitleView() -> some View {

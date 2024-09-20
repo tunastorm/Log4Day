@@ -37,7 +37,9 @@ struct FourCutPictureView: View {
         let isFirstToLast = index == lastCell && currentIndex == 0
         return Rectangle()
             .fill(.white)
-            .frame(width: backgroundWidthHeight.0, height: (index == currentIndex || (isFirstToLast || isLastToFirst)) ? backgroundWidthHeight.1 : backgroundWidthHeight.1 * 0.7)
+            .frame(width: backgroundWidthHeight.0, height: backgroundWidthHeight.1)
+        
+//            .frame(width: backgroundWidthHeight.0, height: (index == currentIndex || (isFirstToLast || isLastToFirst)) ? backgroundWidthHeight.1 : backgroundWidthHeight.1 * 0.7)
             .shadow(radius: 4)
     }
     
@@ -57,10 +59,12 @@ struct FourCutPictureView: View {
     }
     
     private func ImageGrid() -> some View {
-        let isLastToFirst = index == 1 && currentIndex == lastCell + 1
-        let isFirstToLast = index == lastCell && currentIndex == 0
-        let height = (index == currentIndex || (isFirstToLast || isLastToFirst)) ? imageHeight : imageHeight * 0.7
-        let topPadding: CGFloat = (index == currentIndex || (isFirstToLast || isLastToFirst)) ? 10 : 25
+//        let isLastToFirst = index == 1 && currentIndex == lastCell + 1
+//        let isFirstToLast = index == lastCell && currentIndex == 0
+//        let height = (index == currentIndex || (isFirstToLast || isLastToFirst)) ? imageHeight : imageHeight * 0.7
+//        let topPadding: CGFloat = (index == currentIndex || (isFirstToLast || isLastToFirst)) ? 10 : 25
+        let height = imageHeight
+        let topPadding: CGFloat = 10
         return VStack {
             HStack {
                 Image(systemName: "person")

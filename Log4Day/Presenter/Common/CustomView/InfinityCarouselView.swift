@@ -51,7 +51,7 @@ struct InfinityCarouselView<Data: Identifiable, Content: View>: View {
                 let total: CGFloat = geometry.size.width + totalSpacing * 2
                 let contentWidth = total - (edgeSpacing * 2) - (2 * contentSpacing)
                 let nextOffset = contentWidth + contentSpacing
-                
+                // LazyHStack으로 자연스러운 애니메이션 어떻게 해야하지....
                 HStack(spacing: contentSpacing) {
                     configContentView(contentView: zeroContent(0,$currentIndex, lastCell),
                                       contentWidth: contentWidth,
@@ -89,16 +89,26 @@ struct InfinityCarouselView<Data: Identifiable, Content: View>: View {
                         }
                         currentOffset = -currentIndex * nextOffset
                     }
-                    // infinty Scroll
                     if currentIndex > CGFloat(data.count) {
-                        currentIndex = 1
                         currentOffset = -1 * nextOffset
-                        return
-                    }
-                    if currentIndex < 1 {
-                        currentIndex = CGFloat(data.count)
+//                        withAnimation {
+//                            currentIndex = 1
+//                        }
+//                        return
+                    } else if currentIndex < 1 {
                         currentOffset = -CGFloat(data.count) * nextOffset
-                        return
+//                        withAnimation {
+//                            currentIndex = CGFloat(data.count)
+//                        }
+//                        return
+                    }
+                    // infinty Scroll
+                    withAnimation{
+                        if currentIndex < 1 {
+                            currentIndex = CGFloat(data.count)
+                        } else if currentIndex > CGFloat(data.count) {
+                            currentIndex = 1
+                        }
                     }
                 }
         )

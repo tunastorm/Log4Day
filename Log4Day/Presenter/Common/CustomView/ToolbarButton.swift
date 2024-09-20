@@ -15,7 +15,7 @@ struct ToolbarButton: ToolbarContent {
     
     var image: String
     
-    var action: () -> Void
+    var action: (() -> Void)
     
     @Environment(\.colorScheme) private var colorScheme
     
@@ -34,5 +34,4 @@ struct ToolbarButton: ToolbarContent {
             .buttonStyle(IsPressedButtonStyle(normalColor: normalColor, pressedColor: .gray))
         }
     }
-    
 }

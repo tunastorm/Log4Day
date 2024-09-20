@@ -39,7 +39,7 @@ struct Ios15_HideIndicator: ViewModifier {
     }
 }
 
-fileprivate struct RoundedCorner: Shape {
+struct RoundedCorner: Shape {
     var radius: CGFloat = .infinity
     var corners: UIRectCorner = .allCorners
     
