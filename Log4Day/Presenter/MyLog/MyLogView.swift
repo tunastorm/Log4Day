@@ -79,7 +79,7 @@ struct MyLogView: View {
 //                            PhotoBannerView()
                             photoLogBanner(width: proxy.size.width)
                             Spacer()
-                            loglineList()
+                            LoglineView()
                         }
                     }
                     .frame(width: screenWidth)
@@ -95,34 +95,7 @@ struct MyLogView: View {
                         .foregroundStyle(.clear)
                 }
                 .frame(height: UIScreen.main.bounds.height)
-//                .frame(maxHeight: .infinity)
-//                //홈과 사이드 메뉴가 움직이도록 하는 오프셋
-//                .offset(x: (translation.width + offsetX) > -120 ?
-//                        ((translation.width + offsetX) < 120 ? translation.width + offsetX : 0) : -2)
-//                //사이드메뉴 버튼으로 showSide값에 변화가 있을 때, 사이드 메뉴 열기
-//                .onChange(of: showSide) {_ in
-//                    withAnimation(.spring()) {
-//                        print("showSide:", showSide)
-//                        print("offsetX:", offsetX)
-//                        if showSide {
-//                            offsetX = 120
-//                        }
-//                        if !showSide && offsetX == 120 {
-//                            offsetX = -120
-//                            print("showSide OFF")
-//                        }
-//                    }
-//                }
             }
-//            .toolbar {
-//                ToolbarTitle(text: "MyLog", placement: .topBarLeading)
-//                ToolbarButton(id: "category", placement: .topBarTrailing, image: "tray") {
-//                    withAnimation(.spring()){
-//                       showSide.toggle()
-//                    }
-//                }
-//                SettingButton()
-//            }
         }
     }
     
@@ -155,7 +128,8 @@ struct MyLogView: View {
     private func photoLogBanner(width: CGFloat) -> some View {
         let bannerWidth = width-75
         let bannerHeight: CGFloat = 500
-        return InfinityCarouselView(data: dummy, edgeSpacing: 20, contentSpacing: 20, totalSpacing: 20, contentHeight: 500, currentOffset: -(bannerWidth+15), carouselContent: { data, index, currentIndex, lastCell in
+        return VStack {
+            InfinityCarouselView(data: dummy, edgeSpacing: 20, contentSpacing: 20, totalSpacing: 20, contentHeight: 500, currentOffset: -(bannerWidth+15), carouselContent: { data, index, currentIndex, lastCell in
             FourCutPictureView(currentIndex: currentIndex, index: index, lastCell: lastCell, title: data.title, hashTags: data.hashTags, backgroundWidthHeight: (bannerWidth,  bannerHeight), imageHeight: 400)
             }, zeroContent: { index, currentIndex, lastCell in
                 let title = dummy.last?.title ?? ""
@@ -164,26 +138,13 @@ struct MyLogView: View {
             }, overContent: { index, currentIndex, lastCell in
                 FourCutPictureView(currentIndex: currentIndex, index: index, lastCell: lastCell, title: dummy[0].title, hashTags: dummy[0].hashTags, backgroundWidthHeight: (bannerWidth, bannerHeight), imageHeight: bannerHeight-100)
             }
-        )
-        .frame(height:  bannerHeight)
-        .hideIndicator()
-    }
-    
-    private func loglineList() -> some View {
-        LazyVStack {
-            ListHeaderView(text: "24.01.01", font: .title3)
-            Rectangle()
-                .fill(baseColor)
-                .frame(height: 1)
-                .frame(maxWidth: .infinity)
-                .padding(.bottom)
-            ForEach(0..<100) { index in
-                LoglineCell(index: index)
-            }
+            )
+            .frame(height:  bannerHeight)
+            .hideIndicator()
+            ListFooterView(text: "24.01.01", font: .title3)
+                .padding(.horizontal)
+                .padding(.top)
         }
-        .background(.clear)
-        .frame(maxWidth: .infinity)
-        .padding()
     }
     
 }

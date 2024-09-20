@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LoglineView: View {
+struct LogMapView: View {
     var body: some View {
 //        NavigationWrapper {
 //            ScrollView {
@@ -18,7 +18,7 @@ struct LoglineView: View {
         ScrollView {
             
         }
-        .navigationTitle("Logline")
+        .navigationTitle("LogMap")
     }
 }
 

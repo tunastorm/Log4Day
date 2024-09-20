@@ -33,8 +33,8 @@ struct FourCutPictureView: View {
     }
     
     private func backgroundView() -> some View {
-        let isLastToFirst = index == 1 && currentIndex == lastCell + 1
-        let isFirstToLast = index == lastCell && currentIndex == 0
+//        let isLastToFirst = index == 1 && currentIndex == lastCell + 1
+//        let isFirstToLast = index == lastCell && currentIndex == 0
         return Rectangle()
             .fill(.white)
             .frame(width: backgroundWidthHeight.0, height: backgroundWidthHeight.1)

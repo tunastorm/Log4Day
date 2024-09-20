@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ListHeaderView: View {
+struct ListFooterView: View {
     
     var text: String
     

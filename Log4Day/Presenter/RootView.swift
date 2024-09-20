@@ -46,7 +46,7 @@ struct RootView: View {
                         Text("Planner")
                     }
                     .tag(1)
-                LoglineView()
+                LogMapView()
                     .tabItem {
                         Image(systemName:  selection == 2 ?
                               "mappin.and.ellipse" : "map")

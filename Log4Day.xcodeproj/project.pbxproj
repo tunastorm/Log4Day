@@ -16,7 +16,7 @@
 		BC404BEC2C9077FE001BA269 /* Log4DayUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404BEB2C9077FE001BA269 /* Log4DayUITestsLaunchTests.swift */; };
 		BC404C762C93E1BF001BA269 /* MyLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C752C93E1BF001BA269 /* MyLogView.swift */; };
 		BC404C782C93E1EF001BA269 /* PlannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C772C93E1EF001BA269 /* PlannerView.swift */; };
-		BC404C7A2C93E1F9001BA269 /* LoglineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C792C93E1F9001BA269 /* LoglineView.swift */; };
+		BC404C7A2C93E1F9001BA269 /* LogMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C792C93E1F9001BA269 /* LogMapView.swift */; };
 		BC404C7D2C93F04D001BA269 /* NavigationWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C7C2C93F04D001BA269 /* NavigationWrapper.swift */; };
 		BC404C852C93F9D3001BA269 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = BC404C842C93F9D3001BA269 /* .gitignore */; };
 		BC404C872C93FE70001BA269 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C862C93FE70001BA269 /* APIKey.swift */; };
@@ -30,7 +30,7 @@
 		BC404C9F2C941920001BA269 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C9E2C941920001BA269 /* CategoryView.swift */; };
 		BC404CA42C941E0A001BA269 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CA32C941E0A001BA269 /* SettingView.swift */; };
 		BC404CA62C941F0E001BA269 /* LoglineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CA52C941F0E001BA269 /* LoglineCell.swift */; };
-		BC404CA82C942170001BA269 /* ListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CA72C942170001BA269 /* ListHeaderView.swift */; };
+		BC404CA82C942170001BA269 /* ListFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CA72C942170001BA269 /* ListFooterView.swift */; };
 		BC404CAA2C94218C001BA269 /* FourCutPictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CA92C94218C001BA269 /* FourCutPictureView.swift */; };
 		BC404CAC2C942835001BA269 /* ToolBarNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CAB2C942835001BA269 /* ToolBarNavigationLink.swift */; };
 		BC404CAE2C942D15001BA269 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CAD2C942D15001BA269 /* BackButton.swift */; };
@@ -43,6 +43,7 @@
 		BC692DFF2C9C495300374032 /* PhotoBannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC692DFE2C9C495300374032 /* PhotoBannerViewModel.swift */; };
 		BC692E012C9C55F600374032 /* PhotoBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC692E002C9C55F600374032 /* PhotoBannerView.swift */; };
 		BC692E032C9C57F300374032 /* PhotoBannerItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC692E022C9C57F300374032 /* PhotoBannerItemView.swift */; };
+		BC692E052C9D1A9E00374032 /* LoglineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC692E042C9D1A9E00374032 /* LoglineView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,7 +76,7 @@
 		BC404BEB2C9077FE001BA269 /* Log4DayUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log4DayUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		BC404C752C93E1BF001BA269 /* MyLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLogView.swift; sourceTree = "<group>"; };
 		BC404C772C93E1EF001BA269 /* PlannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerView.swift; sourceTree = "<group>"; };
-		BC404C792C93E1F9001BA269 /* LoglineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoglineView.swift; sourceTree = "<group>"; };
+		BC404C792C93E1F9001BA269 /* LogMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogMapView.swift; sourceTree = "<group>"; };
 		BC404C7C2C93F04D001BA269 /* NavigationWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationWrapper.swift; sourceTree = "<group>"; };
 		BC404C842C93F9D3001BA269 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		BC404C862C93FE70001BA269 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
@@ -89,7 +90,7 @@
 		BC404C9E2C941920001BA269 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		BC404CA32C941E0A001BA269 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		BC404CA52C941F0E001BA269 /* LoglineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoglineCell.swift; sourceTree = "<group>"; };
-		BC404CA72C942170001BA269 /* ListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListHeaderView.swift; sourceTree = "<group>"; };
+		BC404CA72C942170001BA269 /* ListFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFooterView.swift; sourceTree = "<group>"; };
 		BC404CA92C94218C001BA269 /* FourCutPictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourCutPictureView.swift; sourceTree = "<group>"; };
 		BC404CAB2C942835001BA269 /* ToolBarNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolBarNavigationLink.swift; sourceTree = "<group>"; };
 		BC404CAD2C942D15001BA269 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
@@ -102,6 +103,7 @@
 		BC692DFE2C9C495300374032 /* PhotoBannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoBannerViewModel.swift; sourceTree = "<group>"; };
 		BC692E002C9C55F600374032 /* PhotoBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoBannerView.swift; sourceTree = "<group>"; };
 		BC692E022C9C57F300374032 /* PhotoBannerItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoBannerItemView.swift; sourceTree = "<group>"; };
+		BC692E042C9D1A9E00374032 /* LoglineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoglineView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,12 +205,12 @@
 			path = Planner;
 			sourceTree = "<group>";
 		};
-		BC404C732C93E14B001BA269 /* Logline */ = {
+		BC404C732C93E14B001BA269 /* LogMap */ = {
 			isa = PBXGroup;
 			children = (
-				BC404C792C93E1F9001BA269 /* LoglineView.swift */,
+				BC404C792C93E1F9001BA269 /* LogMapView.swift */,
 			);
-			path = Logline;
+			path = LogMap;
 			sourceTree = "<group>";
 		};
 		BC404C742C93E151001BA269 /* Presenter */ = {
@@ -219,7 +221,7 @@
 				BC404C7B2C93F03D001BA269 /* Common */,
 				BC404C712C93E132001BA269 /* MyLog */,
 				BC404C722C93E144001BA269 /* Planner */,
-				BC404C732C93E14B001BA269 /* Logline */,
+				BC404C732C93E14B001BA269 /* LogMap */,
 				BC404C9B2C9418EE001BA269 /* Category */,
 				BC404C9A2C9418E3001BA269 /* Setting */,
 			);
@@ -301,7 +303,7 @@
 			children = (
 				BC404CA52C941F0E001BA269 /* LoglineCell.swift */,
 				BC404C8E2C941195001BA269 /* ToolbarButton.swift */,
-				BC404CA72C942170001BA269 /* ListHeaderView.swift */,
+				BC404CA72C942170001BA269 /* ListFooterView.swift */,
 				BC404CA92C94218C001BA269 /* FourCutPictureView.swift */,
 				BC404CAB2C942835001BA269 /* ToolBarNavigationLink.swift */,
 				BC404C902C94142D001BA269 /* ToolbarTitle.swift */,
@@ -313,6 +315,7 @@
 				BC692DFC2C9C482D00374032 /* InfinitePageView.swift */,
 				BC692E002C9C55F600374032 /* PhotoBannerView.swift */,
 				BC692E022C9C57F300374032 /* PhotoBannerItemView.swift */,
+				BC692E042C9D1A9E00374032 /* LoglineView.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -491,7 +494,7 @@
 			files = (
 				BC404CB02C942E43001BA269 /* SettingButton.swift in Sources */,
 				BC404CAA2C94218C001BA269 /* FourCutPictureView.swift in Sources */,
-				BC404C7A2C93E1F9001BA269 /* LoglineView.swift in Sources */,
+				BC404C7A2C93E1F9001BA269 /* LogMapView.swift in Sources */,
 				BC404CAE2C942D15001BA269 /* BackButton.swift in Sources */,
 				BC404C992C941829001BA269 /* NextViewWrapper.swift in Sources */,
 				BC404C8F2C941195001BA269 /* ToolbarButton.swift in Sources */,
@@ -506,12 +509,13 @@
 				BC404C932C94156E001BA269 /* IsPressedButtonStyle.swift in Sources */,
 				BC404CA42C941E0A001BA269 /* SettingView.swift in Sources */,
 				BC404C892C93FEA4001BA269 /* APIConstants.swift in Sources */,
+				BC692E052C9D1A9E00374032 /* LoglineView.swift in Sources */,
 				BC6417242C96EDF30013587A /* SideView.swift in Sources */,
 				BC404BCF2C9077FC001BA269 /* Log4DayApp.swift in Sources */,
 				BC404C972C9417A4001BA269 /* UIViewControllerWrapper.swift in Sources */,
 				BC404C762C93E1BF001BA269 /* MyLogView.swift in Sources */,
 				BC692E012C9C55F600374032 /* PhotoBannerView.swift in Sources */,
-				BC404CA82C942170001BA269 /* ListHeaderView.swift in Sources */,
+				BC404CA82C942170001BA269 /* ListFooterView.swift in Sources */,
 				BC6417262C96EE370013587A /* SidebarButton.swift in Sources */,
 				BC404C8D2C94094E001BA269 /* ViewModfiers.swift in Sources */,
 				BC692DFF2C9C495300374032 /* PhotoBannerViewModel.swift in Sources */,
