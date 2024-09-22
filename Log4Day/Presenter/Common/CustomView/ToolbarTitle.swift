@@ -18,7 +18,7 @@ struct ToolbarTitle: ToolbarContent {
             Text(text)
                 .frame(width: 80, height: 40)
                 .font(.headline)
-                .foregroundStyle(Resource.CIColor.highlightColor)
+                .foregroundStyle(Resource.ciColor.highlightColor)
         }
     }
     

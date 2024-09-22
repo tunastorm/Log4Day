@@ -11,8 +11,6 @@ struct NavigationWrapper<Content: View>: View {
     
     let content: Content
     
-//    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
     init(@ViewBuilder content: () -> Content) {
         self.content = content()
     }
@@ -23,31 +21,26 @@ struct NavigationWrapper<Content: View>: View {
                 content
             }
             .navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading: backButton())
+            .navigationBarItems(leading: backButton(), trailing: settingButton())
             .background(.white)
-            .tint(Resource.CIColor.highlightColor)
+            .tint(Resource.ciColor.highlightColor)
         } else {
             NavigationView {
                 content
             }
             .navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading: backButton())
+            .navigationBarItems(leading: backButton(), trailing: settingButton())
             .background(.white)
-            .tint((Resource.CIColor.highlightColor))
+            .tint((Resource.ciColor.highlightColor))
         }
     }
     
     private func backButton() -> some View {
         BackButton()
-//        Button {
-//            self.presentationMode.wrappedValue.dismiss()
-//        } label: {
-//            HStack {
-//                Image(systemName: "chevron.left")
-//                    .aspectRatio(contentMode: .fit)
-//            }
-//        }
-//        .foregroundStyle(.black)
+    }
+    
+    private func settingButton() -> some View {
+        SettingButton(inNavigationWrapper: true)
     }
     
 }

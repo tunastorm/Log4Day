@@ -6,13 +6,20 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct PlannerView: View {
+    
+    @ObservedResults(Log.self) var logList
     
     @State private var date = Date()
     
     @State private var showSide = false
     
+    @State private var showSheet = false
+    
+    @State private var selectedCategory = "전체"
+   
     var body: some View {
         GeometryReader { proxy in
             ZStack {
@@ -24,17 +31,23 @@ struct PlannerView: View {
                             }
                         }, label: {
                             Image(systemName: "tray")
+                                .font(.system(size: 20))
                         })
                     )
                     ScrollView {
-                        calendar()
-                        
+                        CalenderView(month: date, logList: $logList)
                     }
+                   
                 }
-                SideBarView(showSide: $showSide)
+                SideBarView()
             }
         }
+        .padding(.bottom, 130)
+        .task {
+            await queryWithCategory()
+        }
     }
+        
     
     private func calendar() -> some View {
         DatePicker("로그 캘린더", selection: $date, displayedComponents: [.date])
@@ -51,7 +64,15 @@ struct PlannerView: View {
         .background(.clear)
         .frame(maxWidth: .infinity)
         .padding()
+   }
+    
+    private func queryWithCategory() async {
+        if selectedCategory == "전체" {
+            return
+        }
+        $logList.filter = Log.Column.owner.query(search: selectedCategory, condition: .equals)
     }
+    
 }
 
 #Preview {

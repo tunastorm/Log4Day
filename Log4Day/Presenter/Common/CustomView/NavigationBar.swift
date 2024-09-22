@@ -25,18 +25,20 @@ struct NavigationBar<CustomButton: View>: View {
                 Text(title)
                     .frame(width: 80, height: 40)
                     .font(.headline)
-                    .foregroundStyle(Resource.CIColor.highlightColor)
+                    .foregroundStyle(Resource.ciColor.highlightColor)
                     .padding(.init(top: 0, leading: 10, bottom: 0, trailing: 0))
                 Spacer()
                 if let button {
                     button
                         .foregroundStyle(.black)
                         .buttonStyle(IsPressedButtonStyle(normalColor: normalColor, pressedColor: .gray))
+                        .padding(.trailing, 5)
                 }
-                SettingButton()
+                SettingButton(inNavigationWrapper: false)
                     .padding(.trailing)
             }
             .frame(width: UIScreen.main.bounds.width)
+            .padding(.top, 2)
         }
     }
 }

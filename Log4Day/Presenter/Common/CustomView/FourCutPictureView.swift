@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftUIX
 
 struct FourCutPictureView: View {
 
@@ -35,12 +36,19 @@ struct FourCutPictureView: View {
     private func backgroundView() -> some View {
 //        let isLastToFirst = index == 1 && currentIndex == lastCell + 1
 //        let isFirstToLast = index == lastCell && currentIndex == 0
-        return Rectangle()
-            .fill(.white)
-            .frame(width: backgroundWidthHeight.0, height: backgroundWidthHeight.1)
+        VisualEffectBlurView(blurStyle: .systemChromeMaterial, vibrancyStyle: .fill) {
+           
+        }
+        .frame(width: backgroundWidthHeight.0 , height: backgroundWidthHeight.1)
+        .overlay(RoundedRectangle(cornerRadius: 0, style: .continuous).stroke(lineWidth: 1).fill(Color.white))
+        .shadow(color: Color.black.opacity(0.3), radius: 4, x: 2, y: 4)
+        .padding()
+        .blendMode(.luminosity)
+//        return Rectangle()
+//            .fill(.white)
+//            .frame(width: backgroundWidthHeight.0, height: backgroundWidthHeight.1)
         
 //            .frame(width: backgroundWidthHeight.0, height: (index == currentIndex || (isFirstToLast || isLastToFirst)) ? backgroundWidthHeight.1 : backgroundWidthHeight.1 * 0.7)
-            .shadow(radius: 4)
     }
     
     private func contentsView() -> some View {

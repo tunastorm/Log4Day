@@ -6,11 +6,12 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 
-struct InfinityCarouselView<Data: Identifiable, Content: View>: View {
+struct InfinityCarouselView<Data: Object, Content: View>: View {
     
-    private let data: [Data]
+    private let data: Results<Data>
     private let edgeSpacing: CGFloat
     private let contentSpacing: CGFloat
     private let totalSpacing: CGFloat
@@ -22,7 +23,7 @@ struct InfinityCarouselView<Data: Identifiable, Content: View>: View {
     @State private var currentIndex: CGFloat = 1
    
     public init(
-        data: [Data],
+        data: Results<Data>,
         edgeSpacing: CGFloat,
         contentSpacing: CGFloat,
         totalSpacing: CGFloat,
@@ -51,24 +52,36 @@ struct InfinityCarouselView<Data: Identifiable, Content: View>: View {
                 let total: CGFloat = geometry.size.width + totalSpacing * 2
                 let contentWidth = total - (edgeSpacing * 2) - (2 * contentSpacing)
                 let nextOffset = contentWidth + contentSpacing
-                // LazyHStack으로 자연스러운 애니메이션 어떻게 해야하지....
-                HStack(spacing: contentSpacing) {
-                    configContentView(contentView: zeroContent(0,$currentIndex, lastCell),
-                                      contentWidth: contentWidth,
-                                      nextOffset: nextOffset, index: 0)
-                   
-                    ForEach(0..<data.count, id: \.self) { index in
-                        let view = carouselContent(data[index],CGFloat(index+1),$currentIndex, lastCell)
-                        configContentView(contentView: view,
+                
+                if data.isEmpty {
+                    HStack(alignment: .center) {
+                        Spacer()
+                        configContentView(contentView: zeroContent(0,$currentIndex, lastCell),
                                           contentWidth: contentWidth,
-                                          nextOffset: nextOffset, index: CGFloat(index + 1))
+                                          nextOffset: nextOffset, index: 0)
+                        Spacer()
                     }
-                    
-                    configContentView(contentView: overContent(CGFloat(lastCell + 1), $currentIndex, lastCell),
-                                      contentWidth: contentWidth,
-                                      nextOffset: nextOffset, index: CGFloat(lastCell + 1))
+                } else {
+                    HStack(spacing: contentSpacing) {
+                        configContentView(contentView: zeroContent(0,$currentIndex, lastCell),
+                                          contentWidth: contentWidth,
+                                          nextOffset: nextOffset, index: 0)
+                       
+                        ForEach(0..<data.count, id: \.self) { index in
+                            let view = carouselContent(data[index],CGFloat(index+1),$currentIndex, lastCell)
+                            configContentView(contentView: view,
+                                              contentWidth: contentWidth,
+                                              nextOffset: nextOffset, index: CGFloat(index + 1))
+                        }
+                        
+                        configContentView(contentView: overContent(CGFloat(lastCell + 1), $currentIndex, lastCell),
+                                          contentWidth: contentWidth,
+                                          nextOffset: nextOffset, index: CGFloat(lastCell + 1))
+                    }
+                    .offset(x: currentOffset + (currentIndex > 0 ? baseOffset : 0))
                 }
-                .offset(x: currentOffset + (currentIndex > 0 ? baseOffset : 0))
+                // LazyHStack으로 자연스러운 애니메이션 어떻게 해야하지....
+               
             }
         }
        .padding(.horizontal, totalSpacing)

@@ -10,10 +10,22 @@ import SwiftUI
 
 enum Resource {
     
-    enum CIColor {
-        static let highlightColor = Color.mint.opacity(0.75)
-        
+    static let todayComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date())
+    
+    static let ciColor = CIColor()
+
+}
+
+struct CIColor {
+    @Environment(\.colorScheme) var colorScheme
+    let highlightColor = Color.mint.opacity(0.75)
+    var topUnderlineColor: Color {
+        colorScheme == .dark ? .white.opacity(0.5) : .black.opacity(0.5)
     }
-    
-    
+    var contentColor: Color {
+        colorScheme == .dark ? .white : .black
+    }
+    var subContentColor: Color {
+        colorScheme == .dark ? .white.opacity(0.5) : .black.opacity(0.25)
+    }
 }

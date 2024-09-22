@@ -33,15 +33,18 @@ struct LoglineView: View {
     private func loglineList() -> some View {
         LazyVStack {
             ForEach(0..<100) { index in
-                LoglineCell(index: index)
+                NavigationLink {
+                    NextViewWrapper(LogDetail())
+                } label: {
+                    LoglineCell(index: index)
+                }
             }
         }
         .background(.clear)
         .frame(maxWidth: .infinity)
         .padding()
     }
-    
-    
+
 }
 
 struct TopTabbar: View {
@@ -74,7 +77,7 @@ struct TopTabbar: View {
                             .padding(.horizontal)
                         if selectedPicker == item {
                             Capsule()
-                                .foregroundColor(Resource.CIColor.highlightColor)
+                                .foregroundColor(Resource.ciColor.highlightColor)
                                 .frame(height: 3)
                                 .matchedGeometryEffect(id: "info", in: animation)
                                 .padding(.horizontal)

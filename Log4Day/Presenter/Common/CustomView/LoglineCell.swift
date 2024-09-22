@@ -46,7 +46,7 @@ struct LoglineCell: View {
         Text("\(index)")
             .foregroundStyle(.white)
             .frame(width: 40, height: 40)
-            .background(index % 3 == 0 ? Resource.CIColor.highlightColor : baseColor)
+            .background(index % 3 == 0 ? Resource.ciColor.highlightColor : baseColor)
             .clipShape(Circle())
     }
     

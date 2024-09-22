@@ -57,7 +57,7 @@ struct SettingCell: View {
                     Text(text)
                         .font(.title3)
                 })
-                .buttonStyle(IsPressedButtonStyle(normalColor: .black, pressedColor: Resource.CIColor.highlightColor))
+                .buttonStyle(IsPressedButtonStyle(normalColor: .black, pressedColor: Resource.ciColor.highlightColor))
                 .padding()
             }
             

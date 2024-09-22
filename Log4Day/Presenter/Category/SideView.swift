@@ -6,35 +6,16 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct SideView: View {
-
-    @Binding var isShow: Bool
-     
+    
+    @EnvironmentObject private var viewModel: CategoryViewModel
     @Namespace var namespace
-    
-    @Environment(\.colorScheme) private var colorScheme
-    
-    @Binding var selectedTitle: String
-    
-    @Binding var categoryList: [String]
-    
-    @State var deleteAlert: Bool = false
-    
-    @State var addAlert: Bool = false
-    
-    private var baseColor: Color {
-        colorScheme == .dark ? .white.opacity(0.5) : .black.opacity(0.25)
-    }
-    
-    private var normalColor: Color {
-        colorScheme == .dark ? .white : .black
-    }
     
     var body: some View {
         ZStack(alignment: .leading) {
             Color.white
-//                .shadow(radius:4, x: 4, y: 8)
             VStack {
                 titleView()
                 Spacer()
@@ -43,7 +24,7 @@ struct SideView: View {
         }
         .frame(width: 240)
         .frame(maxHeight: .infinity)
-        .offset(x: isShow ? 0 : -248)
+        .offset(x: viewModel.output.showSide ? 0 : -248)
     }
     
     private func titleView() -> some View {
@@ -51,32 +32,33 @@ struct SideView: View {
             HStack {
                 Text("카테고리")
                     .font(.headline)
-                    .foregroundColor(Resource.CIColor.highlightColor)
+                    .foregroundColor(Resource.ciColor.highlightColor)
                 Spacer()
                 Button {
                     withAnimation {
-                        isShow = false
+                        viewModel.action(.sideBarButtonTapped)
                     }
                 } label: {
                     Image(systemName: "xmark")
                 }
                 .padding(.trailing)
-                .foregroundStyle(normalColor)
+                .foregroundStyle(Resource.ciColor.contentColor)
             }
             .padding(.leading)
             .padding(.top)
             Rectangle()
                 .frame(height: 1)
                 .frame(maxWidth: .infinity)
-                .foregroundStyle(baseColor)
+                .foregroundStyle(Resource.ciColor.subContentColor)
         }
     }
     
     private func categoryListView() -> some View {
         ScrollView {
-            ForEach(categoryList, id: \.self) { item in
+            ForEach(viewModel.output.categoryList, id: \.id) { item in
                 HStack {
-                    SidebarButton(selectedTitle: $selectedTitle, title: item, namespace: namespace)
+                    SidebarButton(title: item.title, namespace: namespace)
+                        .environmentObject(viewModel)
                 }
             }
         }
@@ -86,12 +68,12 @@ struct SideView: View {
     private func buttonView() -> some View {
         HStack {
             Button {
-                deleteAlert.toggle()
+                viewModel.action(.deleteTapped)
             } label: {
                 Text("삭제하기")
             }
             .padding(.horizontal)
-            .alert(LocalizedStringKey("삭제"), isPresented: $deleteAlert) {
+            .alert(LocalizedStringKey("삭제"), isPresented: $viewModel.output.deleteAlert) {
                 Text("삭제")
                 Text("취소")
             }
@@ -99,14 +81,14 @@ struct SideView: View {
                 .frame(width: 1)
                 .frame(maxHeight: .infinity)
                 .padding(.init(top: 10, leading: 0, bottom: 10, trailing: 0))
-                .foregroundStyle(baseColor)
+                .foregroundStyle(Resource.ciColor.subContentColor)
             Button {
-                addAlert.toggle()
+                viewModel.action(.addTapped)
             } label: {
                 Text("추가하기")
             }
             .padding(.horizontal)
-            .alert(LocalizedStringKey("추가"), isPresented: $addAlert) {
+            .alert(LocalizedStringKey("추가"), isPresented: $viewModel.output.addAlert) {
                 Text("추가")
                 Text("취소")
             }

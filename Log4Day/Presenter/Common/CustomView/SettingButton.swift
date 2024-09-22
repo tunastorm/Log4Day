@@ -11,6 +11,8 @@ struct SettingButton: View {
     
     @Environment(\.colorScheme) private var colorScheme
     
+    var inNavigationWrapper: Bool
+    
     private var normalColor: Color {
         colorScheme == .dark ? .white.opacity(0.75) : .black
     }
@@ -64,6 +66,9 @@ struct SettingButton: View {
             }
         } label: {
             Image(systemName: "line.3.horizontal")
+                .font(.system(size: inNavigationWrapper ?  15.5 : 20))
+//                .frame(width: 30, height: 15)
+//                .font(.system(size: 30))
         }
         .foregroundStyle(normalColor)
         

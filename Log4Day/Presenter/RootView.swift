@@ -9,13 +9,7 @@ import SwiftUI
 
 struct RootView: View {
     
-//    @Environment(\.colorScheme) var colorScheme
-    
     @State private var selection = 0
-    
-//    private var backgroundColor: UIColor {
-//        colorScheme == .dark ? .black : .white
-//    }
     
     init() {
         let navBarAppearance = UINavigationBarAppearance()
@@ -44,14 +38,14 @@ struct RootView: View {
                         Text("MyLog")
                     }
                     .tag(0)
-                PlannerView()
-                    .tabItem {
-                        Image(systemName: selection == 1 ?
-                              "calendar.badge.plus" : "calendar")
-                            .renderingMode(.template)
-                        Text("Planner")
-                    }
-                    .tag(1)
+//                PlannerView()
+//                    .tabItem {
+//                        Image(systemName: selection == 1 ?
+//                              "calendar.badge.plus" : "calendar")
+//                            .renderingMode(.template)
+//                        Text("Planner")
+//                    }
+//                    .tag(1)
                 LogMapView()
                     .tabItem {
                         Image(systemName:  selection == 2 ?
@@ -59,10 +53,10 @@ struct RootView: View {
                             .renderingMode(.template)
                         Text("LogMap")
                     }
-                    .tag(2)
+                    .tag(1)
             }
             .font(.headline)
-            .tint(Resource.CIColor.highlightColor)
+            .tint(Resource.ciColor.highlightColor)
         }
 
     }

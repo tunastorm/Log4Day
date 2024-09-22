@@ -1,20 +1,24 @@
 PODS:
+  - FSCalendar (2.8.4)
   - NMapsGeometry (1.0.2)
   - NMapsMap (3.19.0):
     - NMapsGeometry
 
 DEPENDENCIES:
+  - FSCalendar
   - NMapsMap
 
 SPEC REPOS:
   trunk:
+    - FSCalendar
     - NMapsGeometry
     - NMapsMap
 
 SPEC CHECKSUMS:
+  FSCalendar: 2d1d0d9398f12d439f55c1fe0f01525b151b8260
   NMapsGeometry: 4e02554fa9880ef02ed96b075dc84355d6352479
   NMapsMap: 99c10429d93340780b6f88d3fc7c0a3850b43664
 
-PODFILE CHECKSUM: 62b20af3063fc33b538c88af9a1a9dc9c9bccb8b
+PODFILE CHECKSUM: aca1c95dd3f674676080771e963843d3d85bf92a
 
 COCOAPODS: 1.15.2
