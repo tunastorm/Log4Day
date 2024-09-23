@@ -10,6 +10,8 @@ import CoreLocation
 
 struct LogMapView: View {
     
+    @StateObject private var categoryViewModel = CategoryViewModel()
+    
     @State private var selectedCategory = "전체"
     
     @State private var showSide = false
@@ -34,26 +36,22 @@ struct LogMapView: View {
                                 .font(.system(size: 20))
                         })
                     )
-                    if showMapView {
-                        LogMapMapView(coord: $coord)
-                            .padding(.bottom, 130)
-                    }
+                    LogMapMapView(coord: $coord)
+                        .padding(.bottom, 130)
                 }
                 SideBarView()
+                    .environmentObject(categoryViewModel)
             }
         }
         .task {
             await startTask()
-        }
-        .onAppear {
-            setHereLocation()
         }
     }
     
     private func timeline() -> some View {
         LazyVStack {
             ForEach(0..<100) { index in
-                LoglineCell(index: index)
+//                TimelineCell(index: index)
             }
         }
         .background(.clear)
@@ -71,7 +69,7 @@ struct LogMapView: View {
         if authorizationStatus == .denied {
             // 앱 설정화면으로 이동
             print("위치 사용 권한: 거부")
-            DispatchQueue.main.async {
+            DispatchQueue.main.sync {
                 UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
             }
         }
@@ -89,11 +87,17 @@ struct LogMapView: View {
         else if authorizationStatus == .authorizedWhenInUse {
             print("위치 사용 권한: 앱 사용 시 허용")
         }
+        
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
+
+        DispatchQueue.main.async {
+            print("setHereLocation")
+            setHereLocation()
+        }
     }
     
     private func setHereLocation() {
-        guard let coordinate = locationManager.location?.coordinate else {
+        guard let coordinate = CLLocationManager().location?.coordinate else {
             print("위경도 정보 없음")
             return
         }

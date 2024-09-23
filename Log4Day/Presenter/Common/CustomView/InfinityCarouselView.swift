@@ -11,6 +11,8 @@ import RealmSwift
 
 struct InfinityCarouselView<Data: Object, Content: View>: View {
     
+    @EnvironmentObject var viewModel: CategoryViewModel
+    
     private let data: Results<Data>
     private let edgeSpacing: CGFloat
     private let contentSpacing: CGFloat
@@ -45,20 +47,27 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
     }
     
     public var body: some View {
-        VStack {
+        return VStack {
             GeometryReader { geometry in
                 let lastCell = CGFloat(data.count)
                 let baseOffset = contentSpacing + edgeSpacing - totalSpacing
                 let total: CGFloat = geometry.size.width + totalSpacing * 2
                 let contentWidth = total - (edgeSpacing * 2) - (2 * contentSpacing)
                 let nextOffset = contentWidth + contentSpacing
-                
-                if data.isEmpty {
+               
+                if data.count <= 1 {
                     HStack(alignment: .center) {
                         Spacer()
-                        configContentView(contentView: zeroContent(0,$currentIndex, lastCell),
-                                          contentWidth: contentWidth,
-                                          nextOffset: nextOffset, index: 0)
+                        if data.isEmpty {
+                            configContentView(contentView: zeroContent(0,$currentIndex, lastCell),
+                                              contentWidth: contentWidth,
+                                              nextOffset: nextOffset, index: 0)
+                        } else {
+                            let view = carouselContent(data[0], CGFloat(0), $currentIndex, lastCell)
+                            configContentView(contentView: view,
+                                              contentWidth: contentWidth,
+                                              nextOffset: nextOffset, index: CGFloat(0))
+                        }
                         Spacer()
                     }
                 } else {
@@ -80,8 +89,6 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
                     }
                     .offset(x: currentOffset + (currentIndex > 0 ? baseOffset : 0))
                 }
-                // LazyHStack으로 자연스러운 애니메이션 어떻게 해야하지....
-               
             }
         }
        .padding(.horizontal, totalSpacing)
@@ -102,20 +109,13 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
                         }
                         currentOffset = -currentIndex * nextOffset
                     }
+                    
+                    // infinty Scroll
                     if currentIndex > CGFloat(data.count) {
                         currentOffset = -1 * nextOffset
-//                        withAnimation {
-//                            currentIndex = 1
-//                        }
-//                        return
                     } else if currentIndex < 1 {
                         currentOffset = -CGFloat(data.count) * nextOffset
-//                        withAnimation {
-//                            currentIndex = CGFloat(data.count)
-//                        }
-//                        return
                     }
-                    // infinty Scroll
                     withAnimation{
                         if currentIndex < 1 {
                             currentIndex = CGFloat(data.count)
@@ -123,7 +123,18 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
                             currentIndex = 1
                         }
                     }
+                    fetchLogDate()
                 }
         )
+    }
+    
+    private func fetchLogDate() {
+        print(#function, "logList:", data.count)
+        print(#function, "currentIndex:", currentIndex)
+        guard let nowLog = data[Int(currentIndex-1)] as? Log else {
+            return
+        }
+        viewModel.input.nowLogDate = DateFormatManager.shared.dateToFormattedString(date: nowLog.startDate, format: .dotSeparatedyyyyMMddDay)
+        viewModel.action(.fetchLogDate(isInitial: false))
     }
 }

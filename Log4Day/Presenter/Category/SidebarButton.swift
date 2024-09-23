@@ -23,7 +23,10 @@ struct SidebarButton: View {
             withAnimation(.spring()) {
                 viewModel.input.selectedCategory = title
                 viewModel.action(.changeTapped)
-                viewModel.action(.fetchFilteredList)
+                viewModel.action(.fetchCategorizedList)
+                viewModel.action(.fetchFirstLastDate)
+                viewModel.action(.fetchLogDate(isInitial: true))
+                viewModel.action(.tapBarChanged(info: .timeline))
             }
         }) {
             HStack(spacing: 20){
@@ -43,14 +46,10 @@ struct SidebarButton: View {
                     ZStack(alignment: .bottom) {
                         if viewModel.output.category == title {
                             Resource.ciColor.highlightColor
-                            //                    Color(hue: 0.5, saturation: 0.6, brightness: 0.046)
                             // 선택된 뷰에 배경
                                 .opacity(viewModel.output.category == title ? 1 : 0)
-                            // CustomCorners
-                            //                    .clipShape(RoundedCorner(radius: 12, corners: [.topRight, .bottomRight]))
                             // id별 궤적 생성 애니메이션
                                 .matchedGeometryEffect(id: "TapEffect", in: namespace)
-                            
                         } else {
                             Resource.ciColor.subContentColor
                         }

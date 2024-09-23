@@ -55,7 +55,7 @@ struct LogDetail: View {
     private func timelineList() -> some View {
         LazyVStack {
             ForEach(0..<100) { index in
-                LoglineCell(index: index)
+//                TimelineCell(index: index)
             }
         }
         .background(.clear)

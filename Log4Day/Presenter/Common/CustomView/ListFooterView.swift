@@ -22,7 +22,7 @@ struct ListFooterView: View {
     var body: some View {
         HStack {
             Text("Since: ")
-                .font(.caption)
+                .font(.footnote)
                 .foregroundStyle(baseColor)
             Text(text)
                 .font(font)

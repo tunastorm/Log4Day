@@ -55,11 +55,14 @@ struct SideView: View {
     
     private func categoryListView() -> some View {
         ScrollView {
+            SidebarButton(title: "전체", namespace: namespace)
+                .environmentObject(viewModel)
             ForEach(viewModel.output.categoryList, id: \.id) { item in
-                HStack {
-                    SidebarButton(title: item.title, namespace: namespace)
-                        .environmentObject(viewModel)
-                }
+                SidebarButton(title: item.title, namespace: namespace)
+                    .environmentObject(viewModel)
+//                HStack {
+//                    
+//                }
             }
         }
         .padding(.init(top: 0, leading: 0, bottom: 140, trailing: 0))

@@ -30,7 +30,7 @@
 		BC404C972C9417A4001BA269 /* UIViewControllerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C962C9417A4001BA269 /* UIViewControllerWrapper.swift */; };
 		BC404C992C941829001BA269 /* NextViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C982C941829001BA269 /* NextViewWrapper.swift */; };
 		BC404CA42C941E0A001BA269 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CA32C941E0A001BA269 /* SettingView.swift */; };
-		BC404CA62C941F0E001BA269 /* LoglineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CA52C941F0E001BA269 /* LoglineCell.swift */; };
+		BC404CA62C941F0E001BA269 /* TimelineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CA52C941F0E001BA269 /* TimelineCell.swift */; };
 		BC404CA82C942170001BA269 /* ListFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CA72C942170001BA269 /* ListFooterView.swift */; };
 		BC404CAA2C94218C001BA269 /* FourCutPictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CA92C94218C001BA269 /* FourCutPictureView.swift */; };
 		BC404CAC2C942835001BA269 /* ToolBarNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CAB2C942835001BA269 /* ToolBarNavigationLink.swift */; };
@@ -45,7 +45,7 @@
 		BC4DFDD62C9D67A7002CDC27 /* LogDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4DFDD52C9D67A7002CDC27 /* LogDetail.swift */; };
 		BC4DFDD82C9D8900002CDC27 /* UIMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4DFDD72C9D88FF002CDC27 /* UIMapView.swift */; };
 		BC4DFDDD2C9D98D0002CDC27 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4DFDDC2C9D98D0002CDC27 /* LocationManager.swift */; };
-		BC4DFDDF2C9E8F81002CDC27 /* TimelineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4DFDDE2C9E8F81002CDC27 /* TimelineCell.swift */; };
+		BC4DFDDF2C9E8F81002CDC27 /* TimelineCellDummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4DFDDE2C9E8F81002CDC27 /* TimelineCellDummy.swift */; };
 		BC4DFDE12C9EA20B002CDC27 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4DFDE02C9EA20B002CDC27 /* CalendarView.swift */; };
 		BC4DFDE52C9EBB21002CDC27 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4DFDE42C9EBB21002CDC27 /* Repository.swift */; };
 		BC4DFDE72C9EBC24002CDC27 /* ManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4DFDE62C9EBC24002CDC27 /* ManagedObject.swift */; };
@@ -64,7 +64,7 @@
 		BC692DFF2C9C495300374032 /* PhotoBannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC692DFE2C9C495300374032 /* PhotoBannerViewModel.swift */; };
 		BC692E012C9C55F600374032 /* PhotoBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC692E002C9C55F600374032 /* PhotoBannerView.swift */; };
 		BC692E032C9C57F300374032 /* PhotoBannerItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC692E022C9C57F300374032 /* PhotoBannerItemView.swift */; };
-		BC692E052C9D1A9E00374032 /* LoglineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC692E042C9D1A9E00374032 /* LoglineView.swift */; };
+		BC692E052C9D1A9E00374032 /* TapBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC692E042C9D1A9E00374032 /* TapBarView.swift */; };
 		BC8007AB2C9D4A0300D62778 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8007AA2C9D4A0300D62778 /* NavigationBar.swift */; };
 		BC8007AD2C9D4E3F00D62778 /* SideBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8007AC2C9D4E3F00D62778 /* SideBarView.swift */; };
 		BCE2A0EB2C9FDC430045D01B /* PlannerSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE2A0EA2C9FDC430045D01B /* PlannerSheetView.swift */; };
@@ -135,7 +135,7 @@
 		BC404C962C9417A4001BA269 /* UIViewControllerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerWrapper.swift; sourceTree = "<group>"; };
 		BC404C982C941829001BA269 /* NextViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextViewWrapper.swift; sourceTree = "<group>"; };
 		BC404CA32C941E0A001BA269 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
-		BC404CA52C941F0E001BA269 /* LoglineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoglineCell.swift; sourceTree = "<group>"; };
+		BC404CA52C941F0E001BA269 /* TimelineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TimelineCell.swift; path = ../../Common/CustomView/TimelineCell.swift; sourceTree = "<group>"; };
 		BC404CA72C942170001BA269 /* ListFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFooterView.swift; sourceTree = "<group>"; };
 		BC404CA92C94218C001BA269 /* FourCutPictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourCutPictureView.swift; sourceTree = "<group>"; };
 		BC404CAB2C942835001BA269 /* ToolBarNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolBarNavigationLink.swift; sourceTree = "<group>"; };
@@ -148,7 +148,7 @@
 		BC4DFDD52C9D67A7002CDC27 /* LogDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDetail.swift; sourceTree = "<group>"; };
 		BC4DFDD72C9D88FF002CDC27 /* UIMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIMapView.swift; sourceTree = "<group>"; };
 		BC4DFDDC2C9D98D0002CDC27 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
-		BC4DFDDE2C9E8F81002CDC27 /* TimelineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineCell.swift; sourceTree = "<group>"; };
+		BC4DFDDE2C9E8F81002CDC27 /* TimelineCellDummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineCellDummy.swift; sourceTree = "<group>"; };
 		BC4DFDE02C9EA20B002CDC27 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		BC4DFDE42C9EBB21002CDC27 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		BC4DFDE62C9EBC24002CDC27 /* ManagedObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedObject.swift; sourceTree = "<group>"; };
@@ -167,7 +167,7 @@
 		BC692DFE2C9C495300374032 /* PhotoBannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoBannerViewModel.swift; sourceTree = "<group>"; };
 		BC692E002C9C55F600374032 /* PhotoBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoBannerView.swift; sourceTree = "<group>"; };
 		BC692E022C9C57F300374032 /* PhotoBannerItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoBannerItemView.swift; sourceTree = "<group>"; };
-		BC692E042C9D1A9E00374032 /* LoglineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoglineView.swift; sourceTree = "<group>"; };
+		BC692E042C9D1A9E00374032 /* TapBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapBarView.swift; sourceTree = "<group>"; };
 		BC8007AA2C9D4A0300D62778 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		BC8007AC2C9D4E3F00D62778 /* SideBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarView.swift; sourceTree = "<group>"; };
 		BCE2A0EA2C9FDC430045D01B /* PlannerSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerSheetView.swift; sourceTree = "<group>"; };
@@ -414,8 +414,6 @@
 		BC404C8B2C940934001BA269 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
-				BC404CA52C941F0E001BA269 /* LoglineCell.swift */,
-				BC4DFDDE2C9E8F81002CDC27 /* TimelineCell.swift */,
 				BC404C8E2C941195001BA269 /* ToolbarButton.swift */,
 				BC404CA72C942170001BA269 /* ListFooterView.swift */,
 				BC404CA92C94218C001BA269 /* FourCutPictureView.swift */,
@@ -427,9 +425,8 @@
 				BC692DFC2C9C482D00374032 /* InfinitePageView.swift */,
 				BC692E002C9C55F600374032 /* PhotoBannerView.swift */,
 				BC692E022C9C57F300374032 /* PhotoBannerItemView.swift */,
-				BC692E042C9D1A9E00374032 /* LoglineView.swift */,
-				BC8007AA2C9D4A0300D62778 /* NavigationBar.swift */,
 				BC4DFDCA2C9D5C22002CDC27 /* MapView.swift */,
+				BC8007AA2C9D4A0300D62778 /* NavigationBar.swift */,
 				BC4DFDE02C9EA20B002CDC27 /* CalendarView.swift */,
 				BC4DFDF12C9EF933002CDC27 /* FSCalanderView.swift */,
 			);
@@ -528,6 +525,9 @@
 			isa = PBXGroup;
 			children = (
 				BC404C752C93E1BF001BA269 /* MyLogView.swift */,
+				BC692E042C9D1A9E00374032 /* TapBarView.swift */,
+				BC404CA52C941F0E001BA269 /* TimelineCell.swift */,
+				BC4DFDDE2C9E8F81002CDC27 /* TimelineCellDummy.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -812,13 +812,13 @@
 				BC692DFD2C9C482D00374032 /* InfinitePageView.swift in Sources */,
 				BC404CBA2C94B0A5001BA269 /* Resource.swift in Sources */,
 				BC404C7D2C93F04D001BA269 /* NavigationWrapper.swift in Sources */,
-				BC404CA62C941F0E001BA269 /* LoglineCell.swift in Sources */,
+				BC404CA62C941F0E001BA269 /* TimelineCell.swift in Sources */,
 				BC4DFDE92C9EBC39002CDC27 /* RepositoryResult.swift in Sources */,
 				BC404C932C94156E001BA269 /* IsPressedButtonStyle.swift in Sources */,
 				BC404CA42C941E0A001BA269 /* SettingView.swift in Sources */,
 				BC404C892C93FEA4001BA269 /* APIConstants.swift in Sources */,
 				BC4DFDE12C9EA20B002CDC27 /* CalendarView.swift in Sources */,
-				BC692E052C9D1A9E00374032 /* LoglineView.swift in Sources */,
+				BC692E052C9D1A9E00374032 /* TapBarView.swift in Sources */,
 				BC4DFDF22C9EF933002CDC27 /* FSCalanderView.swift in Sources */,
 				BC4DFDE72C9EBC24002CDC27 /* ManagedObject.swift in Sources */,
 				BC6417242C96EDF30013587A /* SideView.swift in Sources */,
@@ -838,7 +838,7 @@
 				BC404C782C93E1EF001BA269 /* PlannerView.swift in Sources */,
 				BCE2A0EB2C9FDC430045D01B /* PlannerSheetView.swift in Sources */,
 				BC404CB82C9468DE001BA269 /* InfinityCarouselView.swift in Sources */,
-				BC4DFDDF2C9E8F81002CDC27 /* TimelineCell.swift in Sources */,
+				BC4DFDDF2C9E8F81002CDC27 /* TimelineCellDummy.swift in Sources */,
 				BC404CAC2C942835001BA269 /* ToolBarNavigationLink.swift in Sources */,
 				BC4DFDF02C9EBE61002CDC27 /* Category.swift in Sources */,
 			);

@@ -19,6 +19,9 @@ enum Resource {
 struct CIColor {
     @Environment(\.colorScheme) var colorScheme
     let highlightColor = Color.mint.opacity(0.75)
+    var backgroundColor: Color {
+        colorScheme == .dark ? .black : .white
+    }
     var topUnderlineColor: Color {
         colorScheme == .dark ? .white.opacity(0.5) : .black.opacity(0.5)
     }
