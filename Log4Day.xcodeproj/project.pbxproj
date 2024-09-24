@@ -18,6 +18,12 @@
 		BC395B562CA325700005FC9D /* AddLogPlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B552CA325700005FC9D /* AddLogPlaceCell.swift */; };
 		BC395B5B2CA32CA80005FC9D /* SearchPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B5A2CA32CA80005FC9D /* SearchPlaceView.swift */; };
 		BC395B5D2CA32FDF0005FC9D /* SearchPlaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B5C2CA32FDF0005FC9D /* SearchPlaceViewModel.swift */; };
+		BC395B612CA336000005FC9D /* SearchedPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B602CA336000005FC9D /* SearchedPlace.swift */; };
+		BC395B632CA3384F0005FC9D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B622CA3384F0005FC9D /* NetworkManager.swift */; };
+		BC395B652CA338630005FC9D /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B642CA338630005FC9D /* NetworkClient.swift */; };
+		BC395B672CA338750005FC9D /* NetworkRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B662CA338750005FC9D /* NetworkRouter.swift */; };
+		BC395B6A2CA3392C0005FC9D /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = BC395B692CA3392C0005FC9D /* Alamofire */; };
+		BC395B6D2CA3399C0005FC9D /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B6C2CA3399C0005FC9D /* NetworkError.swift */; };
 		BC404BCF2C9077FC001BA269 /* Log4DayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404BCE2C9077FC001BA269 /* Log4DayApp.swift */; };
 		BC404BD12C9077FC001BA269 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404BD02C9077FC001BA269 /* RootView.swift */; };
 		BC404BD32C9077FD001BA269 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC404BD22C9077FD001BA269 /* Assets.xcassets */; };
@@ -124,6 +130,11 @@
 		BC395B552CA325700005FC9D /* AddLogPlaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLogPlaceCell.swift; sourceTree = "<group>"; };
 		BC395B5A2CA32CA80005FC9D /* SearchPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceView.swift; sourceTree = "<group>"; };
 		BC395B5C2CA32FDF0005FC9D /* SearchPlaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceViewModel.swift; sourceTree = "<group>"; };
+		BC395B602CA336000005FC9D /* SearchedPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedPlace.swift; sourceTree = "<group>"; };
+		BC395B622CA3384F0005FC9D /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		BC395B642CA338630005FC9D /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
+		BC395B662CA338750005FC9D /* NetworkRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRouter.swift; sourceTree = "<group>"; };
+		BC395B6C2CA3399C0005FC9D /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		BC404BCB2C9077FC001BA269 /* Log4Day.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Log4Day.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC404BCE2C9077FC001BA269 /* Log4DayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log4DayApp.swift; sourceTree = "<group>"; };
 		BC404BD02C9077FC001BA269 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -192,6 +203,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC395B6A2CA3392C0005FC9D /* Alamofire in Frameworks */,
 				BC4DFDD32C9D64F5002CDC27 /* SwiftUIX in Frameworks */,
 				BC395B4E2CA2DE480005FC9D /* BottomSheet in Frameworks */,
 				BC4DFDCE2C9D6105002CDC27 /* RealmSwift in Frameworks */,
@@ -334,6 +346,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		BC395B6B2CA339830005FC9D /* Status */ = {
+			isa = PBXGroup;
+			children = (
+				BC395B6C2CA3399C0005FC9D /* NetworkError.swift */,
+			);
+			path = Status;
+			sourceTree = "<group>";
+		};
 		BC404BC22C9077FC001BA269 = {
 			isa = PBXGroup;
 			children = (
@@ -459,9 +479,10 @@
 		BC404C7E2C93F96D001BA269 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				BC395B6B2CA339830005FC9D /* Status */,
 				BC404C822C93F9A3001BA269 /* Resource */,
 				BC404C812C93F99C001BA269 /* Model */,
-				BC404C832C93F9A9001BA269 /* Router */,
+				BC404C832C93F9A9001BA269 /* Manager */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -490,6 +511,7 @@
 		BC404C812C93F99C001BA269 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				BC395B602CA336000005FC9D /* SearchedPlace.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -503,11 +525,14 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		BC404C832C93F9A9001BA269 /* Router */ = {
+		BC404C832C93F9A9001BA269 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				BC395B622CA3384F0005FC9D /* NetworkManager.swift */,
+				BC395B642CA338630005FC9D /* NetworkClient.swift */,
+				BC395B662CA338750005FC9D /* NetworkRouter.swift */,
 			);
-			path = Router;
+			path = Manager;
 			sourceTree = "<group>";
 		};
 		BC404C8A2C94092D001BA269 /* CustomModifier */ = {
@@ -666,6 +691,7 @@
 				BC4DFDCD2C9D6105002CDC27 /* RealmSwift */,
 				BC4DFDD22C9D64F5002CDC27 /* SwiftUIX */,
 				BC395B4D2CA2DE480005FC9D /* BottomSheet */,
+				BC395B692CA3392C0005FC9D /* Alamofire */,
 			);
 			productName = Log4Day;
 			productReference = BC404BCB2C9077FC001BA269 /* Log4Day.app */;
@@ -746,6 +772,7 @@
 				BC4DFDCC2C9D6105002CDC27 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				BC4DFDD12C9D64F5002CDC27 /* XCRemoteSwiftPackageReference "SwiftUIX" */,
 				BC395B4C2CA2DE480005FC9D /* XCRemoteSwiftPackageReference "BottomSheet" */,
+				BC395B682CA3392C0005FC9D /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = BC404BCC2C9077FC001BA269 /* Products */;
 			projectDirPath = "";
@@ -907,8 +934,10 @@
 				BC404C992C941829001BA269 /* NextViewWrapper.swift in Sources */,
 				BC404C8F2C941195001BA269 /* ToolbarButton.swift in Sources */,
 				BC404C872C93FE70001BA269 /* APIKey.swift in Sources */,
+				BC395B632CA3384F0005FC9D /* NetworkManager.swift in Sources */,
 				BC4DFDDD2C9D98D0002CDC27 /* LocationManager.swift in Sources */,
 				BC404C912C94142D001BA269 /* ToolbarTitle.swift in Sources */,
+				BC395B672CA338750005FC9D /* NetworkRouter.swift in Sources */,
 				BC4DFDCB2C9D5C22002CDC27 /* MapView.swift in Sources */,
 				BC4DFDD82C9D8900002CDC27 /* UIMapView.swift in Sources */,
 				BC395B4B2CA2CCFB0005FC9D /* AddCategorySheet.swift in Sources */,
@@ -926,6 +955,7 @@
 				BC692E052C9D1A9E00374032 /* TapBarView.swift in Sources */,
 				BC4DFDF22C9EF933002CDC27 /* FSCalanderView.swift in Sources */,
 				BC4DFDE72C9EBC24002CDC27 /* ManagedObject.swift in Sources */,
+				BC395B612CA336000005FC9D /* SearchedPlace.swift in Sources */,
 				BC6417242C96EDF30013587A /* SideView.swift in Sources */,
 				BC8007AB2C9D4A0300D62778 /* NavigationBar.swift in Sources */,
 				BC404BCF2C9077FC001BA269 /* Log4DayApp.swift in Sources */,
@@ -940,6 +970,7 @@
 				BC8007AD2C9D4E3F00D62778 /* SideBarView.swift in Sources */,
 				BC692DFF2C9C495300374032 /* PhotoBannerViewModel.swift in Sources */,
 				BC65B4FD2CA018B100E89223 /* RealmConfiguration.swift in Sources */,
+				BC395B652CA338630005FC9D /* NetworkClient.swift in Sources */,
 				BC404C782C93E1EF001BA269 /* PlannerView.swift in Sources */,
 				BCE2A0EB2C9FDC430045D01B /* PlannerSheetView.swift in Sources */,
 				BC395B562CA325700005FC9D /* AddLogPlaceCell.swift in Sources */,
@@ -947,6 +978,7 @@
 				BC4DFDDF2C9E8F81002CDC27 /* PlaceCell.swift in Sources */,
 				BC395B5D2CA32FDF0005FC9D /* SearchPlaceViewModel.swift in Sources */,
 				BC404CAC2C942835001BA269 /* ToolBarNavigationLink.swift in Sources */,
+				BC395B6D2CA3399C0005FC9D /* NetworkError.swift in Sources */,
 				BC4DFDF02C9EBE61002CDC27 /* Category.swift in Sources */,
 				BC395B372CA25CDD0005FC9D /* MyLogViewModel.swift in Sources */,
 			);
@@ -1304,6 +1336,14 @@
 				minimumVersion = 3.1.1;
 			};
 		};
+		BC395B682CA3392C0005FC9D /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
 		BC4DFDCC2C9D6105002CDC27 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
@@ -1327,6 +1367,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BC395B4C2CA2DE480005FC9D /* XCRemoteSwiftPackageReference "BottomSheet" */;
 			productName = BottomSheet;
+		};
+		BC395B692CA3392C0005FC9D /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BC395B682CA3392C0005FC9D /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 		BC4DFDCD2C9D6105002CDC27 /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
