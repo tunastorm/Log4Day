@@ -109,10 +109,29 @@ struct SideView: View {
                 }
                 Text("취소")
             }
-          
+            .halfSheet(showSheet: $viewModel.output.showAddSheet) {
+                AddCategorySheet(viewModel: viewModel)
+            } onEnd: {
+                print("Dismiss")
+            }
         }
         .frame(height: 40)
         .frame(maxWidth: .infinity)
+    }
+    
+    private func addResultHandler() {
+        let result = viewModel.output.addResult
+        print(result.message)
+        switch result {
+        case is RepositoryStatus:
+            guard let status = result as? RepositoryStatus, status != .idle else { return }
+            fetchSideBar(category: viewModel.output.category)
+            switch controller {
+            case .myLog: fetchMyLog(category: viewModel.output.category)
+            case .logMap: fetchLogMap(category: viewModel.output.category)
+            }
+        default: break
+        }
     }
     
     private func deleteResultHandler() {
@@ -121,16 +140,18 @@ struct SideView: View {
         switch result {
         case is RepositoryStatus:
             guard let status = result as? RepositoryStatus, status != .idle else { return }
-            viewModel.input.selectedCategory = "전체"
-            viewModel.action(.changeTapped)
+            fetchSideBar(category: "전체")
             switch controller {
-            case .myLog:
-                fetchMyLog(category: "전체")
-            case .logMap:
-                break
+            case .myLog: fetchMyLog(category: "전체")
+            case .logMap: fetchLogMap(category: "전체")
             }
         default: break
         }
+    }
+    
+    private func fetchSideBar(category: String) {
+        viewModel.input.selectedCategory = category
+        viewModel.action(.changeTapped)
     }
     
     private func fetchMyLog(category: String) {
@@ -140,6 +161,10 @@ struct SideView: View {
         myLogViewModel.action(.fetchFirstLastDate)
         myLogViewModel.action(.fetchLogDate(isInitial: true))
         myLogViewModel.action(.tapBarChanged(info: .timeline))
+    }
+    
+    private func fetchLogMap(category: String) {
+        
     }
     
 }

@@ -21,9 +21,10 @@ class CategoryViewModel: ObservableObject {
         case sideBarButtonTapped
         case changeTapped
         case addTapped
-        case addAlertTapped
         case deleteTapped
+        case addAlertTapped
         case deleteAlertTapped
+        case newCategoryTextFieldReturn
     }
     
     struct Input {
@@ -33,8 +34,10 @@ class CategoryViewModel: ObservableObject {
         let deleteTapped = PassthroughSubject<Void,Never>()
         let addAlertTapped = PassthroughSubject<Void, Never>()
         let deleteAlertTapped = PassthroughSubject<Void, Never>()
+        let newCategoryTextFieldReturn = PassthroughSubject<Void, Never>()
         var selectedCategory = ""
         var nowLogDate = DateFormatManager.shared.dateToFormattedString(date: Date(), format: .dotSeparatedyyyyMMddDay)
+        var newCategory = ""
     }
     
     struct Output {
@@ -42,6 +45,7 @@ class CategoryViewModel: ObservableObject {
         @ObservedResults(Category.self) var categoryList
         var logDate: String = ""
         var showSide = false
+        var showAddSheet: Bool = false
         var deleteAlert: Bool = false
         var addAlert: Bool = false
         var deleteResult: RepositoryResult
@@ -63,7 +67,7 @@ class CategoryViewModel: ObservableObject {
         
         input.addTapped
             .sink { [weak self] _ in
-                self?.showAddAlert()
+                self?.showAddSheet()
             }
             .store(in: &cancellables)
         
@@ -84,6 +88,12 @@ class CategoryViewModel: ObservableObject {
                 self?.deleteCategory()
             }
             .store(in: &cancellables)
+        
+        input.newCategoryTextFieldReturn
+            .sink { [weak self] _ in
+                self?.addCategory()
+            }
+            .store(in: &cancellables)
     }
     
     func action(_ action: Action) {
@@ -100,6 +110,8 @@ class CategoryViewModel: ObservableObject {
             input.addAlertTapped.send(())
         case .deleteAlertTapped:
             input.deleteAlertTapped.send(())
+        case .newCategoryTextFieldReturn:
+            input.newCategoryTextFieldReturn.send(())
         }
     }
 
@@ -111,6 +123,10 @@ class CategoryViewModel: ObservableObject {
         output.showSide.toggle()
     }
     
+    func showAddSheet() {
+        output.showAddSheet.toggle()
+    }
+    
     func showAddAlert() {
         output.addAlert = true
     }
@@ -120,7 +136,16 @@ class CategoryViewModel: ObservableObject {
     }
     
     func addCategory() {
-        
+        let item = Category(title: input.newCategory, content: List<Log>(), createdAt: Date())
+        repository.createItem(item) { result in
+            switch result {
+            case .success(let status): 
+                input.selectedCategory = input.newCategory
+                action(.changeTapped)
+                output.addResult = status
+            case .failure(let error): output.addResult = error
+            }
+        }
     }
     
     func deleteCategory() {

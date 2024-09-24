@@ -16,6 +16,8 @@ struct SideBarView: View {
     @EnvironmentObject private var myLogViewModel: MyLogViewModel
     @EnvironmentObject private var logMapViewModel: LogMapViewModel
     
+    @State private var showAddSheet = false
+    
     var body: some View {
         ZStack {
             Rectangle()
@@ -28,18 +30,22 @@ struct SideBarView: View {
                     }
                 }
             HStack {
-                if myLogViewModel != nil {
+                switch controller {
+                case .myLog:
                     SideView(controller: controller, viewModel: viewModel)
                         .environmentObject(myLogViewModel)
-                } else {
-                    
+                case .logMap:
+                    SideView(controller: controller, viewModel: viewModel)
+                        .environmentObject(logMapViewModel)
                 }
                 Rectangle()
                     .frame(maxWidth: .infinity)
                     .foregroundStyle(.clear)
             }
             .frame(height: UIScreen.main.bounds.height)
+           
         }
+
     }
     
     
