@@ -16,6 +16,7 @@
 		BC395B462CA2BD910005FC9D /* HalfSheetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B452CA2BD910005FC9D /* HalfSheetManager.swift */; };
 		BC395B492CA2C7840005FC9D /* CustomHostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B482CA2C7840005FC9D /* CustomHostingViewController.swift */; };
 		BC395B4B2CA2CCFB0005FC9D /* AddCategorySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B4A2CA2CCFB0005FC9D /* AddCategorySheet.swift */; };
+		BC395B4E2CA2DE480005FC9D /* BottomSheet in Frameworks */ = {isa = PBXBuildFile; productRef = BC395B4D2CA2DE480005FC9D /* BottomSheet */; };
 		BC404BCF2C9077FC001BA269 /* Log4DayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404BCE2C9077FC001BA269 /* Log4DayApp.swift */; };
 		BC404BD12C9077FC001BA269 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404BD02C9077FC001BA269 /* RootView.swift */; };
 		BC404BD32C9077FD001BA269 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC404BD22C9077FD001BA269 /* Assets.xcassets */; };
@@ -196,6 +197,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC4DFDD32C9D64F5002CDC27 /* SwiftUIX in Frameworks */,
+				BC395B4E2CA2DE480005FC9D /* BottomSheet in Frameworks */,
 				BC4DFDCE2C9D6105002CDC27 /* RealmSwift in Frameworks */,
 				E1E6BCCB5CF29381A429C5B1 /* Pods_Log4Day.framework in Frameworks */,
 			);
@@ -645,6 +647,7 @@
 			packageProductDependencies = (
 				BC4DFDCD2C9D6105002CDC27 /* RealmSwift */,
 				BC4DFDD22C9D64F5002CDC27 /* SwiftUIX */,
+				BC395B4D2CA2DE480005FC9D /* BottomSheet */,
 			);
 			productName = Log4Day;
 			productReference = BC404BCB2C9077FC001BA269 /* Log4Day.app */;
@@ -724,6 +727,7 @@
 			packageReferences = (
 				BC4DFDCC2C9D6105002CDC27 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				BC4DFDD12C9D64F5002CDC27 /* XCRemoteSwiftPackageReference "SwiftUIX" */,
+				BC395B4C2CA2DE480005FC9D /* XCRemoteSwiftPackageReference "BottomSheet" */,
 			);
 			productRefGroup = BC404BCC2C9077FC001BA269 /* Products */;
 			projectDirPath = "";
@@ -1276,6 +1280,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		BC395B4C2CA2DE480005FC9D /* XCRemoteSwiftPackageReference "BottomSheet" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lucaszischka/BottomSheet.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.1;
+			};
+		};
 		BC4DFDCC2C9D6105002CDC27 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
@@ -1295,6 +1307,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		BC395B4D2CA2DE480005FC9D /* BottomSheet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BC395B4C2CA2DE480005FC9D /* XCRemoteSwiftPackageReference "BottomSheet" */;
+			productName = BottomSheet;
+		};
 		BC4DFDCD2C9D6105002CDC27 /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BC4DFDCC2C9D6105002CDC27 /* XCRemoteSwiftPackageReference "realm-swift" */;

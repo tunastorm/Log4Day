@@ -7,6 +7,7 @@
 
 import SwiftUI
 import RealmSwift
+import BottomSheet
 
 struct SideBarView: View {
     
@@ -43,9 +44,11 @@ struct SideBarView: View {
                     .foregroundStyle(.clear)
             }
             .frame(height: UIScreen.main.bounds.height)
-           
         }
-
+        .bottomSheet(bottomSheetPosition: $viewModel.output.showAddSheet, switchablePositions: [.relative(0.4)]) {
+            AddCategorySheet(viewModel: viewModel)
+        }
+        .enableSwipeToDismiss()
     }
     
     

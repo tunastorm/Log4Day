@@ -10,6 +10,7 @@ import UIKit
 
 // UIKit Integration
 struct HalfSheetManager<SheetView: View>: UIViewControllerRepresentable {
+    
     var sheetView: SheetView
     let controller = UIViewController()
     @Binding var showSheet: Bool
@@ -39,6 +40,11 @@ struct HalfSheetManager<SheetView: View>: UIViewControllerRepresentable {
     /* 새로 추가한 부분 */
     // On dismiss
     class Coordinator: NSObject, UISheetPresentationControllerDelegate {
+        
+        deinit {
+            print("deinit:", self.self)
+        }
+        
         var parent: HalfSheetManager
 
         init(parent: HalfSheetManager) {

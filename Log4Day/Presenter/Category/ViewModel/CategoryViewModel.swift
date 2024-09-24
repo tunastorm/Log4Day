@@ -8,6 +8,7 @@
 import SwiftUI
 import Combine
 import RealmSwift
+import BottomSheet
 
 class CategoryViewModel: ObservableObject {
     
@@ -45,7 +46,7 @@ class CategoryViewModel: ObservableObject {
         @ObservedResults(Category.self) var categoryList
         var logDate: String = ""
         var showSide = false
-        var showAddSheet: Bool = false
+        var showAddSheet: BottomSheetPosition = .hidden
         var deleteAlert: Bool = false
         var addAlert: Bool = false
         var deleteResult: RepositoryResult
@@ -124,15 +125,17 @@ class CategoryViewModel: ObservableObject {
     }
     
     func showAddSheet() {
-        output.showAddSheet.toggle()
+        output.showAddSheet =  output.showAddSheet == .hidden ? .relative(0.4) : .hidden
+        print("추가 시트 토글: \(output.showAddSheet)")
     }
     
     func showAddAlert() {
-        output.addAlert = true
+        output.addAlert.toggle()
     }
     
     func showDeleteAlert() {
-        output.deleteAlert = true
+        output.deleteAlert.toggle()
+        print("삭제 얼러트 토글: \(output.deleteAlert)")
     }
     
     func addCategory() {
@@ -151,9 +154,6 @@ class CategoryViewModel: ObservableObject {
     func deleteCategory() {
         var item: Category?
         output.categoryList.enumerated().forEach { index, category in
-//            print("카테고리 인덱스:", index)
-//            print("카테고리 타이틀:", category.title)
-//            print("선택된 카테고리:", output.category)
             if category.title == output.category {
                 let searched = output.categoryList[index]
                 item = searched

@@ -12,7 +12,6 @@ struct SideView: View {
     
     var controller: Contoller
     @Namespace var namespace
-    
     @ObservedObject var viewModel: CategoryViewModel
     @EnvironmentObject var myLogViewModel: MyLogViewModel
     
@@ -73,50 +72,54 @@ struct SideView: View {
     
     private func buttonView() -> some View {
         HStack {
-            Button {
-                guard viewModel.output.category != "전체" else { return }
-                viewModel.action(.deleteTapped)
-            } label: {
-                Text("삭제하기")
-                    .foregroundStyle(Resource.ciColor.subContentColor)
-            }
-            .padding(.horizontal)
-            .alert(LocalizedStringKey("'\(viewModel.output.category)' 카테고리를 삭제하시겠습니까?"), isPresented: $viewModel.output.deleteAlert) {
-                Button {
-                    viewModel.action(.deleteAlertTapped)
-                    deleteResultHandler()
-                } label: {
-                    Text("삭제")
-                }
-                Text("취소")
-            }
+            deleteButton()
             Rectangle()
                 .frame(width: 1)
                 .frame(maxHeight: .infinity)
                 .padding(.init(top: 10, leading: 0, bottom: 10, trailing: 0))
                 .foregroundStyle(Resource.ciColor.subContentColor)
-            Button {
-                viewModel.action(.addTapped)
-            } label: {
-                Text("추가하기")
-            }
-            .padding(.horizontal)
-            .alert(LocalizedStringKey("추가"), isPresented: $viewModel.output.addAlert) {
-                Button {
-                    viewModel.action(.addAlertTapped)
-                } label: {
-                    Text("추가")
-                }
-                Text("취소")
-            }
-            .halfSheet(showSheet: $viewModel.output.showAddSheet) {
-                AddCategorySheet(viewModel: viewModel)
-            } onEnd: {
-                print("Dismiss")
-            }
+            addButton()
         }
         .frame(height: 40)
         .frame(maxWidth: .infinity)
+    }
+    
+    private func deleteButton() -> some View {
+        Button {
+            print("선택된 카테고리:", viewModel.output.category)
+            guard viewModel.output.category != "전체" else {
+                // Toast 뷰 구현 가져와서 예외처리
+                return
+            }
+            viewModel.action(.deleteTapped)
+        } label: {
+            Text("삭제하기")
+                .foregroundStyle(Resource.ciColor.subContentColor)
+        }
+        .padding(.horizontal)
+        .alert(LocalizedStringKey("'\(viewModel.output.category)' 카테고리를 삭제하시겠습니까?"), isPresented: $viewModel.output.deleteAlert) {
+            Button("취소", role: .cancel) {
+                
+            }
+            Button("삭제", role: .destructive) {
+                viewModel.action(.deleteAlertTapped)
+                deleteResultHandler()
+            }
+        }
+    }
+    
+    private func addButton() -> some View {
+        Button {
+            viewModel.action(.addTapped)
+        } label: {
+            Text("추가하기")
+        }
+        .padding(.horizontal)
+//        .halfSheet(showSheet: $viewModel.output.showAddSheet) {
+//            AddCategorySheet(viewModel: viewModel)
+//        } onEnd: {
+//            print("Dismiss")
+//        }
     }
     
     private func addResultHandler() {
