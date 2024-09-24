@@ -57,25 +57,3 @@ extension View {
     }
     
 }
-
-// Custom Half Modal Modifier
-extension View {
-    // Binding Show Vairables
-    func halfSheet<SheetView: View> (
-        showSheet: Binding<Bool>,
-        @ViewBuilder sheetView: @escaping () -> SheetView,
-        /* 새로 추가한 부분 */
-        onEnd: @escaping ()->()
-    ) -> some View {
-        // why we using overlay or background
-        // because it will automatically use the swiftui frame size only!
-        return self.background {
-                HalfSheetManager(
-                    sheetView: sheetView(),
-                    showSheet: showSheet,
-                    /* 새로 추가한 부분*/
-                    onEnd: onEnd
-                )
-            }
-    }
-}

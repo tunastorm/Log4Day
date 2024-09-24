@@ -47,6 +47,7 @@ class CategoryViewModel: ObservableObject {
         var logDate: String = ""
         var showSide = false
         var showAddSheet: BottomSheetPosition = .hidden
+        @FocusState var addCategoryTextFieldEditing: Bool
         var deleteAlert: Bool = false
         var addAlert: Bool = false
         var deleteResult: RepositoryResult
@@ -124,8 +125,9 @@ class CategoryViewModel: ObservableObject {
         output.showSide.toggle()
     }
     
-    func showAddSheet() {
-        output.showAddSheet =  output.showAddSheet == .hidden ? .relative(0.4) : .hidden
+    func showAddSheet(_ isEditing: Bool = false) {
+        let height: CGFloat = isEditing ? 500 : 390
+        output.showAddSheet = output.showAddSheet == .hidden ? .dynamic : .hidden
         print("추가 시트 토글: \(output.showAddSheet)")
     }
     

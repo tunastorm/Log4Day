@@ -17,7 +17,7 @@ struct SideBarView: View {
     @EnvironmentObject private var myLogViewModel: MyLogViewModel
     @EnvironmentObject private var logMapViewModel: LogMapViewModel
     
-    @State private var showAddSheet = false
+    @FocusState var addSheetIsEditing: Bool
     
     var body: some View {
         ZStack {
@@ -28,6 +28,10 @@ struct SideBarView: View {
                 .onTapGesture {
                     withAnimation {
                         viewModel.action(.sideBarButtonTapped)
+                        if viewModel.output.showAddSheet != .hidden {
+                            viewModel.action(.addTapped)
+                            addSheetIsEditing = false
+                        }
                     }
                 }
             HStack {
@@ -45,11 +49,10 @@ struct SideBarView: View {
             }
             .frame(height: UIScreen.main.bounds.height)
         }
-        .bottomSheet(bottomSheetPosition: $viewModel.output.showAddSheet, switchablePositions: [.relative(0.4)]) {
-            AddCategorySheet(viewModel: viewModel)
+        .bottomSheet(bottomSheetPosition: $viewModel.output.showAddSheet, switchablePositions: [.dynamic]) {
+            AddCategorySheet(isFocused: _addSheetIsEditing, viewModel: viewModel)
         }
         .enableSwipeToDismiss()
     }
-    
     
 }
