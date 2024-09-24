@@ -10,7 +10,8 @@ import RealmSwift
 
 struct MyLogView: View {
     
-    @StateObject private var viewModel = CategoryViewModel()
+    @ObservedObject var categoryViewModel: CategoryViewModel
+    @StateObject private var viewModel = MyLogViewModel()
     
     var body: some View {
         GeometryReader { proxy in
@@ -19,7 +20,7 @@ struct MyLogView: View {
                     NavigationBar(title: "MyLog", button:
                         Button(action: {
                             withAnimation(.spring()){
-                                viewModel.action(.sideBarButtonTapped)
+                                categoryViewModel.action(.sideBarButtonTapped)
                             }
                         }, label: {
                             Image(systemName: "tray")
@@ -36,15 +37,33 @@ struct MyLogView: View {
                                     .padding(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
                                 photoLogBanner(width: proxy.size.width)
                             }
-                            Spacer()
-                            TapBarView()
-                                .environmentObject(viewModel)
+                            if viewModel.output.logList.isEmpty {
+                                NavigationLink {
+                                    
+                                } label: {
+                                    Spacer()
+                                    HStack {
+                                        Spacer()
+                                        Text("오늘의 추억을 남기러 가기")
+                                            .font(.title3)
+                                            .foregroundStyle(Resource.ciColor.highlightColor)
+                                        Spacer()
+                                    }
+                                    Spacer()
+                                   
+                                }
+                                .padding(.bottom)
+
+                            } else {
+                                TapBarView()
+                                    .environmentObject(viewModel)
+                            }
                         }
                         .padding(.bottom, 130)
                     }
                     .frame(width: viewModel.output.screenWidth)
                 }
-                SideBarView()
+                SideBarView(controller: .myLog, viewModel: categoryViewModel)
                     .environmentObject(viewModel)
             }
         }
@@ -61,7 +80,7 @@ struct MyLogView: View {
                 Text("Subject: ")
                     .font(.footnote)
                     .foregroundStyle(Resource.ciColor.subContentColor)
-                Text(viewModel.output.category)
+                Text(categoryViewModel.output.category)
                     .font(.title3)
                     .foregroundStyle(Resource.ciColor.contentColor)
                 Spacer()
@@ -72,7 +91,7 @@ struct MyLogView: View {
                     .font(.title3)
                     .foregroundStyle(Resource.ciColor.contentColor)
             }
-            .padding(.init(top: 10, leading: 20, bottom: 10, trailing: 20))
+            .padding(.init(top: 10, leading: 20, bottom: 6, trailing: 20))
         }
         .background(Resource.ciColor.backgroundColor)
     }
@@ -88,7 +107,7 @@ struct MyLogView: View {
                 },
                 zeroContent: { index, currentIndex, lastCell in
                     let title = viewModel.output.logList.last?.title ?? "오늘의 추억을 네 컷으로 남겨보세요"
-                    let hashTags = "#\(viewModel.output.logList.last?.places.map { $0.hashtag }.joined(separator: " #") ?? "소중한 #오늘의 #기록")"
+                    let hashTags = "#\(viewModel.output.logList.last?.places.map { $0.hashtag }.joined(separator: " #") ?? "소중한 #오늘의 #기록 #Log4Day")"
                     FourCutPictureView(currentIndex: currentIndex, index: index, lastCell: lastCell, title: title, hashTags: hashTags, backgroundWidthHeight: (bannerWidth, bannerHeight), imageHeight: bannerHeight-100)
                 }, 
                 overContent: { index, currentIndex, lastCell in
@@ -98,17 +117,13 @@ struct MyLogView: View {
                 }
             )
             .frame(height: bannerHeight)
-            .padding(.top, 20)
+            .padding(.top, 10)
             .hideIndicator()
             .environmentObject(viewModel)
             ListFooterView(text: viewModel.output.firstLastDate.0, font: .title3)
-                .padding(.horizontal)
-                .padding(.top)
+                .padding()
         }
     }
     
 }
 
-#Preview {
-    MyLogView()
-}

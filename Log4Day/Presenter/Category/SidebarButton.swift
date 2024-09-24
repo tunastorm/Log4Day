@@ -7,28 +7,35 @@
 
 import SwiftUI
 
+enum Contoller {
+    case myLog
+    case logMap
+}
+
 struct SidebarButton: View {
     
-    @EnvironmentObject private var viewModel: CategoryViewModel
-    
-//    @Binding var selectedTitle: String
-    
+    @ObservedObject var viewModel: CategoryViewModel
+    @EnvironmentObject private var myLogViewModel: MyLogViewModel
+    @EnvironmentObject private var LogMapViewModel: LogMapViewModel
+        
     var title: String
     var namespace: Namespace.ID
     
+    var controller: Contoller
+    
     var body: some View {
-        Button(action: {
+        Button {
             //선택된 타이틀은 selectedTab 값이 된다
             //namespace 애니메이션을 넣기 위해서 애니메이션이 있어야한다.
             withAnimation(.spring()) {
                 viewModel.input.selectedCategory = title
                 viewModel.action(.changeTapped)
-                viewModel.action(.fetchCategorizedList)
-                viewModel.action(.fetchFirstLastDate)
-                viewModel.action(.fetchLogDate(isInitial: true))
-                viewModel.action(.tapBarChanged(info: .timeline))
+                switch controller {
+                case .myLog: fetchMyLog()
+                case .logMap: fetchLogMap()
+                }
             }
-        }) {
+        } label: {
             HStack(spacing: 20){
                 Text(title)
                     .fontWeight(.semibold)
@@ -59,6 +66,19 @@ struct SidebarButton: View {
                 .padding(.init(top: 0, leading: 0, bottom: 0, trailing: 50))
             }
         )
+    }
+    
+    private func fetchMyLog() {
+        myLogViewModel.input.selectedCategory = title
+        myLogViewModel.action(.changeCategory)
+        myLogViewModel.action(.fetchCategorizedList)
+        myLogViewModel.action(.fetchFirstLastDate)
+        myLogViewModel.action(.fetchLogDate(isInitial: true))
+        myLogViewModel.action(.tapBarChanged(info: .timeline))
+    }
+    
+    private func fetchLogMap() {
+        
     }
 }
 

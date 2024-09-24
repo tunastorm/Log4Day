@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TimelineCell: View {
     
-    @EnvironmentObject var viewModel: CategoryViewModel
+    @EnvironmentObject var viewModel: MyLogViewModel
     
     var index: Int
     var log: Log

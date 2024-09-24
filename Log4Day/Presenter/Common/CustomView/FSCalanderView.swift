@@ -41,8 +41,6 @@ struct FSCalendarView: UIViewRepresentable {
         return calendar
     }
     
-    
-
     func updateUIView(_ uiView: FSCalendar, context: Context) {
         // update the calendar view if necessary
 //        context.coordinator.dateWithImageResourceDict = dictionaryOfDateWithImage
@@ -83,18 +81,6 @@ struct FSCalendarView: UIViewRepresentable {
         func calendar(_ calendar: FSCalendar, subtitleFor date: Date) -> String? {
             return nil
         }
-
-    
+        
     }
 }
-
-//extension UIImage {
-//    
-//    func resized(to size: CGSize) -> UIImage? {
-//        let renderer = UIGraphicsImageRenderer(size: size)
-//        return renderer.image { _ in
-//            self.draw(in: CGRect(origin: .zero, size: size))
-//        }
-//    }
-//    
-//}

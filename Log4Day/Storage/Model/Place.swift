@@ -18,7 +18,8 @@ final class Place: Object, ObjectKeyIdentifiable/*, Codable*/ {
     @Persisted var longitude: Double
     @Persisted var latitude: Double
     @Persisted var createdAt: Date
-    @Persisted var owner = LinkingObjects(fromType: Log.self, property: Log.Column.places.name)
+    @Persisted var ofLog = LinkingObjects(fromType: Log.self, property: Log.Column.places.name)
+    @Persisted var ofPhoto = LinkingObjects(fromType: Photo.self, property: Photo.Column.place.name)
     
     convenience init(isVisited: Bool, hashtag: String, name: String, city: String, address: String, longitude: Double, latitude: Double, createdAt: Date) {
         self.init()
@@ -41,6 +42,8 @@ final class Place: Object, ObjectKeyIdentifiable/*, Codable*/ {
         case longitude
         case latitude
         case createdAt
+        case ofLog
+        case ofPhoto
     
         var allCase: [Self] {
             return Self.allCases
@@ -60,6 +63,8 @@ final class Place: Object, ObjectKeyIdentifiable/*, Codable*/ {
             case .longitude: "경도"
             case .latitude: "위도"
             case .createdAt: "작성일"
+            case .ofLog: "참조된 로그"
+            case .ofPhoto: "참조된 사진"
             }
         }
     }

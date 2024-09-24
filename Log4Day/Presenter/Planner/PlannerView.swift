@@ -39,7 +39,7 @@ struct PlannerView: View {
                     }
                    
                 }
-                SideBarView()
+//                SideBarView(c)
             }
         }
         .padding(.bottom, 130)

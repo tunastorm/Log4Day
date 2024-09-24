@@ -57,11 +57,11 @@ struct FourCutPictureView: View {
             Text(title)
                 .frame(height: 30)
                 .frame(alignment: .leading)
-                .foregroundStyle(.black)
+                .foregroundStyle(Resource.ciColor.contentColor)
             Text(hashTags)
                 .frame(height: 30)
                 .frame(alignment: .leading)
-                .foregroundStyle(.black)
+                .foregroundStyle(Resource.ciColor.subContentColor)
         }
         .padding()
     }
@@ -71,24 +71,35 @@ struct FourCutPictureView: View {
 //        let isFirstToLast = index == lastCell && currentIndex == 0
 //        let height = (index == currentIndex || (isFirstToLast || isLastToFirst)) ? imageHeight : imageHeight * 0.7
 //        let topPadding: CGFloat = (index == currentIndex || (isFirstToLast || isLastToFirst)) ? 10 : 25
-        let height = imageHeight
+        
         let topPadding: CGFloat = 10
+        let height = (imageHeight / 2) - topPadding
+        let width = ((backgroundWidthHeight.0 - 10) / 2)-10
         return VStack {
             HStack {
-                Image(systemName: "person")
-                    .frame(width: ((backgroundWidthHeight.0 - 10) / 2)-10, height: (height / 2) - topPadding)
-                    .background(.gray)
-                Image(systemName: "person")
-                    .frame(width: ((backgroundWidthHeight.0 - 10) / 2)-10,height: (height / 2) - topPadding)
-                    .background(.gray)
+                Image("default4Cut4")
+                    .resizable()
+                    .frame(width: width, height: height)
+                    .background(Resource.ciColor.subContentColor)
+//                    .relativeSize(width: width, height: height)
+                Image("default4Cut2")
+                    .resizable()
+                    .frame(width: width, height: height)
+                    .background(Resource.ciColor.subContentColor)
+//                    .relativeSize(width: width, height: height)
             }
             HStack {
-                Image(systemName: "person")
-                    .frame(width: ((backgroundWidthHeight.0 - 10) / 2)-10, height: (height / 2) - topPadding)
-                    .background(.gray)
-                Image(systemName: "person")
-                    .frame(width: ((backgroundWidthHeight.0 - 10) / 2)-10, height: (height / 2) - topPadding)
-                    .background(.gray)
+                Image("default4Cut3")
+                    .resizable()
+                    .frame(width: width, height: height)
+                    .background(Resource.ciColor.subContentColor)
+//                    .relativeSize(width: width, height: height)
+                Image("default4Cut5")
+                    .resizable()
+                    .frame(width: width, height: height)
+                    .background(Resource.ciColor.subContentColor)
+//                    .relativeSize(width: width, height: height)
+                
             }
         }
         

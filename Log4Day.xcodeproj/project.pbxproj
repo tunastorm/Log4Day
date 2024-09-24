@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		788F41DB2463C44DE47CC0BE /* Pods_Log4Day_Log4DayUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E179730F36192A0721548DDC /* Pods_Log4Day_Log4DayUITests.framework */; };
 		7B1410ACE80F339345ACF6FF /* Pods_Log4DayTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5761BDB6ACE458DE209DD3CD /* Pods_Log4DayTests.framework */; };
+		BC395B352CA1AB460005FC9D /* NewLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B342CA1AB460005FC9D /* NewLogView.swift */; };
+		BC395B372CA25CDD0005FC9D /* MyLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B362CA25CDD0005FC9D /* MyLogViewModel.swift */; };
+		BC395B3B2CA265920005FC9D /* NewLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B3A2CA265920005FC9D /* NewLogViewModel.swift */; };
+		BC395B3F2CA29C200005FC9D /* LogMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B3E2CA29C200005FC9D /* LogMapViewModel.swift */; };
 		BC404BCF2C9077FC001BA269 /* Log4DayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404BCE2C9077FC001BA269 /* Log4DayApp.swift */; };
 		BC404BD12C9077FC001BA269 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404BD02C9077FC001BA269 /* RootView.swift */; };
 		BC404BD32C9077FD001BA269 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC404BD22C9077FD001BA269 /* Assets.xcassets */; };
@@ -45,7 +49,7 @@
 		BC4DFDD62C9D67A7002CDC27 /* LogDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4DFDD52C9D67A7002CDC27 /* LogDetail.swift */; };
 		BC4DFDD82C9D8900002CDC27 /* UIMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4DFDD72C9D88FF002CDC27 /* UIMapView.swift */; };
 		BC4DFDDD2C9D98D0002CDC27 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4DFDDC2C9D98D0002CDC27 /* LocationManager.swift */; };
-		BC4DFDDF2C9E8F81002CDC27 /* TimelineCellDummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4DFDDE2C9E8F81002CDC27 /* TimelineCellDummy.swift */; };
+		BC4DFDDF2C9E8F81002CDC27 /* PlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4DFDDE2C9E8F81002CDC27 /* PlaceCell.swift */; };
 		BC4DFDE12C9EA20B002CDC27 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4DFDE02C9EA20B002CDC27 /* CalendarView.swift */; };
 		BC4DFDE52C9EBB21002CDC27 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4DFDE42C9EBB21002CDC27 /* Repository.swift */; };
 		BC4DFDE72C9EBC24002CDC27 /* ManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4DFDE62C9EBC24002CDC27 /* ManagedObject.swift */; };
@@ -58,7 +62,6 @@
 		BC6417262C96EE370013587A /* SidebarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6417252C96EE370013587A /* SidebarButton.swift */; };
 		BC65B4FD2CA018B100E89223 /* RealmConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC65B4FC2CA018B100E89223 /* RealmConfiguration.swift */; };
 		BC65B5012CA02D2000E89223 /* DateFormatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC65B5002CA02D2000E89223 /* DateFormatManager.swift */; };
-		BC65B5052CA02DA200E89223 /* MyLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC65B5042CA02DA200E89223 /* MyLogViewModel.swift */; };
 		BC65B50D2CA05C6C00E89223 /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC65B50C2CA05C6C00E89223 /* CategoryViewModel.swift */; };
 		BC692DFD2C9C482D00374032 /* InfinitePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC692DFC2C9C482D00374032 /* InfinitePageView.swift */; };
 		BC692DFF2C9C495300374032 /* PhotoBannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC692DFE2C9C495300374032 /* PhotoBannerViewModel.swift */; };
@@ -111,6 +114,10 @@
 		8A70DFB0E03C294DFDC72B19 /* Pods-Log4DayTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Log4DayTests.debug.xcconfig"; path = "Target Support Files/Pods-Log4DayTests/Pods-Log4DayTests.debug.xcconfig"; sourceTree = "<group>"; };
 		901FDFED920330761A94464C /* Pods-Log4Day.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Log4Day.debug.xcconfig"; path = "Target Support Files/Pods-Log4Day/Pods-Log4Day.debug.xcconfig"; sourceTree = "<group>"; };
 		A9A88417ACBED645893DA685 /* Pods-Log4Day.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Log4Day.release.xcconfig"; path = "Target Support Files/Pods-Log4Day/Pods-Log4Day.release.xcconfig"; sourceTree = "<group>"; };
+		BC395B342CA1AB460005FC9D /* NewLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLogView.swift; sourceTree = "<group>"; };
+		BC395B362CA25CDD0005FC9D /* MyLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLogViewModel.swift; sourceTree = "<group>"; };
+		BC395B3A2CA265920005FC9D /* NewLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLogViewModel.swift; sourceTree = "<group>"; };
+		BC395B3E2CA29C200005FC9D /* LogMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogMapViewModel.swift; sourceTree = "<group>"; };
 		BC404BCB2C9077FC001BA269 /* Log4Day.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Log4Day.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC404BCE2C9077FC001BA269 /* Log4DayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log4DayApp.swift; sourceTree = "<group>"; };
 		BC404BD02C9077FC001BA269 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -148,7 +155,7 @@
 		BC4DFDD52C9D67A7002CDC27 /* LogDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDetail.swift; sourceTree = "<group>"; };
 		BC4DFDD72C9D88FF002CDC27 /* UIMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIMapView.swift; sourceTree = "<group>"; };
 		BC4DFDDC2C9D98D0002CDC27 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
-		BC4DFDDE2C9E8F81002CDC27 /* TimelineCellDummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineCellDummy.swift; sourceTree = "<group>"; };
+		BC4DFDDE2C9E8F81002CDC27 /* PlaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCell.swift; sourceTree = "<group>"; };
 		BC4DFDE02C9EA20B002CDC27 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		BC4DFDE42C9EBB21002CDC27 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		BC4DFDE62C9EBC24002CDC27 /* ManagedObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedObject.swift; sourceTree = "<group>"; };
@@ -161,7 +168,6 @@
 		BC6417252C96EE370013587A /* SidebarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarButton.swift; sourceTree = "<group>"; };
 		BC65B4FC2CA018B100E89223 /* RealmConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmConfiguration.swift; sourceTree = "<group>"; };
 		BC65B5002CA02D2000E89223 /* DateFormatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatManager.swift; sourceTree = "<group>"; };
-		BC65B5042CA02DA200E89223 /* MyLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLogViewModel.swift; sourceTree = "<group>"; };
 		BC65B50C2CA05C6C00E89223 /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 		BC692DFC2C9C482D00374032 /* InfinitePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfinitePageView.swift; sourceTree = "<group>"; };
 		BC692DFE2C9C495300374032 /* PhotoBannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoBannerViewModel.swift; sourceTree = "<group>"; };
@@ -229,6 +235,47 @@
 				5761BDB6ACE458DE209DD3CD /* Pods_Log4DayTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BC395B332CA1AB320005FC9D /* NewLog */ = {
+			isa = PBXGroup;
+			children = (
+				BC395B382CA265710005FC9D /* View */,
+				BC395B392CA265780005FC9D /* ViewModel */,
+			);
+			path = NewLog;
+			sourceTree = "<group>";
+		};
+		BC395B382CA265710005FC9D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BC395B342CA1AB460005FC9D /* NewLogView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BC395B392CA265780005FC9D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				BC395B3A2CA265920005FC9D /* NewLogViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		BC395B3C2CA29C010005FC9D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				BC395B3E2CA29C200005FC9D /* LogMapViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		BC395B3D2CA29C060005FC9D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BC404C792C93E1F9001BA269 /* LogMapView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		BC404BC22C9077FC001BA269 = {
@@ -315,7 +362,8 @@
 		BC404C732C93E14B001BA269 /* LogMap */ = {
 			isa = PBXGroup;
 			children = (
-				BC404C792C93E1F9001BA269 /* LogMapView.swift */,
+				BC395B3D2CA29C060005FC9D /* View */,
+				BC395B3C2CA29C010005FC9D /* ViewModel */,
 			);
 			path = LogMap;
 			sourceTree = "<group>";
@@ -327,11 +375,11 @@
 				BC404BD02C9077FC001BA269 /* RootView.swift */,
 				BC404C7B2C93F03D001BA269 /* Common */,
 				BC404C712C93E132001BA269 /* MyLog */,
-				BC404C722C93E144001BA269 /* Planner */,
+				BC395B332CA1AB320005FC9D /* NewLog */,
 				BC404C732C93E14B001BA269 /* LogMap */,
 				BC4DFDD42C9D674D002CDC27 /* LogDetail */,
 				BC404C9B2C9418EE001BA269 /* Category */,
-				BC404C9A2C9418E3001BA269 /* Setting */,
+				BC404C722C93E144001BA269 /* Planner */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -467,6 +515,7 @@
 				BC8007AC2C9D4E3F00D62778 /* SideBarView.swift */,
 				BC6417252C96EE370013587A /* SidebarButton.swift */,
 				BC65B50C2CA05C6C00E89223 /* CategoryViewModel.swift */,
+				BC404C9A2C9418E3001BA269 /* Setting */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -516,7 +565,7 @@
 		BC65B5022CA02D7B00E89223 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				BC65B5042CA02DA200E89223 /* MyLogViewModel.swift */,
+				BC395B362CA25CDD0005FC9D /* MyLogViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -527,7 +576,7 @@
 				BC404C752C93E1BF001BA269 /* MyLogView.swift */,
 				BC692E042C9D1A9E00374032 /* TapBarView.swift */,
 				BC404CA52C941F0E001BA269 /* TimelineCell.swift */,
-				BC4DFDDE2C9E8F81002CDC27 /* TimelineCellDummy.swift */,
+				BC4DFDDE2C9E8F81002CDC27 /* PlaceCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -789,12 +838,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC65B5052CA02DA200E89223 /* MyLogViewModel.swift in Sources */,
 				BCE2A0EF2C9FEFB10045D01B /* Photo.swift in Sources */,
 				BC65B50D2CA05C6C00E89223 /* CategoryViewModel.swift in Sources */,
 				BC4DFDD62C9D67A7002CDC27 /* LogDetail.swift in Sources */,
 				BC4DFDEE2C9EBD10002CDC27 /* Log.swift in Sources */,
 				BC404CB02C942E43001BA269 /* SettingButton.swift in Sources */,
+				BC395B352CA1AB460005FC9D /* NewLogView.swift in Sources */,
 				BC404CAA2C94218C001BA269 /* FourCutPictureView.swift in Sources */,
 				BC404C7A2C93E1F9001BA269 /* LogMapView.swift in Sources */,
 				BC404CAE2C942D15001BA269 /* BackButton.swift in Sources */,
@@ -809,6 +858,7 @@
 				BC4DFDCB2C9D5C22002CDC27 /* MapView.swift in Sources */,
 				BC4DFDD82C9D8900002CDC27 /* UIMapView.swift in Sources */,
 				BC404BD12C9077FC001BA269 /* RootView.swift in Sources */,
+				BC395B3B2CA265920005FC9D /* NewLogViewModel.swift in Sources */,
 				BC692DFD2C9C482D00374032 /* InfinitePageView.swift in Sources */,
 				BC404CBA2C94B0A5001BA269 /* Resource.swift in Sources */,
 				BC404C7D2C93F04D001BA269 /* NavigationWrapper.swift in Sources */,
@@ -832,15 +882,17 @@
 				BC404CA82C942170001BA269 /* ListFooterView.swift in Sources */,
 				BC6417262C96EE370013587A /* SidebarButton.swift in Sources */,
 				BC404C8D2C94094E001BA269 /* ViewModfiers.swift in Sources */,
+				BC395B3F2CA29C200005FC9D /* LogMapViewModel.swift in Sources */,
 				BC8007AD2C9D4E3F00D62778 /* SideBarView.swift in Sources */,
 				BC692DFF2C9C495300374032 /* PhotoBannerViewModel.swift in Sources */,
 				BC65B4FD2CA018B100E89223 /* RealmConfiguration.swift in Sources */,
 				BC404C782C93E1EF001BA269 /* PlannerView.swift in Sources */,
 				BCE2A0EB2C9FDC430045D01B /* PlannerSheetView.swift in Sources */,
 				BC404CB82C9468DE001BA269 /* InfinityCarouselView.swift in Sources */,
-				BC4DFDDF2C9E8F81002CDC27 /* TimelineCellDummy.swift in Sources */,
+				BC4DFDDF2C9E8F81002CDC27 /* PlaceCell.swift in Sources */,
 				BC404CAC2C942835001BA269 /* ToolBarNavigationLink.swift in Sources */,
 				BC4DFDF02C9EBE61002CDC27 /* Category.swift in Sources */,
+				BC395B372CA25CDD0005FC9D /* MyLogViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

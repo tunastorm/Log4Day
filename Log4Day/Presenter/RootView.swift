@@ -10,6 +10,7 @@ import SwiftUI
 struct RootView: View {
     
     @State private var selection = 0
+    @ObservedObject var categoryViewModel = CategoryViewModel()
     
     init() {
         let navBarAppearance = UINavigationBarAppearance()
@@ -30,7 +31,7 @@ struct RootView: View {
     var body: some View {
         NavigationWrapper {
             TabView(selection: $selection) {
-                MyLogView()
+                MyLogView(categoryViewModel: categoryViewModel)
                     .tabItem {
                         Image(systemName: selection == 0 ?
                               "photo.on.rectangle.angled" : "photo.on.rectangle")
@@ -38,6 +39,14 @@ struct RootView: View {
                         Text("MyLog")
                     }
                     .tag(0)
+                NewLogView()
+                    .tabItem {
+                        Image(systemName: selection == 1 ?
+                             "pencil.line" : "plus.app")
+                            .renderingMode(.template)
+                        Text("New")
+                    }
+                    .tag(1)
 //                PlannerView()
 //                    .tabItem {
 //                        Image(systemName: selection == 1 ?
@@ -46,14 +55,14 @@ struct RootView: View {
 //                        Text("Planner")
 //                    }
 //                    .tag(1)
-                LogMapView()
+                LogMapView(categoryViewModel: categoryViewModel)
                     .tabItem {
                         Image(systemName:  selection == 2 ?
                               "mappin.and.ellipse" : "map")
                             .renderingMode(.template)
                         Text("LogMap")
                     }
-                    .tag(1)
+                    .tag(2)
             }
             .font(.headline)
             .tint(Resource.ciColor.highlightColor)

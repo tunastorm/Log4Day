@@ -9,100 +9,77 @@ import SwiftUI
 import Combine
 import RealmSwift
 
-final class CategoryViewModel: ObservableObject {
-    
-    private var cancellables = Set<AnyCancellable>()
+class CategoryViewModel: ObservableObject {
     
     private let repository = Repository.shared
+    private var cancellables = Set<AnyCancellable>()
     var input = Input()
-    
-    @Published var output = Output()
+    @Published var output = Output(deleteResult: RepositoryStatus.idle,
+                                   addResult: RepositoryStatus.idle)
     
     enum Action {
-        case fetchFirstLastDate
-        case fetchCategorizedList
-        case fetchLogDate(isInitial: Bool)
         case sideBarButtonTapped
         case changeTapped
-        case tapBarChanged(info: TapInfo)
         case addTapped
+        case addAlertTapped
         case deleteTapped
+        case deleteAlertTapped
     }
     
     struct Input {
-        let fetchFirstLastDate = PassthroughSubject<Void, Never>()
-        let fetchCategorizedList = PassthroughSubject<Void, Never>()
-        let fetchLogDate = PassthroughSubject<Bool, Never>()
         let sideBarButtonTapped = PassthroughSubject<Void, Never>()
         let changeTapped = PassthroughSubject<Void, Never>()
-        let tapBarChanged = PassthroughSubject<TapInfo, Never>()
         let addTapped = PassthroughSubject<Void, Never>()
         let deleteTapped = PassthroughSubject<Void,Never>()
+        let addAlertTapped = PassthroughSubject<Void, Never>()
+        let deleteAlertTapped = PassthroughSubject<Void, Never>()
         var selectedCategory = ""
-        var nowLogDate = ""
+        var nowLogDate = DateFormatManager.shared.dateToFormattedString(date: Date(), format: .dotSeparatedyyyyMMddDay)
     }
     
     struct Output {
-        var screenWidth = UIScreen.main.bounds.width
         var category = "전체"
         @ObservedResults(Category.self) var categoryList
-        @ObservedResults(Log.self) var logList
-        var timeline: [Log] = []
-        var placeList: [Place] = []
-        var nonPhotoLogList: [Log] = []
-        var firstLastDate: (String, String) = ("", "")
         var logDate: String = ""
         var showSide = false
-        var translation: CGSize = .zero
-        var offsetX: CGFloat = -120
         var deleteAlert: Bool = false
         var addAlert: Bool = false
+        var deleteResult: RepositoryResult
+        var addResult: RepositoryResult
     }
     
     init() {
-        input.fetchFirstLastDate
-            .sink { [weak self] _ in
-                self?.fetchFirstLastDate()
-            }
-            .store(in: &cancellables)
-        
-        input.fetchCategorizedList
-            .sink { [weak self] _ in
-                self?.fetchCategorizedLogList()
-            }
-            .store(in: &cancellables)
-        
-        input.fetchLogDate
-            .sink { [weak self] isInitial in
-                self?.fetchLogDate(isInitial)
-            }
-            .store(in: &cancellables)
-        
-        input.changeTapped
-            .sink { [weak self] category in
-                self?.changeCategory()
-            }
-            .store(in: &cancellables)
-        
-        input.tapBarChanged
-            .sink { [weak self] info in
-                self?.fetchTapBarData(tapInfo: info)
-            }
-            .store(in: &cancellables)
-        
         input.sideBarButtonTapped
             .sink { [weak self] _ in
                 self?.toggleShowSide()
             }
             .store(in: &cancellables)
         
+        input.changeTapped
+            .sink { [weak self] _ in
+                self?.changeCategory()
+            }
+            .store(in: &cancellables)
+        
         input.addTapped
+            .sink { [weak self] _ in
+                self?.showAddAlert()
+            }
+            .store(in: &cancellables)
+        
+        input.deleteTapped
+            .sink { [weak self] _ in
+                self?.showDeleteAlert()
+            }
+            .store(in: &cancellables)
+        
+        input.addAlertTapped
             .sink { [weak self] _ in
                 self?.addCategory()
             }
             .store(in: &cancellables)
         
-        input.deleteTapped
+        input.deleteAlertTapped
             .sink { [weak self] _ in
                 self?.deleteCategory()
             }
@@ -111,83 +88,58 @@ final class CategoryViewModel: ObservableObject {
     
     func action(_ action: Action) {
         switch action {
-        case .fetchFirstLastDate:
-            input.fetchFirstLastDate.send(())
-        case .fetchCategorizedList:
-            input.fetchCategorizedList.send(())
-        case .fetchLogDate(let isInitial):
-            input.fetchLogDate.send(isInitial)
-        case .changeTapped:
-            input.changeTapped.send(())
-        case .tapBarChanged(let info):
-            input.tapBarChanged.send(info)
         case .sideBarButtonTapped:
             input.sideBarButtonTapped.send(())
+        case .changeTapped:
+            input.changeTapped.send(())
         case .addTapped:
             input.addTapped.send(())
         case .deleteTapped:
             input.deleteTapped.send(())
+        case .addAlertTapped:
+            input.addAlertTapped.send(())
+        case .deleteAlertTapped:
+            input.deleteAlertTapped.send(())
         }
     }
-    
-    private func fetchFirstLastDate() {
-        let sorted = output.logList.sorted(by: {$0.startDate < $1.startDate})
-        guard let first = sorted.first?.startDate, let last = sorted.last?.startDate else {
-            return
-        }
-        let firstDate = DateFormatManager.shared.dateToFormattedString(date: first, format: .dotSeparatedyyyyMMddDay)
-        let lastDate = DateFormatManager.shared.dateToFormattedString(date: last, format: .dotSeparatedyyyyMMddDay)
-        output.firstLastDate = (firstDate, lastDate)
-    }
-    
-    private func fetchCategorizedLogList() {
-        print(#function, "logCount:", output.logList.count)
-        guard let log = output.logList.first else {
-            return
-        }
-        let category = output.category
-        if category == "전체" {
-            output.$logList.where = { $0.createdAt <= Date() }
-        } else {
-            output.$logList.where = { $0.owner.title == category }
-        }
-        output.$logList.sortDescriptor = .init(keyPath: Log.Column.startDate.name, ascending: false)
-        output.$logList.update()
-        fetchFirstLastDate()
-    }
-    
-    private func fetchLogDate(_ isInitial: Bool) {
-        if isInitial, let nowLog = output.logList.first {
-            input.nowLogDate = DateFormatManager.shared.dateToFormattedString(date: nowLog.startDate, format: .dotSeparatedyyyyMMddDay)
-        }
-        output.logDate = input.nowLogDate
-    }
-    
-    private func fetchTapBarData(tapInfo: TapInfo) {
-        switch tapInfo {
-        case .timeline:
-            output.timeline = output.logList.sorted { $0.startDate > $1.startDate }
-        case .place:
-            output.placeList = output.logList.flatMap { $0.places }.sorted { $0.city > $1.city }
-        case .waited:
-            output.nonPhotoLogList = output.logList.filter { $0.fourCut.isEmpty }
-        }
-    }
-    
-    private func changeCategory() {
+
+    func changeCategory() {
         output.category = input.selectedCategory
     }
     
-    private func toggleShowSide() {
+    func toggleShowSide() {
         output.showSide.toggle()
     }
     
-    private func addCategory() {
+    func showAddAlert() {
+        output.addAlert = true
+    }
+    
+    func showDeleteAlert() {
+        output.deleteAlert = true
+    }
+    
+    func addCategory() {
         
     }
     
-    private func deleteCategory() {
-        
+    func deleteCategory() {
+        var item: Category?
+        output.categoryList.enumerated().forEach { index, category in
+//            print("카테고리 인덱스:", index)
+//            print("카테고리 타이틀:", category.title)
+//            print("선택된 카테고리:", output.category)
+            if category.title == output.category {
+                let searched = output.categoryList[index]
+                item = searched
+            }
+        }
+        guard let item else { return }
+        repository.deleteCategory(item) { [weak self] result in
+            switch result {
+            case .success(let status): self?.output.deleteResult = status
+            case .failure(let error): self?.output.deleteResult = error
+            }
+        }
     }
-    
 }

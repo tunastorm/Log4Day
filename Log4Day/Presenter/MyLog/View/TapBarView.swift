@@ -10,20 +10,21 @@ import SwiftUI
 enum TapInfo : String, CaseIterable {
     case timeline = "타임라인"
     case place = "플레이스"
-    case waited = "사진없음"
+    case waited = "작성중"
 }
 
 struct TapBarView: View {
     
-    @EnvironmentObject var viewModel: CategoryViewModel
-    @State private var selectedPicker: TapInfo = .timeline
+    @EnvironmentObject var viewModel: MyLogViewModel
     @Namespace private var animation
 
     var body: some View {
         LazyVStack(pinnedViews: [.sectionHeaders]) {
-            Section(header: TopTabbar(selectedPicker: $selectedPicker, animation: animation)) {
+            Section(header: TopTabbar(animation: animation)
+                            .environmentObject(viewModel)
+            ) {
                 LazyVStack {
-                    switch selectedPicker {
+                    switch viewModel.output.selectedPicker {
                     case .timeline: timelineList()
                     case .place: placeList()
                     case .waited: waitedList()
@@ -35,7 +36,7 @@ struct TapBarView: View {
             }
         }
         .onAppear {
-            viewModel.action(.tapBarChanged(info: selectedPicker))
+            viewModel.action(.tapBarChanged(info: viewModel.output.selectedPicker))
         }
     }
 
@@ -51,11 +52,25 @@ struct TapBarView: View {
     }
     
     private func placeList() -> some View {
-        ForEach(viewModel.output.placeList.indices, id: \.self) { index in
-            
+        let keys = viewModel.output.placeDict.sorted { $0.key < $1.key }.map{ $0.key }
+        return ForEach(keys, id: \.self) { key in
+            VStack {
+                HStack {
+                    Text(key)
+                        .font(.title2)
+                        .foregroundStyle(Resource.ciColor.highlightColor)
+                    Spacer()
+                }
+                ForEach((viewModel.output.placeDict[key] ?? []).indices, id: \.self){ index in
+                    NavigationLink {
+                        NextViewWrapper(LogDetail())
+                    } label: {
+                        PlaceCell(index: index, total: (viewModel.output.placeDict[key] ?? []).count, place: (viewModel.output.placeDict[key] ?? [])[index])
+                    }
+                }
+            }
         }
     }
-    
     
     private func waitedList() -> some View {
         ForEach(viewModel.output.nonPhotoLogList.indices, id: \.self) { index in
@@ -67,7 +82,7 @@ struct TapBarView: View {
 
 struct TopTabbar: View {
     
-    @Binding var selectedPicker: TapInfo
+    @EnvironmentObject var viewModel: MyLogViewModel
     var animation: Namespace.ID
     
     var body: some View {
@@ -78,10 +93,10 @@ struct TopTabbar: View {
                         Text(item.rawValue)
                             .font(.headline)
                             .frame(maxWidth: .infinity/4, minHeight: 30)
-                            .foregroundColor(selectedPicker == item ?
+                            .foregroundColor(viewModel.output.selectedPicker == item ?
                                 .mint: .gray)
                             .padding(.horizontal)
-                        if selectedPicker == item {
+                        if viewModel.output.selectedPicker == item {
                             Capsule()
                                 .foregroundColor(Resource.ciColor.highlightColor)
                                 .frame(height: 3)
@@ -91,7 +106,7 @@ struct TopTabbar: View {
                     }
                     .onTapGesture {
                         withAnimation(.easeInOut) {
-                            selectedPicker = item
+                            viewModel.action(.tapBarChanged(info: item))
                         }
                     }
                 }

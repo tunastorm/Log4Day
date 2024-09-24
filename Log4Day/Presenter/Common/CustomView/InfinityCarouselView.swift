@@ -11,7 +11,7 @@ import RealmSwift
 
 struct InfinityCarouselView<Data: Object, Content: View>: View {
     
-    @EnvironmentObject var viewModel: CategoryViewModel
+    @EnvironmentObject var viewModel: MyLogViewModel
     
     private let data: Results<Data>
     private let edgeSpacing: CGFloat
@@ -21,7 +21,7 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
     private let carouselContent: (Data, CGFloat, Binding<CGFloat>, CGFloat) -> Content
     private let zeroContent: (CGFloat, Binding<CGFloat>, CGFloat) -> Content
     private let overContent: (CGFloat, Binding<CGFloat>, CGFloat) -> Content
-    @State private var currentOffset: CGFloat
+    @State private var currentOffset: CGFloat = 0
     @State private var currentIndex: CGFloat = 1
    
     public init(
@@ -100,6 +100,9 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
         .gesture(
             DragGesture()
                 .onEnded { value in
+                    guard !viewModel.output.logList.isEmpty else {
+                        return
+                    }
                     let offsetX = value.translation.width
                     withAnimation {
                         if offsetX < -50 { // 오른쪽으로 스와이프
@@ -129,12 +132,10 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
     }
     
     private func fetchLogDate() {
-        print(#function, "logList:", data.count)
-        print(#function, "currentIndex:", currentIndex)
         guard let nowLog = data[Int(currentIndex-1)] as? Log else {
             return
         }
         viewModel.input.nowLogDate = DateFormatManager.shared.dateToFormattedString(date: nowLog.startDate, format: .dotSeparatedyyyyMMddDay)
-        viewModel.action(.fetchLogDate(isInitial: false))
+        viewModel
     }
 }

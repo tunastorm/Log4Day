@@ -10,7 +10,8 @@ import CoreLocation
 
 struct LogMapView: View {
     
-    @StateObject private var categoryViewModel = CategoryViewModel()
+    @ObservedObject var categoryViewModel: CategoryViewModel
+    @StateObject private var viewModel = LogMapViewModel()
     
     @State private var selectedCategory = "전체"
     
@@ -20,7 +21,7 @@ struct LogMapView: View {
     
     @State private var coord: (CLLocationDegrees, CLLocationDegrees) = (126.9784147, 37.5666805)
     
-    private var locationManager = CLLocationManager()
+    var locationManager = CLLocationManager()
     
     var body: some View {
         GeometryReader { proxy in
@@ -39,8 +40,8 @@ struct LogMapView: View {
                     LogMapMapView(coord: $coord)
                         .padding(.bottom, 130)
                 }
-                SideBarView()
-                    .environmentObject(categoryViewModel)
+                SideBarView(controller: .logMap, viewModel: categoryViewModel)
+                    .environmentObject(viewModel)
             }
         }
         .task {
@@ -109,7 +110,7 @@ struct LogMapView: View {
 
 }
 
-
-#Preview {
-    LogMapView()
-}
+//
+//#Preview {
+//    LogMapView()
+//}

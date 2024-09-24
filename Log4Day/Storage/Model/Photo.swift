@@ -11,6 +11,7 @@ import RealmSwift
 final class Photo: Object, ObjectKeyIdentifiable {
     @Persisted(primaryKey: true) var id: ObjectId
     @Persisted var name: String
+    @Persisted var place: Place?
     @Persisted var url: String
     @Persisted var createdAt: Date
     @Persisted var owner = LinkingObjects(fromType: Log.self, property: Log.Column.fourCut.name)
@@ -24,8 +25,10 @@ final class Photo: Object, ObjectKeyIdentifiable {
     
     enum Column: String, CaseIterable, ManagedObject {
         case name
+        case place
         case url
         case createdAt
+        case owner
         
         var allCase: [Self] {
             return Self.allCases
@@ -38,8 +41,10 @@ final class Photo: Object, ObjectKeyIdentifiable {
         var krName: String {
             return switch self {
             case .name: "이름"
+            case .place: "장소"
             case .url: "경로"
             case .createdAt: "작성일"
+            case .owner: "참조된 로그"
             }
         }
     }

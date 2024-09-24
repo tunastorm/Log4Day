@@ -17,15 +17,21 @@ final class Repository {
     
     private let resourceManager = ResourceManager()
     
-//    private let realm = try! Realm(configuration: RealmConfiguration.getConfig())
-    
     private let realm = {
         do {
-            return try? Realm()
+            return try? Realm(configuration: RealmConfiguration.getConfig())
         } catch {
             return nil
         }
     }()
+//    
+//    private let realm = {
+//        do {
+//            return try? Realm()
+//        } catch {
+//            return nil
+//        }
+//    }()
     
     func detectRealmURL() {
         print(realm?.configuration.fileURL ?? "")
@@ -82,6 +88,23 @@ final class Repository {
             complitionHandler(.success(RepositoryStatus.deleteSuccess))
         } catch {
             complitionHandler(.failure(RepositoryError.deleteFailed))
+        }
+    }
+    
+    func deleteCategory(_ data: Category, completionHandler: RepositoryResult) {
+        let logs = data.content
+        do {
+            try realm?.write {
+                logs.forEach { log in
+                    log.places.forEach { realm?.delete($0) }
+                    log.fourCut.forEach { realm?.delete($0) }
+                    realm?.delete(log)
+                }
+                realm?.delete(data)
+            }
+            completionHandler(.success(RepositoryStatus.deleteSuccess))
+        } catch {
+            completionHandler(.failure(RepositoryError.deleteFailed))
         }
     }
     

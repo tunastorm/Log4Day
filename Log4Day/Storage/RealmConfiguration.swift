@@ -9,21 +9,17 @@ import Foundation
 import RealmSwift
 
 class RealmConfiguration {
-    static let realmURL =
-    FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "groupdefault.realm")
     
     static func getConfig() -> Realm.Configuration{
-        let config = Realm.Configuration(fileURL: RealmConfiguration.realmURL,schemaVersion: 40) { migration, oldVersion in
-            if oldVersion < 1 {
-//                migration.enumerateObjects(ofType: Category.className()) { oldObject, newObject in
-//                }
-            }
-            
-            if oldVersion < 2 {
-                
-            }
+        
+        let config = Realm.Configuration(schemaVersion: 4) { migration, oldSchemaVersion in
+//
+//            if oldSchemaVersion < 1 {
+//                
+//            }
             
         }
+        
         return config
     }
 }

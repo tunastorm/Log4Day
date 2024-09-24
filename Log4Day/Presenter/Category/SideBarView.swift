@@ -10,7 +10,11 @@ import RealmSwift
 
 struct SideBarView: View {
     
-    @EnvironmentObject private var viewModel: CategoryViewModel
+    var controller: Contoller
+    
+    @ObservedObject var viewModel: CategoryViewModel
+    @EnvironmentObject private var myLogViewModel: MyLogViewModel
+    @EnvironmentObject private var logMapViewModel: LogMapViewModel
     
     var body: some View {
         ZStack {
@@ -24,8 +28,12 @@ struct SideBarView: View {
                     }
                 }
             HStack {
-                SideView()
-                    .environmentObject(viewModel)
+                if myLogViewModel != nil {
+                    SideView(controller: controller, viewModel: viewModel)
+                        .environmentObject(myLogViewModel)
+                } else {
+                    
+                }
                 Rectangle()
                     .frame(maxWidth: .infinity)
                     .foregroundStyle(.clear)

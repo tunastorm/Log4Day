@@ -12,13 +12,15 @@ protocol RepositoryResult {
 }
 
 enum RepositoryStatus: RepositoryResult {
-    
+    case idle
     case createSuccess
     case updateSuccess
     case deleteSuccess
     
     var message: String {
         switch self {
+        case .idle:
+            return ""
         case .createSuccess:
             return "등록이 완료되었습니다"
         case .updateSuccess:
