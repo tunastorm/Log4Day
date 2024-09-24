@@ -120,7 +120,7 @@ struct MyLogView: View {
             .padding(.top, 10)
             .hideIndicator()
             .environmentObject(viewModel)
-            ListFooterView(text: viewModel.output.firstLastDate.0, font: .footnote)
+            ListFooterView(text: viewModel.output.firstLastDate.0, font: .title3)
                 .padding()
         }
     }

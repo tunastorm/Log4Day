@@ -74,7 +74,7 @@ struct HashTagCell: View {
                 .frame(height: 30)
                 .frame(minWidth: 40)
                 .foregroundStyle(Resource.ciColor.highlightColor)
-            Text(hashTag)
+            Text("#\(hashTag)")
                 .foregroundStyle(.white)
                 .font(.callout)
                 .padding(.horizontal, 6)

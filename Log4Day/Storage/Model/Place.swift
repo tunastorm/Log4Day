@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-final class Place: Object, ObjectKeyIdentifiable/*, Codable*/ {
+final class Place: Object, ObjectKeyIdentifiable {
     @Persisted(primaryKey: true) var id: ObjectId
     @Persisted var isVisited: Bool
     @Persisted var hashtag: String

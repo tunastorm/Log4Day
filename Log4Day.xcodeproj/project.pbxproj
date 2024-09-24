@@ -15,6 +15,9 @@
 		BC395B3F2CA29C200005FC9D /* LogMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B3E2CA29C200005FC9D /* LogMapViewModel.swift */; };
 		BC395B4B2CA2CCFB0005FC9D /* AddCategorySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B4A2CA2CCFB0005FC9D /* AddCategorySheet.swift */; };
 		BC395B4E2CA2DE480005FC9D /* BottomSheet in Frameworks */ = {isa = PBXBuildFile; productRef = BC395B4D2CA2DE480005FC9D /* BottomSheet */; };
+		BC395B562CA325700005FC9D /* AddLogPlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B552CA325700005FC9D /* AddLogPlaceCell.swift */; };
+		BC395B5B2CA32CA80005FC9D /* SearchPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B5A2CA32CA80005FC9D /* SearchPlaceView.swift */; };
+		BC395B5D2CA32FDF0005FC9D /* SearchPlaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B5C2CA32FDF0005FC9D /* SearchPlaceViewModel.swift */; };
 		BC404BCF2C9077FC001BA269 /* Log4DayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404BCE2C9077FC001BA269 /* Log4DayApp.swift */; };
 		BC404BD12C9077FC001BA269 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404BD02C9077FC001BA269 /* RootView.swift */; };
 		BC404BD32C9077FD001BA269 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC404BD22C9077FD001BA269 /* Assets.xcassets */; };
@@ -118,6 +121,9 @@
 		BC395B3A2CA265920005FC9D /* NewLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLogViewModel.swift; sourceTree = "<group>"; };
 		BC395B3E2CA29C200005FC9D /* LogMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogMapViewModel.swift; sourceTree = "<group>"; };
 		BC395B4A2CA2CCFB0005FC9D /* AddCategorySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategorySheet.swift; sourceTree = "<group>"; };
+		BC395B552CA325700005FC9D /* AddLogPlaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLogPlaceCell.swift; sourceTree = "<group>"; };
+		BC395B5A2CA32CA80005FC9D /* SearchPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceView.swift; sourceTree = "<group>"; };
+		BC395B5C2CA32FDF0005FC9D /* SearchPlaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceViewModel.swift; sourceTree = "<group>"; };
 		BC404BCB2C9077FC001BA269 /* Log4Day.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Log4Day.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC404BCE2C9077FC001BA269 /* Log4DayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log4DayApp.swift; sourceTree = "<group>"; };
 		BC404BD02C9077FC001BA269 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -248,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				BC395B342CA1AB460005FC9D /* NewLogView.swift */,
+				BC395B552CA325700005FC9D /* AddLogPlaceCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -300,6 +307,31 @@
 			children = (
 			);
 			path = KeyboardManager;
+			sourceTree = "<group>";
+		};
+		BC395B572CA32C340005FC9D /* SearchPlace */ = {
+			isa = PBXGroup;
+			children = (
+				BC395B592CA32C5A0005FC9D /* View */,
+				BC395B582CA32C540005FC9D /* ViewModel */,
+			);
+			path = SearchPlace;
+			sourceTree = "<group>";
+		};
+		BC395B582CA32C540005FC9D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				BC395B5C2CA32FDF0005FC9D /* SearchPlaceViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		BC395B592CA32C5A0005FC9D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BC395B5A2CA32CA80005FC9D /* SearchPlaceView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		BC404BC22C9077FC001BA269 = {
@@ -403,6 +435,7 @@
 				BC404C732C93E14B001BA269 /* LogMap */,
 				BC4DFDD42C9D674D002CDC27 /* LogDetail */,
 				BC404C9B2C9418EE001BA269 /* Category */,
+				BC395B572CA32C340005FC9D /* SearchPlace */,
 				BC404C9A2C9418E3001BA269 /* Setting */,
 				BC404C722C93E144001BA269 /* Planner */,
 			);
@@ -881,6 +914,7 @@
 				BC395B4B2CA2CCFB0005FC9D /* AddCategorySheet.swift in Sources */,
 				BC404BD12C9077FC001BA269 /* RootView.swift in Sources */,
 				BC395B3B2CA265920005FC9D /* NewLogViewModel.swift in Sources */,
+				BC395B5B2CA32CA80005FC9D /* SearchPlaceView.swift in Sources */,
 				BC404CBA2C94B0A5001BA269 /* Resource.swift in Sources */,
 				BC404C7D2C93F04D001BA269 /* NavigationWrapper.swift in Sources */,
 				BC404CA62C941F0E001BA269 /* TimelineCell.swift in Sources */,
@@ -908,8 +942,10 @@
 				BC65B4FD2CA018B100E89223 /* RealmConfiguration.swift in Sources */,
 				BC404C782C93E1EF001BA269 /* PlannerView.swift in Sources */,
 				BCE2A0EB2C9FDC430045D01B /* PlannerSheetView.swift in Sources */,
+				BC395B562CA325700005FC9D /* AddLogPlaceCell.swift in Sources */,
 				BC404CB82C9468DE001BA269 /* InfinityCarouselView.swift in Sources */,
 				BC4DFDDF2C9E8F81002CDC27 /* PlaceCell.swift in Sources */,
+				BC395B5D2CA32FDF0005FC9D /* SearchPlaceViewModel.swift in Sources */,
 				BC404CAC2C942835001BA269 /* ToolBarNavigationLink.swift in Sources */,
 				BC4DFDF02C9EBE61002CDC27 /* Category.swift in Sources */,
 				BC395B372CA25CDD0005FC9D /* MyLogViewModel.swift in Sources */,

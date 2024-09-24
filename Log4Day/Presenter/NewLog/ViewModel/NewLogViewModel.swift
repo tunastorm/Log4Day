@@ -26,7 +26,9 @@ final class NewLogViewModel: ObservableObject {
     }
     
     struct Output {
-        
+        var tagList: [String] = []
+        var placeList: [Place] = []
+        var photoList: [Photo] = []
     }
     
     init() {
