@@ -15,15 +15,18 @@
 		BC395B3F2CA29C200005FC9D /* LogMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B3E2CA29C200005FC9D /* LogMapViewModel.swift */; };
 		BC395B4B2CA2CCFB0005FC9D /* AddCategorySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B4A2CA2CCFB0005FC9D /* AddCategorySheet.swift */; };
 		BC395B4E2CA2DE480005FC9D /* BottomSheet in Frameworks */ = {isa = PBXBuildFile; productRef = BC395B4D2CA2DE480005FC9D /* BottomSheet */; };
-		BC395B562CA325700005FC9D /* AddLogPlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B552CA325700005FC9D /* AddLogPlaceCell.swift */; };
+		BC395B562CA325700005FC9D /* NewLogPlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B552CA325700005FC9D /* NewLogPlaceCell.swift */; };
 		BC395B5B2CA32CA80005FC9D /* SearchPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B5A2CA32CA80005FC9D /* SearchPlaceView.swift */; };
 		BC395B5D2CA32FDF0005FC9D /* SearchPlaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B5C2CA32FDF0005FC9D /* SearchPlaceViewModel.swift */; };
 		BC395B612CA336000005FC9D /* SearchedPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B602CA336000005FC9D /* SearchedPlace.swift */; };
-		BC395B632CA3384F0005FC9D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B622CA3384F0005FC9D /* NetworkManager.swift */; };
-		BC395B652CA338630005FC9D /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B642CA338630005FC9D /* NetworkClient.swift */; };
+		BC395B652CA338630005FC9D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B642CA338630005FC9D /* NetworkManager.swift */; };
 		BC395B672CA338750005FC9D /* NetworkRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B662CA338750005FC9D /* NetworkRouter.swift */; };
 		BC395B6A2CA3392C0005FC9D /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = BC395B692CA3392C0005FC9D /* Alamofire */; };
 		BC395B6D2CA3399C0005FC9D /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B6C2CA3399C0005FC9D /* NetworkError.swift */; };
+		BC395B702CA3D0BD0005FC9D /* SearchPlaceQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B6F2CA3D0BD0005FC9D /* SearchPlaceQuery.swift */; };
+		BC395B722CA3D2430005FC9D /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B712CA3D2430005FC9D /* TargetType.swift */; };
+		BC395B742CA3E2090005FC9D /* SearchPlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B732CA3E2090005FC9D /* SearchPlaceCell.swift */; };
+		BC395B762CA3F0E50005FC9D /* GeocodingQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B752CA3F0E50005FC9D /* GeocodingQuery.swift */; };
 		BC404BCF2C9077FC001BA269 /* Log4DayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404BCE2C9077FC001BA269 /* Log4DayApp.swift */; };
 		BC404BD12C9077FC001BA269 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404BD02C9077FC001BA269 /* RootView.swift */; };
 		BC404BD32C9077FD001BA269 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC404BD22C9077FD001BA269 /* Assets.xcassets */; };
@@ -74,7 +77,6 @@
 		BC65B4FD2CA018B100E89223 /* RealmConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC65B4FC2CA018B100E89223 /* RealmConfiguration.swift */; };
 		BC65B5012CA02D2000E89223 /* DateFormatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC65B5002CA02D2000E89223 /* DateFormatManager.swift */; };
 		BC65B50D2CA05C6C00E89223 /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC65B50C2CA05C6C00E89223 /* CategoryViewModel.swift */; };
-		BC692DFF2C9C495300374032 /* PhotoBannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC692DFE2C9C495300374032 /* PhotoBannerViewModel.swift */; };
 		BC692E052C9D1A9E00374032 /* TapBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC692E042C9D1A9E00374032 /* TapBarView.swift */; };
 		BC8007AB2C9D4A0300D62778 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8007AA2C9D4A0300D62778 /* NavigationBar.swift */; };
 		BC8007AD2C9D4E3F00D62778 /* SideBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8007AC2C9D4E3F00D62778 /* SideBarView.swift */; };
@@ -127,14 +129,17 @@
 		BC395B3A2CA265920005FC9D /* NewLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLogViewModel.swift; sourceTree = "<group>"; };
 		BC395B3E2CA29C200005FC9D /* LogMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogMapViewModel.swift; sourceTree = "<group>"; };
 		BC395B4A2CA2CCFB0005FC9D /* AddCategorySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategorySheet.swift; sourceTree = "<group>"; };
-		BC395B552CA325700005FC9D /* AddLogPlaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLogPlaceCell.swift; sourceTree = "<group>"; };
+		BC395B552CA325700005FC9D /* NewLogPlaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLogPlaceCell.swift; sourceTree = "<group>"; };
 		BC395B5A2CA32CA80005FC9D /* SearchPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceView.swift; sourceTree = "<group>"; };
 		BC395B5C2CA32FDF0005FC9D /* SearchPlaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceViewModel.swift; sourceTree = "<group>"; };
 		BC395B602CA336000005FC9D /* SearchedPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedPlace.swift; sourceTree = "<group>"; };
-		BC395B622CA3384F0005FC9D /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		BC395B642CA338630005FC9D /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
+		BC395B642CA338630005FC9D /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		BC395B662CA338750005FC9D /* NetworkRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRouter.swift; sourceTree = "<group>"; };
 		BC395B6C2CA3399C0005FC9D /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		BC395B6F2CA3D0BD0005FC9D /* SearchPlaceQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceQuery.swift; sourceTree = "<group>"; };
+		BC395B712CA3D2430005FC9D /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
+		BC395B732CA3E2090005FC9D /* SearchPlaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceCell.swift; sourceTree = "<group>"; };
+		BC395B752CA3F0E50005FC9D /* GeocodingQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeocodingQuery.swift; sourceTree = "<group>"; };
 		BC404BCB2C9077FC001BA269 /* Log4Day.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Log4Day.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC404BCE2C9077FC001BA269 /* Log4DayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log4DayApp.swift; sourceTree = "<group>"; };
 		BC404BD02C9077FC001BA269 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -186,7 +191,6 @@
 		BC65B4FC2CA018B100E89223 /* RealmConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmConfiguration.swift; sourceTree = "<group>"; };
 		BC65B5002CA02D2000E89223 /* DateFormatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatManager.swift; sourceTree = "<group>"; };
 		BC65B50C2CA05C6C00E89223 /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
-		BC692DFE2C9C495300374032 /* PhotoBannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoBannerViewModel.swift; sourceTree = "<group>"; };
 		BC692E042C9D1A9E00374032 /* TapBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapBarView.swift; sourceTree = "<group>"; };
 		BC8007AA2C9D4A0300D62778 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		BC8007AC2C9D4E3F00D62778 /* SideBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarView.swift; sourceTree = "<group>"; };
@@ -266,7 +270,7 @@
 			isa = PBXGroup;
 			children = (
 				BC395B342CA1AB460005FC9D /* NewLogView.swift */,
-				BC395B552CA325700005FC9D /* AddLogPlaceCell.swift */,
+				BC395B552CA325700005FC9D /* NewLogPlaceCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -342,6 +346,7 @@
 			isa = PBXGroup;
 			children = (
 				BC395B5A2CA32CA80005FC9D /* SearchPlaceView.swift */,
+				BC395B732CA3E2090005FC9D /* SearchPlaceCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -352,6 +357,15 @@
 				BC395B6C2CA3399C0005FC9D /* NetworkError.swift */,
 			);
 			path = Status;
+			sourceTree = "<group>";
+		};
+		BC395B6E2CA3D0A90005FC9D /* Query */ = {
+			isa = PBXGroup;
+			children = (
+				BC395B6F2CA3D0BD0005FC9D /* SearchPlaceQuery.swift */,
+				BC395B752CA3F0E50005FC9D /* GeocodingQuery.swift */,
+			);
+			path = Query;
 			sourceTree = "<group>";
 		};
 		BC404BC22C9077FC001BA269 = {
@@ -421,7 +435,6 @@
 			children = (
 				BC65B5032CA02D7F00E89223 /* View */,
 				BC65B5022CA02D7B00E89223 /* ViewModel */,
-				BC692DFE2C9C495300374032 /* PhotoBannerViewModel.swift */,
 			);
 			path = MyLog;
 			sourceTree = "<group>";
@@ -452,10 +465,10 @@
 				BC404C7B2C93F03D001BA269 /* Common */,
 				BC404C712C93E132001BA269 /* MyLog */,
 				BC395B332CA1AB320005FC9D /* NewLog */,
+				BC395B572CA32C340005FC9D /* SearchPlace */,
 				BC404C732C93E14B001BA269 /* LogMap */,
 				BC4DFDD42C9D674D002CDC27 /* LogDetail */,
 				BC404C9B2C9418EE001BA269 /* Category */,
-				BC395B572CA32C340005FC9D /* SearchPlace */,
 				BC404C9A2C9418E3001BA269 /* Setting */,
 				BC404C722C93E144001BA269 /* Planner */,
 			);
@@ -481,6 +494,7 @@
 			children = (
 				BC395B6B2CA339830005FC9D /* Status */,
 				BC404C822C93F9A3001BA269 /* Resource */,
+				BC395B6E2CA3D0A90005FC9D /* Query */,
 				BC404C812C93F99C001BA269 /* Model */,
 				BC404C832C93F9A9001BA269 /* Manager */,
 			);
@@ -528,9 +542,9 @@
 		BC404C832C93F9A9001BA269 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				BC395B622CA3384F0005FC9D /* NetworkManager.swift */,
-				BC395B642CA338630005FC9D /* NetworkClient.swift */,
+				BC395B642CA338630005FC9D /* NetworkManager.swift */,
 				BC395B662CA338750005FC9D /* NetworkRouter.swift */,
+				BC395B712CA3D2430005FC9D /* TargetType.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -922,10 +936,12 @@
 			files = (
 				BCE2A0EF2C9FEFB10045D01B /* Photo.swift in Sources */,
 				BC65B50D2CA05C6C00E89223 /* CategoryViewModel.swift in Sources */,
+				BC395B762CA3F0E50005FC9D /* GeocodingQuery.swift in Sources */,
 				BC4DFDD62C9D67A7002CDC27 /* LogDetail.swift in Sources */,
 				BC4DFDEE2C9EBD10002CDC27 /* Log.swift in Sources */,
 				BC404CB02C942E43001BA269 /* SettingButton.swift in Sources */,
 				BC395B352CA1AB460005FC9D /* NewLogView.swift in Sources */,
+				BC395B702CA3D0BD0005FC9D /* SearchPlaceQuery.swift in Sources */,
 				BC404CAA2C94218C001BA269 /* FourCutPictureView.swift in Sources */,
 				BC404C7A2C93E1F9001BA269 /* LogMapView.swift in Sources */,
 				BC404CAE2C942D15001BA269 /* BackButton.swift in Sources */,
@@ -934,7 +950,6 @@
 				BC404C992C941829001BA269 /* NextViewWrapper.swift in Sources */,
 				BC404C8F2C941195001BA269 /* ToolbarButton.swift in Sources */,
 				BC404C872C93FE70001BA269 /* APIKey.swift in Sources */,
-				BC395B632CA3384F0005FC9D /* NetworkManager.swift in Sources */,
 				BC4DFDDD2C9D98D0002CDC27 /* LocationManager.swift in Sources */,
 				BC404C912C94142D001BA269 /* ToolbarTitle.swift in Sources */,
 				BC395B672CA338750005FC9D /* NetworkRouter.swift in Sources */,
@@ -957,6 +972,7 @@
 				BC4DFDE72C9EBC24002CDC27 /* ManagedObject.swift in Sources */,
 				BC395B612CA336000005FC9D /* SearchedPlace.swift in Sources */,
 				BC6417242C96EDF30013587A /* SideView.swift in Sources */,
+				BC395B742CA3E2090005FC9D /* SearchPlaceCell.swift in Sources */,
 				BC8007AB2C9D4A0300D62778 /* NavigationBar.swift in Sources */,
 				BC404BCF2C9077FC001BA269 /* Log4DayApp.swift in Sources */,
 				BC404C972C9417A4001BA269 /* UIViewControllerWrapper.swift in Sources */,
@@ -967,13 +983,13 @@
 				BC6417262C96EE370013587A /* SidebarButton.swift in Sources */,
 				BC404C8D2C94094E001BA269 /* ViewModfiers.swift in Sources */,
 				BC395B3F2CA29C200005FC9D /* LogMapViewModel.swift in Sources */,
+				BC395B722CA3D2430005FC9D /* TargetType.swift in Sources */,
 				BC8007AD2C9D4E3F00D62778 /* SideBarView.swift in Sources */,
-				BC692DFF2C9C495300374032 /* PhotoBannerViewModel.swift in Sources */,
 				BC65B4FD2CA018B100E89223 /* RealmConfiguration.swift in Sources */,
-				BC395B652CA338630005FC9D /* NetworkClient.swift in Sources */,
+				BC395B652CA338630005FC9D /* NetworkManager.swift in Sources */,
 				BC404C782C93E1EF001BA269 /* PlannerView.swift in Sources */,
 				BCE2A0EB2C9FDC430045D01B /* PlannerSheetView.swift in Sources */,
-				BC395B562CA325700005FC9D /* AddLogPlaceCell.swift in Sources */,
+				BC395B562CA325700005FC9D /* NewLogPlaceCell.swift in Sources */,
 				BC404CB82C9468DE001BA269 /* InfinityCarouselView.swift in Sources */,
 				BC4DFDDF2C9E8F81002CDC27 /* PlaceCell.swift in Sources */,
 				BC395B5D2CA32FDF0005FC9D /* SearchPlaceViewModel.swift in Sources */,

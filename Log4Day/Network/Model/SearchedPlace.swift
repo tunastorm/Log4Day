@@ -13,19 +13,20 @@ struct PlaceSearch: Decodable {
     var items: [SearchedPlace]
 }
 
-struct SearchedPlace: Decodable {
+struct SearchedPlace: Decodable, Identifiable {
+    var id = UUID()
     var title: String
     var link: String
     var category: String
     var address: String
     var roadAddress: String
-    var longitude: String
-    var latitude: String
+    var mapX: String
+    var mapY: String
     
     enum CodingKeys: String, CodingKey {
         case title, link, category, address, roadAddress
-        case longitude = "mapx"
-        case latitude = "mapy"
+        case mapX = "mapx"
+        case mapY = "mapy"
     }
 }
 

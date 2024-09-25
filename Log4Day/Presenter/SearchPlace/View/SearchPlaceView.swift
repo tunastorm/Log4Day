@@ -10,29 +10,36 @@ import SwiftUI
 struct SearchPlaceView: View {
     
     @StateObject private var viewModel = SearchPlaceViewModel()
-     
+    @ObservedObject var newLogViewModel: NewLogViewModel
+    
     var body: some View {
         NavigationWrapper {
             ScrollView {
                 LazyVStack {
-                    
+                    ForEach(viewModel.output.placeList, id:\.id) { item in
+                        SearchPlaceCell(viewModel: viewModel, 
+                                        newLogViewModel: newLogViewModel,
+                                        place: item)
+                    }
                 }
             }
             .searchable( // <-
-                text: $viewModel.output.searchKeyword,
-                placement: .navigationBarDrawer,
+                text: $viewModel.input.searchKeyword,
+                placement: .navigationBarDrawer(displayMode: .always),
                 prompt: "장소를 입력하세요"
             )
+            .onAppear {
+                UISearchBar.appearance().showsCancelButton = false
+            }
+            .onDisappear {
+                UISearchBar.appearance().showsCancelButton = true
+            }
             .onSubmit(of: .search) {
-                
+                viewModel.action(.search)
             }
         }
     }
     
     
     
-}
-
-#Preview {
-    SearchPlaceView()
 }

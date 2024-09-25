@@ -8,6 +8,7 @@
 import Foundation
 
 enum NetworkError: Error {
+    case idle
     case failedRequest
     case noData
     case invalidResponse
@@ -41,7 +42,8 @@ enum NetworkError: Error {
             return "[ 검색 결과 없음 ]"
         case .unExpectedError:
             return "[ 비정상적인 에러 ]"
-        default: ""
+        default: 
+            return ""
         }
     }
     
@@ -67,7 +69,8 @@ enum NetworkError: Error {
             return "검색어에 해당하는 결과가 없습니다."
         case .unExpectedError:
             return "알 수 없는 에러가 발생하였습니다.\n 고객센터로 문의하세요."
-        default: ""
+        default: 
+            return ""
         }
         
     }

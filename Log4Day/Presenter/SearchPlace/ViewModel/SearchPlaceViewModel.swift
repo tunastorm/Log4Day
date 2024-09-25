@@ -19,20 +19,47 @@ final class SearchPlaceViewModel: ObservableObject {
     
     @Published var output = Output()
     
-    struct Action {
-        
+    enum Action {
+        case search
     }
     
     struct Input {
-        
-    }
-    
-    struct Output {
+        let search = PassthroughSubject<Void, Never>()
         var searchKeyword: String = ""
     }
     
+    struct Output {
+        var selectedPlace: SearchedPlace?
+        var placeList: [SearchedPlace] = []
+        var searchError: NetworkError = .idle
+    }
+    
     init() {
-        
+        input.search
+            .sink { [weak self] _ in
+                self?.searchPlace()
+            }
+            .store(in: &cancelables)
+
+    }
+    
+    func action(_ action: Action) {
+        switch action {
+        case .search:
+            input.search.send(())
+        }
+    }
+    
+    private func searchPlace() {
+        let query = SearchPlaceQuery(query: input.searchKeyword, 
+                                     sort: SearchPlaceQuery.Sort.random.rawValue)
+        NetworkManager.request(PlaceSearch.self,
+                               router: .searchPlace(query: query))
+        { [weak self] result in
+            self?.output.placeList = result.items
+        } failure: { [weak self] error in
+            self?.output.searchError = error
+        }
     }
     
 }
