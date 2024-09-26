@@ -24,7 +24,7 @@ struct PlaceCell: View {
                 Rectangle()
                     .frame(height: 1)
                     .frame(maxWidth: .infinity)
-                    .foregroundStyle(Resource.ciColor.subContentColor)
+                    .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
             }
             HStack {
                 numberingView(place.ofPhoto.map{ $0 })
@@ -35,7 +35,7 @@ struct PlaceCell: View {
                 Rectangle()
                     .frame(height: 1)
                     .frame(maxWidth: .infinity)
-                    .foregroundStyle(Resource.ciColor.subContentColor)
+                    .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
             }
         }
         .frame(maxWidth: .infinity)
@@ -46,7 +46,7 @@ struct PlaceCell: View {
         Text("\(photo.count)")
             .foregroundStyle(.white)
             .frame(width: 40, height: 40)
-            .background(photo.count > 0 ? Resource.ciColor.highlightColor : Resource.ciColor.subContentColor  )
+            .background(photo.count > 0 ? ColorManager.shared.ciColor.highlightColor : ColorManager.shared.ciColor.subContentColor)
             .clipShape(Circle())
     }
     
@@ -58,13 +58,13 @@ struct PlaceCell: View {
                     Text(place.name)
                         .font(.title3)
                         .bold()
-                        .foregroundStyle(Resource.ciColor.contentColor)
+                        .foregroundStyle(ColorManager.shared.ciColor.contentColor)
                     Spacer()
                 }
                 HStack {
                     Text("#\(place.hashtag)")
                         .font(.caption)
-                        .foregroundStyle(Resource.ciColor.subContentColor)
+                        .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
                     Spacer()
                 }
             }
@@ -73,7 +73,7 @@ struct PlaceCell: View {
                 Rectangle()
                     .frame(height: 1)
                     .frame(maxWidth: .infinity)
-                    .foregroundStyle(Resource.ciColor.subContentColor)
+                    .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
             }
         }
         .padding(.leading)

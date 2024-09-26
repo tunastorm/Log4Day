@@ -126,9 +126,7 @@ class CategoryViewModel: ObservableObject {
     }
     
     func showAddSheet(_ isEditing: Bool = false) {
-        let height: CGFloat = isEditing ? 500 : 390
         output.showAddSheet = output.showAddSheet == .hidden ? .dynamic : .hidden
-        print("추가 시트 토글: \(output.showAddSheet)")
     }
     
     func showAddAlert() {
@@ -137,7 +135,6 @@ class CategoryViewModel: ObservableObject {
     
     func showDeleteAlert() {
         output.deleteAlert.toggle()
-        print("삭제 얼러트 토글: \(output.deleteAlert)")
     }
     
     func addCategory() {

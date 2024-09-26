@@ -10,7 +10,7 @@ import NMapsMap
 
 struct LogDetail: View {
     
-    @State private var coord: (CLLocationDegrees, CLLocationDegrees) = (126.9784147, 37.5666805)
+    @StateObject private var viewModel = LogDetailViewModel()
     
     var body: some View {
         NavigationWrapper {
@@ -18,7 +18,11 @@ struct LogDetail: View {
                 ScrollView {
                     LazyVStack {
                         titleView()
-                        LogDetailMapView(coord: $coord)
+                        LogNaverMapView(isFull: false,
+                                        cameraPointer: $viewModel.input.selectedPlace,
+                                        placeList: $viewModel.output.placeList,
+                                        photoList: $viewModel.output.photoList
+                        )
                         timelineList()
                     }
                 }
@@ -73,7 +77,7 @@ struct HashTagCell: View {
             RoundedRectangle(cornerRadius: 15)
                 .frame(height: 30)
                 .frame(minWidth: 40)
-                .foregroundStyle(Resource.ciColor.highlightColor)
+                .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
             Text("#\(hashTag)")
                 .foregroundStyle(.white)
                 .font(.callout)

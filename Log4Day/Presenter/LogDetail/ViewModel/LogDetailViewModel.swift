@@ -1,23 +1,23 @@
 //
-//  LogMapViewModel.swift
+//  LogDetailViewModel.swift
 //  Log4Day
 //
-//  Created by 유철원 on 9/24/24.
+//  Created by 유철원 on 9/25/24.
 //
 
 import Foundation
 import Combine
 
-final class LogMapViewModel: ObservableObject {
+final class LogDetailViewModel: ObservableObject {
     
-    private var canclelables = Set<AnyCancellable>()
+    private var cancelables = Set<AnyCancellable>()
     
     var input = Input()
     
     @Published var output = Output()
     
     enum Action {
-        case selectPlace
+        
     }
     
     struct Input {
@@ -29,4 +29,5 @@ final class LogMapViewModel: ObservableObject {
         var placeList: [Place] = []
         var photoList: [Photo] = []
     }
+    
 }

@@ -39,7 +39,7 @@ struct SidebarButton: View {
             HStack(spacing: 20){
                 Text(title)
                     .fontWeight(.semibold)
-                    .foregroundStyle(viewModel.output.category == title ? Resource.ciColor.highlightColor : Resource.ciColor.subContentColor)
+                    .foregroundStyle(viewModel.output.category == title ? ColorManager.shared.ciColor.highlightColor : ColorManager.shared.ciColor.subContentColor)
                     .padding(.init(top: 0, leading: 20, bottom: 0, trailing: 60))
                 Spacer()
             }
@@ -52,13 +52,13 @@ struct SidebarButton: View {
                     Spacer()
                     ZStack(alignment: .bottom) {
                         if viewModel.output.category == title {
-                            Resource.ciColor.highlightColor
+                            ColorManager.shared.ciColor.highlightColor
                             // 선택된 뷰에 배경
                                 .opacity(viewModel.output.category == title ? 1 : 0)
                             // id별 궤적 생성 애니메이션
                                 .matchedGeometryEffect(id: "TapEffect", in: namespace)
                         } else {
-                            Resource.ciColor.subContentColor
+                            ColorManager.shared.ciColor.subContentColor
                         }
                     }
                     .frame(height: viewModel.output.category == title ? 1 : 0)

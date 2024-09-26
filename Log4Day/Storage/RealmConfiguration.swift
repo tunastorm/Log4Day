@@ -13,10 +13,22 @@ class RealmConfiguration {
     static func getConfig() -> Realm.Configuration{
         
         let config = Realm.Configuration(schemaVersion: 4) { migration, oldSchemaVersion in
-//
-//            if oldSchemaVersion < 1 {
-//                
-//            }
+
+            if oldSchemaVersion < 1 {
+                
+            }
+            
+            if oldSchemaVersion < 2 {
+                
+            }
+            
+            if oldSchemaVersion < 3 {
+                
+            }
+            
+            if oldSchemaVersion < 4 {
+                
+            }
             
         }
         

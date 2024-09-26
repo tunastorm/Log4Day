@@ -57,11 +57,11 @@ struct FourCutPictureView: View {
             Text(title)
                 .frame(height: 30)
                 .frame(alignment: .leading)
-                .foregroundStyle(Resource.ciColor.contentColor)
+                .foregroundStyle(ColorManager.shared.ciColor.contentColor)
             Text(hashTags)
                 .frame(height: 30)
                 .frame(alignment: .leading)
-                .foregroundStyle(Resource.ciColor.subContentColor)
+                .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
         }
         .padding()
     }
@@ -80,24 +80,24 @@ struct FourCutPictureView: View {
                 Image("default4Cut4")
                     .resizable()
                     .frame(width: width, height: height)
-                    .background(Resource.ciColor.subContentColor)
+                    .background(ColorManager.shared.ciColor.subContentColor)
 //                    .relativeSize(width: width, height: height)
                 Image("default4Cut2")
                     .resizable()
                     .frame(width: width, height: height)
-                    .background(Resource.ciColor.subContentColor)
+                    .background(ColorManager.shared.ciColor.subContentColor)
 //                    .relativeSize(width: width, height: height)
             }
             HStack {
                 Image("default4Cut3")
                     .resizable()
                     .frame(width: width, height: height)
-                    .background(Resource.ciColor.subContentColor)
+                    .background(ColorManager.shared.ciColor.subContentColor)
 //                    .relativeSize(width: width, height: height)
                 Image("default4Cut5")
                     .resizable()
                     .frame(width: width, height: height)
-                    .background(Resource.ciColor.subContentColor)
+                    .background(ColorManager.shared.ciColor.subContentColor)
 //                    .relativeSize(width: width, height: height)
                 
             }

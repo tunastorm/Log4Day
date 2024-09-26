@@ -25,7 +25,7 @@ struct ToolBarNavigationLink<NextView: View>: ToolbarContent {
                 Image(systemName: image)
             }
             .foregroundStyle(.black)
-            .buttonStyle(IsPressedButtonStyle(normalColor: .black, pressedColor: Resource.ciColor.highlightColor))
+            .buttonStyle(IsPressedButtonStyle(normalColor: .black, pressedColor: ColorManager.shared.ciColor.highlightColor))
         }
     }
 }

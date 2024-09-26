@@ -58,7 +58,7 @@ struct TapBarView: View {
                 HStack {
                     Text(key)
                         .font(.title2)
-                        .foregroundStyle(Resource.ciColor.highlightColor)
+                        .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
                     Spacer()
                 }
                 ForEach((viewModel.output.placeDict[key] ?? []).indices, id: \.self){ index in
@@ -98,7 +98,7 @@ struct TopTabbar: View {
                             .padding(.horizontal)
                         if viewModel.output.selectedPicker == item {
                             Capsule()
-                                .foregroundColor(Resource.ciColor.highlightColor)
+                                .foregroundColor(ColorManager.shared.ciColor.highlightColor)
                                 .frame(height: 3)
                                 .matchedGeometryEffect(id: "info", in: animation)
                                 .padding(.horizontal)
@@ -112,7 +112,7 @@ struct TopTabbar: View {
                 }
             }
         }
-        .background(Resource.ciColor.backgroundColor)
+        .background(ColorManager.shared.ciColor.backgroundColor)
     }
 }
 

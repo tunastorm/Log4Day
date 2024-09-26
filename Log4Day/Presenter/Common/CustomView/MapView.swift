@@ -8,27 +8,24 @@
 import NMapsMap
 import SwiftUI
 
-struct LogDetailMapView: View {
-    @Binding var coord: (Double, Double)
+struct LogNaverMapView: View {
+    var isFull: Bool = false
+    @Binding var cameraPointer: Int
+    @Binding var placeList: [Place]
+    @Binding var photoList: [Photo]
     
     var body: some View {
-        ZStack {
-            UIMapView(coord: $coord)
+        print("네이버 맵뷰 장소목록:",placeList.count)
+        print("장소: ", placeList.first?.name)
+        print("카메라 포인터:", cameraPointer)
+        return ZStack {
+            UIMapView(cameraPointer: $cameraPointer, placeList: $placeList, photoList: $photoList)
                 .edgesIgnoringSafeArea(.vertical)
         }
-        .frame(height: 300)
+        .frame(height: isFull ? UIScreen.main.bounds.height : 300)
         .frame(maxWidth: .infinity)
     }
+    
 }
 
-struct LogMapMapView: View {
-    @Binding var coord: (Double, Double)
-    
-    var body: some View {
-        ZStack {
-            UIMapView(coord: $coord)
-                .edgesIgnoringSafeArea(.vertical)
-        }
-    }
-}
 

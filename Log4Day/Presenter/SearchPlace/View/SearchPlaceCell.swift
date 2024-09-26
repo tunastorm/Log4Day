@@ -49,7 +49,7 @@ struct SearchPlaceCell: View {
                 .foregroundStyle(.white)
         }
         .frame(width: 40, height: 40)
-        .background(isSelected ? Resource.ciColor.highlightColor : Resource.ciColor.subContentColor )
+        .background(isSelected ? ColorManager.shared.ciColor.highlightColor : ColorManager.shared.ciColor.subContentColor )
         .clipShape(Circle())
     }
     
@@ -62,13 +62,13 @@ struct SearchPlaceCell: View {
                                     .replacingOccurrences(of: "</b>", with: ""))
                         .font(.title3)
                         .bold()
-                        .foregroundStyle(Resource.ciColor.contentColor)
+                        .foregroundStyle(ColorManager.shared.ciColor.contentColor)
                     Spacer()
                 }
                 HStack {
                     Text(place.roadAddress)
                         .font(.caption)
-                        .foregroundStyle(Resource.ciColor.subContentColor)
+                        .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
                     Spacer()
                 }
             }

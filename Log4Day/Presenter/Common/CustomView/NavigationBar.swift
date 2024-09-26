@@ -25,7 +25,7 @@ struct NavigationBar<CustomButton: View>: View {
                 Text(title)
                     .frame(width: 80, height: 40)
                     .font(.headline)
-                    .foregroundStyle(Resource.ciColor.highlightColor)
+                    .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
                     .padding(.init(top: 0, leading: 10, bottom: 0, trailing: 0))
                 Spacer()
                 if let button {

@@ -8,29 +8,35 @@
 import Foundation
 import Combine
 import SwiftUI
+import PhotosUI
 import NMapsMap
 
 final class NewLogViewModel: ObservableObject {
     
     private let repository = Repository.shared
+    
     private var cancellables = Set<AnyCancellable>()
     var input = Input()
     @Published var output = Output()
     
     enum Action {
         case placePicked(place: SearchedPlace)
+        case photoPicked
         case deleteButtonTapped(lastOnly: Bool)
     }
     
     struct Input {
         var titleTextFieldReturn = PassthroughSubject<Void, Never>()
         var placePicked = PassthroughSubject<SearchedPlace, Never>()
+        var photoPicked = PassthroughSubject<Void, Never>()
         var deleteButtonTapped = PassthroughSubject<Bool, Never>()
         var title = ""
         var selectedPlace: [Int] = []
+        var pickedPhotos: [UIImage] = []
     }
     
     struct Output {
+        var cameraPointer = 0
         var tagList: [String] = []
         var placeList: [Place] = []
         var photoList: [Photo] = []
@@ -40,6 +46,12 @@ final class NewLogViewModel: ObservableObject {
         input.placePicked
             .sink { [weak self] searchedPlace in
                 self?.addPickedPlace(searchedPlace)
+            }
+            .store(in: &cancellables)
+        
+        input.photoPicked
+            .sink { [weak self] _ in
+                self?.addPhotos()
             }
             .store(in: &cancellables)
         
@@ -54,25 +66,33 @@ final class NewLogViewModel: ObservableObject {
         switch action {
         case .placePicked(let place):
             input.placePicked.send(place)
+        case .photoPicked:
+            input.photoPicked.send(())
         case .deleteButtonTapped(let lastOnly):
             input.deleteButtonTapped.send(lastOnly)
         }
     }
     
+    private func addDotToCoordinate(mapX: String, mapY: String) -> (Double, Double)? {
+        guard let X = Double(mapX), let Y = Double(mapY) else {
+            return nil
+        }
+        return (Y / 1e7, X / 1e7)
+    }
+    
     private func addPickedPlace(_ searched: SearchedPlace) {
-        guard let mapX = Double(searched.mapX), let mapY = Double(searched.mapY) else {
+        guard let coordinate =  addDotToCoordinate(mapX: searched.mapX, mapY: searched.mapY) else {
             return
         }
-        let tm128 = NMGTm128(x: mapX, y: mapY)
-        let coordinate = tm128.toLatLng()
         
         let replacedTitle = searched.title.replacingOccurrences(of: "<b>", with: "").replacingOccurrences(of: "</b>", with: "")
         
-        let place = Place(isVisited: false, hashtag: "", name: replacedTitle, city: "", address: searched.address, longitude: coordinate.lng, latitude: coordinate.lat, createdAt: Date())
+        let place = Place(isVisited: false, hashtag: "", name: replacedTitle, city: "", address: searched.address, longitude: coordinate.1, latitude: coordinate.0, createdAt: Date())
         output.placeList.append(place)
     }
     
     private func deletePickedPlace(_ lastOnly: Bool) {
+        
         if lastOnly { // 검색 창에서 선택된 버튼 해제 시 실행
             let last = output.placeList.count-1
             output.placeList.remove(at: last)
@@ -84,12 +104,14 @@ final class NewLogViewModel: ObservableObject {
             output.placeList.remove(atOffsets: IndexSet(input.selectedPlace))
             input.selectedPlace.removeAll()
         }
-//        input.selectedPlace.forEach { output.placeList.remove(at: $0) }
-      
         print("선택된 장소 목록:", input.selectedPlace)
     }
     
-    private func pinToMap() {
+    private func addPhotos() {
+        
+        input.pickedPhotos.forEach { image in
+            
+        }
         
     }
     

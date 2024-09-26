@@ -6,15 +6,26 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct NewLogPlaceCell: View {
 
     @ObservedObject var viewModel: NewLogViewModel
     @State private var isSelected: Bool = false
+    @State private var showPicker: Bool = false
     
     var indexInfo: (Int,Int)
     var place: Place
 
+    var pickerConfig: PHPickerConfiguration {
+          var config = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
+          config.filter = .images
+          config.selection = .ordered
+          config.selectionLimit = 4
+          config.preferredAssetRepresentationMode = .current // 트랜스 코딩을 방지
+          return config
+    }
+    
     var body: some View {
         return cellView()
     }
@@ -40,6 +51,7 @@ struct NewLogPlaceCell: View {
                 print("\(indexInfo) 선택됨 ")
             }
             isSelected.toggle()
+            viewModel.output.cameraPointer = indexInfo.0
         }
     }
 
@@ -47,7 +59,7 @@ struct NewLogPlaceCell: View {
         Text("\(photo.count)")
             .foregroundStyle(.white)
             .frame(width: 40, height: 40)
-            .background(photo.count > 0 ? Resource.ciColor.highlightColor : Resource.ciColor.subContentColor )
+            .background(photo.count > 0 ? ColorManager.shared.ciColor.highlightColor : ColorManager.shared.ciColor.subContentColor )
             .clipShape(Circle())
     }
     
@@ -61,31 +73,36 @@ struct NewLogPlaceCell: View {
                             .font(.title3)
                             .bold()
                             .foregroundStyle(isSelected && viewModel.input.selectedPlace.contains(indexInfo.0) ?
-                                             Resource.ciColor.highlightColor : Resource.ciColor.contentColor)
+                                             ColorManager.shared.ciColor.highlightColor : ColorManager.shared.ciColor.contentColor)
                         Spacer()
                     }
                     HStack {
                         Text(place.address)
                             .font(.caption)
-                            .foregroundStyle(Resource.ciColor.subContentColor)
+                            .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
                         Spacer()
                     }
                 }
                 Button {
-                 
+                    showPicker.toggle()
+                    viewModel.output.cameraPointer = indexInfo.0
                 } label: {
                     Image(systemName: "camera")
                         .frame(width: 40, height: 40)
-                        .foregroundStyle(Resource.ciColor.subContentColor)
+                        .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
                 }
                 .padding(.horizontal, 10)
+                .sheet(isPresented: $showPicker, content: {
+                    PhotoPicker(viewModel: viewModel, isPresented: $showPicker, configuration: pickerConfig)
+                        .ignoresSafeArea()
+                })
             }
             .padding(.vertical)
             if indexInfo.0 < indexInfo.1 - 1 {
                 Rectangle()
                     .frame(height: 1)
                     .frame(maxWidth: .infinity)
-                    .foregroundStyle(Resource.ciColor.subContentColor)
+                    .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
             }
         }
         .padding(.leading)

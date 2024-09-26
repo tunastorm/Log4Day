@@ -34,7 +34,7 @@ struct SideView: View {
             HStack {
                 Text("카테고리")
                     .font(.headline)
-                    .foregroundColor(Resource.ciColor.highlightColor)
+                    .foregroundColor(ColorManager.shared.ciColor.highlightColor)
                 Spacer()
                 Button {
                     withAnimation {
@@ -44,14 +44,14 @@ struct SideView: View {
                     Image(systemName: "xmark")
                 }
                 .padding(.trailing)
-                .foregroundStyle(Resource.ciColor.contentColor)
+                .foregroundStyle(ColorManager.shared.ciColor.contentColor)
             }
             .padding(.leading)
             .padding(.top)
             Rectangle()
                 .frame(height: 1)
                 .frame(maxWidth: .infinity)
-                .foregroundStyle(Resource.ciColor.subContentColor)
+                .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
         }
     }
     
@@ -77,7 +77,7 @@ struct SideView: View {
                 .frame(width: 1)
                 .frame(maxHeight: .infinity)
                 .padding(.init(top: 10, leading: 0, bottom: 10, trailing: 0))
-                .foregroundStyle(Resource.ciColor.subContentColor)
+                .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
             addButton()
         }
         .frame(height: 40)
@@ -94,7 +94,7 @@ struct SideView: View {
             viewModel.action(.deleteTapped)
         } label: {
             Text("삭제하기")
-                .foregroundStyle(Resource.ciColor.subContentColor)
+                .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
         }
         .padding(.horizontal)
         .alert(LocalizedStringKey("'\(viewModel.output.category)' 카테고리를 삭제하시겠습니까?"), isPresented: $viewModel.output.deleteAlert) {

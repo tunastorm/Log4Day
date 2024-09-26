@@ -27,6 +27,8 @@
 		BC395B722CA3D2430005FC9D /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B712CA3D2430005FC9D /* TargetType.swift */; };
 		BC395B742CA3E2090005FC9D /* SearchPlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B732CA3E2090005FC9D /* SearchPlaceCell.swift */; };
 		BC395B762CA3F0E50005FC9D /* GeocodingQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B752CA3F0E50005FC9D /* GeocodingQuery.swift */; };
+		BC395B7F2CA446300005FC9D /* LogDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B7E2CA446300005FC9D /* LogDetailViewModel.swift */; };
+		BC395B812CA53C590005FC9D /* PHPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B802CA53C590005FC9D /* PHPickerView.swift */; };
 		BC404BCF2C9077FC001BA269 /* Log4DayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404BCE2C9077FC001BA269 /* Log4DayApp.swift */; };
 		BC404BD12C9077FC001BA269 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404BD02C9077FC001BA269 /* RootView.swift */; };
 		BC404BD32C9077FD001BA269 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC404BD22C9077FD001BA269 /* Assets.xcassets */; };
@@ -55,7 +57,7 @@
 		BC404CAE2C942D15001BA269 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CAD2C942D15001BA269 /* BackButton.swift */; };
 		BC404CB02C942E43001BA269 /* SettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CAF2C942E43001BA269 /* SettingButton.swift */; };
 		BC404CB82C9468DE001BA269 /* InfinityCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CB72C9468DE001BA269 /* InfinityCarouselView.swift */; };
-		BC404CBA2C94B0A5001BA269 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CB92C94B0A5001BA269 /* Resource.swift */; };
+		BC404CBA2C94B0A5001BA269 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CB92C94B0A5001BA269 /* ColorManager.swift */; };
 		BC4DFDCB2C9D5C22002CDC27 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4DFDCA2C9D5C22002CDC27 /* MapView.swift */; };
 		BC4DFDCE2C9D6105002CDC27 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BC4DFDCD2C9D6105002CDC27 /* RealmSwift */; };
 		BC4DFDCF2C9D613E002CDC27 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = BC4DFDCD2C9D6105002CDC27 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -140,6 +142,8 @@
 		BC395B712CA3D2430005FC9D /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
 		BC395B732CA3E2090005FC9D /* SearchPlaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceCell.swift; sourceTree = "<group>"; };
 		BC395B752CA3F0E50005FC9D /* GeocodingQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeocodingQuery.swift; sourceTree = "<group>"; };
+		BC395B7E2CA446300005FC9D /* LogDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDetailViewModel.swift; sourceTree = "<group>"; };
+		BC395B802CA53C590005FC9D /* PHPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHPickerView.swift; sourceTree = "<group>"; };
 		BC404BCB2C9077FC001BA269 /* Log4Day.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Log4Day.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC404BCE2C9077FC001BA269 /* Log4DayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log4DayApp.swift; sourceTree = "<group>"; };
 		BC404BD02C9077FC001BA269 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -171,7 +175,7 @@
 		BC404CAD2C942D15001BA269 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		BC404CAF2C942E43001BA269 /* SettingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingButton.swift; sourceTree = "<group>"; };
 		BC404CB72C9468DE001BA269 /* InfinityCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfinityCarouselView.swift; sourceTree = "<group>"; };
-		BC404CB92C94B0A5001BA269 /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
+		BC404CB92C94B0A5001BA269 /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 		BC4DFDC72C9D5B3B002CDC27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		BC4DFDCA2C9D5C22002CDC27 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		BC4DFDD52C9D67A7002CDC27 /* LogDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDetail.swift; sourceTree = "<group>"; };
@@ -318,13 +322,6 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		BC395B522CA2EF2D0005FC9D /* KeyboardManager */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = KeyboardManager;
-			sourceTree = "<group>";
-		};
 		BC395B572CA32C340005FC9D /* SearchPlace */ = {
 			isa = PBXGroup;
 			children = (
@@ -368,6 +365,22 @@
 			path = Query;
 			sourceTree = "<group>";
 		};
+		BC395B7C2CA4461A0005FC9D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				BC395B7E2CA446300005FC9D /* LogDetailViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		BC395B7D2CA4461F0005FC9D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BC4DFDD52C9D67A7002CDC27 /* LogDetail.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		BC404BC22C9077FC001BA269 = {
 			isa = PBXGroup;
 			children = (
@@ -395,7 +408,6 @@
 			isa = PBXGroup;
 			children = (
 				BC65B4FF2CA02D1100E89223 /* Util */,
-				BC4DFDD92C9D98B5002CDC27 /* Location */,
 				BC4DFDC72C9D5B3B002CDC27 /* Info.plist */,
 				BC404C802C93F993001BA269 /* Storage */,
 				BC404C7E2C93F96D001BA269 /* Network */,
@@ -478,7 +490,6 @@
 		BC404C7B2C93F03D001BA269 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				BC395B522CA2EF2D0005FC9D /* KeyboardManager */,
 				BC404C7F2C93F974001BA269 /* Resource */,
 				BC404CA02C941BD9001BA269 /* CustomShape */,
 				BC404C952C94176A001BA269 /* CustomWrapper */,
@@ -505,7 +516,7 @@
 			isa = PBXGroup;
 			children = (
 				BC404BD22C9077FD001BA269 /* Assets.xcassets */,
-				BC404CB92C94B0A5001BA269 /* Resource.swift */,
+				BC404CB92C94B0A5001BA269 /* ColorManager.swift */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -566,7 +577,6 @@
 				BC404CAB2C942835001BA269 /* ToolBarNavigationLink.swift */,
 				BC404C902C94142D001BA269 /* ToolbarTitle.swift */,
 				BC404CAD2C942D15001BA269 /* BackButton.swift */,
-				BC404CAF2C942E43001BA269 /* SettingButton.swift */,
 				BC404CB72C9468DE001BA269 /* InfinityCarouselView.swift */,
 				BC4DFDCA2C9D5C22002CDC27 /* MapView.swift */,
 				BC8007AA2C9D4A0300D62778 /* NavigationBar.swift */,
@@ -591,6 +601,7 @@
 				BC404C962C9417A4001BA269 /* UIViewControllerWrapper.swift */,
 				BC404C982C941829001BA269 /* NextViewWrapper.swift */,
 				BC4DFDD72C9D88FF002CDC27 /* UIMapView.swift */,
+				BC395B802CA53C590005FC9D /* PHPickerView.swift */,
 			);
 			path = CustomWrapper;
 			sourceTree = "<group>";
@@ -599,6 +610,7 @@
 			isa = PBXGroup;
 			children = (
 				BC404CA32C941E0A001BA269 /* SettingView.swift */,
+				BC404CAF2C942E43001BA269 /* SettingButton.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -622,17 +634,10 @@
 		BC4DFDD42C9D674D002CDC27 /* LogDetail */ = {
 			isa = PBXGroup;
 			children = (
-				BC4DFDD52C9D67A7002CDC27 /* LogDetail.swift */,
+				BC395B7D2CA4461F0005FC9D /* View */,
+				BC395B7C2CA4461A0005FC9D /* ViewModel */,
 			);
 			path = LogDetail;
-			sourceTree = "<group>";
-		};
-		BC4DFDD92C9D98B5002CDC27 /* Location */ = {
-			isa = PBXGroup;
-			children = (
-				BC4DFDDC2C9D98D0002CDC27 /* LocationManager.swift */,
-			);
-			path = Location;
 			sourceTree = "<group>";
 		};
 		BC4DFDEC2C9EBCD4002CDC27 /* Model */ = {
@@ -649,6 +654,7 @@
 		BC65B4FF2CA02D1100E89223 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				BC4DFDDC2C9D98D0002CDC27 /* LocationManager.swift */,
 				BC65B5002CA02D2000E89223 /* DateFormatManager.swift */,
 			);
 			path = Util;
@@ -939,6 +945,7 @@
 				BC395B762CA3F0E50005FC9D /* GeocodingQuery.swift in Sources */,
 				BC4DFDD62C9D67A7002CDC27 /* LogDetail.swift in Sources */,
 				BC4DFDEE2C9EBD10002CDC27 /* Log.swift in Sources */,
+				BC395B812CA53C590005FC9D /* PHPickerView.swift in Sources */,
 				BC404CB02C942E43001BA269 /* SettingButton.swift in Sources */,
 				BC395B352CA1AB460005FC9D /* NewLogView.swift in Sources */,
 				BC395B702CA3D0BD0005FC9D /* SearchPlaceQuery.swift in Sources */,
@@ -959,7 +966,7 @@
 				BC404BD12C9077FC001BA269 /* RootView.swift in Sources */,
 				BC395B3B2CA265920005FC9D /* NewLogViewModel.swift in Sources */,
 				BC395B5B2CA32CA80005FC9D /* SearchPlaceView.swift in Sources */,
-				BC404CBA2C94B0A5001BA269 /* Resource.swift in Sources */,
+				BC404CBA2C94B0A5001BA269 /* ColorManager.swift in Sources */,
 				BC404C7D2C93F04D001BA269 /* NavigationWrapper.swift in Sources */,
 				BC404CA62C941F0E001BA269 /* TimelineCell.swift in Sources */,
 				BC4DFDE92C9EBC39002CDC27 /* RepositoryResult.swift in Sources */,
@@ -986,6 +993,7 @@
 				BC395B722CA3D2430005FC9D /* TargetType.swift in Sources */,
 				BC8007AD2C9D4E3F00D62778 /* SideBarView.swift in Sources */,
 				BC65B4FD2CA018B100E89223 /* RealmConfiguration.swift in Sources */,
+				BC395B7F2CA446300005FC9D /* LogDetailViewModel.swift in Sources */,
 				BC395B652CA338630005FC9D /* NetworkManager.swift in Sources */,
 				BC404C782C93E1EF001BA269 /* PlannerView.swift in Sources */,
 				BCE2A0EB2C9FDC430045D01B /* PlannerSheetView.swift in Sources */,
@@ -1165,6 +1173,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Log4Day/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Log4Day;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1174,7 +1183,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tunastorm.Log4Day;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1200,6 +1209,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Log4Day/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Log4Day;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1209,7 +1219,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tunastorm.Log4Day;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

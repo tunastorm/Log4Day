@@ -37,7 +37,7 @@ struct TimelineCell: View {
                 Rectangle()
                     .frame(height: 1)
                     .frame(maxWidth: .infinity)
-                    .foregroundStyle(Resource.ciColor.subContentColor)
+                    .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
             }
         }
         .frame(maxWidth: .infinity)
@@ -50,15 +50,15 @@ struct TimelineCell: View {
                 Spacer()
                 Text("Date: ")
                     .font(.caption)
-                    .foregroundStyle(Resource.ciColor.subContentColor)
+                    .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
                 Text(DateFormatManager.shared.dateToFormattedString(date: log.startDate, format: .dotSeparatedyyyyMMddDay))
                     .font(.callout)
-                    .foregroundStyle(Resource.ciColor.contentColor)
+                    .foregroundStyle(ColorManager.shared.ciColor.contentColor)
             }
             Rectangle()
                 .frame(height: 1)
                 .frame(maxWidth: .infinity)
-                .foregroundStyle(Resource.ciColor.subContentColor)
+                .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
         }
     }
     
@@ -66,7 +66,7 @@ struct TimelineCell: View {
         Text("\(index+1)")
             .foregroundStyle(.white)
             .frame(width: 40, height: 40)
-            .background(log.fourCut.isEmpty ? Resource.ciColor.subContentColor :  Resource.ciColor.highlightColor )
+            .background(log.fourCut.isEmpty ? ColorManager.shared.ciColor.subContentColor :  ColorManager.shared.ciColor.highlightColor )
             .clipShape(Circle())
     }
     
@@ -78,13 +78,13 @@ struct TimelineCell: View {
                     Text(log.title)
                         .font(.title3)
                         .bold()
-                        .foregroundStyle(Resource.ciColor.contentColor)
+                        .foregroundStyle(ColorManager.shared.ciColor.contentColor)
                     Spacer()
                 }
                 HStack {
                     Text("#\(log.places.compactMap{ $0.hashtag }.joined(separator:" #"))")
                         .font(.caption)
-                        .foregroundStyle(Resource.ciColor.subContentColor)
+                        .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
                     Spacer()
                 }
             }
@@ -95,7 +95,7 @@ struct TimelineCell: View {
                 Rectangle()
                     .frame(height: 1)
                     .frame(maxWidth: .infinity)
-                    .foregroundStyle(Resource.ciColor.subContentColor)
+                    .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
             }
         }
         .padding(.leading)

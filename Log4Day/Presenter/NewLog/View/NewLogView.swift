@@ -9,18 +9,21 @@ import SwiftUI
 import NMapsMap
 
 struct NewLogView: View {
+    
     // 기본 위치 서울역
-    @State private var coord: (CLLocationDegrees, CLLocationDegrees) = (126.9784147, 37.5666805)
     @StateObject private var viewModel = NewLogViewModel()
+    
+    @FocusState private var titleFocused: Bool
     
     var body: some View {
         
         GeometryReader { proxy in
-            
             ZStack {
                 contentView()
             }
-            
+            .onTapGesture {
+                titleFocused = false
+            }
         }
         
     }
@@ -28,10 +31,22 @@ struct NewLogView: View {
     private func contentView() -> some View {
         
         VStack {
-            NavigationBar<Text>(title: "NewLog")
+            NavigationBar(
+                title: "NewLog",
+                button: Button {
+                    print("등록 클릭")
+                } label: {
+                    Text("등록")
+                        .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
+                }
+            )
             ScrollView {
                 titleView()
-                LogDetailMapView(coord: $coord)
+                LogNaverMapView(isFull: false,
+                                cameraPointer: $viewModel.output.cameraPointer,
+                                placeList: $viewModel.output.placeList,
+                                photoList: $viewModel.output.photoList
+                )
                 placeButton()
                 placeList()
             }
@@ -46,6 +61,7 @@ struct NewLogView: View {
                 VStack(alignment: .leading) {
                     TextField("제목을 입력하세요", text: $viewModel.input.title)
                         .font(.title3)
+                        .focused($titleFocused)
                     Text(DateFormatManager.shared.dateToFormattedString(date: Date(), format: .dotSeparatedyyyyMMddDay))
                         .font(.callout)
                         .foregroundStyle(.gray)
@@ -68,12 +84,6 @@ struct NewLogView: View {
     
     private func placeList() -> some View {
         LazyVStack {
-//            if viewModel.output.placeList.count > 0 {
-//                Rectangle()
-//                    .frame(height: 1)
-//                    .frame(maxWidth: .infinity)
-//                    .foregroundStyle(Resource.ciColor.subContentColor)
-//            }
             ForEach(viewModel.output.placeList.indices, id: \.self) { index in
                 NewLogPlaceCell(viewModel: viewModel,
                                 indexInfo: (index, viewModel.output.placeList.count),
@@ -91,7 +101,7 @@ struct NewLogView: View {
             if viewModel.output.placeList.isEmpty {
                 HStack {
                     Text("오늘의 추억이 남은 장소를 추가해 보세요")
-                        .foregroundStyle(Resource.ciColor.highlightColor)
+                        .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
                 }
                 .padding()
             }
@@ -101,21 +111,18 @@ struct NewLogView: View {
                     SearchPlaceView(newLogViewModel: viewModel)
                 } label: {
                     Text("추가")
-                        .foregroundStyle(Resource.ciColor.highlightColor)
+                        .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
                 }
-                .frame(width: 100, height: 40)
-                .background(.white)
-                .cornerRadius(10, style: .continuous)
-                .border(cornerRadius: 18, stroke: .init(Resource.ciColor.subContentColor.opacity(0.2), lineWidth:2))
+                .frame(width: 130, height: 40)
+                .border(cornerRadius: 5, stroke: .init(ColorManager.shared.ciColor.subContentColor.opacity(0.2), lineWidth:2))
                 if viewModel.output.placeList.count > 0 {
-                    Spacer()
                     Button("삭제") {
                         viewModel.action(.deleteButtonTapped(lastOnly: false))
                     }
-                    .frame(width: 100, height: 40)
-                    .background(.white)
-                    .border(cornerRadius: 18, stroke: .init(Resource.ciColor.subContentColor.opacity(0.2), lineWidth:2))
-                    .foregroundStyle(Resource.ciColor.subContentColor)
+                    .frame(width: 130, height: 40)
+                    .border(cornerRadius: 5, stroke: .init(ColorManager.shared.ciColor.subContentColor.opacity(0.2), lineWidth:2))
+                    .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
+                    .padding(.leading, 10)
                 }
                 Spacer()
             }

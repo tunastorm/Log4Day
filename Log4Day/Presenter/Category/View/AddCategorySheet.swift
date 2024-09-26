@@ -22,30 +22,30 @@ struct AddCategorySheet: View {
                     Rectangle()
                         .frame(height: 1)
                         .frame(maxWidth: .infinity)
-                        .foregroundStyle(Resource.ciColor.subContentColor)
+                        .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
+                    
+                        .padding()
                 }
-                .padding()
-            }
-            .padding(.top, 20)
-            HStack {
-                Spacer()
-                Button {
-                    viewModel.action(.newCategoryTextFieldReturn)
-                    viewModel.action(.addTapped)
-                    isFocused = false
-                } label: {
-                    Text("추가하기")
+                .padding(.top, 20)
+                HStack {
+                    Spacer()
+                    Button {
+                        viewModel.action(.newCategoryTextFieldReturn)
+                        viewModel.action(.addTapped)
+                        isFocused = false
+                    } label: {
+                        Text("추가하기")
+                    }
+                    Spacer()
                 }
                 Spacer()
             }
-            Spacer()
+            .frame(maxWidth: .infinity)
+            .frame(height: isFocused ? 500 : 350)
+            .background(ColorManager.shared.ciColor.backgroundColor)
         }
-        .frame(maxWidth: .infinity)
-        .frame(height: isFocused ? 500 : 350)
-        .background(Resource.ciColor.backgroundColor)
-
+        
     }
-    
 }
 
 //#Preview {

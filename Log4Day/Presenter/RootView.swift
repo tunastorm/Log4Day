@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RootView: View {
-    
+        
     @State private var selection = 0
     @ObservedObject var categoryViewModel = CategoryViewModel()
     
@@ -65,7 +65,7 @@ struct RootView: View {
                     .tag(2)
             }
             .font(.headline)
-            .tint(Resource.ciColor.highlightColor)
+            .tint(ColorManager.shared.ciColor.highlightColor)
         }
 
     }

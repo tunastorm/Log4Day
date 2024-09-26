@@ -28,12 +28,6 @@ struct SearchPlaceView: View {
                 placement: .navigationBarDrawer(displayMode: .always),
                 prompt: "장소를 입력하세요"
             )
-            .onAppear {
-                UISearchBar.appearance().showsCancelButton = false
-            }
-            .onDisappear {
-                UISearchBar.appearance().showsCancelButton = true
-            }
             .onSubmit(of: .search) {
                 viewModel.action(.search)
             }

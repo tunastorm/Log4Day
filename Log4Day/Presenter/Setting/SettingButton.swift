@@ -100,7 +100,7 @@ struct SettingButton: View {
      }
     
     private func changeColorScheme() {
-        print("컬러모드: ", colorScheme)
+        ColorManager.shared.updateColorScheme(colorScheme == .dark ? .light : .dark)
     }
     
     private func resetData() {

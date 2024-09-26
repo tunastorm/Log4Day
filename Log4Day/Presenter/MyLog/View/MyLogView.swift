@@ -31,29 +31,21 @@ struct MyLogView: View {
                         LazyVStack(pinnedViews: [.sectionHeaders]) {
                             Section(header: TitleView()) {
                                 Rectangle()
-                                    .fill(Resource.ciColor.subContentColor)
+                                    .fill(ColorManager.shared.ciColor.subContentColor)
                                     .frame(height: 1)
                                     .frame(maxWidth: .infinity)
                                     .padding(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
                                 photoLogBanner(width: proxy.size.width)
                             }
                             if viewModel.output.logList.isEmpty {
-                                NavigationLink {
-                                    
-                                } label: {
+                                HStack {
                                     Spacer()
-                                    HStack {
-                                        Spacer()
-                                        Text("오늘의 추억을 남기러 가기")
-                                            .font(.title3)
-                                            .foregroundStyle(Resource.ciColor.highlightColor)
-                                        Spacer()
-                                    }
+                                    Text("오늘의 추억을 남기러 가기")
+                                        .font(.title3)
+                                        .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
                                     Spacer()
-                                   
                                 }
-                                .padding(.bottom)
-
+                                .padding(.vertical, 40)
                             } else {
                                 TapBarView()
                                     .environmentObject(viewModel)
@@ -79,21 +71,21 @@ struct MyLogView: View {
             HStack {
                 Text("Subject: ")
                     .font(.footnote)
-                    .foregroundStyle(Resource.ciColor.subContentColor)
+                    .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
                 Text(categoryViewModel.output.category)
                     .font(.title3)
-                    .foregroundStyle(Resource.ciColor.contentColor)
+                    .foregroundStyle(ColorManager.shared.ciColor.contentColor)
                 Spacer()
                 Text("Date: ")
                     .font(.footnote)
-                    .foregroundStyle(Resource.ciColor.subContentColor)
+                    .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
                 Text(viewModel.output.logDate)
                     .font(.title3)
-                    .foregroundStyle(Resource.ciColor.contentColor)
+                    .foregroundStyle(ColorManager.shared.ciColor.contentColor)
             }
             .padding(.init(top: 10, leading: 20, bottom: 6, trailing: 20))
         }
-        .background(Resource.ciColor.backgroundColor)
+        .background(ColorManager.shared.ciColor.backgroundColor)
     }
     
     private func photoLogBanner(width: CGFloat) -> some View {

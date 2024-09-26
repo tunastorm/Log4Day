@@ -37,8 +37,12 @@ struct LogMapView: View {
                                 .font(.system(size: 20))
                         })
                     )
-                    LogMapMapView(coord: $coord)
-                        .padding(.bottom, 130)
+                    LogNaverMapView(isFull: true,
+                                    cameraPointer: $viewModel.input.selectedPlace,
+                                    placeList: $viewModel.output.placeList,
+                                    photoList: $viewModel.output.photoList
+                    )
+                    .padding(.bottom, 130)
                 }
                 SideBarView(controller: .logMap, viewModel: categoryViewModel)
                     .environmentObject(viewModel)

@@ -23,7 +23,7 @@ struct NavigationWrapper<Content: View>: View {
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading: backButton(), trailing: settingButton())
             .background(.white)
-            .tint(Resource.ciColor.highlightColor)
+            .tint(ColorManager.shared.ciColor.highlightColor)
         } else {
             NavigationView {
                 content
@@ -31,7 +31,7 @@ struct NavigationWrapper<Content: View>: View {
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(leading: backButton(), trailing: settingButton())
             .background(.white)
-            .tint((Resource.ciColor.highlightColor))
+            .tint((ColorManager.shared.ciColor.highlightColor))
         }
     }
     
