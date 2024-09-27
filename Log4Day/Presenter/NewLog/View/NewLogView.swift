@@ -42,10 +42,11 @@ struct NewLogView: View {
             )
             ScrollView {
                 titleView()
-                LogNaverMapView(isFull: false,
+                LogNaverMapView(isFull: false, 
                                 cameraPointer: $viewModel.output.cameraPointer,
-                                placeList: $viewModel.output.placeList,
-                                photoList: $viewModel.output.photoList
+                                placeList:  $viewModel.output.placeList,
+                                photoDict: $viewModel.output.photoDict,
+                                coordinateList: $viewModel.output.coordinateList
                 )
                 placeButton()
                 placeList()
@@ -117,6 +118,7 @@ struct NewLogView: View {
                 .border(cornerRadius: 5, stroke: .init(ColorManager.shared.ciColor.subContentColor.opacity(0.2), lineWidth:2))
                 if viewModel.output.placeList.count > 0 {
                     Button("삭제") {
+                        viewModel.output.cameraPointer = viewModel.output.cameraPointer == 0 ? 0 : viewModel.output.placeList.count-2
                         viewModel.action(.deleteButtonTapped(lastOnly: false))
                     }
                     .frame(width: 130, height: 40)

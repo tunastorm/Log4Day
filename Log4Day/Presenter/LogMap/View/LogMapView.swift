@@ -38,9 +38,11 @@ struct LogMapView: View {
                         })
                     )
                     LogNaverMapView(isFull: true,
-                                    cameraPointer: $viewModel.input.selectedPlace,
+                                    cameraPointer: $viewModel.output.cameraPointer,
                                     placeList: $viewModel.output.placeList,
-                                    photoList: $viewModel.output.photoList
+                                    photoDict: $viewModel.output.photoDict,
+                                    coordinateList: $viewModel.output.coordinateList
+                              
                     )
                     .padding(.bottom, 130)
                 }

@@ -39,7 +39,8 @@ final class NewLogViewModel: ObservableObject {
         var cameraPointer = 0
         var tagList: [String] = []
         var placeList: [Place] = []
-        var photoList: [Photo] = []
+        var photoDict: [Int:Photo] = [:]
+        var coordinateList: [NMGLatLng] = []
     }
     
     init() {
@@ -80,6 +81,7 @@ final class NewLogViewModel: ObservableObject {
         return (Y / 1e7, X / 1e7)
     }
     
+    
     private func addPickedPlace(_ searched: SearchedPlace) {
         guard let coordinate =  addDotToCoordinate(mapX: searched.mapX, mapY: searched.mapY) else {
             return
@@ -88,20 +90,27 @@ final class NewLogViewModel: ObservableObject {
         let replacedTitle = searched.title.replacingOccurrences(of: "<b>", with: "").replacingOccurrences(of: "</b>", with: "")
         
         let place = Place(isVisited: false, hashtag: "", name: replacedTitle, city: "", address: searched.address, longitude: coordinate.1, latitude: coordinate.0, createdAt: Date())
+        
+        let nmgLatLng = NMGLatLng(lat: coordinate.0, lng: coordinate.1)
+    
         output.placeList.append(place)
+        output.coordinateList.append(nmgLatLng)
     }
     
     private func deletePickedPlace(_ lastOnly: Bool) {
         
         if lastOnly { // 검색 창에서 선택된 버튼 해제 시 실행
-            let last = output.placeList.count-1
-            output.placeList.remove(at: last)
+            output.coordinateList.remove(at: output.coordinateList.count-1)
+            output.placeList.remove(at: output.placeList.count-1)
         } else { // 새 로그 작성 화면에서 선택된 셀 해제 시 실행
             guard input.selectedPlace.count > 0 else {
                 print(#function, "선택된 장소없음")
                 return
             }
-            output.placeList.remove(atOffsets: IndexSet(input.selectedPlace))
+            
+            let places = IndexSet(input.selectedPlace)
+            output.coordinateList.remove(atOffsets: places)
+            output.placeList.remove(atOffsets: places)
             input.selectedPlace.removeAll()
         }
         print("선택된 장소 목록:", input.selectedPlace)

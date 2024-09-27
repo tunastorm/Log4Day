@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import NMapsMap
 
 final class LogDetailViewModel: ObservableObject {
     
@@ -25,9 +26,11 @@ final class LogDetailViewModel: ObservableObject {
     }
     
     struct Output {
+        var cameraPointer = 0
         var tagList: [String] = []
         var placeList: [Place] = []
-        var photoList: [Photo] = []
+        var photoDict: [Int:Photo] = [:]
+        var coordinateList: [NMGLatLng] = []
     }
     
 }

@@ -29,6 +29,7 @@
 		BC395B762CA3F0E50005FC9D /* GeocodingQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B752CA3F0E50005FC9D /* GeocodingQuery.swift */; };
 		BC395B7F2CA446300005FC9D /* LogDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B7E2CA446300005FC9D /* LogDetailViewModel.swift */; };
 		BC395B812CA53C590005FC9D /* PHPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B802CA53C590005FC9D /* PHPickerView.swift */; };
+		BC395B832CA57E5B0005FC9D /* CustomMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B822CA57E5B0005FC9D /* CustomMarkerView.swift */; };
 		BC404BCF2C9077FC001BA269 /* Log4DayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404BCE2C9077FC001BA269 /* Log4DayApp.swift */; };
 		BC404BD12C9077FC001BA269 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404BD02C9077FC001BA269 /* RootView.swift */; };
 		BC404BD32C9077FD001BA269 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC404BD22C9077FD001BA269 /* Assets.xcassets */; };
@@ -144,6 +145,7 @@
 		BC395B752CA3F0E50005FC9D /* GeocodingQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeocodingQuery.swift; sourceTree = "<group>"; };
 		BC395B7E2CA446300005FC9D /* LogDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDetailViewModel.swift; sourceTree = "<group>"; };
 		BC395B802CA53C590005FC9D /* PHPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHPickerView.swift; sourceTree = "<group>"; };
+		BC395B822CA57E5B0005FC9D /* CustomMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMarkerView.swift; sourceTree = "<group>"; };
 		BC404BCB2C9077FC001BA269 /* Log4Day.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Log4Day.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC404BCE2C9077FC001BA269 /* Log4DayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log4DayApp.swift; sourceTree = "<group>"; };
 		BC404BD02C9077FC001BA269 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 			children = (
 				BC395B342CA1AB460005FC9D /* NewLogView.swift */,
 				BC395B552CA325700005FC9D /* NewLogPlaceCell.swift */,
+				BC395B822CA57E5B0005FC9D /* CustomMarkerView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -967,6 +970,7 @@
 				BC395B3B2CA265920005FC9D /* NewLogViewModel.swift in Sources */,
 				BC395B5B2CA32CA80005FC9D /* SearchPlaceView.swift in Sources */,
 				BC404CBA2C94B0A5001BA269 /* ColorManager.swift in Sources */,
+				BC395B832CA57E5B0005FC9D /* CustomMarkerView.swift in Sources */,
 				BC404C7D2C93F04D001BA269 /* NavigationWrapper.swift in Sources */,
 				BC404CA62C941F0E001BA269 /* TimelineCell.swift in Sources */,
 				BC4DFDE92C9EBC39002CDC27 /* RepositoryResult.swift in Sources */,
