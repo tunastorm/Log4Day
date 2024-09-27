@@ -32,14 +32,15 @@ final class NewLogViewModel: ObservableObject {
         var deleteButtonTapped = PassthroughSubject<Bool, Never>()
         var title = ""
         var selectedPlace: [Int] = []
-        var pickedPhotos: [UIImage] = []
+        var pickedImages: [UIImage] = []
     }
     
     struct Output {
         var cameraPointer = 0
         var tagList: [String] = []
         var placeList: [Place] = []
-        var photoDict: [Int:Photo] = [:]
+        var imageDict: [Int:[UIImage]] = [:]
+        var photoDict: [Int:[Photo]]?
         var coordinateList: [NMGLatLng] = []
     }
     
@@ -52,7 +53,7 @@ final class NewLogViewModel: ObservableObject {
         
         input.photoPicked
             .sink { [weak self] _ in
-                self?.addPhotos()
+                self?.addImages()
             }
             .store(in: &cancellables)
         
@@ -74,7 +75,7 @@ final class NewLogViewModel: ObservableObject {
         }
     }
     
-    private func addDotToCoordinate(mapX: String, mapY: String) -> (Double, Double)? {
+    private func divideCoordinate(mapX: String, mapY: String) -> (Double, Double)? {
         guard let X = Double(mapX), let Y = Double(mapY) else {
             return nil
         }
@@ -83,16 +84,18 @@ final class NewLogViewModel: ObservableObject {
     
     
     private func addPickedPlace(_ searched: SearchedPlace) {
-        guard let coordinate =  addDotToCoordinate(mapX: searched.mapX, mapY: searched.mapY) else {
+        
+        guard let coordinate = divideCoordinate(mapX: searched.mapX, mapY: searched.mapY),
+              !output.placeList.map { ($0.longitude, $0.latitude) }.contains(where: { $0 == coordinate }) else {
             return
         }
         
         let replacedTitle = searched.title.replacingOccurrences(of: "<b>", with: "").replacingOccurrences(of: "</b>", with: "")
         
-        let place = Place(isVisited: false, hashtag: "", name: replacedTitle, city: "", address: searched.address, longitude: coordinate.1, latitude: coordinate.0, createdAt: Date())
+        let place = Place(isVisited: false, hashtag: "", name: replacedTitle, city: "", address: searched.roadAddress, longitude: coordinate.1, latitude: coordinate.0, createdAt: Date())
         
         let nmgLatLng = NMGLatLng(lat: coordinate.0, lng: coordinate.1)
-    
+        
         output.placeList.append(place)
         output.coordinateList.append(nmgLatLng)
     }
@@ -107,7 +110,6 @@ final class NewLogViewModel: ObservableObject {
                 print(#function, "선택된 장소없음")
                 return
             }
-            
             let places = IndexSet(input.selectedPlace)
             output.coordinateList.remove(atOffsets: places)
             output.placeList.remove(atOffsets: places)
@@ -116,11 +118,24 @@ final class NewLogViewModel: ObservableObject {
         print("선택된 장소 목록:", input.selectedPlace)
     }
     
-    private func addPhotos() {
+    private func addImages() {
         
-        input.pickedPhotos.forEach { image in
-            
+        let count = output.imageDict.values.flatMap{ $0 }.count
+        
+        if count >= 4 {
+            return
         }
+        
+        if !output.imageDict.keys.contains(output.cameraPointer) {
+            output.imageDict[output.cameraPointer] = []
+        }
+        output.imageDict[output.cameraPointer] = input.pickedImages
+        print("추가 후 장소 \(output.cameraPointer) 이미지", output.imageDict[output.cameraPointer])
+        input.pickedImages.removeAll()
+        
+    }
+    
+    private func savePhotos() {
         
     }
     

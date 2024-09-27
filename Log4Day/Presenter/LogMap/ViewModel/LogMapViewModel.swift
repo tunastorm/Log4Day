@@ -29,7 +29,8 @@ final class LogMapViewModel: ObservableObject {
         var cameraPointer = 0
         var tagList: [String] = []
         var placeList: [Place] = []
-        var photoDict: [Int:Photo] = [:]
+        var photoDict: [Int:[Photo]]?
+        var imageDict: [Int:[UIImage]] = [:]
         var coordinateList: [NMGLatLng] = []
     }
 }

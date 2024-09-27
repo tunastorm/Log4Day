@@ -8,7 +8,6 @@
 import Foundation
 import Combine
 
-
 final class SearchPlaceViewModel: ObservableObject {
     
     private var cancelables = Set<AnyCancellable>()
@@ -26,6 +25,7 @@ final class SearchPlaceViewModel: ObservableObject {
     struct Input {
         let search = PassthroughSubject<Void, Never>()
         var searchKeyword: String = ""
+        var coordinateList: [(Double,Double)] = []
     }
     
     struct Output {
@@ -40,7 +40,6 @@ final class SearchPlaceViewModel: ObservableObject {
                 self?.searchPlace()
             }
             .store(in: &cancelables)
-
     }
     
     func action(_ action: Action) {
@@ -50,8 +49,14 @@ final class SearchPlaceViewModel: ObservableObject {
         }
     }
     
+    func checkIsPicked(_ coord: (String, String), _ coordList: [(Double, Double)]) -> Bool {
+        let dividen = ((Double(coord.1) ?? 0.0) / 1e7,
+                       (Double(coord.0) ?? 0.0) / 1e7)
+        return coordList.contains { $0 == dividen }
+    }
+    
     private func searchPlace() {
-        let query = SearchPlaceQuery(query: input.searchKeyword, 
+        let query = SearchPlaceQuery(query: input.searchKeyword,
                                      sort: SearchPlaceQuery.Sort.random.rawValue)
         NetworkManager.request(PlaceSearch.self,
                                router: .searchPlace(query: query))

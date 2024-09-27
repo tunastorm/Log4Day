@@ -10,9 +10,13 @@ import NMapsMap
 
 struct UIMapView: UIViewRepresentable {
     
+    typealias PhotoDict = [Int : [Photo]]
+    typealias ImageDict = [Int : [UIImage]]
+    
     @Binding var cameraPointer: Int
     @Binding var placeList: [Place]
-    @Binding var photoDict: [Int : Photo]
+//    @Binding var photoDict: PhotoDict?
+    @Binding var imageDict: ImageDict
     @Binding var coordinateList: [NMGLatLng]
     
     enum OverlayImage: CaseIterable {
@@ -41,19 +45,16 @@ struct UIMapView: UIViewRepresentable {
     }
     
     func makeCoordinator() -> Coordinator {
-        
-        let coordinator = Coordinator()
-    
-        return coordinator
-        
+        return Coordinator()
     }
 
     func makeUIView(context: Context) -> NMFNaverMapView {
         let view = NMFNaverMapView()
         view.showScaleBar = true
         view.showZoomControls = false
+        view.showCompass = false
         view.mapView.positionMode = .direction
-        view.mapView.zoomLevel = 15
+        view.mapView.zoomLevel = 12
         view.mapView.allowsScrolling = true
         view.mapView.addCameraDelegate(delegate: context.coordinator)
         return view
@@ -61,37 +62,36 @@ struct UIMapView: UIViewRepresentable {
     
     func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
         
-        context.coordinator.exchangeOverlays(newCoordList: coordinateList)
-        
-        print("현재 focusIndex:", cameraPointer)
-        print("장소목록: ",placeList.count)
-        
+        //MARK: 카메라 위치 갱신
+        context.coordinator.lastCameraPointer = context.coordinator.cameraPointer
         if context.coordinator.isDeleted {
             context.coordinator.cameraPointer = placeList.count - 1
         } else {
             context.coordinator.cameraPointer = cameraPointer
         }
-        
         cameraPointer = context.coordinator.cameraPointer
         
+        //MARK: 오버레이 요소 갱신
+        context.coordinator.exchangeOverlays(newCoordList: coordinateList, newImage: imageDict)
+        
+        //MARK: 마커에 맵뷰 할당
         context.coordinator.markerList.forEach { $0.mapView = uiView.mapView }
         
+        //MARK: 마커 간의 직선 추가
         if let polyline = context.coordinator.polyline {
         
             context.coordinator.polyline?.mapView = uiView.mapView
         
         } else if let newline = NMFPolylineOverlay(coordinateList) {
             newline .width = 3
-            newline .color = .systemGray3
+            newline .color = .systemGray4
             newline .pattern = [6,3]
             newline .mapView = uiView.mapView
             context.coordinator.polyline = newline
         }
         
-        // 사진 표시 로직 구현
+        //MARK: 카메라 이동 애니메이션
         if placeList.count > 0 {
-            print(#function, "카메라 포인터:", cameraPointer)
-            
             let pointer = cameraPointer == context.coordinator.cameraPointer ?
                 cameraPointer : context.coordinator.cameraPointer
         
@@ -110,11 +110,25 @@ struct UIMapView: UIViewRepresentable {
         
         var isDeleted: Bool = false
         var cameraPointer: Int = 0
+        var lastCameraPointer: Int = 0
         var markerList: [NMFMarker] = []
         var coordinateList: [NMGLatLng] = []
         var polyline: NMFPolylineOverlay?
+        var imageDict: [Int:[UIImage]] = [:]
+        var photoDict: [Int:[Photo]]?
         
-        func exchangeOverlays(newCoordList: [NMGLatLng]) {
+        // 1. UIMapView와 Coordinator의 cooridnateList를 Set으로 비교
+        // 2. 기존 오버레이 요소 중 뺄 것과 새로 추가할 오버레이를 구분해 갱신
+        func exchangeOverlays(newCoordList: [NMGLatLng], newImage: ImageDict) {
+            
+            // 장소 증감 없는 이벤트 처리
+            if coordinateList.count > 0, coordinateList == newCoordList {
+                exchangeImages(newImage: newImage)
+                selectedMarkerToggle()
+                return
+            }
+            
+            //MARK: 제거할 요소와 추가할 요소 구분
             var oldSet = Set<NMGLatLng>()
             var newSet = Set<NMGLatLng>()
             coordinateList.forEach { oldSet.insert($0) }
@@ -123,6 +137,7 @@ struct UIMapView: UIViewRepresentable {
             let filteredOld = oldSet.subtracting(newSet)
             newSet.subtract(oldSet)
             
+            //MARK: 제거할 오버레이 요소 삭제
             var needRemove: [Int] = []
             coordinateList.enumerated().forEach { index, coord in
                 if filteredOld.contains(coord) {
@@ -131,6 +146,8 @@ struct UIMapView: UIViewRepresentable {
                     let line = polyline?.line
                     polyline?.line.removePoint(coord)
                     polyline?.line = line!
+                    imageDict.removeValue(forKey: index)
+                    photoDict?.removeValue(forKey: index)
                 }
             }
             
@@ -143,29 +160,86 @@ struct UIMapView: UIViewRepresentable {
                 isDeleted = true
             }
             
-            print("삭제할 인덱스:", needRemove)
-            print("삭제후 마커 목록:", markerList)
-            print("삭제후 좌표 목록:", coordinateList)
-            print("삭제후 폴리라인 목록:", polyline?.line)
-            
+            //MARK: 추가할 오버레이 요소 생성
             newCoordList.enumerated().forEach { index, coord in
         
                 if newSet.contains(coord) {
-                    let iconImage = OverlayImage.allCases[index % 8].image
+                    addImage(index, newImage: newImage)
+                    let iconImage = markerImage(index)
                     let marker = NMFMarker(position: coord, iconImage: iconImage)
                     markerList.append(marker)
                     coordinateList.append(coord)
                     let line = polyline?.line
                     polyline?.line.addPoint(coord)
                     polyline?.line = line!
+                    addPhoto(index, newPhoto: photoDict)
                 }
                 
             }
-            print("추가할 인덱스:", newSet)
-            print("추가 후 마커 목록:", markerList)
-            print("추가 후 좌표 목록:", coordinateList)
-            print("추가 후 폴리라인 목록:", polyline?.line)
             
+        }
+        
+        func exchangeImages(newImage: ImageDict) {
+            imageDict[cameraPointer] = newImage[cameraPointer]
+            markerList[cameraPointer].iconImage = markerImage(cameraPointer)
+        }
+        
+        func selectedMarkerToggle() {
+            if cameraPointer != lastCameraPointer {
+                markerList[lastCameraPointer].iconImage = markerImage(lastCameraPointer)
+            }
+            markerList[cameraPointer].iconImage = markerImage(cameraPointer)
+        }
+    
+        func addImage(_ index: Int, newImage: ImageDict) {
+            print("마커에 이미지 추가:", newImage.count)
+            if !imageDict.keys.contains(index) {
+                imageDict[index] = []
+            }
+            imageDict[index] = newImage[index]
+        }
+        
+        func addPhoto(_ index: Int, newPhoto: PhotoDict?) {
+            
+            if photoDict == nil {
+                photoDict = [:]
+            }
+            
+            guard var photoDict, let newPhoto else { return }
+            
+            if !photoDict.keys.contains(index) {
+                photoDict[index] = []
+            }
+            photoDict[index] = newPhoto[index]
+            
+        }
+        
+        func markerImage(_ index: Int) -> NMFOverlayImage {
+            //마커 이미지 구성
+            let markerView = MarkerView(isPointed: index == cameraPointer,
+                                        index: index, 
+                                        count: photoDict?[index]?.count ?? 0,
+                                        image: imageDict[index]?.first)
+            
+            let controller = UIHostingController(rootView: markerView)
+            controller.view.frame = CGRect(origin: .zero, size: CGSize(width: 112, height: 112))
+            controller.view.backgroundColor = .clear
+
+            if let rootVC = UIApplication.shared.windows.first?.rootViewController {
+                rootVC.view.insertSubview(controller.view, at: 0)
+
+                let renderer = UIGraphicsImageRenderer(size: CGSize(width: 112, height: 112))
+
+                let markerImage = renderer.image { context in
+                    controller.view.layer.render(in: context.cgContext)
+                }
+                
+                controller.view.removeFromSuperview()
+                
+                return NMFOverlayImage(image: markerImage)
+            } else {
+                return OverlayImage.allCases[index % 8].image
+            }
         }
         
         func mapView(_ mapView: NMFMapView, cameraWillChangeByReason reason: Int, animated: Bool) {
@@ -176,6 +250,7 @@ struct UIMapView: UIViewRepresentable {
         func mapView(_ mapView: NMFMapView, cameraIsChangingByReason reason: Int) {
             print("카메라 변경 - reason: \(reason)")
         }
+        
         
     }
 

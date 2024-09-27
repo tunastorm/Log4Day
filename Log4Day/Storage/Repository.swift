@@ -15,7 +15,7 @@ final class Repository {
     
     static let shared = Repository()
     
-    private let resourceManager = ResourceManager()
+    private let resourceManager = ImageManager()
     
     private let realm = {
         do {
@@ -24,20 +24,23 @@ final class Repository {
             return nil
         }
     }()
-//    
-//    private let realm = {
-//        do {
-//            return try? Realm()
-//        } catch {
-//            return nil
-//        }
-//    }()
     
     func detectRealmURL() {
         print(realm?.configuration.fileURL ?? "")
     }
 
     func createItem(_ data: Object, complitionHandler: RepositoryResult) {
+        do {
+            try realm?.write {
+                realm?.add(data)
+            }
+            complitionHandler(.success(RepositoryStatus.createSuccess))
+        } catch {
+            complitionHandler(.failure(RepositoryError.createFailed))
+        }
+    }
+    
+    func createLog(_ data: Log, photoDict: [Int:[Photo]], complitionHandler: RepositoryResult) {
         do {
             try realm?.write {
                 realm?.add(data)

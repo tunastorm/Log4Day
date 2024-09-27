@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ResourceManager: FileManager {
+final class ImageManager: FileManager {
     
     private var documentDirectory: URL?
 
@@ -42,6 +42,7 @@ final class ResourceManager: FileManager {
         let fileURL = documentDirectory.appendingPathComponent("\(filename).jpg")
         
         //이 경로에 실제로 파일이 존재하는 지 확인
+    
         if FileManager.default.fileExists(atPath: fileURL.path()) {
             return UIImage(contentsOfFile: fileURL.path())
         } else {
@@ -55,6 +56,7 @@ final class ResourceManager: FileManager {
         
         let fileURL = documentDirectory.appendingPathComponent("\(filename).jpg")
         
+        print( fileURL.path())
         if FileManager.default.fileExists(atPath: fileURL.path()) {
             do {
                 try FileManager.default.removeItem(atPath: fileURL.path())
@@ -68,4 +70,17 @@ final class ResourceManager: FileManager {
             print("file no exist")
         }
     }
+}
+
+extension FileManager {
+    
+    func urls(of filename: String, in directory: URL)  -> [URL]? {
+        guard let urls = try? contentsOfDirectory(at: directory, includingPropertiesForKeys: nil, options: [])
+            else { return nil }
+        
+        return urls.filter { url in
+            !url.hasDirectoryPath && url.deletingPathExtension().lastPathComponent == filename
+        }
+    }
+    
 }

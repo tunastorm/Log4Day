@@ -30,6 +30,7 @@
 		BC395B7F2CA446300005FC9D /* LogDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B7E2CA446300005FC9D /* LogDetailViewModel.swift */; };
 		BC395B812CA53C590005FC9D /* PHPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B802CA53C590005FC9D /* PHPickerView.swift */; };
 		BC395B832CA57E5B0005FC9D /* CustomMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B822CA57E5B0005FC9D /* CustomMarkerView.swift */; };
+		BC395B852CA65F7F0005FC9D /* MarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B842CA65F7F0005FC9D /* MarkerView.swift */; };
 		BC404BCF2C9077FC001BA269 /* Log4DayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404BCE2C9077FC001BA269 /* Log4DayApp.swift */; };
 		BC404BD12C9077FC001BA269 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404BD02C9077FC001BA269 /* RootView.swift */; };
 		BC404BD32C9077FD001BA269 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC404BD22C9077FD001BA269 /* Assets.xcassets */; };
@@ -71,7 +72,7 @@
 		BC4DFDE52C9EBB21002CDC27 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4DFDE42C9EBB21002CDC27 /* Repository.swift */; };
 		BC4DFDE72C9EBC24002CDC27 /* ManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4DFDE62C9EBC24002CDC27 /* ManagedObject.swift */; };
 		BC4DFDE92C9EBC39002CDC27 /* RepositoryResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4DFDE82C9EBC39002CDC27 /* RepositoryResult.swift */; };
-		BC4DFDEB2C9EBC72002CDC27 /* ResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4DFDEA2C9EBC72002CDC27 /* ResourceManager.swift */; };
+		BC4DFDEB2C9EBC72002CDC27 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4DFDEA2C9EBC72002CDC27 /* ImageManager.swift */; };
 		BC4DFDEE2C9EBD10002CDC27 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4DFDED2C9EBD10002CDC27 /* Log.swift */; };
 		BC4DFDF02C9EBE61002CDC27 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4DFDEF2C9EBE61002CDC27 /* Category.swift */; };
 		BC4DFDF22C9EF933002CDC27 /* FSCalanderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4DFDF12C9EF933002CDC27 /* FSCalanderView.swift */; };
@@ -146,6 +147,7 @@
 		BC395B7E2CA446300005FC9D /* LogDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDetailViewModel.swift; sourceTree = "<group>"; };
 		BC395B802CA53C590005FC9D /* PHPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHPickerView.swift; sourceTree = "<group>"; };
 		BC395B822CA57E5B0005FC9D /* CustomMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMarkerView.swift; sourceTree = "<group>"; };
+		BC395B842CA65F7F0005FC9D /* MarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerView.swift; sourceTree = "<group>"; };
 		BC404BCB2C9077FC001BA269 /* Log4Day.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Log4Day.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC404BCE2C9077FC001BA269 /* Log4DayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log4DayApp.swift; sourceTree = "<group>"; };
 		BC404BD02C9077FC001BA269 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -188,7 +190,7 @@
 		BC4DFDE42C9EBB21002CDC27 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		BC4DFDE62C9EBC24002CDC27 /* ManagedObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedObject.swift; sourceTree = "<group>"; };
 		BC4DFDE82C9EBC39002CDC27 /* RepositoryResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryResult.swift; sourceTree = "<group>"; };
-		BC4DFDEA2C9EBC72002CDC27 /* ResourceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceManager.swift; sourceTree = "<group>"; };
+		BC4DFDEA2C9EBC72002CDC27 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		BC4DFDED2C9EBD10002CDC27 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		BC4DFDEF2C9EBE61002CDC27 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		BC4DFDF12C9EF933002CDC27 /* FSCalanderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCalanderView.swift; sourceTree = "<group>"; };
@@ -530,7 +532,7 @@
 				BC65B5062CA04FCB00E89223 /* Protocol */,
 				BC4DFDEC2C9EBCD4002CDC27 /* Model */,
 				BC4DFDE42C9EBB21002CDC27 /* Repository.swift */,
-				BC4DFDEA2C9EBC72002CDC27 /* ResourceManager.swift */,
+				BC4DFDEA2C9EBC72002CDC27 /* ImageManager.swift */,
 				BC65B4FC2CA018B100E89223 /* RealmConfiguration.swift */,
 			);
 			path = Storage;
@@ -575,7 +577,6 @@
 			isa = PBXGroup;
 			children = (
 				BC404C8E2C941195001BA269 /* ToolbarButton.swift */,
-				BC404CA72C942170001BA269 /* ListFooterView.swift */,
 				BC404CA92C94218C001BA269 /* FourCutPictureView.swift */,
 				BC404CAB2C942835001BA269 /* ToolBarNavigationLink.swift */,
 				BC404C902C94142D001BA269 /* ToolbarTitle.swift */,
@@ -585,6 +586,8 @@
 				BC8007AA2C9D4A0300D62778 /* NavigationBar.swift */,
 				BC4DFDE02C9EA20B002CDC27 /* CalendarView.swift */,
 				BC4DFDF12C9EF933002CDC27 /* FSCalanderView.swift */,
+				BC404CA72C942170001BA269 /* ListFooterView.swift */,
+				BC395B842CA65F7F0005FC9D /* MarkerView.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -950,6 +953,7 @@
 				BC4DFDEE2C9EBD10002CDC27 /* Log.swift in Sources */,
 				BC395B812CA53C590005FC9D /* PHPickerView.swift in Sources */,
 				BC404CB02C942E43001BA269 /* SettingButton.swift in Sources */,
+				BC395B852CA65F7F0005FC9D /* MarkerView.swift in Sources */,
 				BC395B352CA1AB460005FC9D /* NewLogView.swift in Sources */,
 				BC395B702CA3D0BD0005FC9D /* SearchPlaceQuery.swift in Sources */,
 				BC404CAA2C94218C001BA269 /* FourCutPictureView.swift in Sources */,
@@ -988,7 +992,7 @@
 				BC404BCF2C9077FC001BA269 /* Log4DayApp.swift in Sources */,
 				BC404C972C9417A4001BA269 /* UIViewControllerWrapper.swift in Sources */,
 				BC404C762C93E1BF001BA269 /* MyLogView.swift in Sources */,
-				BC4DFDEB2C9EBC72002CDC27 /* ResourceManager.swift in Sources */,
+				BC4DFDEB2C9EBC72002CDC27 /* ImageManager.swift in Sources */,
 				BC4DFDE52C9EBB21002CDC27 /* Repository.swift in Sources */,
 				BC404CA82C942170001BA269 /* ListFooterView.swift in Sources */,
 				BC6417262C96EE370013587A /* SidebarButton.swift in Sources */,

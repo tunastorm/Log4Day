@@ -45,7 +45,8 @@ struct NewLogView: View {
                 LogNaverMapView(isFull: false, 
                                 cameraPointer: $viewModel.output.cameraPointer,
                                 placeList:  $viewModel.output.placeList,
-                                photoDict: $viewModel.output.photoDict,
+//                                photoDict: $viewModel.output.photoDict, 
+                                imageDict: $viewModel.output.imageDict,
                                 coordinateList: $viewModel.output.coordinateList
                 )
                 placeButton()

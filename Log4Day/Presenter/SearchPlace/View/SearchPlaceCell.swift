@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SearchPlaceCell: View {
     
+    @State var isPicked: Bool = false
     @State private var isSelected: Bool = false
     
     @ObservedObject var viewModel: SearchPlaceViewModel
@@ -36,6 +37,7 @@ struct SearchPlaceCell: View {
 
     private func selectButton() -> some View {
         Button {
+            guard !isPicked else { return }
             print("before 선택여부:",isSelected)
             if isSelected {
                 newLogViewModel.action(.deleteButtonTapped(lastOnly: true))
@@ -49,7 +51,7 @@ struct SearchPlaceCell: View {
                 .foregroundStyle(.white)
         }
         .frame(width: 40, height: 40)
-        .background(isSelected ? ColorManager.shared.ciColor.highlightColor : ColorManager.shared.ciColor.subContentColor )
+        .background((isSelected || isPicked) ? ColorManager.shared.ciColor.highlightColor : ColorManager.shared.ciColor.subContentColor )
         .clipShape(Circle())
     }
     

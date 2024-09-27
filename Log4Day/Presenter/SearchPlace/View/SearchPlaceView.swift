@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import NMapsMap
 
 struct SearchPlaceView: View {
     
@@ -17,9 +18,13 @@ struct SearchPlaceView: View {
             ScrollView {
                 LazyVStack {
                     ForEach(viewModel.output.placeList, id:\.id) { item in
-                        SearchPlaceCell(viewModel: viewModel, 
-                                        newLogViewModel: newLogViewModel,
-                                        place: item)
+                        let coordList = newLogViewModel.output.placeList.map { ($0.latitude, $0.longitude) }
+                        let isPicked = viewModel.checkIsPicked((item.mapX, item.mapY), coordList)
+                        SearchPlaceCell(isPicked: isPicked,
+                                               viewModel: viewModel,
+                                               newLogViewModel: newLogViewModel,
+                                               place: item
+                        )
                     }
                 }
             }

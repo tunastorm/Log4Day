@@ -21,7 +21,8 @@ struct LogDetail: View {
                         LogNaverMapView(isFull: false,
                                         cameraPointer: $viewModel.input.selectedPlace,
                                         placeList: $viewModel.output.placeList,
-                                        photoDict: $viewModel.output.photoDict, 
+//                                        photoDict: $viewModel.output.photoDict, 
+                                        imageDict: $viewModel.output.imageDict,
                                         coordinateList: $viewModel.output.coordinateList
                         )
                         timelineList()
