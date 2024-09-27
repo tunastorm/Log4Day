@@ -40,6 +40,9 @@ struct NewLogPlaceCell: View {
             }
         }
         .frame(maxWidth: .infinity)
+        .onAppear {
+            isSelected = viewModel.output.cameraPointer == indexInfo.0
+        }
         .onTapGesture {
             if !viewModel.input.deleteMember.contains(indexInfo.0) {
                 isDeleteMember = false
@@ -54,6 +57,7 @@ struct NewLogPlaceCell: View {
                 }
                 isDeleteMember.toggle()
             } else {
+                print(viewModel.output.cameraPointer == indexInfo.0)
                 viewModel.output.cameraPointer = indexInfo.0
             }
         }
