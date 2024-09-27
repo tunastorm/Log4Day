@@ -9,9 +9,10 @@ import SwiftUI
 import PhotosUI
 
 struct NewLogPlaceCell: View {
-
+    
     @ObservedObject var viewModel: NewLogViewModel
     @State private var isSelected: Bool = false
+    @State private var isDeleteMember: Bool = false
     @State private var showPicker: Bool = false
     
     var indexInfo: (Int,Int)
@@ -33,33 +34,45 @@ struct NewLogPlaceCell: View {
     private func cellView() -> some View {
         VStack {
             HStack {
-                numberingView(place.ofPhoto.map{ $0 })
+                numberingView(viewModel.output.imageDict[indexInfo.0]?.count ?? 0)
                 Spacer()
                 contentsView()
             }
         }
         .frame(maxWidth: .infinity)
         .onTapGesture {
-            if !viewModel.input.selectedPlace.contains(indexInfo.0) {
-                isSelected = false
+            if !viewModel.input.deleteMember.contains(indexInfo.0) {
+                isDeleteMember = false
             }
-            if isSelected {
-                viewModel.input.selectedPlace.removeAll(where: { $0 == indexInfo.0 })
-                print("\(indexInfo) 선택해제 됨")
+            if viewModel.output.isDeleteMode {
+                if isDeleteMember {
+                    viewModel.input.deleteMember.removeAll(where: { $0 == indexInfo.0 })
+                    print("\(indexInfo) 선택해제 됨")
+                } else {
+                    viewModel.input.deleteMember.append(indexInfo.0)
+                    print("\(indexInfo) 선택됨 ")
+                }
+                isDeleteMember.toggle()
             } else {
-                viewModel.input.selectedPlace.append(indexInfo.0)
-                print("\(indexInfo) 선택됨 ")
+                viewModel.output.cameraPointer = indexInfo.0
             }
-            isSelected.toggle()
-            viewModel.output.cameraPointer = indexInfo.0
+        }
+        .onChange(of: viewModel.output.cameraPointer == indexInfo.0) { isSelected in
+            self.isSelected = isSelected
+        }
+        .onChange(of: viewModel.output.isDeleteMode) { isDeletMode in
+            if !isDeletMode { self.isSelected = false }
+        }
+        .onChange(of: viewModel.input.deleteMember.contains(indexInfo.0)) { isDeleteMember in
+            self.isDeleteMember = isDeleteMember
         }
     }
 
-    private func numberingView(_ photo: [Photo]) -> some View {
-        Text("\(photo.count)")
+    private func numberingView(_ photoCount: Int) -> some View {
+        Text("\(photoCount)")
             .foregroundStyle(.white)
             .frame(width: 40, height: 40)
-            .background(photo.count > 0 ? ColorManager.shared.ciColor.highlightColor : ColorManager.shared.ciColor.subContentColor )
+            .background((isDeleteMember || isSelected) ? ColorManager.shared.ciColor.highlightColor : ColorManager.shared.ciColor.subContentColor )
             .clipShape(Circle())
     }
     
@@ -72,7 +85,7 @@ struct NewLogPlaceCell: View {
                         Text(place.name)
                             .font(.title3)
                             .bold()
-                            .foregroundStyle(isSelected && viewModel.input.selectedPlace.contains(indexInfo.0) ?
+                            .foregroundStyle(isDeleteMember && viewModel.input.deleteMember.contains(indexInfo.0) || isSelected ?
                                              ColorManager.shared.ciColor.highlightColor : ColorManager.shared.ciColor.contentColor)
                         Spacer()
                     }

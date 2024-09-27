@@ -113,18 +113,25 @@ struct NewLogView: View {
                     SearchPlaceView(newLogViewModel: viewModel)
                 } label: {
                     Text("추가")
-                        .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
+                        .foregroundStyle(viewModel.output.isDeleteMode ? 
+                                         ColorManager.shared.ciColor.subContentColor : ColorManager.shared.ciColor.highlightColor)
                 }
                 .frame(width: 130, height: 40)
                 .border(cornerRadius: 5, stroke: .init(ColorManager.shared.ciColor.subContentColor.opacity(0.2), lineWidth:2))
                 if viewModel.output.placeList.count > 0 {
                     Button("삭제") {
-                        viewModel.output.cameraPointer = viewModel.output.cameraPointer == 0 ? 0 : viewModel.output.placeList.count-2
-                        viewModel.action(.deleteButtonTapped(lastOnly: false))
+                        if viewModel.output.isDeleteMode {
+                            viewModel.action(.deleteButtonTapped(lastOnly: false))
+                            viewModel.output.isDeleteMode = false
+                        } else {
+                            viewModel.output.isDeleteMode = true
+                            viewModel.output.cameraPointer = 0
+                        }
                     }
                     .frame(width: 130, height: 40)
                     .border(cornerRadius: 5, stroke: .init(ColorManager.shared.ciColor.subContentColor.opacity(0.2), lineWidth:2))
-                    .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
+                    .foregroundStyle(viewModel.output.isDeleteMode ?
+                                     ColorManager.shared.ciColor.highlightColor : ColorManager.shared.ciColor.subContentColor)
                     .padding(.leading, 10)
                 }
                 Spacer()

@@ -83,9 +83,9 @@ struct UIMapView: UIViewRepresentable {
             context.coordinator.polyline?.mapView = uiView.mapView
         
         } else if let newline = NMFPolylineOverlay(coordinateList) {
-            newline .width = 3
-            newline .color = .systemGray4
-            newline .pattern = [6,3]
+            newline .width = 5
+            newline .color = .systemGray2
+            newline .pattern = [10,8]
             newline .mapView = uiView.mapView
             context.coordinator.polyline = newline
         }
@@ -165,14 +165,15 @@ struct UIMapView: UIViewRepresentable {
         
                 if newSet.contains(coord) {
                     addImage(index, newImage: newImage)
+                    addPhoto(index, newPhoto: photoDict)
                     let iconImage = markerImage(index)
                     let marker = NMFMarker(position: coord, iconImage: iconImage)
                     markerList.append(marker)
+                    selectedMarkerToggle()
                     coordinateList.append(coord)
                     let line = polyline?.line
                     polyline?.line.addPoint(coord)
                     polyline?.line = line!
-                    addPhoto(index, newPhoto: photoDict)
                 }
                 
             }

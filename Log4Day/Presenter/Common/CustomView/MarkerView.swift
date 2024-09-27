@@ -78,9 +78,9 @@ struct ImageBubble: View {
             }
             .padding(.bottom, 3)
             Triangle()
-                .stroke(lineWidth: 4)
+//                .stroke(lineWidth: 4)
                 .frame(width: 12, height: 8)
-                .background(isPointed ? ColorManager.shared.ciColor.highlightColor : .white)
+//                .background(isPointed ? ColorManager.shared.ciColor.highlightColor : .white)
                 .foregroundStyle(isPointed ? ColorManager.shared.ciColor.highlightColor : .white)
                 .clipShape(Triangle())
                 .padding(.bottom, 3)

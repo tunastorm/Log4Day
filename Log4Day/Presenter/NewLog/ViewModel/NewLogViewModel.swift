@@ -31,11 +31,12 @@ final class NewLogViewModel: ObservableObject {
         var photoPicked = PassthroughSubject<Void, Never>()
         var deleteButtonTapped = PassthroughSubject<Bool, Never>()
         var title = ""
-        var selectedPlace: [Int] = []
+        var deleteMember: [Int] = []
         var pickedImages: [UIImage] = []
     }
     
     struct Output {
+        var isDeleteMode: Bool = false
         var cameraPointer = 0
         var tagList: [String] = []
         var placeList: [Place] = []
@@ -98,6 +99,7 @@ final class NewLogViewModel: ObservableObject {
         
         output.placeList.append(place)
         output.coordinateList.append(nmgLatLng)
+        output.cameraPointer = output.placeList.count-1
     }
     
     private func deletePickedPlace(_ lastOnly: Bool) {
@@ -106,16 +108,18 @@ final class NewLogViewModel: ObservableObject {
             output.coordinateList.remove(at: output.coordinateList.count-1)
             output.placeList.remove(at: output.placeList.count-1)
         } else { // 새 로그 작성 화면에서 선택된 셀 해제 시 실행
-            guard input.selectedPlace.count > 0 else {
+            guard input.deleteMember.count > 0 else {
                 print(#function, "선택된 장소없음")
                 return
             }
-            let places = IndexSet(input.selectedPlace)
+            let places = IndexSet(input.deleteMember)
             output.coordinateList.remove(atOffsets: places)
             output.placeList.remove(atOffsets: places)
-            input.selectedPlace.removeAll()
+            output.cameraPointer = output.placeList.count == 0 ? 0 : output.placeList.count-2
+            input.deleteMember.removeAll()
+           
         }
-        print("선택된 장소 목록:", input.selectedPlace)
+        print("선택된 장소 목록:", input.deleteMember)
     }
     
     private func addImages() {
