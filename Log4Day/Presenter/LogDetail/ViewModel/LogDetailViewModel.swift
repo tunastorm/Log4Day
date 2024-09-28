@@ -26,6 +26,7 @@ final class LogDetailViewModel: ObservableObject {
     }
     
     struct Output {
+        var isDeleteMode = false
         var cameraPointer = 0
         var tagList: [String] = []
         var placeList: [Place] = []

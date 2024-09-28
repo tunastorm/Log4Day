@@ -15,7 +15,7 @@ final class Repository {
     
     static let shared = Repository()
     
-    private let resourceManager = ImageManager()
+    private let resourceManager = PhotoManager()
     
     private let realm = {
         do {
@@ -30,17 +30,6 @@ final class Repository {
     }
 
     func createItem(_ data: Object, complitionHandler: RepositoryResult) {
-        do {
-            try realm?.write {
-                realm?.add(data)
-            }
-            complitionHandler(.success(RepositoryStatus.createSuccess))
-        } catch {
-            complitionHandler(.failure(RepositoryError.createFailed))
-        }
-    }
-    
-    func createLog(_ data: Log, photoDict: [Int:[Photo]], complitionHandler: RepositoryResult) {
         do {
             try realm?.write {
                 realm?.add(data)

@@ -10,6 +10,7 @@ import SwiftUI
 struct MarkerView: View {
 
     @State var isPointed: Bool = false
+    @State var isDeleteMode: Bool
     
     var index: Int
     
@@ -18,38 +19,60 @@ struct MarkerView: View {
     var image: UIImage?
 
     var body: some View {
-        VStack {
+        print("사진 개수: ", count)
+        return VStack {
             ZStack {
                 if let image {
                     Image(uiImage: image)
                         .resizable()
-                        .clipShape(.rect(cornerRadius: 10))
-                        .padding(4)
-                    if count > 1 {
-                        VStack {
-                            HStack {
-                                Spacer()
-                                Image(systemName: "plus")
-                                    .font(.system(size: 5))
-                                    .background(.white)
+                        .cornerRadius(9.2, corners: .allCorners)
+                        .padding(3)
+                    VStack {
+                        HStack {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 6)
+                                    .frame(width: 16, height: 16)
+                                    .foregroundStyle((isPointed && !isDeleteMode) ? .mint : .white)
+//                                        .cornerRadius(4, corners: .allCorners)
+                                Text(String(index+1))
+                                    .font(.system(size: 10,weight: .bold))
+                                    .foregroundStyle((isPointed && !isDeleteMode) ? .white : .gray)
+                                    .padding(2)
                             }
                             Spacer()
+                        }
+                        Spacer()
+                        if count > 1 {
+                            HStack {
+                                Spacer()
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 6)
+                                        .frame(width: 16, height: 16)
+                                        .foregroundStyle((isPointed && !isDeleteMode) ? .mint : .white)
+    //                                        .cornerRadius(4, corners: .allCorners)
+                                    Image(systemName: "plus")
+                                        .font(.system(size: 10,weight: .bold))
+                                        .foregroundStyle((isPointed && !isDeleteMode) ? .white : .gray)
+                                        .padding(2)
+                                }
+                              
+                            }
                         }
                     }
                 }
                 HStack {
                     Text(String(index+1))
                         .font(.headline)
-                        .foregroundColor(isPointed ? ColorManager.shared.ciColor.highlightColor : .black)
+                        .foregroundColor((isPointed && !isDeleteMode) ? .mint : .gray)
                         .opacity(image == nil ? 1 : 0)
                 }
             }
         }
         .frame(width: image == nil ? 50 : 60, height: image == nil ? 50 : 60)
         .padding(.bottom, 11)
-        
         .background(
-            ImageBubble(isPointed: $isPointed)
+            ImageBubble(isPointed: $isPointed,
+                        isDeleteMode: $isDeleteMode)
         )
     }
    
@@ -62,28 +85,27 @@ struct MarkerView: View {
 struct ImageBubble: View {
     
     @Binding var isPointed: Bool
+    @Binding var isDeleteMode: Bool
     
     var body: some View {
         ZStack(alignment: .bottom) {
             Ellipse()
                 .frame(width: 20, height: 3)
                 .foregroundColor(.black.opacity(0.5))
+            Triangle()
+                .frame(width: 12, height: 8)
+                .foregroundStyle((isPointed && !isDeleteMode) ? .mint : .white)
+                .clipShape(Triangle())
+                .padding(.bottom, 3)
             VStack {
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(lineWidth: 4)
+                    .stroke(lineWidth: 6)
                     .background(.white)
-                    .foregroundStyle(isPointed ? ColorManager.shared.ciColor.highlightColor: .white)
-                    .cornerRadius(12)
+                    .foregroundStyle((isPointed && !isDeleteMode) ? .mint : .white)
+                    .cornerRadius(12, corners: .allCorners)
                 Spacer()
             }
             .padding(.bottom, 3)
-            Triangle()
-//                .stroke(lineWidth: 4)
-                .frame(width: 12, height: 8)
-//                .background(isPointed ? ColorManager.shared.ciColor.highlightColor : .white)
-                .foregroundStyle(isPointed ? ColorManager.shared.ciColor.highlightColor : .white)
-                .clipShape(Triangle())
-                .padding(.bottom, 3)
         }
     }
     

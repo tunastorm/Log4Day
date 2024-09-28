@@ -11,6 +11,8 @@ import RealmSwift
 
 final class MyLogViewModel: ObservableObject {
     
+    private let photoManager = PhotoManager()
+    
     private var cancellables = Set<AnyCancellable>()
     
     var input = Input()

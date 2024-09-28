@@ -14,11 +14,11 @@ final class Category: Object, ObjectKeyIdentifiable {
     @Persisted var content: List<Log>
     @Persisted var createdAt: Date
     
-    convenience init(title: String, content: List<Log>, createdAt: Date) {
+    convenience init(title: String) {
         self.init()
         self.title = title
-        self.content = content
-        self.createdAt = createdAt
+        self.content = List<Log>()
+        self.createdAt = Date()
     }
     
     enum Column: String, CaseIterable, ManagedObject {

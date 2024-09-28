@@ -18,14 +18,14 @@ final class Log: Object, ObjectKeyIdentifiable {
     @Persisted var createdAt: Date
     @Persisted var owner = LinkingObjects(fromType: Category.self, property: Category.Column.content.name)
     
-    convenience init(id: ObjectId, title: String, startDate: Date, endDate: Date, places: List<Place>, fourCut: List<Photo>, createdAt: Date) {
+    convenience init(title: String, startDate: Date, endDate: Date) {
         self.init()
         self.title = title
         self.startDate = startDate
         self.endDate = endDate
-        self.places = places
-        self.fourCut = fourCut
-        self.createdAt = createdAt
+        self.places = List<Place>()
+        self.fourCut = List<Photo>()
+        self.createdAt = Date()
     }
     
     enum Column: String, CaseIterable, ManagedObject {

@@ -10,6 +10,8 @@ import SwiftUIX
 
 struct FourCutPictureView: View {
 
+    private let photoManager = PhotoManager.shared
+    
     @Binding var currentIndex: CGFloat
     
     var index: CGFloat
@@ -17,6 +19,8 @@ struct FourCutPictureView: View {
     var lastCell: CGFloat
     
     var title: String
+    
+    var photos: [Photo]
     
     var hashTags: String
     
@@ -75,32 +79,54 @@ struct FourCutPictureView: View {
         let topPadding: CGFloat = 10
         let height = (imageHeight / 2) - topPadding
         let width = ((backgroundWidthHeight.0 - 10) / 2)-10
+        let photoCount = photos.count
         return VStack {
-            HStack {
-                Image("default4Cut4")
-                    .resizable()
-                    .frame(width: width, height: height)
-                    .background(ColorManager.shared.ciColor.subContentColor)
-//                    .relativeSize(width: width, height: height)
-                Image("default4Cut2")
-                    .resizable()
-                    .frame(width: width, height: height)
-                    .background(ColorManager.shared.ciColor.subContentColor)
-//                    .relativeSize(width: width, height: height)
+            if photoCount == 0 {
+                HStack {
+                    Image("default4Cut\(0)")
+                        .resizable()
+                        .frame(width: width, height: height)
+                        .background(ColorManager.shared.ciColor.subContentColor)
+                    Image("default4Cut\(1)")
+                        .resizable()
+                        .frame(width: width, height: height)
+                        .background(ColorManager.shared.ciColor.subContentColor)
+                }
+                HStack {
+                    Image("default4Cut\(2)")
+                        .resizable()
+                        .frame(width: width, height: height)
+                        .background(ColorManager.shared.ciColor.subContentColor)
+                    Image("default4Cut\(3)")
+                        .resizable()
+                        .frame(width: width, height: height)
+                        .background(ColorManager.shared.ciColor.subContentColor)
+                }
+            } else {
+                HStack {
+                    Image(uiImage: photoManager.loadImageToDocument(filename: photos[0].name) ?? UIImage(systemName: "photo")!)
+                        .resizable()
+                        .frame(width: width, height: height)
+                        .background(ColorManager.shared.ciColor.subContentColor)
+                    Image(uiImage: photoManager.loadImageToDocument(filename: photos[1].name) ?? UIImage(systemName: "photo")!)
+                        .resizable()
+                        .frame(width: width, height: height)
+                        .background(ColorManager.shared.ciColor.subContentColor)
+                }
+                HStack {
+                    Image(uiImage: photoManager.loadImageToDocument(filename: photos[2].name) ?? UIImage(systemName: "photo")!)
+                        .resizable()
+                        .frame(width: width, height: height)
+                        .background(ColorManager.shared.ciColor.subContentColor)
+                    Image(uiImage: photoManager.loadImageToDocument(filename: photos[3].name) ?? UIImage(systemName: "photo")!)
+                        .resizable()
+                        .frame(width: width, height: height)
+                        .background(ColorManager.shared.ciColor.subContentColor)
+                }
             }
-            HStack {
-                Image("default4Cut3")
-                    .resizable()
-                    .frame(width: width, height: height)
-                    .background(ColorManager.shared.ciColor.subContentColor)
-//                    .relativeSize(width: width, height: height)
-                Image("default4Cut5")
-                    .resizable()
-                    .frame(width: width, height: height)
-                    .background(ColorManager.shared.ciColor.subContentColor)
-//                    .relativeSize(width: width, height: height)
-                
-            }
+            
+            
+            
         }
         
     }

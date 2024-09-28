@@ -10,6 +10,7 @@ import SwiftUI
 
 struct LogNaverMapView: View {
     var isFull: Bool = false
+    @Binding var isDeleteMode: Bool
     @Binding var cameraPointer: Int
     @Binding var placeList: [Place]
 //    @Binding var photoDict: [Int:[Photo]]?
@@ -17,9 +18,13 @@ struct LogNaverMapView: View {
     @Binding var coordinateList: [NMGLatLng]
     
     var body: some View {
-        return UIMapView(cameraPointer: $cameraPointer, placeList: $placeList, imageDict: $imageDict, coordinateList: $coordinateList)
-            .edgesIgnoringSafeArea(.vertical)
-        .frame(height: isFull ? UIScreen.main.bounds.height : 300)
+        return UIMapView(isDeleteMode: $isDeleteMode, 
+                         cameraPointer: $cameraPointer,
+                         placeList: $placeList,
+                         imageDict: $imageDict,
+                         coordinateList: $coordinateList)
+//            .edgesIgnoringSafeArea(.vertical)
+        .frame(height: isFull ? .infinity : 300)
         .frame(maxWidth: .infinity)
     }
     

@@ -15,6 +15,8 @@ final class NewLogViewModel: ObservableObject {
     
     private let repository = Repository.shared
     
+    private let photoManager = PhotoManager.shared
+    
     private var cancellables = Set<AnyCancellable>()
     var input = Input()
     @Published var output = Output()
@@ -23,6 +25,7 @@ final class NewLogViewModel: ObservableObject {
         case placePicked(place: SearchedPlace)
         case photoPicked
         case deleteButtonTapped(lastOnly: Bool)
+        case createLog
     }
     
     struct Input {
@@ -30,12 +33,16 @@ final class NewLogViewModel: ObservableObject {
         var placePicked = PassthroughSubject<SearchedPlace, Never>()
         var photoPicked = PassthroughSubject<Void, Never>()
         var deleteButtonTapped = PassthroughSubject<Bool, Never>()
+        var createLog = PassthroughSubject<Void, Never>()
         var title = ""
         var deleteMember: [Int] = []
         var pickedImages: [UIImage] = []
     }
     
     struct Output {
+        var category = ""
+        var date = Date()
+        var showAddSheet = false
         var isDeleteMode: Bool = false
         var cameraPointer = 0
         var tagList: [String] = []
@@ -43,6 +50,7 @@ final class NewLogViewModel: ObservableObject {
         var imageDict: [Int:[UIImage]] = [:]
         var photoDict: [Int:[Photo]]?
         var coordinateList: [NMGLatLng] = []
+        var createResult: RepositoryResult = RepositoryStatus.idle
     }
     
     init() {
@@ -63,6 +71,11 @@ final class NewLogViewModel: ObservableObject {
                 self?.deletePickedPlace(lastOnly)
             }
             .store(in: &cancellables)
+        input.createLog
+            .sink { [weak self] _ in
+                self?.createLog()
+            }
+            .store(in: &cancellables)
     }
     
     func action(_ action: Action) {
@@ -73,6 +86,8 @@ final class NewLogViewModel: ObservableObject {
             input.photoPicked.send(())
         case .deleteButtonTapped(let lastOnly):
             input.deleteButtonTapped.send(lastOnly)
+        case .createLog:
+            input.createLog.send(())
         }
     }
     
@@ -83,7 +98,6 @@ final class NewLogViewModel: ObservableObject {
         return (Y / 1e7, X / 1e7)
     }
     
-    
     private func addPickedPlace(_ searched: SearchedPlace) {
         
         guard let coordinate = divideCoordinate(mapX: searched.mapX, mapY: searched.mapY),
@@ -93,7 +107,7 @@ final class NewLogViewModel: ObservableObject {
         
         let replacedTitle = searched.title.replacingOccurrences(of: "<b>", with: "").replacingOccurrences(of: "</b>", with: "")
         
-        let place = Place(isVisited: false, hashtag: "", name: replacedTitle, city: "", address: searched.roadAddress, longitude: coordinate.1, latitude: coordinate.0, createdAt: Date())
+        let place = Place(isVisited: false, hashtag: "", name: replacedTitle, city: "", address: searched.roadAddress, longitude: coordinate.1, latitude: coordinate.0)
         
         let nmgLatLng = NMGLatLng(lat: coordinate.0, lng: coordinate.1)
         
@@ -116,8 +130,8 @@ final class NewLogViewModel: ObservableObject {
             output.coordinateList.remove(atOffsets: places)
             output.placeList.remove(atOffsets: places)
             output.cameraPointer = output.placeList.count == 0 ? 0 : output.placeList.count-2
+            input.deleteMember.forEach{ output.imageDict.removeValue(forKey: $0) }
             input.deleteMember.removeAll()
-           
         }
         print("선택된 장소 목록:", input.deleteMember)
     }
@@ -134,13 +148,81 @@ final class NewLogViewModel: ObservableObject {
             output.imageDict[output.cameraPointer] = []
         }
         output.imageDict[output.cameraPointer] = input.pickedImages
-        print("추가 후 장소 \(output.cameraPointer) 이미지", output.imageDict[output.cameraPointer])
         input.pickedImages.removeAll()
         
     }
     
-    private func savePhotos() {
+    private func createLog() {
         
+        let log = Log(title: input.title,
+                      startDate: output.date,
+                      endDate: output.date)
+        
+        output.placeList.enumerated().forEach { index, place in
+            
+            if output.imageDict.keys.contains(index) {
+                output.imageDict[index]?.enumerated().forEach { index, image in
+                    let filename = "\(place.id)_\(index)"
+                    photoManager.saveImageToDocument(image: image, filename: filename)
+                    let photo = Photo(name: filename, place: place)
+                    log.fourCut.append(photo)
+                }
+            }
+            
+            log.places.append(place)
+        }
+        
+        if output.category != "" {
+            repository.queryProperty { [weak self] in
+                let category = self?.repository
+                                    .fetchAllFiltered(obejct:Category.self,
+                                                      sortKey: Category.Column.createdAt,
+                                                      query: { $0.title.equals(self?.output.category ?? "") })?.first
+                category?.content.append(log)
+            } completionHandler: { [weak self] result in
+                switch result {
+                case .success(let rawStatus):
+                    let status = rawStatus as RepositoryStatus
+                    self?.output.createResult = status
+                case .failure(let rawError):
+                    let error = rawError as RepositoryError
+                    self?.output.createResult = error
+                }
+            }
+        } else {
+            repository.createItem(log) { [weak self] result in
+                switch result {
+                case .success(let rawStatus):
+                    let status = rawStatus as RepositoryStatus
+                    self?.output.createResult = status
+                case .failure(let rawError):
+                    let error = rawError as RepositoryError
+                    self?.output.createResult = error
+                }
+            }
+        }
+        resetData()
     }
     
+    private func repositorResultHandler(result: RepositoryResult) {
+       
+    }
+    
+    private func resetData() {
+        input.title = ""
+        input.deleteMember.removeAll()
+        input.pickedImages.removeAll()
+        output.category = ""
+        output.date = Date()
+        output.showAddSheet = false
+        output.isDeleteMode = false
+        output.cameraPointer = 0
+        output.tagList.removeAll()
+        output.placeList.removeAll()
+        output.imageDict.removeAll()
+        output.photoDict?.removeAll()
+        output.coordinateList.removeAll()
+        output.createResult = RepositoryStatus.idle
+    }
+
 }

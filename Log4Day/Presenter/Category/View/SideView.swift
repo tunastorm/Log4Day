@@ -26,7 +26,7 @@ struct SideView: View {
         }
         .frame(width: 240)
         .frame(maxHeight: .infinity)
-        .offset(x: viewModel.output.showSide ? 0 : -248)
+        .offset(x: viewModel.output.showSide ? 0 : -248, y: 0)
     }
     
     private func titleView() -> some View {
@@ -67,7 +67,6 @@ struct SideView: View {
             }
             buttonView()
         }
-        .padding(.init(top: 0, leading: 0, bottom: 140, trailing: 0))
     }
     
     private func buttonView() -> some View {

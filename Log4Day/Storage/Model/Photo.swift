@@ -12,15 +12,14 @@ final class Photo: Object, ObjectKeyIdentifiable {
     @Persisted(primaryKey: true) var id: ObjectId
     @Persisted var name: String
     @Persisted var place: Place?
-    @Persisted var url: String
     @Persisted var createdAt: Date
     @Persisted var owner = LinkingObjects(fromType: Log.self, property: Log.Column.fourCut.name)
     
-    convenience init(name: String, url: String, createdAt: Date) {
+    convenience init(name: String, place: Place) {
         self.init()
         self.name = name
-        self.url = url
-        self.createdAt = createdAt
+        self.place = place
+        self.createdAt = Date()
     }
     
     enum Column: String, CaseIterable, ManagedObject {

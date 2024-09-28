@@ -21,7 +21,7 @@ final class Place: Object, ObjectKeyIdentifiable {
     @Persisted var ofLog = LinkingObjects(fromType: Log.self, property: Log.Column.places.name)
     @Persisted var ofPhoto = LinkingObjects(fromType: Photo.self, property: Photo.Column.place.name)
     
-    convenience init(isVisited: Bool, hashtag: String, name: String, city: String, address: String, longitude: Double, latitude: Double, createdAt: Date) {
+    convenience init(isVisited: Bool, hashtag: String, name: String, city: String, address: String, longitude: Double, latitude: Double) {
         self.init()
         self.isVisited = isVisited
         self.hashtag = hashtag
@@ -30,7 +30,7 @@ final class Place: Object, ObjectKeyIdentifiable {
         self.address = address
         self.longitude = longitude
         self.latitude = latitude
-        self.createdAt = createdAt
+        self.createdAt = Date()
     }
     
     enum Column: String, CaseIterable, ManagedObject {

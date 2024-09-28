@@ -7,13 +7,16 @@
 
 import SwiftUI
 import NMapsMap
+import BottomSheet
 
 struct NewLogView: View {
     
     // 기본 위치 서울역
+    @ObservedObject var categoryViewModel: CategoryViewModel
     @StateObject private var viewModel = NewLogViewModel()
     
     @FocusState private var titleFocused: Bool
+    @FocusState private var addSheetIsFocused: Bool
     
     var body: some View {
         
@@ -25,6 +28,11 @@ struct NewLogView: View {
                 titleFocused = false
             }
         }
+        .bottomSheet(bottomSheetPosition: $categoryViewModel.output.showAddSheet,
+                     switchablePositions: [.dynamic]) {
+            AddCategorySheet(isFocused: _addSheetIsFocused, viewModel: categoryViewModel)
+        }
+        .enableSwipeToDismiss()
         
     }
     
@@ -34,7 +42,7 @@ struct NewLogView: View {
             NavigationBar(
                 title: "NewLog",
                 button: Button {
-                    print("등록 클릭")
+                    viewModel.action(.createLog)
                 } label: {
                     Text("등록")
                         .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
@@ -42,7 +50,8 @@ struct NewLogView: View {
             )
             ScrollView {
                 titleView()
-                LogNaverMapView(isFull: false, 
+                LogNaverMapView(isFull: false,
+                                isDeleteMode: $viewModel.output.isDeleteMode, 
                                 cameraPointer: $viewModel.output.cameraPointer,
                                 placeList:  $viewModel.output.placeList,
 //                                photoDict: $viewModel.output.photoDict, 
@@ -61,10 +70,12 @@ struct NewLogView: View {
         VStack() {
             HStack {
                 VStack(alignment: .leading) {
+                    CategoryPickerView(categoryViewModel: categoryViewModel, viewModel: viewModel)
                     TextField("제목을 입력하세요", text: $viewModel.input.title)
                         .font(.title3)
                         .focused($titleFocused)
-                    Text(DateFormatManager.shared.dateToFormattedString(date: Date(), format: .dotSeparatedyyyyMMddDay))
+                    Text(DateFormatManager.shared.dateToFormattedString(date: viewModel.output.date,
+                                                                        format: .dotSeparatedyyyyMMddDay))
                         .font(.callout)
                         .foregroundStyle(.gray)
                 }
@@ -118,14 +129,16 @@ struct NewLogView: View {
                 }
                 .frame(width: 130, height: 40)
                 .border(cornerRadius: 5, stroke: .init(ColorManager.shared.ciColor.subContentColor.opacity(0.2), lineWidth:2))
+                .disabled(viewModel.output.isDeleteMode)
+                
                 if viewModel.output.placeList.count > 0 {
-                    Button("삭제") {
+                    Button( viewModel.output.isDeleteMode ? "선택 삭제" : "삭제") {
                         if viewModel.output.isDeleteMode {
                             viewModel.action(.deleteButtonTapped(lastOnly: false))
                             viewModel.output.isDeleteMode = false
                         } else {
-                            viewModel.output.isDeleteMode = true
                             viewModel.output.cameraPointer = 0
+                            viewModel.output.isDeleteMode = true
                         }
                     }
                     .frame(width: 130, height: 40)
@@ -140,8 +153,4 @@ struct NewLogView: View {
         }
     }
     
-}
-
-#Preview {
-    NewLogView()
 }

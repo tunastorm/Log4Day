@@ -39,7 +39,7 @@ struct RootView: View {
                         Text("MyLog")
                     }
                     .tag(0)
-                NewLogView()
+                NewLogView(categoryViewModel: categoryViewModel)
                     .tabItem {
                         Image(systemName: selection == 1 ?
                              "pencil.line" : "plus.app")
@@ -47,14 +47,6 @@ struct RootView: View {
                         Text("New")
                     }
                     .tag(1)
-//                PlannerView()
-//                    .tabItem {
-//                        Image(systemName: selection == 1 ?
-//                              "calendar.badge.plus" : "calendar")
-//                            .renderingMode(.template)
-//                        Text("Planner")
-//                    }
-//                    .tag(1)
                 LogMapView(categoryViewModel: categoryViewModel)
                     .tabItem {
                         Image(systemName:  selection == 2 ?

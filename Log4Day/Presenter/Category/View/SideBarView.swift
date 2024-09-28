@@ -47,7 +47,6 @@ struct SideBarView: View {
                     .frame(maxWidth: .infinity)
                     .foregroundStyle(.clear)
             }
-            .frame(height: UIScreen.main.bounds.height)
         }
         .bottomSheet(bottomSheetPosition: $viewModel.output.showAddSheet, switchablePositions: [.dynamic]) {
             AddCategorySheet(isFocused: _addSheetIsEditing, viewModel: viewModel)

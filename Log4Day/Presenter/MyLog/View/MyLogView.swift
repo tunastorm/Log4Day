@@ -94,18 +94,38 @@ struct MyLogView: View {
         return VStack {
             InfinityCarouselView(data: viewModel.output.logList, edgeSpacing: 20, contentSpacing: 20, totalSpacing: 20, contentHeight: 500, currentOffset: -(bannerWidth+15),
                 carouselContent: { data, index, currentIndex, lastCell in
-                FourCutPictureView(currentIndex: currentIndex, index: index, lastCell: lastCell, title: data.title, hashTags: "#\(data.places.map { $0.hashtag }.joined(separator: " #"))", 
-                                   backgroundWidthHeight: (bannerWidth,  bannerHeight), imageHeight: 400)
+                FourCutPictureView(currentIndex: currentIndex, 
+                                   index: index,
+                                   lastCell: lastCell,
+                                   title: data.title,
+                                   photos: Array( data.fourCut),
+                                   hashTags: "#\(data.places.map { $0.hashtag }.joined(separator: " #"))",
+                                   backgroundWidthHeight: (bannerWidth,  bannerHeight), 
+                                   imageHeight: 400)
                 },
                 zeroContent: { index, currentIndex, lastCell in
                     let title = viewModel.output.logList.last?.title ?? "오늘의 추억을 네 컷으로 남겨보세요"
                     let hashTags = "#\(viewModel.output.logList.last?.places.map { $0.hashtag }.joined(separator: " #") ?? "소중한 #오늘의 #기록 #Log4Day")"
-                    FourCutPictureView(currentIndex: currentIndex, index: index, lastCell: lastCell, title: title, hashTags: hashTags, backgroundWidthHeight: (bannerWidth, bannerHeight), imageHeight: bannerHeight-100)
-                }, 
+                    FourCutPictureView(currentIndex: currentIndex,
+                                       index: index,
+                                       lastCell: lastCell,
+                                       title: title,
+                                       photos: Array(viewModel.output.logList.last?.fourCut ?? List<Photo>()),
+                                       hashTags: hashTags,
+                                       backgroundWidthHeight: (bannerWidth, bannerHeight),
+                                       imageHeight: bannerHeight-100)
+                },
                 overContent: { index, currentIndex, lastCell in
                     let title = viewModel.output.logList.first?.title ?? ""
                     let hashTags = "#\(viewModel.output.logList.first?.places.map { $0.hashtag }.joined(separator: " #") ?? "")"
-                    FourCutPictureView(currentIndex: currentIndex, index: index, lastCell: lastCell, title: title, hashTags: hashTags, backgroundWidthHeight: (bannerWidth, bannerHeight), imageHeight: bannerHeight-100)
+                    FourCutPictureView(currentIndex: currentIndex,
+                                       index: index,
+                                       lastCell: lastCell,
+                                       title: title,
+                                       photos: Array(viewModel.output.logList.first?.fourCut ?? List<Photo>()),
+                                       hashTags: hashTags,
+                                       backgroundWidthHeight: (bannerWidth, bannerHeight),
+                                       imageHeight: bannerHeight-100)
                 }
             )
             .frame(height: bannerHeight)

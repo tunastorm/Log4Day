@@ -18,11 +18,11 @@ struct NewLogPlaceCell: View {
     var indexInfo: (Int,Int)
     var place: Place
 
-    var pickerConfig: PHPickerConfiguration {
+    var pickerConfig: (Int) -> PHPickerConfiguration = { limit in
           var config = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
           config.filter = .images
           config.selection = .ordered
-          config.selectionLimit = 4
+          config.selectionLimit = limit
           config.preferredAssetRepresentationMode = .current // 트랜스 코딩을 방지
           return config
     }
@@ -65,7 +65,7 @@ struct NewLogPlaceCell: View {
             self.isSelected = isSelected
         }
         .onChange(of: viewModel.output.isDeleteMode) { isDeletMode in
-            if !isDeletMode { self.isSelected = false }
+            if isDeletMode { self.isSelected = false }
         }
         .onChange(of: viewModel.input.deleteMember.contains(indexInfo.0)) { isDeleteMember in
             self.isDeleteMember = isDeleteMember
@@ -110,9 +110,13 @@ struct NewLogPlaceCell: View {
                 }
                 .padding(.horizontal, 10)
                 .sheet(isPresented: $showPicker, content: {
-                    PhotoPicker(viewModel: viewModel, isPresented: $showPicker, configuration: pickerConfig)
+                    let limit = 4 - viewModel.output.imageDict.values.flatMap{ $0 }.count
+                    return PhotoPicker(viewModel: viewModel,
+                                isPresented: $showPicker,
+                                configuration: pickerConfig(limit))
                         .ignoresSafeArea()
                 })
+                .disabled(viewModel.output.isDeleteMode)
             }
             .padding(.vertical)
             if indexInfo.0 < indexInfo.1 - 1 {

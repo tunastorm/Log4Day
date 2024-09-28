@@ -18,7 +18,8 @@ struct LogDetail: View {
                 ScrollView {
                     LazyVStack {
                         titleView()
-                        LogNaverMapView(isFull: false,
+                        LogNaverMapView(isFull: false, 
+                                        isDeleteMode: $viewModel.output.isDeleteMode,
                                         cameraPointer: $viewModel.input.selectedPlace,
                                         placeList: $viewModel.output.placeList,
 //                                        photoDict: $viewModel.output.photoDict, 

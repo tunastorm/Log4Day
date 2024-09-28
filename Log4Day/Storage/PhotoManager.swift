@@ -7,7 +7,9 @@
 
 import UIKit
 
-final class ImageManager: FileManager {
+final class PhotoManager: FileManager {
+    
+    static let shared = PhotoManager()
     
     private var documentDirectory: URL?
 
@@ -35,7 +37,6 @@ final class ImageManager: FileManager {
         }
     }
     
-    @available(iOS 16.0, *)
     func loadImageToDocument(filename: String) -> UIImage? {
         guard let documentDirectory else { return nil }
              
@@ -43,23 +44,27 @@ final class ImageManager: FileManager {
         
         //이 경로에 실제로 파일이 존재하는 지 확인
     
-        if FileManager.default.fileExists(atPath: fileURL.path()) {
-            return UIImage(contentsOfFile: fileURL.path())
+        
+        if FileManager.default.fileExists(atPath: fileURL.path) {
+            if #available(iOS 16.0, *) {
+                return UIImage(contentsOfFile: fileURL.path())
+            } else {
+                return UIImage(contentsOfFile: fileURL.path)
+            }
         } else {
             return UIImage(systemName: "star.fill")
         }
     }
     
-    @available(iOS 16.0, *)
+
     func removeImageFromDocument(filename: String) -> Bool? {
         guard let documentDirectory else { return nil }
         
         let fileURL = documentDirectory.appendingPathComponent("\(filename).jpg")
         
-        print( fileURL.path())
-        if FileManager.default.fileExists(atPath: fileURL.path()) {
+        if FileManager.default.fileExists(atPath: fileURL.path) {
             do {
-                try FileManager.default.removeItem(atPath: fileURL.path())
+                try FileManager.default.removeItem(atPath: fileURL.path)
                 return true
             } catch {
                 print(#function, "file remove error", error)
@@ -70,17 +75,4 @@ final class ImageManager: FileManager {
             print("file no exist")
         }
     }
-}
-
-extension FileManager {
-    
-    func urls(of filename: String, in directory: URL)  -> [URL]? {
-        guard let urls = try? contentsOfDirectory(at: directory, includingPropertiesForKeys: nil, options: [])
-            else { return nil }
-        
-        return urls.filter { url in
-            !url.hasDirectoryPath && url.deletingPathExtension().lastPathComponent == filename
-        }
-    }
-    
 }

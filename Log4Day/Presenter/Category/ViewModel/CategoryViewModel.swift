@@ -138,7 +138,7 @@ class CategoryViewModel: ObservableObject {
     }
     
     func addCategory() {
-        let item = Category(title: input.newCategory, content: List<Log>(), createdAt: Date())
+        let item = Category(title: input.newCategory)
         repository.createItem(item) { result in
             switch result {
             case .success(let status): 
