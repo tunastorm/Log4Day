@@ -137,7 +137,7 @@ struct LogDetailView: View {
     private func placeList() -> some View {
         LazyVStack {
             ForEach(viewModel.output.placeList.indices, id: \.self) { index in
-                logDetailPlaceCell(viewModel: viewModel,
+                LogDetailPlaceCell(viewModel: viewModel,
                                 indexInfo: (index, viewModel.output.placeList.count),
                                 place: viewModel.output.placeList[index])
             }

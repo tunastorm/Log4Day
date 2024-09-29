@@ -15,7 +15,7 @@
 		BC395B3F2CA29C200005FC9D /* LogMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B3E2CA29C200005FC9D /* LogMapViewModel.swift */; };
 		BC395B4B2CA2CCFB0005FC9D /* AddCategorySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B4A2CA2CCFB0005FC9D /* AddCategorySheet.swift */; };
 		BC395B4E2CA2DE480005FC9D /* BottomSheet in Frameworks */ = {isa = PBXBuildFile; productRef = BC395B4D2CA2DE480005FC9D /* BottomSheet */; };
-		BC395B562CA325700005FC9D /* logDetailPlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B552CA325700005FC9D /* logDetailPlaceCell.swift */; };
+		BC395B562CA325700005FC9D /* LogDetailPlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B552CA325700005FC9D /* LogDetailPlaceCell.swift */; };
 		BC395B5B2CA32CA80005FC9D /* SearchPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B5A2CA32CA80005FC9D /* SearchPlaceView.swift */; };
 		BC395B5D2CA32FDF0005FC9D /* SearchPlaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B5C2CA32FDF0005FC9D /* SearchPlaceViewModel.swift */; };
 		BC395B612CA336000005FC9D /* SearchedPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B602CA336000005FC9D /* SearchedPlace.swift */; };
@@ -50,7 +50,6 @@
 		BC404C932C94156E001BA269 /* IsPressedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C922C94156E001BA269 /* IsPressedButtonStyle.swift */; };
 		BC404C972C9417A4001BA269 /* UIViewControllerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C962C9417A4001BA269 /* UIViewControllerWrapper.swift */; };
 		BC404C992C941829001BA269 /* NextViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404C982C941829001BA269 /* NextViewWrapper.swift */; };
-		BC404CA42C941E0A001BA269 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CA32C941E0A001BA269 /* SettingView.swift */; };
 		BC404CA62C941F0E001BA269 /* TimelineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CA52C941F0E001BA269 /* TimelineCell.swift */; };
 		BC404CA82C942170001BA269 /* ListFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CA72C942170001BA269 /* ListFooterView.swift */; };
 		BC404CAA2C94218C001BA269 /* FourCutPictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CA92C94218C001BA269 /* FourCutPictureView.swift */; };
@@ -132,7 +131,7 @@
 		BC395B3A2CA265920005FC9D /* LogDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDetailViewModel.swift; sourceTree = "<group>"; };
 		BC395B3E2CA29C200005FC9D /* LogMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogMapViewModel.swift; sourceTree = "<group>"; };
 		BC395B4A2CA2CCFB0005FC9D /* AddCategorySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategorySheet.swift; sourceTree = "<group>"; };
-		BC395B552CA325700005FC9D /* logDetailPlaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = logDetailPlaceCell.swift; sourceTree = "<group>"; };
+		BC395B552CA325700005FC9D /* LogDetailPlaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDetailPlaceCell.swift; sourceTree = "<group>"; };
 		BC395B5A2CA32CA80005FC9D /* SearchPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceView.swift; sourceTree = "<group>"; };
 		BC395B5C2CA32FDF0005FC9D /* SearchPlaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceViewModel.swift; sourceTree = "<group>"; };
 		BC395B602CA336000005FC9D /* SearchedPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedPlace.swift; sourceTree = "<group>"; };
@@ -169,7 +168,6 @@
 		BC404C922C94156E001BA269 /* IsPressedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsPressedButtonStyle.swift; sourceTree = "<group>"; };
 		BC404C962C9417A4001BA269 /* UIViewControllerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerWrapper.swift; sourceTree = "<group>"; };
 		BC404C982C941829001BA269 /* NextViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextViewWrapper.swift; sourceTree = "<group>"; };
-		BC404CA32C941E0A001BA269 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		BC404CA52C941F0E001BA269 /* TimelineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TimelineCell.swift; path = ../../Common/CustomView/TimelineCell.swift; sourceTree = "<group>"; };
 		BC404CA72C942170001BA269 /* ListFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFooterView.swift; sourceTree = "<group>"; };
 		BC404CA92C94218C001BA269 /* FourCutPictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourCutPictureView.swift; sourceTree = "<group>"; };
@@ -275,7 +273,6 @@
 			isa = PBXGroup;
 			children = (
 				BC395B342CA1AB460005FC9D /* NewLogView.swift */,
-				BC395B552CA325700005FC9D /* logDetailPlaceCell.swift */,
 				BC395B862CA7C9670005FC9D /* CategoryPickerView.swift */,
 			);
 			path = View;
@@ -371,6 +368,7 @@
 			isa = PBXGroup;
 			children = (
 				BC4DFDD52C9D67A7002CDC27 /* LogDetailView.swift */,
+				BC395B552CA325700005FC9D /* LogDetailPlaceCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -604,7 +602,6 @@
 		BC404C9A2C9418E3001BA269 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
-				BC404CA32C941E0A001BA269 /* SettingView.swift */,
 				BC404CAF2C942E43001BA269 /* SettingButton.swift */,
 			);
 			path = Setting;
@@ -967,7 +964,6 @@
 				BC404CA62C941F0E001BA269 /* TimelineCell.swift in Sources */,
 				BC4DFDE92C9EBC39002CDC27 /* RepositoryResult.swift in Sources */,
 				BC404C932C94156E001BA269 /* IsPressedButtonStyle.swift in Sources */,
-				BC404CA42C941E0A001BA269 /* SettingView.swift in Sources */,
 				BC404C892C93FEA4001BA269 /* APIConstants.swift in Sources */,
 				BC4DFDE12C9EA20B002CDC27 /* CalendarView.swift in Sources */,
 				BC692E052C9D1A9E00374032 /* TapBarView.swift in Sources */,
@@ -993,7 +989,7 @@
 				BC395B652CA338630005FC9D /* NetworkManager.swift in Sources */,
 				BC404C782C93E1EF001BA269 /* PlannerView.swift in Sources */,
 				BCE2A0EB2C9FDC430045D01B /* PlannerSheetView.swift in Sources */,
-				BC395B562CA325700005FC9D /* logDetailPlaceCell.swift in Sources */,
+				BC395B562CA325700005FC9D /* LogDetailPlaceCell.swift in Sources */,
 				BC404CB82C9468DE001BA269 /* InfinityCarouselView.swift in Sources */,
 				BC4DFDDF2C9E8F81002CDC27 /* PlaceCell.swift in Sources */,
 				BC395B5D2CA32FDF0005FC9D /* SearchPlaceViewModel.swift in Sources */,

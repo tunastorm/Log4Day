@@ -80,6 +80,5 @@ struct SidebarButton: View {
     private func fetchLogMap() {
         
     }
+    
 }
-
-

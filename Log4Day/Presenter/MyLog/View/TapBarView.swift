@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import BottomSheet
 
 enum TapInfo : String, CaseIterable {
     case timeline = "타임라인"
@@ -18,8 +19,6 @@ struct TapBarView: View {
     @ObservedObject var categoryViewModel: CategoryViewModel
     @EnvironmentObject var viewModel: MyLogViewModel
     @Namespace private var animation
-    
-    @State private var showPlaceOwnerSheet = false
 
     var body: some View {
         LazyVStack(pinnedViews: [.sectionHeaders]) {
@@ -66,23 +65,10 @@ struct TapBarView: View {
                 }
                 ForEach((viewModel.output.placeDict[key] ?? []).indices, id: \.self){ index in
                     Button {
-                        showPlaceOwnerSheet = true
+                        viewModel.action(.placeCellTapped(indexInfo: (key, index)))
                     } label: {
                         PlaceCell(index: index, total: (viewModel.output.placeDict[key] ?? []).count, place: (viewModel.output.placeDict[key] ?? [])[index])
                     }
-//                    .bottomSheet(bottomSheetPosition: <#T##Binding<BottomSheetPosition>#>, switchablePositions: <#T##[BottomSheetPosition]#>) {
-//                        VStack {
-//                            ForEach((viewModel.output.placeDict[key] ?? [])[index].ofLog, id: \) { item in
-//                                NavigationLink {
-//                                    NextViewWrapper(LogDetailView(log: item, categoryViewModel: categoryViewModel))
-//                                } label: {
-//                                    Text(item)
-//                                }
-//
-//                            }
-//                        }
-//
-//                    }
                 }
             }
         }

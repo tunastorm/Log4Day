@@ -8,6 +8,7 @@
 import SwiftUI
 import Combine
 import RealmSwift
+import BottomSheet
 
 final class MyLogViewModel: ObservableObject {
     
@@ -25,6 +26,7 @@ final class MyLogViewModel: ObservableObject {
         case fetchCategorizedList
         case fetchLogDate(isInitial: Bool)
         case tapBarChanged(info: TapInfo)
+        case placeCellTapped(indexInfo: (String,Int))
     }
     
     struct Input {
@@ -33,6 +35,7 @@ final class MyLogViewModel: ObservableObject {
         let fetchCategorizedList = PassthroughSubject<Void, Never>()
         let fetchLogDate = PassthroughSubject<Bool, Never>()
         let tapBarChanged = PassthroughSubject<TapInfo, Never>()
+        let placeCellTapped = PassthroughSubject<(String,Int), Never>()
         var selectedCategory = ""
         var nowLogDate = DateFormatManager.shared.dateToFormattedString(date: Date(), format: .dotSeparatedyyyyMMddDay)
     }
@@ -49,6 +52,8 @@ final class MyLogViewModel: ObservableObject {
         var selectedPicker: TapInfo = .timeline
         var translation: CGSize = .zero
         var offsetX: CGFloat = -120
+        var showSelectLogSheet: BottomSheetPosition = .hidden
+        var ofLogList: [Log] = []
     }
     
     init() {
@@ -72,7 +77,7 @@ final class MyLogViewModel: ObservableObject {
         
         input.fetchLogDate
             .sink { [weak self] isInitial in
-                self?.fetchLogDate(isInitial)
+                self?.fetchFourCutLogDate(isInitial)
             }
             .store(in: &cancellables)
         
@@ -81,6 +86,11 @@ final class MyLogViewModel: ObservableObject {
                 self?.fetchTapBarData(tapInfo: info)
             }
             .store(in: &cancellables)
+        
+        input.placeCellTapped
+            .sink { [weak self] indexInfo in
+                self?.showSelectLogSheet(indexInfo)
+            }.store(in: &cancellables)
     }
     
     func action(_ action: Action) {
@@ -95,6 +105,8 @@ final class MyLogViewModel: ObservableObject {
             input.fetchLogDate.send(isInitial)
         case .tapBarChanged(let info):
             input.tapBarChanged.send(info)
+        case .placeCellTapped(let indexInfo):
+            input.placeCellTapped.send((indexInfo))
         }
     }
     
@@ -127,8 +139,8 @@ final class MyLogViewModel: ObservableObject {
         fetchFirstLastDate()
     }
 
-    private func fetchLogDate(_ isInitial: Bool) {
-        if isInitial, let nowLog = output.logList.first {
+    private func fetchFourCutLogDate(_ isInitial: Bool) {
+        if isInitial, let nowLog = output.logList.where({ $0.fourCut.count == 4 }).first {
             input.nowLogDate = DateFormatManager.shared.dateToFormattedString(date: nowLog.startDate, format: .dotSeparatedyyyyMMddDay)
         }
         output.logDate = input.nowLogDate
@@ -152,9 +164,15 @@ final class MyLogViewModel: ObservableObject {
                 }
                 output.placeDict[city]?.append(contentsOf: log.places) /*Array(log.places)*/
             }
-//        case .waited:
-//            output.nonPhotoLogList = output.logList.filter { $0.fourCut.isEmpty }
         }
+    }
+    
+    func showSelectLogSheet(_ indexInfo: (String,Int)) {
+        guard let ofLog = output.placeDict[indexInfo.0]?[indexInfo.1].ofLog else {
+            return
+        }
+        output.showSelectLogSheet = output.showSelectLogSheet == .hidden ? .dynamic : .hidden
+        output.ofLogList = Array(ofLog)
     }
     
 }

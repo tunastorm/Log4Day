@@ -10,6 +10,7 @@ import Combine
 import SwiftUI
 import PhotosUI
 import NMapsMap
+import BottomSheet
 
 final class LogDetailViewModel: ObservableObject {
     
@@ -44,7 +45,7 @@ final class LogDetailViewModel: ObservableObject {
     struct Output {
         var category = ""
         var date = Date()
-        var showAddSheet = false
+        var showPlaceListSheet: BottomSheetPosition = .hidden
         var isDeleteMode: Bool = false
         var cameraPointer = 0
         var tagList: [String] = []
@@ -99,6 +100,10 @@ final class LogDetailViewModel: ObservableObject {
         }
     }
     
+    private func showPlaceListSheet() {
+        output.showPlaceListSheet = output.showPlaceListSheet == .hidden ? .dynamic : .hidden
+    }
+    
     private func divideCoordinate(mapX: String, mapY: String) -> (Double, Double)? {
         guard let X = Double(mapX), let Y = Double(mapY) else {
             return nil
@@ -109,7 +114,7 @@ final class LogDetailViewModel: ObservableObject {
     private func addPickedPlace(_ searched: SearchedPlace) {
         
         guard let coordinate = divideCoordinate(mapX: searched.mapX, mapY: searched.mapY),
-              !output.placeList.map { ($0.longitude, $0.latitude) }.contains(where: { $0 == coordinate }) else {
+              !output.placeList.map({ ($0.longitude, $0.latitude) }).contains(where: { $0 == coordinate }) else {
             return
         }
         
@@ -143,7 +148,7 @@ final class LogDetailViewModel: ObservableObject {
             input.deleteMember.forEach{ output.imageDict.removeValue(forKey: $0) }
             input.deleteMember.removeAll()
         }
-        print("선택된 장소 목록:", input.deleteMember)
+        
     }
     
     private func addImages() {
@@ -214,10 +219,6 @@ final class LogDetailViewModel: ObservableObject {
         resetData()
     }
     
-    private func repositorResultHandler(result: RepositoryResult) {
-       
-    }
-    
     private func setLog(log: Log) {
         input.title = log.title
         output.category = log.owner.first?.title ?? ""
@@ -228,20 +229,16 @@ final class LogDetailViewModel: ObservableObject {
             guard let photoPlace = photo.place else {
                 return
             }
-            let image = photoManager.loadImageToDocument(filename: photo.name) ?? UIImage(systemName: "photo")!
+            let image = self?.photoManager.loadImageToDocument(filename: photo.name) ?? UIImage(systemName: "photo")!
             log.places.enumerated().forEach { index, place in
-                print("owner.title:", photoPlace.id)
-                print("place id:", place.id)
                 if place.id == photoPlace.id {
                     print("안찍히니?")
                     if let keys = self?.output.imageDict.keys, !keys.contains(index) {
                         self?.output.imageDict[index] = []
                     }
                     self?.output.imageDict[index]?.append(image)
-                    print("장소_\(index) 이미지 목록:", output.imageDict[index]?.count)
                 }
             }
-            print("이미지 목록:", output.imageDict.values.count)
         }
     }
 
@@ -252,7 +249,7 @@ final class LogDetailViewModel: ObservableObject {
         input.pickedImages.removeAll()
         output.category = ""
         output.date = Date()
-        output.showAddSheet = false
+        output.showPlaceListSheet = .hidden
         output.isDeleteMode = false
         output.cameraPointer = 0
         output.tagList.removeAll()

@@ -8,7 +8,7 @@
 import SwiftUI
 import PhotosUI
 
-struct logDetailPlaceCell: View {
+struct LogDetailPlaceCell: View {
     
     @ObservedObject var viewModel: LogDetailViewModel
     @State private var isSelected: Bool = false

@@ -7,7 +7,11 @@
 
 import Foundation
 import Combine
+import SwiftUI
+import PhotosUI
 import NMapsMap
+import BottomSheet
+import RealmSwift
 
 final class LogMapViewModel: ObservableObject {
     
@@ -26,12 +30,7 @@ final class LogMapViewModel: ObservableObject {
     }
     
     struct Output {
-        var isDeleteMode = false
-        var cameraPointer = 0
-        var tagList: [String] = []
-        var placeList: [Place] = []
-        var photoDict: [Int:[Photo]]?
-        var imageDict: [Int:[UIImage]] = [:]
-        var coordinateList: [NMGLatLng] = []
+        @ObservedResults(Log.self) var logList
     }
+    
 }

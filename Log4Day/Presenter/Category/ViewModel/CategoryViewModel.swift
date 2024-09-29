@@ -125,7 +125,7 @@ class CategoryViewModel: ObservableObject {
         output.showSide.toggle()
     }
     
-    func showAddSheet(_ isEditing: Bool = false) {
+    func showAddSheet() {
         output.showAddSheet = output.showAddSheet == .hidden ? .dynamic : .hidden
     }
     

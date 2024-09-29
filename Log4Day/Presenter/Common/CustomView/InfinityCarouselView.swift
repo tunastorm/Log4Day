@@ -59,11 +59,11 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
                     HStack(alignment: .center) {
                         Spacer()
                         if data.isEmpty {
-                            configContentView(contentView: zeroContent(0,$currentIndex, lastCell),
+                            configContentView(contentView: zeroContent(1,$currentIndex, lastCell),
                                               contentWidth: contentWidth,
                                               nextOffset: nextOffset, index: 0)
                         } else {
-                            let view = carouselContent(data[0], CGFloat(0), $currentIndex, lastCell)
+                            let view = carouselContent(data[0], 1, $currentIndex, lastCell)
                             configContentView(contentView: view,
                                               contentWidth: contentWidth,
                                               nextOffset: nextOffset, index: CGFloat(0))
@@ -77,13 +77,13 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
                                           nextOffset: nextOffset, index: 0)
                        
                         ForEach(0..<data.count, id: \.self) { index in
-                            let view = carouselContent(data[index],CGFloat(index+1),$currentIndex, lastCell)
+                            let view = carouselContent(data[index], CGFloat(index+1), $currentIndex, lastCell)
                             configContentView(contentView: view,
                                               contentWidth: contentWidth,
                                               nextOffset: nextOffset, index: CGFloat(index + 1))
                         }
                         
-                        configContentView(contentView: overContent(CGFloat(lastCell + 1), $currentIndex, lastCell),
+                        configContentView(contentView: overContent(lastCell + 1, $currentIndex, lastCell),
                                           contentWidth: contentWidth,
                                           nextOffset: nextOffset, index: CGFloat(lastCell + 1))
                     }
@@ -136,6 +136,7 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
             return
         }
         viewModel.input.nowLogDate = DateFormatManager.shared.dateToFormattedString(date: nowLog.startDate, format: .dotSeparatedyyyyMMddDay)
-        viewModel
+        viewModel.action(.fetchLogDate(isInitial: false))
     }
+    
 }

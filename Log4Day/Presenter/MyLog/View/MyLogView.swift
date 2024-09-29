@@ -7,6 +7,7 @@
 
 import SwiftUI
 import RealmSwift
+import BottomSheet
 
 struct MyLogView: View {
     
@@ -64,6 +65,23 @@ struct MyLogView: View {
             viewModel.action(.fetchFirstLastDate)
             viewModel.action(.fetchLogDate(isInitial: true))
         }
+        .bottomSheet(bottomSheetPosition: $viewModel.output.showSelectLogSheet, switchablePositions: [.dynamic]) {
+            ScrollView {
+                ForEach(viewModel.output.ofLogList.indices, id: \.self) { index in
+                    NavigationLink {
+                        NextViewWrapper(LogDetailView(log: viewModel.output.ofLogList[index], categoryViewModel: categoryViewModel))
+                    } label: {
+                        TimelineCell(index: index, log: viewModel.output.ofLogList[index])
+                            .environmentObject(viewModel)
+                    }
+                    .padding(.horizontal)
+                }
+            }
+            .frame(height: 300)
+            .frame(maxWidth: .infinity)
+            .background(.white)
+        }
+        .enableSwipeToDismiss()
     }
     
     private func TitleView() -> some View {
@@ -80,7 +98,7 @@ struct MyLogView: View {
                     .font(.footnote)
                     .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
                 Text(viewModel.output.logDate)
-                    .font(.title3)
+                    .font(.footnote)
                     .foregroundStyle(ColorManager.shared.ciColor.contentColor)
             }
             .padding(.init(top: 10, leading: 20, bottom: 6, trailing: 20))
@@ -91,8 +109,9 @@ struct MyLogView: View {
     private func photoLogBanner(width: CGFloat) -> some View {
         let bannerWidth = width-75
         let bannerHeight: CGFloat = 500
+        let fourCutLogList = viewModel.output.logList.where{ $0.fourCut.count == 4 }
         return VStack {
-            InfinityCarouselView(data: viewModel.output.logList, edgeSpacing: 20, contentSpacing: 20, totalSpacing: 20, contentHeight: 500, currentOffset: -(bannerWidth+15),
+            InfinityCarouselView(data: fourCutLogList, edgeSpacing: 20, contentSpacing: 20, totalSpacing: 20, contentHeight: 500, currentOffset: -(bannerWidth+15),
                 carouselContent: { data, index, currentIndex, lastCell in
                 FourCutPictureView(currentIndex: currentIndex, 
                                    index: index,
@@ -104,25 +123,25 @@ struct MyLogView: View {
                                    imageHeight: 400)
                 },
                 zeroContent: { index, currentIndex, lastCell in
-                    let title = viewModel.output.logList.last?.title ?? "오늘의 추억을 네 컷으로 남겨보세요"
-                    let hashTags = "#\(viewModel.output.logList.last?.places.map { $0.hashtag }.joined(separator: " #") ?? "소중한 #오늘의 #기록 #Log4Day")"
+                    let title = fourCutLogList.last?.title ?? "오늘의 추억을 네 컷으로 남겨보세요"
+                    let hashTags = "#\(fourCutLogList.last?.places.map { $0.hashtag }.joined(separator: " #") ?? "네컷으로 남기는 오늘, Log4Day")"
                     FourCutPictureView(currentIndex: currentIndex,
                                        index: index,
                                        lastCell: lastCell,
                                        title: title,
-                                       photos: Array(viewModel.output.logList.last?.fourCut ?? List<Photo>()),
+                                       photos: Array(fourCutLogList.last?.fourCut ?? List<Photo>()),
                                        hashTags: hashTags,
                                        backgroundWidthHeight: (bannerWidth, bannerHeight),
                                        imageHeight: bannerHeight-100)
                 },
                 overContent: { index, currentIndex, lastCell in
-                    let title = viewModel.output.logList.first?.title ?? ""
-                    let hashTags = "#\(viewModel.output.logList.first?.places.map { $0.hashtag }.joined(separator: " #") ?? "")"
+                    let title = fourCutLogList.first?.title ?? ""
+                    let hashTags = "#\(fourCutLogList.first?.places.map { $0.hashtag }.joined(separator: " #") ?? "")"
                     FourCutPictureView(currentIndex: currentIndex,
                                        index: index,
                                        lastCell: lastCell,
                                        title: title,
-                                       photos: Array(viewModel.output.logList.first?.fourCut ?? List<Photo>()),
+                                       photos: Array(fourCutLogList.first?.fourCut ?? List<Photo>()),
                                        hashTags: hashTags,
                                        backgroundWidthHeight: (bannerWidth, bannerHeight),
                                        imageHeight: bannerHeight-100)
@@ -132,7 +151,7 @@ struct MyLogView: View {
             .padding(.top, 10)
             .hideIndicator()
             .environmentObject(viewModel)
-            ListFooterView(text: viewModel.output.firstLastDate.0, font: .title3)
+            ListFooterView(text: viewModel.output.firstLastDate.0, font: .footnote)
                 .padding()
         }
     }
