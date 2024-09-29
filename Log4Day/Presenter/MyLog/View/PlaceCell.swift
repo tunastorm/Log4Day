@@ -62,7 +62,7 @@ struct PlaceCell: View {
                     Spacer()
                 }
                 HStack {
-                    Text("#\(place.hashtag)")
+                    Text(place.address)
                         .font(.caption)
                         .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
                     Spacer()

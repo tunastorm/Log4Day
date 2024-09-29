@@ -16,7 +16,6 @@ struct UIMapView: UIViewRepresentable {
     @Binding var isDeleteMode: Bool
     @Binding var cameraPointer: Int
     @Binding var placeList: [Place]
-//    @Binding var photoDict: PhotoDict?
     @Binding var imageDict: ImageDict
     @Binding var coordinateList: [NMGLatLng]
     
@@ -151,11 +150,12 @@ struct UIMapView: UIViewRepresentable {
                 if filteredOld.contains(coord) {
                     needRemove.append(index)
                     markerList[index].mapView = nil
+//                    markerList.remove(at: index)
+//                    print("장소_\(index) 마커리스트에서 삭제:", markerList.count)
                     let line = polyline?.line
                     polyline?.line.removePoint(coord)
                     polyline?.line = line!
                     imageDict.removeValue(forKey: index)
-                    photoDict?.removeValue(forKey: index)
                 }
             }
             
@@ -177,6 +177,7 @@ struct UIMapView: UIViewRepresentable {
                     let iconImage = markerImage(index)
                     let marker = NMFMarker(position: coord, iconImage: iconImage)
                     markerList.append(marker)
+                    print("장소_\(1) 마커목록에 추가:", markerList.count)
                     selectedMarkerToggle(isDeleteMode)
                     coordinateList.append(coord)
                     let line = polyline?.line
@@ -197,11 +198,13 @@ struct UIMapView: UIViewRepresentable {
             if cameraPointer != lastCameraPointer {
                 markerList[lastCameraPointer].iconImage = markerImage(lastCameraPointer)
             }
+            print("-선택된 마커 변경-")
+            print("cameraPointer:", cameraPointer)
+            print("markerList:", markerList.count)
             markerList[cameraPointer].iconImage = markerImage(cameraPointer)
         }
     
         func addImage(_ index: Int, newImage: ImageDict) {
-            print("마커에 이미지 추가:", newImage.count)
             if !imageDict.keys.contains(index) {
                 imageDict[index] = []
             }

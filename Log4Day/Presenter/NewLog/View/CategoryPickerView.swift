@@ -10,8 +10,7 @@ import SwiftUI
 struct CategoryPickerView: View {
     
     @ObservedObject var categoryViewModel: CategoryViewModel
-    @ObservedObject var viewModel: NewLogViewModel
-    
+    @ObservedObject var viewModel: LogDetailViewModel
     
     var body: some View {
         let title = viewModel.output.category == "" ? "없음" : viewModel.output.category

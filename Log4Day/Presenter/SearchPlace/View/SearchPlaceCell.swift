@@ -13,7 +13,7 @@ struct SearchPlaceCell: View {
     @State private var isSelected: Bool = false
     
     @ObservedObject var viewModel: SearchPlaceViewModel
-    @ObservedObject var newLogViewModel: NewLogViewModel
+    @ObservedObject var newLogViewModel: LogDetailViewModel
     
     var place: SearchedPlace
 

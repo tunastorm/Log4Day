@@ -116,6 +116,7 @@ final class MyLogViewModel: ObservableObject {
     private func fetchCategorizedLogList() {
         if output.category == "전체" {
             output.$logList.where = { $0.createdAt <= Date() }
+            output.$logList.sortDescriptor = .init(keyPath: Log.Column.createdAt.name, ascending: false)
         } else {
             output.$logList.where = { [weak self] in
                 return $0.owner.title == self?.output.category ?? ""
@@ -137,8 +138,9 @@ final class MyLogViewModel: ObservableObject {
         output.selectedPicker = tapInfo
         switch tapInfo {
         case .timeline:
-            output.timeline = output.logList.sorted { $0.startDate > $1.startDate }
+            output.timeline = Array(output.logList)
         case .place:
+            output.placeDict.removeAll()
             output.logList.forEach { log in
                 guard let city = log.places.first?.city else {
                     print(#function, "도시 정보 없음")
@@ -148,10 +150,10 @@ final class MyLogViewModel: ObservableObject {
                     output.placeDict[city] = []
                     print("\(city) 추가됨")
                 }
-                output.placeDict[city]? = Array(log.places)
+                output.placeDict[city]?.append(contentsOf: log.places) /*Array(log.places)*/
             }
-        case .waited:
-            output.nonPhotoLogList = output.logList.filter { $0.fourCut.isEmpty }
+//        case .waited:
+//            output.nonPhotoLogList = output.logList.filter { $0.fourCut.isEmpty }
         }
     }
     

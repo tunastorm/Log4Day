@@ -11,11 +11,11 @@
 		7B1410ACE80F339345ACF6FF /* Pods_Log4DayTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5761BDB6ACE458DE209DD3CD /* Pods_Log4DayTests.framework */; };
 		BC395B352CA1AB460005FC9D /* NewLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B342CA1AB460005FC9D /* NewLogView.swift */; };
 		BC395B372CA25CDD0005FC9D /* MyLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B362CA25CDD0005FC9D /* MyLogViewModel.swift */; };
-		BC395B3B2CA265920005FC9D /* NewLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B3A2CA265920005FC9D /* NewLogViewModel.swift */; };
+		BC395B3B2CA265920005FC9D /* LogDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B3A2CA265920005FC9D /* LogDetailViewModel.swift */; };
 		BC395B3F2CA29C200005FC9D /* LogMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B3E2CA29C200005FC9D /* LogMapViewModel.swift */; };
 		BC395B4B2CA2CCFB0005FC9D /* AddCategorySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B4A2CA2CCFB0005FC9D /* AddCategorySheet.swift */; };
 		BC395B4E2CA2DE480005FC9D /* BottomSheet in Frameworks */ = {isa = PBXBuildFile; productRef = BC395B4D2CA2DE480005FC9D /* BottomSheet */; };
-		BC395B562CA325700005FC9D /* NewLogPlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B552CA325700005FC9D /* NewLogPlaceCell.swift */; };
+		BC395B562CA325700005FC9D /* logDetailPlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B552CA325700005FC9D /* logDetailPlaceCell.swift */; };
 		BC395B5B2CA32CA80005FC9D /* SearchPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B5A2CA32CA80005FC9D /* SearchPlaceView.swift */; };
 		BC395B5D2CA32FDF0005FC9D /* SearchPlaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B5C2CA32FDF0005FC9D /* SearchPlaceViewModel.swift */; };
 		BC395B612CA336000005FC9D /* SearchedPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B602CA336000005FC9D /* SearchedPlace.swift */; };
@@ -27,9 +27,7 @@
 		BC395B722CA3D2430005FC9D /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B712CA3D2430005FC9D /* TargetType.swift */; };
 		BC395B742CA3E2090005FC9D /* SearchPlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B732CA3E2090005FC9D /* SearchPlaceCell.swift */; };
 		BC395B762CA3F0E50005FC9D /* GeocodingQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B752CA3F0E50005FC9D /* GeocodingQuery.swift */; };
-		BC395B7F2CA446300005FC9D /* LogDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B7E2CA446300005FC9D /* LogDetailViewModel.swift */; };
 		BC395B812CA53C590005FC9D /* PHPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B802CA53C590005FC9D /* PHPickerView.swift */; };
-		BC395B832CA57E5B0005FC9D /* CustomMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B822CA57E5B0005FC9D /* CustomMarkerView.swift */; };
 		BC395B852CA65F7F0005FC9D /* MarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B842CA65F7F0005FC9D /* MarkerView.swift */; };
 		BC395B872CA7C9670005FC9D /* CategoryPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC395B862CA7C9670005FC9D /* CategoryPickerView.swift */; };
 		BC404BCF2C9077FC001BA269 /* Log4DayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404BCE2C9077FC001BA269 /* Log4DayApp.swift */; };
@@ -65,7 +63,7 @@
 		BC4DFDCE2C9D6105002CDC27 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BC4DFDCD2C9D6105002CDC27 /* RealmSwift */; };
 		BC4DFDCF2C9D613E002CDC27 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = BC4DFDCD2C9D6105002CDC27 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		BC4DFDD32C9D64F5002CDC27 /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = BC4DFDD22C9D64F5002CDC27 /* SwiftUIX */; };
-		BC4DFDD62C9D67A7002CDC27 /* LogDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4DFDD52C9D67A7002CDC27 /* LogDetail.swift */; };
+		BC4DFDD62C9D67A7002CDC27 /* LogDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4DFDD52C9D67A7002CDC27 /* LogDetailView.swift */; };
 		BC4DFDD82C9D8900002CDC27 /* UIMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4DFDD72C9D88FF002CDC27 /* UIMapView.swift */; };
 		BC4DFDDD2C9D98D0002CDC27 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4DFDDC2C9D98D0002CDC27 /* LocationManager.swift */; };
 		BC4DFDDF2C9E8F81002CDC27 /* PlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4DFDDE2C9E8F81002CDC27 /* PlaceCell.swift */; };
@@ -131,10 +129,10 @@
 		A9A88417ACBED645893DA685 /* Pods-Log4Day.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Log4Day.release.xcconfig"; path = "Target Support Files/Pods-Log4Day/Pods-Log4Day.release.xcconfig"; sourceTree = "<group>"; };
 		BC395B342CA1AB460005FC9D /* NewLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLogView.swift; sourceTree = "<group>"; };
 		BC395B362CA25CDD0005FC9D /* MyLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLogViewModel.swift; sourceTree = "<group>"; };
-		BC395B3A2CA265920005FC9D /* NewLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLogViewModel.swift; sourceTree = "<group>"; };
+		BC395B3A2CA265920005FC9D /* LogDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDetailViewModel.swift; sourceTree = "<group>"; };
 		BC395B3E2CA29C200005FC9D /* LogMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogMapViewModel.swift; sourceTree = "<group>"; };
 		BC395B4A2CA2CCFB0005FC9D /* AddCategorySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategorySheet.swift; sourceTree = "<group>"; };
-		BC395B552CA325700005FC9D /* NewLogPlaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLogPlaceCell.swift; sourceTree = "<group>"; };
+		BC395B552CA325700005FC9D /* logDetailPlaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = logDetailPlaceCell.swift; sourceTree = "<group>"; };
 		BC395B5A2CA32CA80005FC9D /* SearchPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceView.swift; sourceTree = "<group>"; };
 		BC395B5C2CA32FDF0005FC9D /* SearchPlaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceViewModel.swift; sourceTree = "<group>"; };
 		BC395B602CA336000005FC9D /* SearchedPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchedPlace.swift; sourceTree = "<group>"; };
@@ -145,9 +143,7 @@
 		BC395B712CA3D2430005FC9D /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
 		BC395B732CA3E2090005FC9D /* SearchPlaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceCell.swift; sourceTree = "<group>"; };
 		BC395B752CA3F0E50005FC9D /* GeocodingQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeocodingQuery.swift; sourceTree = "<group>"; };
-		BC395B7E2CA446300005FC9D /* LogDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDetailViewModel.swift; sourceTree = "<group>"; };
 		BC395B802CA53C590005FC9D /* PHPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHPickerView.swift; sourceTree = "<group>"; };
-		BC395B822CA57E5B0005FC9D /* CustomMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMarkerView.swift; sourceTree = "<group>"; };
 		BC395B842CA65F7F0005FC9D /* MarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerView.swift; sourceTree = "<group>"; };
 		BC395B862CA7C9670005FC9D /* CategoryPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerView.swift; sourceTree = "<group>"; };
 		BC404BCB2C9077FC001BA269 /* Log4Day.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Log4Day.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -184,7 +180,7 @@
 		BC404CB92C94B0A5001BA269 /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 		BC4DFDC72C9D5B3B002CDC27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		BC4DFDCA2C9D5C22002CDC27 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
-		BC4DFDD52C9D67A7002CDC27 /* LogDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDetail.swift; sourceTree = "<group>"; };
+		BC4DFDD52C9D67A7002CDC27 /* LogDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDetailView.swift; sourceTree = "<group>"; };
 		BC4DFDD72C9D88FF002CDC27 /* UIMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIMapView.swift; sourceTree = "<group>"; };
 		BC4DFDDC2C9D98D0002CDC27 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		BC4DFDDE2C9E8F81002CDC27 /* PlaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCell.swift; sourceTree = "<group>"; };
@@ -271,7 +267,6 @@
 			isa = PBXGroup;
 			children = (
 				BC395B382CA265710005FC9D /* View */,
-				BC395B392CA265780005FC9D /* ViewModel */,
 			);
 			path = NewLog;
 			sourceTree = "<group>";
@@ -280,19 +275,10 @@
 			isa = PBXGroup;
 			children = (
 				BC395B342CA1AB460005FC9D /* NewLogView.swift */,
-				BC395B552CA325700005FC9D /* NewLogPlaceCell.swift */,
-				BC395B822CA57E5B0005FC9D /* CustomMarkerView.swift */,
+				BC395B552CA325700005FC9D /* logDetailPlaceCell.swift */,
 				BC395B862CA7C9670005FC9D /* CategoryPickerView.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		BC395B392CA265780005FC9D /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				BC395B3A2CA265920005FC9D /* NewLogViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		BC395B3C2CA29C010005FC9D /* ViewModel */ = {
@@ -376,7 +362,7 @@
 		BC395B7C2CA4461A0005FC9D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				BC395B7E2CA446300005FC9D /* LogDetailViewModel.swift */,
+				BC395B3A2CA265920005FC9D /* LogDetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -384,7 +370,7 @@
 		BC395B7D2CA4461F0005FC9D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				BC4DFDD52C9D67A7002CDC27 /* LogDetail.swift */,
+				BC4DFDD52C9D67A7002CDC27 /* LogDetailView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -583,7 +569,6 @@
 				BC404CA92C94218C001BA269 /* FourCutPictureView.swift */,
 				BC404CAB2C942835001BA269 /* ToolBarNavigationLink.swift */,
 				BC404C902C94142D001BA269 /* ToolbarTitle.swift */,
-				BC404CAD2C942D15001BA269 /* BackButton.swift */,
 				BC404CB72C9468DE001BA269 /* InfinityCarouselView.swift */,
 				BC4DFDCA2C9D5C22002CDC27 /* MapView.swift */,
 				BC8007AA2C9D4A0300D62778 /* NavigationBar.swift */,
@@ -591,6 +576,7 @@
 				BC4DFDF12C9EF933002CDC27 /* FSCalanderView.swift */,
 				BC404CA72C942170001BA269 /* ListFooterView.swift */,
 				BC395B842CA65F7F0005FC9D /* MarkerView.swift */,
+				BC404CAD2C942D15001BA269 /* BackButton.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -952,7 +938,7 @@
 				BCE2A0EF2C9FEFB10045D01B /* Photo.swift in Sources */,
 				BC65B50D2CA05C6C00E89223 /* CategoryViewModel.swift in Sources */,
 				BC395B762CA3F0E50005FC9D /* GeocodingQuery.swift in Sources */,
-				BC4DFDD62C9D67A7002CDC27 /* LogDetail.swift in Sources */,
+				BC4DFDD62C9D67A7002CDC27 /* LogDetailView.swift in Sources */,
 				BC4DFDEE2C9EBD10002CDC27 /* Log.swift in Sources */,
 				BC395B812CA53C590005FC9D /* PHPickerView.swift in Sources */,
 				BC404CB02C942E43001BA269 /* SettingButton.swift in Sources */,
@@ -974,10 +960,9 @@
 				BC4DFDD82C9D8900002CDC27 /* UIMapView.swift in Sources */,
 				BC395B4B2CA2CCFB0005FC9D /* AddCategorySheet.swift in Sources */,
 				BC404BD12C9077FC001BA269 /* RootView.swift in Sources */,
-				BC395B3B2CA265920005FC9D /* NewLogViewModel.swift in Sources */,
+				BC395B3B2CA265920005FC9D /* LogDetailViewModel.swift in Sources */,
 				BC395B5B2CA32CA80005FC9D /* SearchPlaceView.swift in Sources */,
 				BC404CBA2C94B0A5001BA269 /* ColorManager.swift in Sources */,
-				BC395B832CA57E5B0005FC9D /* CustomMarkerView.swift in Sources */,
 				BC404C7D2C93F04D001BA269 /* NavigationWrapper.swift in Sources */,
 				BC404CA62C941F0E001BA269 /* TimelineCell.swift in Sources */,
 				BC4DFDE92C9EBC39002CDC27 /* RepositoryResult.swift in Sources */,
@@ -1005,11 +990,10 @@
 				BC395B722CA3D2430005FC9D /* TargetType.swift in Sources */,
 				BC8007AD2C9D4E3F00D62778 /* SideBarView.swift in Sources */,
 				BC65B4FD2CA018B100E89223 /* RealmConfiguration.swift in Sources */,
-				BC395B7F2CA446300005FC9D /* LogDetailViewModel.swift in Sources */,
 				BC395B652CA338630005FC9D /* NetworkManager.swift in Sources */,
 				BC404C782C93E1EF001BA269 /* PlannerView.swift in Sources */,
 				BCE2A0EB2C9FDC430045D01B /* PlannerSheetView.swift in Sources */,
-				BC395B562CA325700005FC9D /* NewLogPlaceCell.swift in Sources */,
+				BC395B562CA325700005FC9D /* logDetailPlaceCell.swift in Sources */,
 				BC404CB82C9468DE001BA269 /* InfinityCarouselView.swift in Sources */,
 				BC4DFDDF2C9E8F81002CDC27 /* PlaceCell.swift in Sources */,
 				BC395B5D2CA32FDF0005FC9D /* SearchPlaceViewModel.swift in Sources */,

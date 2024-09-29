@@ -38,21 +38,12 @@ struct FourCutPictureView: View {
     }
     
     private func backgroundView() -> some View {
-//        let isLastToFirst = index == 1 && currentIndex == lastCell + 1
-//        let isFirstToLast = index == lastCell && currentIndex == 0
-        VisualEffectBlurView(blurStyle: .systemChromeMaterial, vibrancyStyle: .fill) {
-           
-        }
+        VisualEffectBlurView(blurStyle: .systemChromeMaterial, vibrancyStyle: .fill) { }
         .frame(width: backgroundWidthHeight.0 , height: backgroundWidthHeight.1)
         .overlay(RoundedRectangle(cornerRadius: 0, style: .continuous).stroke(lineWidth: 1).fill(Color.white))
         .shadow(color: Color.black.opacity(0.3), radius: 4, x: 2, y: 4)
         .padding()
         .blendMode(.luminosity)
-//        return Rectangle()
-//            .fill(.white)
-//            .frame(width: backgroundWidthHeight.0, height: backgroundWidthHeight.1)
-        
-//            .frame(width: backgroundWidthHeight.0, height: (index == currentIndex || (isFirstToLast || isLastToFirst)) ? backgroundWidthHeight.1 : backgroundWidthHeight.1 * 0.7)
     }
     
     private func contentsView() -> some View {
@@ -61,11 +52,17 @@ struct FourCutPictureView: View {
             Text(title)
                 .frame(height: 30)
                 .frame(alignment: .leading)
-                .foregroundStyle(ColorManager.shared.ciColor.contentColor)
-            Text(hashTags)
-                .frame(height: 30)
-                .frame(alignment: .leading)
-                .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
+                .foregroundStyle(.black.opacity(0.8))
+                .padding(.top)
+            HStack {
+                Text("No.\(Int(index))")
+                    .font(.system(size: 12))
+                    .frame(height: 30)
+                    .frame(alignment: .leading)
+                    .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
+                    .padding(.leading)
+                Spacer()
+            }
         }
         .padding()
     }
@@ -124,8 +121,6 @@ struct FourCutPictureView: View {
                         .background(ColorManager.shared.ciColor.subContentColor)
                 }
             }
-            
-            
             
         }
         

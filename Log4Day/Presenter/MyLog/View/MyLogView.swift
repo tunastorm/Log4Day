@@ -47,7 +47,7 @@ struct MyLogView: View {
                                 }
                                 .padding(.vertical, 40)
                             } else {
-                                TapBarView()
+                                TapBarView(categoryViewModel: categoryViewModel)
                                     .environmentObject(viewModel)
                             }
                         }

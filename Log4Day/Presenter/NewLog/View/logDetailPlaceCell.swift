@@ -8,9 +8,9 @@
 import SwiftUI
 import PhotosUI
 
-struct NewLogPlaceCell: View {
+struct logDetailPlaceCell: View {
     
-    @ObservedObject var viewModel: NewLogViewModel
+    @ObservedObject var viewModel: LogDetailViewModel
     @State private var isSelected: Bool = false
     @State private var isDeleteMember: Bool = false
     @State private var showPicker: Bool = false

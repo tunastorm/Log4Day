@@ -11,7 +11,7 @@ import PhotosUI
 
 struct PhotoPicker: UIViewControllerRepresentable {
 
-    @ObservedObject var viewModel: NewLogViewModel
+    @ObservedObject var viewModel: LogDetailViewModel
     
     @Binding var isPresented: Bool
     
@@ -36,7 +36,7 @@ struct PhotoPicker: UIViewControllerRepresentable {
     // Use a Coordinator to act as your PHPickerViewControllerDelegate
     class Coordinator: PHPickerViewControllerDelegate {
         
-        @ObservedObject var viewModel: NewLogViewModel
+        @ObservedObject var viewModel: LogDetailViewModel
         
         private let parent: PhotoPicker
 
@@ -53,7 +53,7 @@ struct PhotoPicker: UIViewControllerRepresentable {
             }
         }
         
-        init(_ parent: PhotoPicker, _ viewModel: NewLogViewModel) {
+        init(_ parent: PhotoPicker, _ viewModel: LogDetailViewModel) {
             self.parent = parent
             self.viewModel = viewModel
         }

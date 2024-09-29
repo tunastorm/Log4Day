@@ -44,10 +44,7 @@ struct SettingButton: View {
     @State private var elementShowingList: [Bool] = []
     
     var body: some View {
-        let settingCount = settingElements.count
-        (0..<settingCount).forEach { _ in elementShowingList.append(false) }
-
-        return Menu {
+        Menu {
             ForEach(settingElements.indices, id: \.self) { index in
                 let item = settingElements[index]
                 if index < settingElements.count - 1 {
@@ -67,36 +64,13 @@ struct SettingButton: View {
         } label: {
             Image(systemName: "line.3.horizontal")
                 .font(.system(size: inNavigationWrapper ?  15.5 : 20))
-//                .frame(width: 30, height: 15)
-//                .font(.system(size: 30))
         }
         .foregroundStyle(normalColor)
-        
-//        ToolbarItem(id: "setting", placement: .topBarTrailing) {
-//            Menu {
-//                ForEach(settingElements.indices, id: \.self) { index in
-//                    let item = settingElements[index]
-//                    if index < settingElements.count - 1 {
-//                        Button {
-//                            item.action()
-//                        } label: {
-//                            Label(.init(item.name), systemImage: item.image)
-//                        }
-//                    } else {
-//                        Button(role: .destructive) {
-//                            item.action()
-//                        } label: {
-//                            Label(.init(item.name), systemImage: item.image)
-//                        }
-//                    }
-//                }
-//            } label: {
-//                Image(systemName: "line.3.horizontal")
-//            }
-//            .foregroundStyle(normalColor)
-//         
-//        }
-        
+        .onAppear {
+            let settingCount = settingElements.count
+            (0..<settingCount).forEach { _ in elementShowingList.append(false) }
+        }
+
      }
     
     private func changeColorScheme() {

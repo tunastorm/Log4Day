@@ -43,7 +43,6 @@ final class PhotoManager: FileManager {
         let fileURL = documentDirectory.appendingPathComponent("\(filename).jpg")
         
         //이 경로에 실제로 파일이 존재하는 지 확인
-    
         
         if FileManager.default.fileExists(atPath: fileURL.path) {
             if #available(iOS 16.0, *) {

@@ -10,13 +10,16 @@ import SwiftUI
 enum TapInfo : String, CaseIterable {
     case timeline = "타임라인"
     case place = "플레이스"
-    case waited = "작성중"
+//    case waited = "작성중"
 }
 
 struct TapBarView: View {
     
+    @ObservedObject var categoryViewModel: CategoryViewModel
     @EnvironmentObject var viewModel: MyLogViewModel
     @Namespace private var animation
+    
+    @State private var showPlaceOwnerSheet = false
 
     var body: some View {
         LazyVStack(pinnedViews: [.sectionHeaders]) {
@@ -27,7 +30,7 @@ struct TapBarView: View {
                     switch viewModel.output.selectedPicker {
                     case .timeline: timelineList()
                     case .place: placeList()
-                    case .waited: waitedList()
+//                    case .waited: waitedList()
                     }
                 }
                 .background(.clear)
@@ -43,7 +46,7 @@ struct TapBarView: View {
     private func timelineList() -> some View {
         ForEach(viewModel.output.timeline.indices, id: \.self) { index in
             NavigationLink {
-                NextViewWrapper(LogDetail())
+                NextViewWrapper(LogDetailView(log: viewModel.output.logList[index], categoryViewModel: categoryViewModel))
             } label: {
                 TimelineCell(index: index, log: viewModel.output.timeline[index])
                     .environmentObject(viewModel)
@@ -62,11 +65,24 @@ struct TapBarView: View {
                     Spacer()
                 }
                 ForEach((viewModel.output.placeDict[key] ?? []).indices, id: \.self){ index in
-                    NavigationLink {
-                        NextViewWrapper(LogDetail())
+                    Button {
+                        showPlaceOwnerSheet = true
                     } label: {
                         PlaceCell(index: index, total: (viewModel.output.placeDict[key] ?? []).count, place: (viewModel.output.placeDict[key] ?? [])[index])
                     }
+//                    .bottomSheet(bottomSheetPosition: <#T##Binding<BottomSheetPosition>#>, switchablePositions: <#T##[BottomSheetPosition]#>) {
+//                        VStack {
+//                            ForEach((viewModel.output.placeDict[key] ?? [])[index].ofLog, id: \) { item in
+//                                NavigationLink {
+//                                    NextViewWrapper(LogDetailView(log: item, categoryViewModel: categoryViewModel))
+//                                } label: {
+//                                    Text(item)
+//                                }
+//
+//                            }
+//                        }
+//
+//                    }
                 }
             }
         }
@@ -114,9 +130,4 @@ struct TopTabbar: View {
         }
         .background(ColorManager.shared.ciColor.backgroundColor)
     }
-}
-
-
-#Preview {
-    TapBarView()
 }

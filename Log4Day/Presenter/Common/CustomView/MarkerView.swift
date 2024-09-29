@@ -78,10 +78,6 @@ struct MarkerView: View {
    
 }
 
-
-/**
-말풍선 뷰
-*/
 struct ImageBubble: View {
     
     @Binding var isPointed: Bool

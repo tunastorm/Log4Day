@@ -11,10 +11,10 @@ import NMapsMap
 struct SearchPlaceView: View {
     
     @StateObject private var viewModel = SearchPlaceViewModel()
-    @ObservedObject var newLogViewModel: NewLogViewModel
+    @ObservedObject var newLogViewModel: LogDetailViewModel
     
     var body: some View {
-        NavigationWrapper {
+        NavigationWrapper(button: Text("")) {
             ScrollView {
                 LazyVStack {
                     ForEach(viewModel.output.placeList, id:\.id) { item in

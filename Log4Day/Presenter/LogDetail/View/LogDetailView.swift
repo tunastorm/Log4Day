@@ -1,17 +1,17 @@
 //
-//  WriteLogView.swift
+//  LogDetail.swift
 //  Log4Day
 //
-//  Created by 유철원 on 9/23/24.
+//  Created by 유철원 on 9/20/24.
 //
 
 import SwiftUI
 import NMapsMap
-import BottomSheet
 
-struct NewLogView: View {
+struct LogDetailView: View {
     
-    // 기본 위치 서울역
+    var log: Log
+  
     @ObservedObject var categoryViewModel: CategoryViewModel
     @StateObject private var viewModel = LogDetailViewModel()
     
@@ -19,58 +19,61 @@ struct NewLogView: View {
     @FocusState private var addSheetIsFocused: Bool
     
     var body: some View {
-        
-        GeometryReader { proxy in
-            ZStack {
-                contentView()
+        NavigationWrapper (
+            button: Button {
+                viewModel.action(.createLog)
+            } label: {
+                Text("수정")
+                    .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
+            }, content: {
+                GeometryReader { proxy in
+                    ZStack {
+                        if proxy.size != .zero {
+                            contentView()
+                        }
+                    }
+                    .onTapGesture {
+                        titleFocused = false
+                    }
+                }
+                .bottomSheet(bottomSheetPosition: $categoryViewModel.output.showAddSheet,
+                             switchablePositions: [.dynamic]) {
+                    AddCategorySheet(isFocused: _addSheetIsFocused, viewModel: categoryViewModel)
+                }
+                .enableSwipeToDismiss()
+                
             }
-            .onTapGesture {
-                titleFocused = false
-            }
+        )
+        .onAppear {
+            setLogToViewModel()
         }
-        .bottomSheet(bottomSheetPosition: $categoryViewModel.output.showAddSheet,
-                     switchablePositions: [.dynamic]) {
-            AddCategorySheet(isFocused: _addSheetIsFocused, viewModel: categoryViewModel)
-        }
-        .enableSwipeToDismiss()
-        
+    }
+    
+    private func setLogToViewModel() {
+        viewModel.action(.setLog(log: log))
     }
     
     private func contentView() -> some View {
-        VStack {
-            NavigationBar(
-                title: "NewLog",
-                button: Button {
-                    viewModel.action(.createLog)
-                } label: {
-                    Text("등록")
-                        .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
-                }
+        ScrollView {
+            titleView()
+            LogNaverMapView(isFull: false,
+                            isDeleteMode: $viewModel.output.isDeleteMode,
+                            cameraPointer: $viewModel.output.cameraPointer,
+                            placeList:  $viewModel.output.placeList,
+                            imageDict: $viewModel.output.imageDict,
+                            coordinateList: $viewModel.output.coordinateList
             )
-            ScrollView {
-                titleView()
-                LogNaverMapView(isFull: false,
-                                isDeleteMode: $viewModel.output.isDeleteMode, 
-                                cameraPointer: $viewModel.output.cameraPointer,
-                                placeList:  $viewModel.output.placeList,
-//                                photoDict: $viewModel.output.photoDict, 
-                                imageDict: $viewModel.output.imageDict,
-                                coordinateList: $viewModel.output.coordinateList
-                )
-                placeButton()
-                placeList()
-            }
+            placeButton()
+            placeList()
         }
-        
     }
 
     private func titleView() -> some View {
-        
         VStack() {
             HStack {
                 VStack(alignment: .leading) {
                     CategoryPickerView(categoryViewModel: categoryViewModel, viewModel: viewModel)
-                    TextField("제목을 입력하세요", text: $viewModel.input.title)
+                    TextField("", text: $viewModel.input.title)
                         .font(.title3)
                         .focused($titleFocused)
                     Text(DateFormatManager.shared.dateToFormattedString(date: viewModel.output.date,
@@ -82,32 +85,11 @@ struct NewLogView: View {
                 .padding(.vertical)
                 Spacer()
             }
-//            ScrollView(.horizontal) {
-//                HStack {
-//                    ForEach(viewModel.output.tagList, id: \.self) { item in
-//                        HashTagCell(hashTag: item)
-//                    }
-//                }
-//                .padding(.horizontal)
-//            }
+
         }
         
     }
-    
-    private func placeList() -> some View {
-        LazyVStack {
-            ForEach(viewModel.output.placeList.indices, id: \.self) { index in
-                logDetailPlaceCell(viewModel: viewModel,
-                                indexInfo: (index, viewModel.output.placeList.count),
-                                place: viewModel.output.placeList[index])
-            }
-        }
-        .background(.clear)
-        .frame(maxWidth: .infinity)
-        .padding()
-        
-    }
-    
+
     private func placeButton() -> some View {
         VStack {
             if viewModel.output.placeList.isEmpty {
@@ -123,7 +105,7 @@ struct NewLogView: View {
                     SearchPlaceView(newLogViewModel: viewModel)
                 } label: {
                     Text("추가")
-                        .foregroundStyle(viewModel.output.isDeleteMode ? 
+                        .foregroundStyle(viewModel.output.isDeleteMode ?
                                          ColorManager.shared.ciColor.subContentColor : ColorManager.shared.ciColor.highlightColor)
                 }
                 .frame(width: 130, height: 40)
@@ -149,6 +131,39 @@ struct NewLogView: View {
                 Spacer()
             }
             .padding(.top)
+        }
+    }
+    
+    private func placeList() -> some View {
+        LazyVStack {
+            ForEach(viewModel.output.placeList.indices, id: \.self) { index in
+                logDetailPlaceCell(viewModel: viewModel,
+                                indexInfo: (index, viewModel.output.placeList.count),
+                                place: viewModel.output.placeList[index])
+            }
+        }
+        .background(.clear)
+        .frame(maxWidth: .infinity)
+        .padding()
+        
+    }
+    
+}
+
+struct HashTagCell: View {
+    
+    var hashTag: String
+    
+    var body: some View {
+        ZStack(alignment: .center) {
+            RoundedRectangle(cornerRadius: 15)
+                .frame(height: 30)
+                .frame(minWidth: 40)
+                .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
+            Text("#\(hashTag)")
+                .foregroundStyle(.white)
+                .font(.callout)
+                .padding(.horizontal, 6)
         }
     }
     

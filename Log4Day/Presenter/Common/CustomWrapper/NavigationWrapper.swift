@@ -7,11 +7,13 @@
 
 import SwiftUI
 
-struct NavigationWrapper<Content: View>: View {
+struct NavigationWrapper<Button: View, Content: View>: View {
     
+    var button: Button?
     let content: Content
     
-    init(@ViewBuilder content: () -> Content) {
+    init(button: Button? = nil,  @ViewBuilder content: () -> Content) {
+        self.button = button
         self.content = content()
     }
     
@@ -21,7 +23,7 @@ struct NavigationWrapper<Content: View>: View {
                 content
             }
             .navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading: backButton(), trailing: settingButton())
+            .navigationBarItems(leading: backButton(), trailing: trailingButtons())
             .background(.white)
             .tint(ColorManager.shared.ciColor.highlightColor)
         } else {
@@ -29,7 +31,7 @@ struct NavigationWrapper<Content: View>: View {
                 content
             }
             .navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading: backButton(), trailing: settingButton())
+            .navigationBarItems(leading: backButton(), trailing: trailingButtons())
             .background(.white)
             .tint((ColorManager.shared.ciColor.highlightColor))
         }
@@ -39,8 +41,13 @@ struct NavigationWrapper<Content: View>: View {
         BackButton()
     }
     
-    private func settingButton() -> some View {
-        SettingButton(inNavigationWrapper: true)
+    private func trailingButtons() -> some View {
+        HStack {
+            button
+            SettingButton(inNavigationWrapper: true)
+        }
+        
+       
     }
     
 }

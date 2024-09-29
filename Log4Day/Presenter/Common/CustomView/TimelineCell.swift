@@ -66,13 +66,12 @@ struct TimelineCell: View {
         Text("\(index+1)")
             .foregroundStyle(.white)
             .frame(width: 40, height: 40)
-            .background(log.fourCut.isEmpty ? ColorManager.shared.ciColor.subContentColor :  ColorManager.shared.ciColor.highlightColor )
+            .background(log.fourCut.count < 4 ? ColorManager.shared.ciColor.subContentColor :  ColorManager.shared.ciColor.highlightColor )
             .clipShape(Circle())
     }
     
     private func contentsView() -> some View {
         VStack {
-            Spacer()
             VStack {
                 HStack {
                     Text(log.title)
@@ -82,7 +81,8 @@ struct TimelineCell: View {
                     Spacer()
                 }
                 HStack {
-                    Text("#\(log.places.compactMap{ $0.hashtag }.joined(separator:" #"))")
+//                    Text("#\(log.places.compactMap{ $0.hashtag }.joined(separator:" #"))")
+                    Text("")
                         .font(.caption)
                         .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
                     Spacer()

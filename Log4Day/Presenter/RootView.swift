@@ -29,7 +29,7 @@ struct RootView: View {
     }
     
     var body: some View {
-        NavigationWrapper {
+        NavigationWrapper(button: Text("")) {
             TabView(selection: $selection) {
                 MyLogView(categoryViewModel: categoryViewModel)
                     .tabItem {
