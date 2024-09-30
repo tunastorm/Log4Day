@@ -15,7 +15,7 @@ final class Repository {
     
     static let shared = Repository()
     
-    private let resourceManager = PhotoManager()
+    private let photoManager = PhotoManager()
     
     private let realm = {
         do {
@@ -71,7 +71,7 @@ final class Repository {
     @available(iOS 16.0, *)
     func deleteItem(_ data: Object, fileName: String? = nil, complitionHandler: RepositoryResult) {
         if let fileName {
-            resourceManager.removeImageFromDocument(filename: fileName)
+            photoManager.removeImageFromDocument(filename: fileName)
         }
         do {
             try realm?.write {
@@ -86,17 +86,37 @@ final class Repository {
     func deleteCategory(_ data: Category, completionHandler: RepositoryResult) {
         let logs = data.content
         do {
-            try realm?.write {
+            try realm?.write { [weak self] in
                 logs.forEach { log in
-                    log.places.forEach { realm?.delete($0) }
-                    log.fourCut.forEach { realm?.delete($0) }
-                    realm?.delete(log)
+                    log.places.forEach { self?.realm?.delete($0) }
+                    log.fourCut.forEach {
+                        self?.photoManager.removeImageFromDocument(filename: $0.name)
+                        self?.realm?.delete($0)
+                    }
+                    self?.realm?.delete(log)
                 }
-                realm?.delete(data)
+                self?.realm?.delete(data)
             }
             completionHandler(.success(RepositoryStatus.deleteSuccess))
         } catch {
             completionHandler(.failure(RepositoryError.deleteFailed))
+        }
+    }
+    
+    func deleteLog(_ log: Log, completionHandler: RepositoryResult) {
+        do {
+            try realm?.write { [weak self] in
+                log.places.forEach{ self?.realm?.delete($0) }
+                log.fourCut.forEach {
+                    self?.photoManager.removeImageFromDocument(filename: $0.name)
+                    self?.realm?.delete($0)
+                }
+                self?.realm?.delete(log)
+            }
+            completionHandler(.success(RepositoryStatus.deleteSuccess))
+        } catch {
+            completionHandler(.failure(RepositoryError.deleteFailed))
+            
         }
     }
     

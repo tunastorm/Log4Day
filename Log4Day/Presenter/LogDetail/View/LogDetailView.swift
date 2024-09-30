@@ -20,11 +20,29 @@ struct LogDetailView: View {
     
     var body: some View {
         NavigationWrapper (
-            button: Button {
-                viewModel.action(.updateLog(log: log))
+            button: Menu {
+                Button {
+                    viewModel.action(.updateLog(log: log))
+                } label: {
+                    Label(
+                        title: { Text("수정") },
+                        icon: { Image(systemName: "pencil")}
+                    )
+                }
+                Button {
+                    viewModel.action(.deleteLog(log: log))
+                } label: {
+                    Label(
+                        title: { Text("삭제") },
+                        icon: { Image(systemName: "xmark.circle")
+                               
+                        }
+                    )
+                    .foregroundStyle(.red)
+                }
             } label: {
-                Text("수정")
-                    .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
+                Image(systemName: "square.and.pencil")
+                    .foregroundStyle(.black)
             }, content: {
                 GeometryReader { proxy in
                     ZStack {

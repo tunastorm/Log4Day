@@ -28,6 +28,7 @@ final class LogDetailViewModel: ObservableObject {
         case deleteButtonTapped(lastOnly: Bool)
         case createLog
         case updateLog(log: Log)
+        case deleteLog(log: Log)
         case setLog(log: Log)
     }
     
@@ -38,6 +39,7 @@ final class LogDetailViewModel: ObservableObject {
         var deleteButtonTapped = PassthroughSubject<Bool, Never>()
         var createLog = PassthroughSubject<Void, Never>()
         var updateLog = PassthroughSubject<Log, Never>()
+        var deleteLog = PassthroughSubject<Log, Never>()
         var setLog = PassthroughSubject<Log, Never>()
         var title = ""
         var deleteMember: [Int] = []
@@ -86,6 +88,11 @@ final class LogDetailViewModel: ObservableObject {
                 self?.updateLog(log: log)
             }
             .store(in: &cancellables)
+        input.deleteLog
+            .sink { [weak self] log in
+                self?.deleteLog(log)
+            }
+            .store(in: &cancellables)
         input.setLog
             .sink { [weak self] log in
                 self?.setLog(log: log)
@@ -105,6 +112,8 @@ final class LogDetailViewModel: ObservableObject {
             input.createLog.send(())
         case .updateLog(let log):
             input.updateLog.send(log)
+        case.deleteLog(let log):
+            input.deleteLog.send(log)
         case .setLog(let log):
             input.setLog.send(log)
         }
@@ -311,6 +320,19 @@ final class LogDetailViewModel: ObservableObject {
         )?.first {
             log.title = input.title
             category.content.append(log)
+        }
+    }
+    
+    private func deleteLog(_ log: Log) {
+        repository.deleteLog(log) { result in
+            switch result {
+            case .success(let rawStatus):
+                let status = rawStatus as RepositoryStatus
+                output.updateResult = status
+            case .failure(let rawError):
+                let error = rawError as RepositoryError
+                output.updateResult = error
+            }
         }
     }
 
