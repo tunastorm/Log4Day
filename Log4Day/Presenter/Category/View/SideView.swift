@@ -10,7 +10,7 @@ import RealmSwift
 
 struct SideView: View {
     
-    var controller: Contoller
+    var controller: Controller
     @Namespace var namespace
     @ObservedObject var viewModel: CategoryViewModel
     @EnvironmentObject var myLogViewModel: MyLogViewModel
@@ -131,6 +131,7 @@ struct SideView: View {
             switch controller {
             case .myLog: fetchMyLog(category: viewModel.output.category)
             case .logMap: fetchLogMap(category: viewModel.output.category)
+            default: break
             }
         default: break
         }
@@ -146,6 +147,7 @@ struct SideView: View {
             switch controller {
             case .myLog: fetchMyLog(category: "전체")
             case .logMap: fetchLogMap(category: "전체")
+            default: break
             }
         default: break
         }

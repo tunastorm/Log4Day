@@ -21,7 +21,7 @@ struct LogDetailView: View {
     var body: some View {
         NavigationWrapper (
             button: Button {
-                viewModel.action(.createLog)
+                viewModel.action(.updateLog(log: log))
             } label: {
                 Text("수정")
                     .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
@@ -63,7 +63,7 @@ struct LogDetailView: View {
                             imageDict: $viewModel.output.imageDict,
                             coordinateList: $viewModel.output.coordinateList
             )
-            placeButton()
+//            placeButton()
             placeList()
         }
     }
@@ -137,9 +137,10 @@ struct LogDetailView: View {
     private func placeList() -> some View {
         LazyVStack {
             ForEach(viewModel.output.placeList.indices, id: \.self) { index in
-                LogDetailPlaceCell(viewModel: viewModel,
-                                indexInfo: (index, viewModel.output.placeList.count),
-                                place: viewModel.output.placeList[index])
+                LogDetailPlaceCell(controller: .logDetail,
+                                   viewModel: viewModel,
+                                   indexInfo: (index, viewModel.output.placeList.count),
+                                   place: viewModel.output.placeList[index])
             }
         }
         .background(.clear)

@@ -14,6 +14,8 @@ struct LogMapView: View {
     @StateObject private var viewModel = LogMapViewModel()
     @StateObject private var logDetailViewModel = LogDetailViewModel()
    
+    @State var showDatePicker = true
+    
     var body: some View {
         GeometryReader { proxy in
             ZStack {
@@ -28,22 +30,35 @@ struct LogMapView: View {
                                 .font(.system(size: 20))
                         })
                     )
-                    LogNaverMapView(isFull: true,
-                                    isDeleteMode: $logDetailViewModel.output.isDeleteMode,
-                                    cameraPointer: $logDetailViewModel.output.cameraPointer,
-                                    placeList: $logDetailViewModel.output.placeList,
-                                    imageDict:  $logDetailViewModel.output.imageDict,
-                                    coordinateList: $logDetailViewModel.output.coordinateList)
+                    ZStack {
+                        LogNaverMapView(isFull: true,
+                                        isDeleteMode: $logDetailViewModel.output.isDeleteMode,
+                                        cameraPointer: $logDetailViewModel.output.cameraPointer,
+                                        placeList: $logDetailViewModel.output.placeList,
+                                        imageDict:  $logDetailViewModel.output.imageDict,
+                                        coordinateList: $logDetailViewModel.output.coordinateList)
+                        if showDatePicker {
+                            VStack {
+                                HorizontalCalendarView(viewModel: viewModel)
+                                Spacer()
+                            }
+                        }
+                    }
                 }
                 SideBarView(controller: .logMap, viewModel: categoryViewModel)
                     .environmentObject(viewModel)
             }
         }
-        .bottomSheet(bottomSheetPosition: $logDetailViewModel.output.showPlaceListSheet, 
+        .onAppear {
+//            viewModel.action(.fetchFirstLastDate)
+            viewModel.action(.initialFetch)
+        }
+        .bottomSheet(bottomSheetPosition: $logDetailViewModel.output.showPlaceListSheet,
                      switchablePositions: [.dynamic]) {
             ScrollView {
                 ForEach(logDetailViewModel.output.placeList.indices, id: \.self) { index in
-                    LogDetailPlaceCell(viewModel: logDetailViewModel,
+                    LogDetailPlaceCell(controller: .logMap,
+                                       viewModel: logDetailViewModel,
                                        indexInfo:(index, logDetailViewModel.output.placeList.count),
                                        place: logDetailViewModel.output.placeList[index])
                 }
@@ -53,6 +68,7 @@ struct LogMapView: View {
             .background(.white)
         }
         .enableSwipeToDismiss()
+        
     }
 
 }

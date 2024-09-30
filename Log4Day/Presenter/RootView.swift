@@ -47,14 +47,14 @@ struct RootView: View {
                         Text("New")
                     }
                     .tag(1)
-                LogMapView(categoryViewModel: categoryViewModel)
-                    .tabItem {
-                        Image(systemName:  selection == 2 ?
-                              "mappin.and.ellipse" : "map")
-                            .renderingMode(.template)
-                        Text("LogMap")
-                    }
-                    .tag(2)
+//                LogMapView(categoryViewModel: categoryViewModel)
+//                    .tabItem {
+//                        Image(systemName:  selection == 2 ?
+//                              "mappin.and.ellipse" : "map")
+//                            .renderingMode(.template)
+//                        Text("LogMap")
+//                    }
+//                    .tag(2)
             }
             .font(.headline)
             .tint(ColorManager.shared.ciColor.highlightColor)

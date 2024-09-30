@@ -11,7 +11,7 @@ import BottomSheet
 
 struct SideBarView: View {
     
-    var controller: Contoller
+    var controller: Controller
     
     @ObservedObject var viewModel: CategoryViewModel
     @EnvironmentObject private var myLogViewModel: MyLogViewModel
@@ -42,6 +42,7 @@ struct SideBarView: View {
                 case .logMap:
                     SideView(controller: controller, viewModel: viewModel)
                         .environmentObject(logMapViewModel)
+                default: Text("")
                 }
                 Rectangle()
                     .frame(maxWidth: .infinity)

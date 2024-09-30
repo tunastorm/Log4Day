@@ -8,13 +8,16 @@
 import Foundation
 
 enum DateFormat {
+    case hipenSeparatedyyyyMMdd
     case dateAndTimeWithTimezone
     case dotSeparatedyyyyMMdd
     case dotSeparatedyyyyMMddHHmm
     case dotSeparatedyyyyMMddDay
+
     
     var formatString: String {
         return switch self {
+        case .hipenSeparatedyyyyMMdd: "yyyy-MM-dd"
         case .dateAndTimeWithTimezone: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         case .dotSeparatedyyyyMMdd:  "yyyy.MM.dd"
         case .dotSeparatedyyyyMMddHHmm: "yyyy.MM.dd HH:mm"

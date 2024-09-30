@@ -82,14 +82,7 @@ struct NewLogView: View {
                 .padding(.vertical)
                 Spacer()
             }
-//            ScrollView(.horizontal) {
-//                HStack {
-//                    ForEach(viewModel.output.tagList, id: \.self) { item in
-//                        HashTagCell(hashTag: item)
-//                    }
-//                }
-//                .padding(.horizontal)
-//            }
+            
         }
         
     }
@@ -97,7 +90,7 @@ struct NewLogView: View {
     private func placeList() -> some View {
         LazyVStack {
             ForEach(viewModel.output.placeList.indices, id: \.self) { index in
-                LogDetailPlaceCell(viewModel: viewModel,
+                LogDetailPlaceCell(controller: .newLogView, viewModel: viewModel,
                                 indexInfo: (index, viewModel.output.placeList.count),
                                 place: viewModel.output.placeList[index])
             }

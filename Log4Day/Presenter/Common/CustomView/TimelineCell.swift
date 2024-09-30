@@ -30,6 +30,7 @@ struct TimelineCell: View {
                 Spacer()
                 contentsView()
             }
+            
             if  index < viewModel.output.timeline.count &&
                 (index == viewModel.output.timeline.count-1 ||
                 (index >= 0 && !DateFormatManager.shared.isSameDay(lDate: log.startDate,

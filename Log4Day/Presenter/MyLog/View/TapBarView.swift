@@ -45,7 +45,7 @@ struct TapBarView: View {
     private func timelineList() -> some View {
         ForEach(viewModel.output.timeline.indices, id: \.self) { index in
             NavigationLink {
-                NextViewWrapper(LogDetailView(log: viewModel.output.logList[index], categoryViewModel: categoryViewModel))
+                NextViewWrapper(LogDetailView(log: viewModel.output.timeline[index], categoryViewModel: categoryViewModel))
             } label: {
                 TimelineCell(index: index, log: viewModel.output.timeline[index])
                     .environmentObject(viewModel)

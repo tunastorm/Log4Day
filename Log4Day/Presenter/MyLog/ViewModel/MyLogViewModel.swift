@@ -128,7 +128,7 @@ final class MyLogViewModel: ObservableObject {
     private func fetchCategorizedLogList() {
         if output.category == "전체" {
             output.$logList.where = { $0.createdAt <= Date() }
-            output.$logList.sortDescriptor = .init(keyPath: Log.Column.createdAt.name, ascending: false)
+//            output.$elogList.sortDescriptor = .init(keyPath: Log.Column.startDate.name, ascending: false)
         } else {
             output.$logList.where = { [weak self] in
                 return $0.owner.title == self?.output.category ?? ""
@@ -150,7 +150,7 @@ final class MyLogViewModel: ObservableObject {
         output.selectedPicker = tapInfo
         switch tapInfo {
         case .timeline:
-            output.timeline = Array(output.logList)
+            output.timeline = output.logList.sorted(by: { $0.startDate > $1.startDate })
         case .place:
             output.placeDict.removeAll()
             output.logList.forEach { log in

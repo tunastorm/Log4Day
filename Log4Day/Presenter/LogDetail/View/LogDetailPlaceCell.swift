@@ -10,6 +10,8 @@ import PhotosUI
 
 struct LogDetailPlaceCell: View {
     
+    var controller: Controller
+    
     @ObservedObject var viewModel: LogDetailViewModel
     @State private var isSelected: Bool = false
     @State private var isDeleteMember: Bool = false
@@ -100,23 +102,25 @@ struct LogDetailPlaceCell: View {
                         Spacer()
                     }
                 }
-                Button {
-                    showPicker.toggle()
-                    viewModel.output.cameraPointer = indexInfo.0
-                } label: {
-                    Image(systemName: "camera")
-                        .frame(width: 40, height: 40)
-                        .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
+                if controller == .newLogView {
+                    Button {
+                        showPicker.toggle()
+                        viewModel.output.cameraPointer = indexInfo.0
+                    } label: {
+                        Image(systemName: "camera")
+                            .frame(width: 40, height: 40)
+                            .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
+                    }
+                    .padding(.horizontal, 10)
+                    .sheet(isPresented: $showPicker, content: {
+                        let limit = 4 - viewModel.output.imageDict.values.flatMap{ $0 }.count
+                        return PhotoPicker(viewModel: viewModel,
+                                    isPresented: $showPicker,
+                                    configuration: pickerConfig(limit))
+                            .ignoresSafeArea()
+                    })
+                    .disabled(viewModel.output.isDeleteMode)
                 }
-                .padding(.horizontal, 10)
-                .sheet(isPresented: $showPicker, content: {
-                    let limit = 4 - viewModel.output.imageDict.values.flatMap{ $0 }.count
-                    return PhotoPicker(viewModel: viewModel,
-                                isPresented: $showPicker,
-                                configuration: pickerConfig(limit))
-                        .ignoresSafeArea()
-                })
-                .disabled(viewModel.output.isDeleteMode)
             }
             .padding(.vertical)
             if indexInfo.0 < indexInfo.1 - 1 {

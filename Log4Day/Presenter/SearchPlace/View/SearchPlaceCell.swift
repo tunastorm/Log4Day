@@ -70,6 +70,7 @@ struct SearchPlaceCell: View {
                 HStack {
                     Text(place.roadAddress)
                         .font(.caption)
+                        .multilineTextAlignment(.leading)
                         .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
                     Spacer()
                 }

@@ -27,6 +27,7 @@ final class LogDetailViewModel: ObservableObject {
         case photoPicked
         case deleteButtonTapped(lastOnly: Bool)
         case createLog
+        case updateLog(log: Log)
         case setLog(log: Log)
     }
     
@@ -36,6 +37,7 @@ final class LogDetailViewModel: ObservableObject {
         var photoPicked = PassthroughSubject<Void, Never>()
         var deleteButtonTapped = PassthroughSubject<Bool, Never>()
         var createLog = PassthroughSubject<Void, Never>()
+        var updateLog = PassthroughSubject<Log, Never>()
         var setLog = PassthroughSubject<Log, Never>()
         var title = ""
         var deleteMember: [Int] = []
@@ -53,6 +55,7 @@ final class LogDetailViewModel: ObservableObject {
         var imageDict: [Int:[UIImage]] = [:]
         var coordinateList: [NMGLatLng] = []
         var createResult: RepositoryResult = RepositoryStatus.idle
+        var updateResult: RepositoryResult = RepositoryStatus.idle
     }
     
     init() {
@@ -78,6 +81,11 @@ final class LogDetailViewModel: ObservableObject {
                 self?.createLog()
             }
             .store(in: &cancellables)
+        input.updateLog
+            .sink { [weak self] log in
+                self?.updateLog(log: log)
+            }
+            .store(in: &cancellables)
         input.setLog
             .sink { [weak self] log in
                 self?.setLog(log: log)
@@ -95,6 +103,8 @@ final class LogDetailViewModel: ObservableObject {
             input.deleteButtonTapped.send(lastOnly)
         case .createLog:
             input.createLog.send(())
+        case .updateLog(let log):
+            input.updateLog.send(log)
         case .setLog(let log):
             input.setLog.send(log)
         }
@@ -241,8 +251,69 @@ final class LogDetailViewModel: ObservableObject {
             }
         }
     }
-
     
+    private func updateLog(log: Log) {
+        repository.queryProperty { [weak self] in
+            self?.updateLogCategory(log)
+        } completionHandler: { result in
+            switch result {
+            case .success(let rawStatus):
+                let status = rawStatus as RepositoryStatus
+                output.updateResult = status
+            case .failure(let rawError):
+                let error = rawError as RepositoryError
+                output.updateResult = error
+            }
+        }
+    }
+
+    private func updateLogCategory(_ log: Log) {
+        if let owner = log.owner.first {
+            if owner.title == output.category {
+                let filtered = owner.content.filter({ $0.id == log.id })
+                if filtered.count > 0, let old = filtered.first {
+                    old.title = input.title
+                }
+            } else {
+                var index: Int?
+                owner.content.enumerated().forEach { idx, old in
+                    if old.id == log.id {
+                        index = idx
+                    }
+                }
+                if let index {
+                    owner.content.remove(at: index)
+                    if output.category != "" {
+                        addLogToCategory(log)
+                    }
+                }
+                updateProperties(log)
+            }
+        } else if output.category != "" {
+            addLogToCategory(log)
+        } else {
+            updateProperties(log)
+        }
+    }
+   
+    private func updateProperties(_ log: Log) {
+        let old = repository.fetchItem(object: Log.self, primaryKey: log.id)
+        old?.title = input.title
+    }
+    
+    private func addLogToCategory(_ log: Log) {
+        if let category = repository.fetchAllFiltered (
+            obejct: Category.self,
+            sortKey: Category.Column.title,
+            query: { 
+                [weak self] in $0.title.equals(self?.output.category ?? "")
+            }
+        )?.first {
+            log.title = input.title
+            category.content.append(log)
+        }
+    }
+
     private func resetData() {
         input.title = ""
         input.deleteMember.removeAll()
@@ -258,5 +329,6 @@ final class LogDetailViewModel: ObservableObject {
         output.coordinateList.removeAll()
         output.createResult = RepositoryStatus.idle
     }
+    
     
 }

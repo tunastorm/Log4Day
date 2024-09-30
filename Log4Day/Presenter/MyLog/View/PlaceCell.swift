@@ -64,6 +64,7 @@ struct PlaceCell: View {
                 HStack {
                     Text(place.address)
                         .font(.caption)
+                        .multilineTextAlignment(.leading)
                         .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
                     Spacer()
                 }

@@ -7,10 +7,6 @@
 
 import SwiftUI
 
-enum Contoller {
-    case myLog
-    case logMap
-}
 
 struct SidebarButton: View {
     
@@ -21,7 +17,7 @@ struct SidebarButton: View {
     var title: String
     var namespace: Namespace.ID
     
-    var controller: Contoller
+    var controller: Controller
     
     var body: some View {
         Button {
@@ -33,6 +29,7 @@ struct SidebarButton: View {
                 switch controller {
                 case .myLog: fetchMyLog()
                 case .logMap: fetchLogMap()
+                default: break
                 }
             }
         } label: {

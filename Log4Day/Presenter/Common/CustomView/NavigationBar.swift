@@ -32,10 +32,10 @@ struct NavigationBar<CustomButton: View>: View {
                     button
                         .foregroundStyle(.black)
                         .buttonStyle(IsPressedButtonStyle(normalColor: normalColor, pressedColor: .gray))
-                        .padding(.trailing, 5)
+                        .padding(.trailing)
                 }
-                SettingButton(inNavigationWrapper: false)
-                    .padding(.trailing)
+//                SettingButton(inNavigationWrapper: false)
+//                    .padding(.trailing)
             }
             .frame(width: UIScreen.main.bounds.width)
             .padding(.top, 2)

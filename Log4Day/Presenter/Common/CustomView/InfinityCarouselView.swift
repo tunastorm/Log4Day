@@ -100,7 +100,7 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
         .gesture(
             DragGesture()
                 .onEnded { value in
-                    guard !viewModel.output.logList.isEmpty else {
+                    guard viewModel.output.logList.count > 1 else {
                         return
                     }
                     let offsetX = value.translation.width

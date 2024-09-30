@@ -52,7 +52,6 @@ struct MyLogView: View {
                                     .environmentObject(viewModel)
                             }
                         }
-                        .padding(.bottom, 130)
                     }
                     .frame(width: viewModel.output.screenWidth)
                 }
@@ -109,7 +108,9 @@ struct MyLogView: View {
     private func photoLogBanner(width: CGFloat) -> some View {
         let bannerWidth = width-75
         let bannerHeight: CGFloat = 500
-        let fourCutLogList = viewModel.output.logList.where{ $0.fourCut.count == 4 }
+        let fourCutLogList = viewModel.output.logList
+                            .where({ $0.fourCut.count == 4 })
+                            .sorted(byKeyPath: Log.Column.startDate.name, ascending: false)
         return VStack {
             InfinityCarouselView(data: fourCutLogList, edgeSpacing: 20, contentSpacing: 20, totalSpacing: 20, contentHeight: 500, currentOffset: -(bannerWidth+15),
                 carouselContent: { data, index, currentIndex, lastCell in
@@ -124,7 +125,7 @@ struct MyLogView: View {
                 },
                 zeroContent: { index, currentIndex, lastCell in
                     let title = fourCutLogList.last?.title ?? "오늘의 추억을 네 컷으로 남겨보세요"
-                    let hashTags = "#\(fourCutLogList.last?.places.map { $0.hashtag }.joined(separator: " #") ?? "네컷으로 남기는 오늘, Log4Day")"
+                    let hashTags = "#\(fourCutLogList.last?.places.map { $0.hashtag }.joined(separator: " #") ?? "네컷일기, Log4Day")"
                     FourCutPictureView(currentIndex: currentIndex,
                                        index: index,
                                        lastCell: lastCell,

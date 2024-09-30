@@ -46,7 +46,7 @@ struct NavigationWrapper<Button: View, Content: View>: View {
         
         HStack {
             button
-            SettingButton(inNavigationWrapper: true)
+//            SettingButton(inNavigationWrapper: true)
         }
         
     }
