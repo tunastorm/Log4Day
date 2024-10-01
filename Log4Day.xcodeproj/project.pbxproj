@@ -60,6 +60,7 @@
 		BC404CBA2C94B0A5001BA269 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC404CB92C94B0A5001BA269 /* ColorManager.swift */; };
 		BC43DBDF2CA9B4B00069C7D7 /* HorizontalCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC43DBDE2CA9B4B00069C7D7 /* HorizontalCalendarView.swift */; };
 		BC43DBE22CAAA3420069C7D7 /* SubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC43DBE12CAAA3420069C7D7 /* SubViewController.swift */; };
+		BC43DBE52CABCBA40069C7D7 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC43DBE42CABCBA40069C7D7 /* SplashView.swift */; };
 		BC4DFDCB2C9D5C22002CDC27 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4DFDCA2C9D5C22002CDC27 /* MapView.swift */; };
 		BC4DFDCE2C9D6105002CDC27 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BC4DFDCD2C9D6105002CDC27 /* RealmSwift */; };
 		BC4DFDCF2C9D613E002CDC27 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = BC4DFDCD2C9D6105002CDC27 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -180,6 +181,7 @@
 		BC404CB92C94B0A5001BA269 /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 		BC43DBDE2CA9B4B00069C7D7 /* HorizontalCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalCalendarView.swift; sourceTree = "<group>"; };
 		BC43DBE12CAAA3420069C7D7 /* SubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubViewController.swift; sourceTree = "<group>"; };
+		BC43DBE42CABCBA40069C7D7 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		BC4DFDC72C9D5B3B002CDC27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		BC4DFDCA2C9D5C22002CDC27 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		BC4DFDD52C9D67A7002CDC27 /* LogDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDetailView.swift; sourceTree = "<group>"; };
@@ -472,6 +474,7 @@
 				BC404BCE2C9077FC001BA269 /* Log4DayApp.swift */,
 				BC404BD02C9077FC001BA269 /* RootView.swift */,
 				BC404C7B2C93F03D001BA269 /* Common */,
+				BC43DBE32CABCB830069C7D7 /* Splash */,
 				BC404C712C93E132001BA269 /* MyLog */,
 				BC395B332CA1AB320005FC9D /* NewLog */,
 				BC395B572CA32C340005FC9D /* SearchPlace */,
@@ -635,6 +638,14 @@
 				BC43DBE12CAAA3420069C7D7 /* SubViewController.swift */,
 			);
 			path = Enum;
+			sourceTree = "<group>";
+		};
+		BC43DBE32CABCB830069C7D7 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				BC43DBE42CABCBA40069C7D7 /* SplashView.swift */,
+			);
+			path = Splash;
 			sourceTree = "<group>";
 		};
 		BC4DFDD42C9D674D002CDC27 /* LogDetail */ = {
@@ -999,6 +1010,7 @@
 				BC404C8D2C94094E001BA269 /* ViewModfiers.swift in Sources */,
 				BC395B3F2CA29C200005FC9D /* LogMapViewModel.swift in Sources */,
 				BC395B722CA3D2430005FC9D /* TargetType.swift in Sources */,
+				BC43DBE52CABCBA40069C7D7 /* SplashView.swift in Sources */,
 				BC8007AD2C9D4E3F00D62778 /* SideBarView.swift in Sources */,
 				BC65B4FD2CA018B100E89223 /* RealmConfiguration.swift in Sources */,
 				BC395B652CA338630005FC9D /* NetworkManager.swift in Sources */,
@@ -1192,7 +1204,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tunastorm.Log4Day;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ycompany.Log4Day;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1228,7 +1240,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tunastorm.Log4Day;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ycompany.Log4Day;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

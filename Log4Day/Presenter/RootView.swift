@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RootView: View {
         
+    @State private var showMainView = false
     @State private var selection = 0
     @ObservedObject var categoryViewModel = CategoryViewModel()
     
@@ -29,6 +30,23 @@ struct RootView: View {
     }
     
     var body: some View {
+        ZStack {
+            if showMainView {
+                mainView()
+            } else {
+                SplashView()
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            withAnimation {
+                                showMainView = true
+                            }
+                        }
+                    }
+            }
+        }
+    }
+    
+    private func mainView() -> some View {
         NavigationWrapper(button: Text("")) {
             TabView(selection: $selection) {
                 MyLogView(categoryViewModel: categoryViewModel)
@@ -59,7 +77,6 @@ struct RootView: View {
             .font(.headline)
             .tint(ColorManager.shared.ciColor.highlightColor)
         }
-
     }
 }
 
