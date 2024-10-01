@@ -47,7 +47,7 @@ struct TapBarView: View {
             NavigationLink {
                 NextViewWrapper(LogDetailView(log: viewModel.output.timeline[index], categoryViewModel: categoryViewModel))
             } label: {
-                TimelineCell(index: index, log: viewModel.output.timeline[index])
+                TimelineCell(viewModel: viewModel, index: index, log: viewModel.output.timeline[index])
                     .environmentObject(viewModel)
             }
         }
@@ -67,18 +67,18 @@ struct TapBarView: View {
                     Button {
                         viewModel.action(.placeCellTapped(indexInfo: (key, index)))
                     } label: {
-                        PlaceCell(index: index, total: (viewModel.output.placeDict[key] ?? []).count, place: (viewModel.output.placeDict[key] ?? [])[index])
+                        PlaceCell(viewModel: viewModel, index: index, total: (viewModel.output.placeDict[key] ?? []).count, place: (viewModel.output.placeDict[key] ?? [])[index])
                     }
                 }
             }
         }
     }
     
-    private func waitedList() -> some View {
-        ForEach(viewModel.output.nonPhotoLogList.indices, id: \.self) { index in
-            
-        }
-    }
+//    private func waitedList() -> some View {
+//        ForEach(viewModel.output.nonPhotoLogList.indices, id: \.self) { index in
+//            
+//        }
+//    }
 
 }
 

@@ -13,6 +13,7 @@ struct MyLogView: View {
     
     @ObservedObject var categoryViewModel: CategoryViewModel
     @StateObject private var viewModel = MyLogViewModel()
+
     
     var body: some View {
         GeometryReader { proxy in
