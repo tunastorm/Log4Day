@@ -25,7 +25,7 @@ struct TapBarView: View {
             Section(header: TopTabbar(animation: animation)
                             .environmentObject(viewModel)
             ) {
-                LazyVStack {
+                VStack {
                     switch viewModel.output.selectedPicker {
                     case .timeline: timelineList()
                     case .place: placeList()
@@ -47,7 +47,7 @@ struct TapBarView: View {
             NavigationLink {
                 NextViewWrapper(LogDetailView(log: viewModel.output.timeline[index], categoryViewModel: categoryViewModel))
             } label: {
-                TimelineCell(viewModel: viewModel, index: index, log: viewModel.output.timeline[index])
+                TimelineCell(index: index, log: viewModel.output.timeline[index])
                     .environmentObject(viewModel)
             }
         }
@@ -67,7 +67,8 @@ struct TapBarView: View {
                     Button {
                         viewModel.action(.placeCellTapped(indexInfo: (key, index)))
                     } label: {
-                        PlaceCell(viewModel: viewModel, index: index, total: (viewModel.output.placeDict[key] ?? []).count, place: (viewModel.output.placeDict[key] ?? [])[index])
+                        PlaceCell(index: index, total: (viewModel.output.placeDict[key] ?? []).count, place: (viewModel.output.placeDict[key] ?? [])[index])
+                            .environmentObject(viewModel)
                     }
                 }
             }
