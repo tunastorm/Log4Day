@@ -350,6 +350,7 @@ final class LogDetailViewModel: ObservableObject {
         output.imageDict.removeAll()
         output.coordinateList.removeAll()
         output.createResult = RepositoryStatus.idle
+        output.updateResult = RepositoryStatus.idle
     }
     
     

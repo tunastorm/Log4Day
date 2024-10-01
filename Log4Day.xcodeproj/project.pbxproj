@@ -406,8 +406,9 @@
 		BC404BCD2C9077FC001BA269 /* Log4Day */ = {
 			isa = PBXGroup;
 			children = (
-				BC65B4FF2CA02D1100E89223 /* Util */,
+				BC404BD22C9077FD001BA269 /* Assets.xcassets */,
 				BC4DFDC72C9D5B3B002CDC27 /* Info.plist */,
+				BC65B4FF2CA02D1100E89223 /* Util */,
 				BC404C802C93F993001BA269 /* Storage */,
 				BC404C7E2C93F96D001BA269 /* Network */,
 				BC404C742C93E151001BA269 /* Presenter */,
@@ -516,7 +517,6 @@
 		BC404C7F2C93F974001BA269 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				BC404BD22C9077FD001BA269 /* Assets.xcassets */,
 				BC404CB92C94B0A5001BA269 /* ColorManager.swift */,
 			);
 			path = Resource;
@@ -1204,7 +1204,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ycompany.Log4Day;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ycw.Log4Day;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1240,7 +1240,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ycompany.Log4Day;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ycw.Log4Day;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

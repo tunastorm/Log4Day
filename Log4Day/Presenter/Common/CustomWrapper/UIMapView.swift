@@ -66,6 +66,10 @@ struct UIMapView: UIViewRepresentable {
         
         //MARK: 카메라 위치 갱신
         context.coordinator.lastCameraPointer = context.coordinator.cameraPointer
+        if coordinateList.isEmpty, context.coordinator.lastCameraPointer < 0 {
+            context.coordinator.lastCameraPointer = 0
+        }
+    
         if context.coordinator.isDeleted {
             context.coordinator.cameraPointer = placeList.count - 1
         } else {
@@ -75,6 +79,10 @@ struct UIMapView: UIViewRepresentable {
         
         //MARK: 오버레이 요소 갱신
         context.coordinator.exchangeOverlays(isDeleteMode, coordinateList, imageDict)
+        
+        guard context.coordinator.coordinateList.count > 0 else {
+            return
+        }
         
         //MARK: 마커에 맵뷰 할당
         context.coordinator.markerList.forEach { $0.mapView = uiView.mapView }
@@ -150,8 +158,6 @@ struct UIMapView: UIViewRepresentable {
                 if filteredOld.contains(coord) {
                     needRemove.append(index)
                     markerList[index].mapView = nil
-//                    markerList.remove(at: index)
-//                    print("장소_\(index) 마커리스트에서 삭제:", markerList.count)
                     let line = polyline?.line
                     polyline?.line.removePoint(coord)
                     polyline?.line = line!
@@ -191,17 +197,27 @@ struct UIMapView: UIViewRepresentable {
         
         func exchangeImages(newImage: ImageDict) {
             imageDict[cameraPointer] = newImage[cameraPointer]
+            
+            guard markerList.count >= cameraPointer else {
+                return
+            }
             markerList[cameraPointer].iconImage = markerImage(cameraPointer)
         }
         
         func selectedMarkerToggle(_ isDeleteMode: Bool) {
-            if cameraPointer != lastCameraPointer {
-                markerList[lastCameraPointer].iconImage = markerImage(lastCameraPointer)
-            }
-            print("-선택된 마커 변경-")
+            let markerCount = markerList.count
+            print("markerCount:", markerCount)
             print("cameraPointer:", cameraPointer)
-            print("markerList:", markerList.count)
-            markerList[cameraPointer].iconImage = markerImage(cameraPointer)
+            print("lastCameraPointer:", lastCameraPointer)
+            if cameraPointer <= markerCount {
+                if cameraPointer != lastCameraPointer, lastCameraPointer >= 0, lastCameraPointer <= markerCount {
+                    markerList[lastCameraPointer].iconImage = markerImage(lastCameraPointer)
+                }
+                print("-선택된 마커 변경-")
+
+                print("markerList:", markerList.count)
+                markerList[cameraPointer].iconImage = markerImage(cameraPointer)
+            }
         }
     
         func addImage(_ index: Int, newImage: ImageDict) {
