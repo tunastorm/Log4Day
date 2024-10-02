@@ -88,6 +88,9 @@
 		BCE2A0EB2C9FDC430045D01B /* PlannerSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE2A0EA2C9FDC430045D01B /* PlannerSheetView.swift */; };
 		BCE2A0ED2C9FEE890045D01B /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE2A0EC2C9FEE890045D01B /* Place.swift */; };
 		BCE2A0EF2C9FEFB10045D01B /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE2A0EE2C9FEFB10045D01B /* Photo.swift */; };
+		BCF48DFD2CAD3E8000A9AFD6 /* LogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF48DFC2CAD3E8000A9AFD6 /* LogModel.swift */; };
+		BCF48DFF2CAD411500A9AFD6 /* PlaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF48DFE2CAD411500A9AFD6 /* PlaceModel.swift */; };
+		BCF48E012CAD411C00A9AFD6 /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF48E002CAD411C00A9AFD6 /* PhotoModel.swift */; };
 		E1E6BCCB5CF29381A429C5B1 /* Pods_Log4Day.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFF233069AF736FA39366B34 /* Pods_Log4Day.framework */; };
 /* End PBXBuildFile section */
 
@@ -207,6 +210,9 @@
 		BCE2A0EA2C9FDC430045D01B /* PlannerSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerSheetView.swift; sourceTree = "<group>"; };
 		BCE2A0EC2C9FEE890045D01B /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		BCE2A0EE2C9FEFB10045D01B /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		BCF48DFC2CAD3E8000A9AFD6 /* LogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogModel.swift; sourceTree = "<group>"; };
+		BCF48DFE2CAD411500A9AFD6 /* PlaceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceModel.swift; sourceTree = "<group>"; };
+		BCF48E002CAD411C00A9AFD6 /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
 		C857C968335CB304B42A9046 /* Pods-Log4DayTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Log4DayTests.release.xcconfig"; path = "Target Support Files/Pods-Log4DayTests/Pods-Log4DayTests.release.xcconfig"; sourceTree = "<group>"; };
 		CFF233069AF736FA39366B34 /* Pods_Log4Day.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Log4Day.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E179730F36192A0721548DDC /* Pods_Log4Day_Log4DayUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Log4Day_Log4DayUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -660,6 +666,7 @@
 		BC4DFDEC2C9EBCD4002CDC27 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				BCF48DFB2CAD3E7600A9AFD6 /* ForView */,
 				BC4DFDEF2C9EBE61002CDC27 /* Category.swift */,
 				BC4DFDED2C9EBD10002CDC27 /* Log.swift */,
 				BCE2A0EC2C9FEE890045D01B /* Place.swift */,
@@ -703,6 +710,16 @@
 				BC4DFDE82C9EBC39002CDC27 /* RepositoryResult.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		BCF48DFB2CAD3E7600A9AFD6 /* ForView */ = {
+			isa = PBXGroup;
+			children = (
+				BCF48DFC2CAD3E8000A9AFD6 /* LogModel.swift */,
+				BCF48DFE2CAD411500A9AFD6 /* PlaceModel.swift */,
+				BCF48E002CAD411C00A9AFD6 /* PhotoModel.swift */,
+			);
+			path = ForView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1004,6 +1021,8 @@
 				BC43DBDF2CA9B4B00069C7D7 /* HorizontalCalendarView.swift in Sources */,
 				BC4DFDEB2C9EBC72002CDC27 /* PhotoManager.swift in Sources */,
 				BC4DFDE52C9EBB21002CDC27 /* Repository.swift in Sources */,
+				BCF48E012CAD411C00A9AFD6 /* PhotoModel.swift in Sources */,
+				BCF48DFD2CAD3E8000A9AFD6 /* LogModel.swift in Sources */,
 				BC404CA82C942170001BA269 /* ListFooterView.swift in Sources */,
 				BC6417262C96EE370013587A /* SidebarButton.swift in Sources */,
 				BC395B872CA7C9670005FC9D /* CategoryPickerView.swift in Sources */,
@@ -1023,6 +1042,7 @@
 				BC404CAC2C942835001BA269 /* ToolBarNavigationLink.swift in Sources */,
 				BC395B6D2CA3399C0005FC9D /* NetworkError.swift in Sources */,
 				BC43DBE22CAAA3420069C7D7 /* SubViewController.swift in Sources */,
+				BCF48DFF2CAD411500A9AFD6 /* PlaceModel.swift in Sources */,
 				BC4DFDF02C9EBE61002CDC27 /* Category.swift in Sources */,
 				BC395B372CA25CDD0005FC9D /* MyLogViewModel.swift in Sources */,
 			);
@@ -1064,6 +1084,7 @@
 		BC404BED2C9077FE001BA269 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1127,6 +1148,7 @@
 		BC404BEE2C9077FE001BA269 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1184,6 +1206,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 901FDFED920330761A94464C /* Pods-Log4Day.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -1221,6 +1244,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A9A88417ACBED645893DA685 /* Pods-Log4Day.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
