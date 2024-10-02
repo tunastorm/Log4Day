@@ -178,12 +178,10 @@ final class MyLogViewModel: ObservableObject {
             output.placeDict.removeAll()
             output.logList.forEach { log in
                 guard let city = log.places.first?.city else {
-                    print(#function, "도시 정보 없음")
                     return
                 }
                 if !output.placeDict.keys.contains(city) {
                     output.placeDict[city] = []
-                    print("\(city) 추가됨")
                 }
                 output.placeDict[city]?.append(contentsOf: log.places) /*Array(log.places)*/
             }

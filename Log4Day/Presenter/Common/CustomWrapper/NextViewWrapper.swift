@@ -19,7 +19,6 @@ struct NextViewWrapper<Content: View>: View {
     
     init(_ view: @autoclosure @escaping InitContent) {
         self.view = view
-        print("init - ", self)
     }
     
 }

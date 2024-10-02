@@ -85,7 +85,6 @@ struct SideView: View {
     
     private func deleteButton() -> some View {
         Button {
-            print("선택된 카테고리:", viewModel.output.category)
             guard viewModel.output.category != "전체" else {
                 // Toast 뷰 구현 가져와서 예외처리
                 return
@@ -123,7 +122,6 @@ struct SideView: View {
     
     private func addResultHandler() {
         let result = viewModel.output.addResult
-        print(result.message)
         switch result {
         case is RepositoryStatus:
             guard let status = result as? RepositoryStatus, status != .idle else { return }
@@ -139,7 +137,6 @@ struct SideView: View {
     
     private func deleteResultHandler() {
         let result = viewModel.output.deleteResult
-        print(result.message)
         switch result {
         case is RepositoryStatus:
             guard let status = result as? RepositoryStatus, status != .idle else { return }

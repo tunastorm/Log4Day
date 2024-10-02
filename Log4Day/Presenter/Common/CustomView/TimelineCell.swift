@@ -17,12 +17,8 @@ struct TimelineCell: View {
     var startDate: Date
     var fourCutCount: Int
     
-    
     var body: some View {
-        print("count:", viewModel.output.timeline.count)
-        print("index: ",index)
-        
-        return VStack {
+        VStack {
             if index < viewModel.output.timeline.count &&
              (index == 0 || (index >= 1 && !DateFormatManager.shared.isSameDay(lDate: startDate,
                                                                   rDate: viewModel.output.timeline[index-1].startDate))) {

@@ -52,14 +52,11 @@ struct LogDetailPlaceCell: View {
             if viewModel.output.isDeleteMode {
                 if isDeleteMember {
                     viewModel.input.deleteMember.removeAll(where: { $0 == indexInfo.0 })
-                    print("\(indexInfo) 선택해제 됨")
                 } else {
                     viewModel.input.deleteMember.append(indexInfo.0)
-                    print("\(indexInfo) 선택됨 ")
                 }
                 isDeleteMember.toggle()
             } else {
-                print(viewModel.output.cameraPointer == indexInfo.0)
                 viewModel.output.cameraPointer = indexInfo.0
             }
         }

@@ -57,7 +57,6 @@ final class Repository {
     }
     
     func updateItem<T:Object>(object: T.Type, value: [String: Any], complitionHandler: RepositoryResult) {
-        print(#function, value)
         do {
             try realm?.write {
                 realm?.create(object, value: value, update: .modified)

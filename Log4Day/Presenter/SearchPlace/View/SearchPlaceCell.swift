@@ -38,14 +38,12 @@ struct SearchPlaceCell: View {
     private func selectButton() -> some View {
         Button {
             guard !isPicked else { return }
-            print("before 선택여부:",isSelected)
             if isSelected {
                 newLogViewModel.action(.deleteButtonTapped(lastOnly: true))
             } else {
                 newLogViewModel.action(.placePicked(place: place))
             }
             isSelected.toggle()
-            print("after 선택여부:",isSelected)
         } label: {
             Image(systemName: "checkmark")
                 .foregroundStyle(.white)

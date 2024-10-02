@@ -87,11 +87,9 @@ struct UIMapView: UIViewRepresentable {
         //MARK: 마커에 맵뷰 할당
         context.coordinator.markerList.forEach { $0.mapView = uiView.mapView }
         
-        //MARK: 마커 간의 직선 추가
-        if let polyline = context.coordinator.polyline {
-        
-            context.coordinator.polyline?.mapView = uiView.mapView
-        
+        //MARK: 마커 간의 직선 갱신
+        if let polyline = context.coordinator.polyline, polyline.line.points.count > 1 {
+            polyline.mapView = uiView.mapView
         } else if let newline = NMFPolylineOverlay(coordinateList) {
             newline.width = 4
             newline.color = .systemGray2
@@ -103,9 +101,15 @@ struct UIMapView: UIViewRepresentable {
         
         //MARK: 카메라 이동 애니메이션
         if placeList.count > 0 {
-            let pointer = cameraPointer == context.coordinator.cameraPointer ?
+            var pointer = cameraPointer == context.coordinator.cameraPointer ?
                 cameraPointer : context.coordinator.cameraPointer
         
+            if pointer >= placeList.count {
+                pointer = placeList.count - 1
+            } else if pointer < 0 {
+                pointer = 0
+            }
+
             let nmgLatlng = NMGLatLng(lat: placeList[pointer].latitude,
                                       lng: placeList[pointer].longitude)
             
@@ -151,7 +155,7 @@ struct UIMapView: UIViewRepresentable {
             
             let filteredOld = oldSet.subtracting(newSet)
             newSet.subtract(oldSet)
-            
+        
             //MARK: 제거할 오버레이 요소 삭제
             var needRemove: [Int] = []
             coordinateList.enumerated().forEach { index, coord in
@@ -159,8 +163,11 @@ struct UIMapView: UIViewRepresentable {
                     needRemove.append(index)
                     markerList[index].mapView = nil
                     let line = polyline?.line
-                    polyline?.line.removePoint(coord)
+                    line?.removePoint(coord)
                     polyline?.line = line!
+                    if let count = polyline?.line.points.count, count <= 1 {
+                        polyline?.mapView = nil
+                    }
                     imageDict.removeValue(forKey: index)
                 }
             }
@@ -169,10 +176,16 @@ struct UIMapView: UIViewRepresentable {
                 isDeleted = false
             } else {
                 let removeSet = IndexSet(needRemove)
-                markerList.remove(atOffsets: removeSet)
                 coordinateList.remove(atOffsets: removeSet)
+                markerList.remove(atOffsets: removeSet)
+                markerList.enumerated().forEach { index, marker in
+                    marker.iconImage = markerImage(index)
+                }
                 isDeleted = true
+                print("삭제 후 좌표목록:",coordinateList)
             }
+            
+            guard !isDeleted else { return }
             
             //MARK: 추가할 오버레이 요소 생성
             newCoordList.enumerated().forEach { index, coord in
@@ -183,7 +196,6 @@ struct UIMapView: UIViewRepresentable {
                     let iconImage = markerImage(index)
                     let marker = NMFMarker(position: coord, iconImage: iconImage)
                     markerList.append(marker)
-                    print("장소_\(1) 마커목록에 추가:", markerList.count)
                     selectedMarkerToggle(isDeleteMode)
                     coordinateList.append(coord)
                     let line = polyline?.line
@@ -206,16 +218,10 @@ struct UIMapView: UIViewRepresentable {
         
         func selectedMarkerToggle(_ isDeleteMode: Bool) {
             let markerCount = markerList.count
-            print("markerCount:", markerCount)
-            print("cameraPointer:", cameraPointer)
-            print("lastCameraPointer:", lastCameraPointer)
             if cameraPointer <= markerCount {
                 if cameraPointer != lastCameraPointer, lastCameraPointer >= 0, lastCameraPointer <= markerCount {
                     markerList[lastCameraPointer].iconImage = markerImage(lastCameraPointer)
                 }
-                print("-선택된 마커 변경-")
-
-                print("markerList:", markerList.count)
                 markerList[cameraPointer].iconImage = markerImage(cameraPointer)
             }
         }
@@ -273,12 +279,12 @@ struct UIMapView: UIViewRepresentable {
         }
         
         func mapView(_ mapView: NMFMapView, cameraWillChangeByReason reason: Int, animated: Bool) {
-            print("카메라 변경 - reason: \(reason)")
+//            print("카메라 변경 - reason: \(reason)")
             
         }
 
         func mapView(_ mapView: NMFMapView, cameraIsChangingByReason reason: Int) {
-            print("카메라 변경 - reason: \(reason)")
+//            print("카메라 변경 - reason: \(reason)")
         }
         
         

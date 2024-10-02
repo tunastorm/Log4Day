@@ -60,7 +60,6 @@ extension ManagedObject {
     // can't use for owner property
     func query(search: String, condition: QueryCondition) -> NSPredicate {
         let predicate = "\(self.name) \(condition.value) '\(search)'"
-//        print(#function, "predicate:", predicate)
         return NSPredicate(format:predicate)
     }
     

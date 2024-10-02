@@ -19,8 +19,7 @@ struct MarkerView: View {
     var image: UIImage?
 
     var body: some View {
-        print("사진 개수: ", count)
-        return VStack {
+        VStack {
             ZStack {
                 if let image {
                     Image(uiImage: image)

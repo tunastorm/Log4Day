@@ -146,8 +146,6 @@ final class LogDetailViewModel: ObservableObject {
         
         output.placeList.append(place)
         output.coordinateList.append(nmgLatLng)
-        print("기존 카메라 위치:", output.cameraPointer)
-        print("장소 추가됨:", output.placeList.count-1)
         output.cameraPointer = output.placeList.count-1
     }
     
@@ -158,7 +156,6 @@ final class LogDetailViewModel: ObservableObject {
             output.placeList.remove(at: output.placeList.count-1)
         } else { // 새 로그 작성 화면에서 선택된 셀 해제 시 실행
             guard input.deleteMember.count > 0 else {
-                print(#function, "선택된 장소없음")
                 return
             }
             let places = IndexSet(input.deleteMember)
@@ -255,7 +252,6 @@ final class LogDetailViewModel: ObservableObject {
             let image = self?.photoManager.loadImageToDocument(filename: photo.name) ?? UIImage(systemName: "photo")!
             log.places.enumerated().forEach { index, place in
                 if place.id == photoPlace.id {
-                    print("안찍히니?")
                     if let keys = self?.output.imageDict.keys, !keys.contains(index) {
                         self?.output.imageDict[index] = []
                     }
