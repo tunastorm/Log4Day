@@ -45,9 +45,13 @@ struct TapBarView: View {
     private func timelineList() -> some View {
         ForEach(viewModel.output.timeline.indices, id: \.self) { index in
             NavigationLink {
-                NextViewWrapper(LogDetailView(log: viewModel.output.timeline[index], categoryViewModel: categoryViewModel))
+                NextViewWrapper(LogDetailView(logId: viewModel.output.timeline[index].id, categoryViewModel: categoryViewModel, myLogViewModel: viewModel))
             } label: {
-                TimelineCell(index: index, log: viewModel.output.timeline[index])
+                let log = viewModel.output.timeline[index]
+                return TimelineCell(index: index,
+                                    title: log.title,
+                                    startDate: log.startDate,
+                                    fourCutCount: log.fourCut.count)
                     .environmentObject(viewModel)
             }
         }
@@ -67,7 +71,10 @@ struct TapBarView: View {
                     Button {
                         viewModel.action(.placeCellTapped(indexInfo: (key, index)))
                     } label: {
-                        PlaceCell(index: index, total: (viewModel.output.placeDict[key] ?? []).count, place: (viewModel.output.placeDict[key] ?? [])[index])
+                        let place = (viewModel.output.placeDict[key] ?? [])[index]
+                        return PlaceCell(index: index,
+                                  total: (viewModel.output.placeDict[key] ?? []).count,
+                                         placeName:  place.name , photoCount: place.ofPhoto.count, placeAdress: place.address)
                             .environmentObject(viewModel)
                     }
                 }

@@ -5,6 +5,7 @@
 //  Created by 유철원 on 9/21/24.
 //
 import SwiftUI
+import RealmSwift
 
 struct PlaceCell: View {
     
@@ -12,7 +13,9 @@ struct PlaceCell: View {
     
     var index: Int
     var total: Int
-    var place: Place
+    var placeName: String
+    var photoCount: Int
+    var placeAdress: String
 
     var body: some View {
         return cellView()
@@ -27,7 +30,7 @@ struct PlaceCell: View {
                     .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
             }
             HStack {
-                numberingView(place.ofPhoto.map{ $0 })
+                numberingView(photoCount)
                 Spacer()
                 contentsView()
             }
@@ -42,11 +45,11 @@ struct PlaceCell: View {
         .padding(.top)
     }
 
-    private func numberingView(_ photo: [Photo]) -> some View {
-        Text("\(photo.count)")
+    private func numberingView(_ photoCount: Int) -> some View {
+        Text("\(photoCount)")
             .foregroundStyle(.white)
             .frame(width: 40, height: 40)
-            .background(photo.count > 0 ? ColorManager.shared.ciColor.highlightColor : ColorManager.shared.ciColor.subContentColor)
+            .background(photoCount > 0 ? ColorManager.shared.ciColor.highlightColor : ColorManager.shared.ciColor.subContentColor)
             .clipShape(Circle())
     }
     
@@ -55,14 +58,14 @@ struct PlaceCell: View {
             Spacer()
             VStack {
                 HStack {
-                    Text(place.name)
+                    Text(placeName)
                         .font(.title3)
                         .bold()
                         .foregroundStyle(ColorManager.shared.ciColor.contentColor)
                     Spacer()
                 }
                 HStack {
-                    Text(place.address)
+                    Text(placeAdress)
                         .font(.caption)
                         .multilineTextAlignment(.leading)
                         .foregroundStyle(ColorManager.shared.ciColor.subContentColor)

@@ -6,22 +6,25 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct TimelineCell: View {
     
     @EnvironmentObject var viewModel: MyLogViewModel
     
     var index: Int
-    var log: Log
+    var title: String
+    var startDate: Date
+    var fourCutCount: Int
+    
     
     var body: some View {
         print("count:", viewModel.output.timeline.count)
         print("index: ",index)
-        print("title:", log.title)
         
         return VStack {
             if index < viewModel.output.timeline.count &&
-             (index == 0 || (index >= 1 && !DateFormatManager.shared.isSameDay(lDate: log.startDate,
+             (index == 0 || (index >= 1 && !DateFormatManager.shared.isSameDay(lDate: startDate,
                                                                   rDate: viewModel.output.timeline[index-1].startDate))) {
                 dateView()
             }
@@ -33,7 +36,7 @@ struct TimelineCell: View {
             
             if  index < viewModel.output.timeline.count &&
                 (index == viewModel.output.timeline.count-1 ||
-                (index >= 0 && !DateFormatManager.shared.isSameDay(lDate: log.startDate,
+                (index >= 0 && !DateFormatManager.shared.isSameDay(lDate: startDate,
                                                     rDate: viewModel.output.timeline[index+1].startDate))){
                 Rectangle()
                     .frame(height: 1)
@@ -52,7 +55,7 @@ struct TimelineCell: View {
                 Text("Date: ")
                     .font(.caption)
                     .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
-                Text(DateFormatManager.shared.dateToFormattedString(date: log.startDate, format: .dotSeparatedyyyyMMddDay))
+                Text(DateFormatManager.shared.dateToFormattedString(date: startDate, format: .dotSeparatedyyyyMMddDay))
                     .font(.callout)
                     .foregroundStyle(ColorManager.shared.ciColor.contentColor)
             }
@@ -67,7 +70,7 @@ struct TimelineCell: View {
         Text("\(index+1)")
             .foregroundStyle(.white)
             .frame(width: 40, height: 40)
-            .background(log.fourCut.count < 4 ? ColorManager.shared.ciColor.subContentColor :  ColorManager.shared.ciColor.highlightColor )
+            .background(fourCutCount < 4 ? ColorManager.shared.ciColor.subContentColor :  ColorManager.shared.ciColor.highlightColor )
             .clipShape(Circle())
     }
     
@@ -75,7 +78,7 @@ struct TimelineCell: View {
         VStack {
             VStack {
                 HStack {
-                    Text(log.title)
+                    Text(title)
                         .font(.title3)
                         .bold()
                         .foregroundStyle(ColorManager.shared.ciColor.contentColor)
@@ -91,7 +94,7 @@ struct TimelineCell: View {
             }
             .padding(.vertical)
             if index + 1 < viewModel.output.timeline.count &&
-                             DateFormatManager.shared.isSameDay(lDate: log.startDate,
+                             DateFormatManager.shared.isSameDay(lDate: startDate,
                                                                 rDate: viewModel.output.timeline[index+1].startDate) {
                 Rectangle()
                     .frame(height: 1)

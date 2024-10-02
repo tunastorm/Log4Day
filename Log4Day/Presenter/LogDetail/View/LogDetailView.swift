@@ -7,12 +7,14 @@
 
 import SwiftUI
 import NMapsMap
+import RealmSwift
 
 struct LogDetailView: View {
     
-    var log: Log
-  
+    var logId: ObjectId
+    
     @ObservedObject var categoryViewModel: CategoryViewModel
+    @ObservedObject var myLogViewModel: MyLogViewModel
     @StateObject private var viewModel = LogDetailViewModel()
     
     @FocusState private var titleFocused: Bool
@@ -22,7 +24,7 @@ struct LogDetailView: View {
         NavigationWrapper (
             button: Menu {
                 Button {
-                    viewModel.action(.updateLog(log: log))
+                    viewModel.action(.updateLog(id: logId))
                 } label: {
                     Label(
                         title: { Text("수정") },
@@ -30,7 +32,9 @@ struct LogDetailView: View {
                     )
                 }
                 Button {
-                    viewModel.action(.deleteLog(log: log))
+                    myLogViewModel.action(.deleteLog(id: logId))
+                    
+//                    viewModel.action(.deleteLog(log: log))
                 } label: {
                     Label(
                         title: { Text("삭제") },
@@ -63,12 +67,8 @@ struct LogDetailView: View {
             }
         )
         .onAppear {
-            setLogToViewModel()
+            viewModel.action(.setLog(id: logId))
         }
-    }
-    
-    private func setLogToViewModel() {
-        viewModel.action(.setLog(log: log))
     }
     
     private func contentView() -> some View {

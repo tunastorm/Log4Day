@@ -104,9 +104,13 @@ struct MyLogView: View {
             ScrollView {
                 ForEach(viewModel.output.ofLogList.indices, id: \.self) { index in
                     NavigationLink {
-                        NextViewWrapper(LogDetailView(log: viewModel.output.ofLogList[index], categoryViewModel: categoryViewModel, myLogViewModel: viewModel))
+                        NextViewWrapper(LogDetailView(logId: viewModel.output.ofLogList[index].id, categoryViewModel: categoryViewModel, myLogViewModel: viewModel))
                     } label: {
-                        TimelineCell(index: index, log: viewModel.output.ofLogList[index])
+                        let log = viewModel.output.ofLogList[index]
+                        return TimelineCell(index: index,
+                                            title: log.title,
+                                            startDate: log.startDate,
+                                            fourCutCount: log.fourCut.count)
                             .environmentObject(viewModel)
                     }
                     .padding(.horizontal)

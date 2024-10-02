@@ -12,6 +12,8 @@ import BottomSheet
 
 final class MyLogViewModel: ObservableObject {
     
+    private let repository = Repository.shared
+    
     private let photoManager = PhotoManager()
     
     private var cancellables = Set<AnyCancellable>()
@@ -28,6 +30,7 @@ final class MyLogViewModel: ObservableObject {
         case tapBarChanged(info: TapInfo)
         case placeCellTapped(indexInfo: (String,Int))
         case fourCutCellPressed(image: UIImage)
+        case deleteLog(id: ObjectId)
     }
     
     struct Input {
@@ -40,6 +43,7 @@ final class MyLogViewModel: ObservableObject {
         let fourCutCellPressed = PassthroughSubject<UIImage, Never>()
         var selectedCategory = ""
         var nowLogDate = DateFormatManager.shared.dateToFormattedString(date: Date(), format: .dotSeparatedyyyyMMddDay)
+        var deleteLog = PassthroughSubject<ObjectId, Never>()
     }
     
     struct Output {
@@ -100,6 +104,12 @@ final class MyLogViewModel: ObservableObject {
                 self?.showSaveImageSheet(image)
             }
             .store(in: &cancellables)
+        
+        input.deleteLog
+            .sink { [weak self] id in
+                self?.deletelog(id: id)
+            }
+            .store(in: &cancellables)
     }
     
     func action(_ action: Action) {
@@ -118,6 +128,8 @@ final class MyLogViewModel: ObservableObject {
             input.placeCellTapped.send((indexInfo))
         case .fourCutCellPressed(let image):
             input.fourCutCellPressed.send(image)
+        case .deleteLog(let id):
+            input.deleteLog.send(id)
         }
     }
     
@@ -189,6 +201,18 @@ final class MyLogViewModel: ObservableObject {
     func showSaveImageSheet(_ image: UIImage) {
         output.fourCutImage = image
         output.showSaveFourCutSheet = output.showSaveFourCutSheet == .hidden ? .dynamic : .hidden
+    }
+    
+    func deletelog(id: ObjectId) {
+        guard let log = repository.fetchItem(object: Log.self, primaryKey: id) else {
+            return
+        }
+        output.timeline.removeAll(where: {$0.id == log.id })
+        log.places.forEach { place in
+            output.placeDict[place.city]?.removeAll(where: {$0.id == place.id })
+        }
+        output.ofLogList.removeAll(where: {$0.id == log.id })
+        output.$logList.remove(log)
     }
     
 }

@@ -13,7 +13,6 @@ struct CategoryModel: Identifiable {
     var title: String
     var content: [LogModel]
     var createdAt: Date
-    var objectId: ObjectId
     
     init(category: Category) {
         self.id = category.id

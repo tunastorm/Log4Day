@@ -11,6 +11,7 @@ import SwiftUI
 import PhotosUI
 import NMapsMap
 import BottomSheet
+import RealmSwift
 
 final class LogDetailViewModel: ObservableObject {
     
@@ -27,9 +28,9 @@ final class LogDetailViewModel: ObservableObject {
         case photoPicked
         case deleteButtonTapped(lastOnly: Bool)
         case createLog
-        case updateLog(log: Log)
-        case deleteLog(log: Log)
-        case setLog(log: Log)
+        case updateLog(id: ObjectId)
+        case deleteLog(id: ObjectId)
+        case setLog(id: ObjectId)
     }
     
     struct Input {
@@ -38,9 +39,9 @@ final class LogDetailViewModel: ObservableObject {
         var photoPicked = PassthroughSubject<Void, Never>()
         var deleteButtonTapped = PassthroughSubject<Bool, Never>()
         var createLog = PassthroughSubject<Void, Never>()
-        var updateLog = PassthroughSubject<Log, Never>()
-        var deleteLog = PassthroughSubject<Log, Never>()
-        var setLog = PassthroughSubject<Log, Never>()
+        var updateLog = PassthroughSubject<ObjectId, Never>()
+        var deleteLog = PassthroughSubject<ObjectId, Never>()
+        var setLog = PassthroughSubject<ObjectId, Never>()
         var title = ""
         var deleteMember: [Int] = []
         var pickedImages: [UIImage] = []
@@ -84,18 +85,18 @@ final class LogDetailViewModel: ObservableObject {
             }
             .store(in: &cancellables)
         input.updateLog
-            .sink { [weak self] log in
-                self?.updateLog(log: log)
+            .sink { [weak self] id in
+                self?.updateLog(id: id)
             }
             .store(in: &cancellables)
         input.deleteLog
-            .sink { [weak self] log in
-                self?.deleteLog(log)
+            .sink { [weak self] id in
+                self?.deleteLog(id)
             }
             .store(in: &cancellables)
         input.setLog
-            .sink { [weak self] log in
-                self?.setLog(log: log)
+            .sink { [weak self] id in
+                self?.setLog(id: id)
             }
             .store(in: &cancellables)
     }
@@ -110,12 +111,12 @@ final class LogDetailViewModel: ObservableObject {
             input.deleteButtonTapped.send(lastOnly)
         case .createLog:
             input.createLog.send(())
-        case .updateLog(let log):
-            input.updateLog.send(log)
-        case.deleteLog(let log):
-            input.deleteLog.send(log)
-        case .setLog(let log):
-            input.setLog.send(log)
+        case .updateLog(let id):
+            input.updateLog.send(id)
+        case.deleteLog(let id):
+            input.deleteLog.send(id)
+        case .setLog(let id):
+            input.setLog.send(id)
         }
     }
     
@@ -238,7 +239,10 @@ final class LogDetailViewModel: ObservableObject {
         resetData()
     }
     
-    private func setLog(log: Log) {
+    private func setLog(id: ObjectId) {
+        guard let log = repository.fetchItem(object: Log.self, primaryKey: id) else {
+            return
+        }
         input.title = log.title
         output.category = log.owner.first?.title ?? ""
         output.date = log.startDate
@@ -261,7 +265,10 @@ final class LogDetailViewModel: ObservableObject {
         }
     }
     
-    private func updateLog(log: Log) {
+    private func updateLog(id: ObjectId) {
+        guard let log = repository.fetchItem(object: Log.self, primaryKey: id) else {
+            return
+        }
         repository.queryProperty { [weak self] in
             self?.updateLogCategory(log)
         } completionHandler: { result in
@@ -323,7 +330,10 @@ final class LogDetailViewModel: ObservableObject {
         }
     }
     
-    private func deleteLog(_ log: Log) {
+    private func deleteLog(_ id: ObjectId) {
+        guard let log = repository.fetchItem(object: Log.self, primaryKey: id) else {
+            return
+        }
         repository.deleteLog(log) { result in
             switch result {
             case .success(let rawStatus):
