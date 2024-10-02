@@ -8,12 +8,12 @@
 import SwiftUI
 import RealmSwift
 import BottomSheet
+import Photos
 
 struct MyLogView: View {
     
     @ObservedObject var categoryViewModel: CategoryViewModel
     @StateObject private var viewModel = MyLogViewModel()
-
     
     var body: some View {
         GeometryReader { proxy in
@@ -42,8 +42,9 @@ struct MyLogView: View {
                             if viewModel.output.logList.isEmpty {
                                 HStack {
                                     Spacer()
-                                    Text("오늘의 추억을 남기러 가기")
+                                    Text("등록된 로그가 없어요.\n오늘의 추억을 기록해보세요.")
                                         .font(.title3)
+                                        .multilineTextAlignment(.center)
                                         .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
                                     Spacer()
                                 }
@@ -65,11 +66,45 @@ struct MyLogView: View {
             viewModel.action(.fetchFirstLastDate)
             viewModel.action(.fetchLogDate(isInitial: true))
         }
+        .bottomSheet(bottomSheetPosition: $viewModel.output.showSaveFourCutSheet, switchablePositions: [.dynamic], content: {
+            VStack(alignment: .center) {
+                Button{
+                    let authorizationStatus = PHPhotoLibrary.authorizationStatus()
+                    switch authorizationStatus {
+                            case .authorized: // 사용자가 앱에 사진 라이브러리에 대한 액세스 권한을 명시 적으로 부여했습니다.
+                                UIImageWriteToSavedPhotosAlbum(viewModel.output.fourCutImage, nil, nil, nil)
+                            case .denied: break // 사용자가 사진 라이브러리에 대한 앱 액세스를 명시 적으로 거부했습니다.
+                            case .limited: break // ?
+                            case .notDetermined: // 사진 라이브러리 액세스에는 명시적인 사용자 권한이 필요하지만 사용자가 아직 이러한 권한을 부여하거나 거부하지 않았습니다
+                                PHPhotoLibrary.requestAuthorization { (state) in
+                                    if state == .authorized {
+                                        UIImageWriteToSavedPhotosAlbum(viewModel.output.fourCutImage, nil, nil, nil)
+                                    }
+                                }
+                            case .restricted: break // 앱이 사진 라이브러리에 액세스 할 수있는 권한이 없으며 사용자는 이러한 권한을 부여 할 수 없습니다.
+                            default: break
+                    }
+                    viewModel.output.showSaveFourCutSheet = .hidden
+                } label: {
+                    Text("갤러리에 저장하기")
+                        .frame(width: 160, height: 40)
+                        .background(ColorManager.shared.ciColor.highlightColor)
+                        .cornerRadius(20, corners: .allCorners)
+                        .foregroundStyle(.white)
+                }
+                .padding(.top, 100)
+                Spacer()
+            }
+            .frame(height: 300)
+            .frame(maxWidth: .infinity)
+            .background(.white)
+        })
+        .enableSwipeToDismiss()
         .bottomSheet(bottomSheetPosition: $viewModel.output.showSelectLogSheet, switchablePositions: [.dynamic]) {
             ScrollView {
                 ForEach(viewModel.output.ofLogList.indices, id: \.self) { index in
                     NavigationLink {
-                        NextViewWrapper(LogDetailView(log: viewModel.output.ofLogList[index], categoryViewModel: categoryViewModel))
+                        NextViewWrapper(LogDetailView(log: viewModel.output.ofLogList[index], categoryViewModel: categoryViewModel, myLogViewModel: viewModel))
                     } label: {
                         TimelineCell(index: index, log: viewModel.output.ofLogList[index])
                             .environmentObject(viewModel)

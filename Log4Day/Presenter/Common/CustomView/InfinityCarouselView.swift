@@ -8,7 +8,6 @@
 import SwiftUI
 import RealmSwift
 
-
 struct InfinityCarouselView<Data: Object, Content: View>: View {
     
     @EnvironmentObject var viewModel: MyLogViewModel
@@ -97,9 +96,6 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
     private func configContentView(contentView: Content, contentWidth: CGFloat, nextOffset: CGFloat, index: CGFloat) -> some View {
         contentView
         .frame(width: contentWidth, height: contentHeight)
-        .onTapGesture {
-            
-        }
         .gesture(
             DragGesture()
                 .onEnded { value in
@@ -132,6 +128,27 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
                     fetchLogDate()
                 }
         )
+        .onPress {
+            let width = UIScreen.main.bounds.width * 0.9
+            let height = UIScreen.main.bounds.height * 0.9
+            let controller = UIHostingController(rootView: contentView.background(.white))
+            controller.view.frame = CGRect(origin: .zero, size: CGSize(width: width, height: height))
+            controller.view.backgroundColor = .clear
+
+            if let rootVC = UIApplication.shared.windows.first?.rootViewController {
+                rootVC.view.insertSubview(controller.view, at: 0)
+//                rootVC.view.backgroundColor = .systemGray
+
+                let renderer = UIGraphicsImageRenderer(size: CGSize(width: width, height: height))
+
+                let fourCutImage = renderer.image { context in
+                    controller.view.layer.render(in: context.cgContext)
+                }
+                
+                controller.view.removeFromSuperview()
+                viewModel.action(.fourCutCellPressed(image: fourCutImage))
+            }
+        }
     }
     
     private func fetchLogDate() {

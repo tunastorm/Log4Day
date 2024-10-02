@@ -27,6 +27,7 @@ final class MyLogViewModel: ObservableObject {
         case fetchLogDate(isInitial: Bool)
         case tapBarChanged(info: TapInfo)
         case placeCellTapped(indexInfo: (String,Int))
+        case fourCutCellPressed(image: UIImage)
     }
     
     struct Input {
@@ -36,6 +37,7 @@ final class MyLogViewModel: ObservableObject {
         let fetchLogDate = PassthroughSubject<Bool, Never>()
         let tapBarChanged = PassthroughSubject<TapInfo, Never>()
         let placeCellTapped = PassthroughSubject<(String,Int), Never>()
+        let fourCutCellPressed = PassthroughSubject<UIImage, Never>()
         var selectedCategory = ""
         var nowLogDate = DateFormatManager.shared.dateToFormattedString(date: Date(), format: .dotSeparatedyyyyMMddDay)
     }
@@ -46,7 +48,6 @@ final class MyLogViewModel: ObservableObject {
         @ObservedResults(Log.self) var logList
         var timeline: [Log] = []
         var placeDict: [String:[Place]] = [:]
-        var nonPhotoLogList: [Log] = []
         var firstLastDate: (String, String) = (DateFormatManager.shared.dateToFormattedString(date: Date(), format: .dotSeparatedyyyyMMddDay), "")
         var logDate: String = ""
         var selectedPicker: TapInfo = .timeline
@@ -54,6 +55,8 @@ final class MyLogViewModel: ObservableObject {
         var offsetX: CGFloat = -120
         var showSelectLogSheet: BottomSheetPosition = .hidden
         var ofLogList: [Log] = []
+        var showSaveFourCutSheet: BottomSheetPosition = .hidden
+        var fourCutImage: UIImage = UIImage()
     }
     
     init() {
@@ -91,6 +94,12 @@ final class MyLogViewModel: ObservableObject {
             .sink { [weak self] indexInfo in
                 self?.showSelectLogSheet(indexInfo)
             }.store(in: &cancellables)
+        
+        input.fourCutCellPressed
+            .sink { [weak self] image in
+                self?.showSaveImageSheet(image)
+            }
+            .store(in: &cancellables)
     }
     
     func action(_ action: Action) {
@@ -107,6 +116,8 @@ final class MyLogViewModel: ObservableObject {
             input.tapBarChanged.send(info)
         case .placeCellTapped(let indexInfo):
             input.placeCellTapped.send((indexInfo))
+        case .fourCutCellPressed(let image):
+            input.fourCutCellPressed.send(image)
         }
     }
     
@@ -173,6 +184,11 @@ final class MyLogViewModel: ObservableObject {
         }
         output.showSelectLogSheet = output.showSelectLogSheet == .hidden ? .dynamic : .hidden
         output.ofLogList = Array(ofLog)
+    }
+    
+    func showSaveImageSheet(_ image: UIImage) {
+        output.fourCutImage = image
+        output.showSaveFourCutSheet = output.showSaveFourCutSheet == .hidden ? .dynamic : .hidden
     }
     
 }
