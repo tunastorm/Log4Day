@@ -97,6 +97,9 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
     private func configContentView(contentView: Content, contentWidth: CGFloat, nextOffset: CGFloat, index: CGFloat) -> some View {
         contentView
         .frame(width: contentWidth, height: contentHeight)
+        .onTapGesture {
+            
+        }
         .gesture(
             DragGesture()
                 .onEnded { value in
