@@ -92,8 +92,8 @@ struct NewLogView: View {
                 VStack {
                     HStack {
                         Text("사진")
-                            .padding(.leading, 7)
-                            .padding(.trailing, 21)
+                            .padding(.leading, 5)
+                            .padding(.trailing, 20)
                         Text("플레이스")
                         Spacer()
                     }
