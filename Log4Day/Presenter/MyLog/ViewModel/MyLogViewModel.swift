@@ -150,9 +150,6 @@ final class MyLogViewModel: ObservableObject {
 
     private func fetchCategorizedLogList() {
         if output.category == "전체" {
-            output.$logList.where = { $0.createdAt <= Date() }
-//            output.$elogList.sortDescriptor = .init(keyPath: Log.Column.startDate.name, ascending: false)
-        } else {
             output.$logList.where = { [weak self] in
                 return $0.owner.title == self?.output.category ?? ""
             }
@@ -175,17 +172,46 @@ final class MyLogViewModel: ObservableObject {
         case .timeline:
             output.timeline = output.logList.sorted(by: { $0.startDate > $1.startDate })
         case .place:
-            output.placeDict.removeAll()
-            output.logList.forEach { log in
-                guard let city = log.places.first?.city else {
-                    return
-                }
-                if !output.placeDict.keys.contains(city) {
-                    output.placeDict[city] = []
-                }
-                output.placeDict[city]?.append(contentsOf: log.places) /*Array(log.places)*/
-            }
+            exchangePlaceDict()
         }
+    }
+    
+    private func exchangePlaceDict() {
+        var oldCitySet = Set<String>()
+        var newCitySet = Set<String>()
+        var oldPlaceSet = Set<Place>()
+        var newPlaceSet = Set<Place>()
+//        var copyDict =  output.placeDict
+        
+        output.placeDict.keys.forEach { oldCitySet.insert($0) }
+        oldCitySet.forEach {
+            output.placeDict[$0]?.forEach{ oldPlaceSet.insert($0) }
+        }
+        output.logList.forEach {
+            $0.places.forEach { newCitySet.insert($0.city) }
+        }
+        output.logList.forEach {
+            $0.places.forEach { newPlaceSet.insert($0) }
+        }
+        
+        let filteredOldCity = oldCitySet.subtracting(newCitySet)
+        newCitySet.subtract(oldCitySet)
+        
+        let filteredOldPlace = oldPlaceSet.subtracting(newPlaceSet)
+        newPlaceSet.subtract(oldPlaceSet)
+        
+        filteredOldCity.forEach {
+            output.placeDict.removeValue(forKey: $0)
+        }
+        
+        filteredOldPlace.forEach { place in
+            output.placeDict[place.city]?.removeAll(where: { $0.id == place.id })
+        }
+        
+        newCitySet.forEach { output.placeDict[$0] = [] }
+        
+        newPlaceSet.forEach { output.placeDict[$0.city]?.append($0) }
+//        output.placeDict = copyDict
     }
     
     func showSelectLogSheet(_ indexInfo: (String,Int)) {

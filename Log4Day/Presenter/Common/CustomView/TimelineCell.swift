@@ -23,6 +23,7 @@ struct TimelineCell: View {
              (index == 0 || (index >= 1 && !DateFormatManager.shared.isSameDay(lDate: startDate,
                                                                   rDate: viewModel.output.timeline[index-1].startDate))) {
                 dateView()
+                    .padding(.top)
             }
             HStack {
                 numberingView()

@@ -42,7 +42,6 @@ struct PlaceCell: View {
             }
         }
         .frame(maxWidth: .infinity)
-        .padding(.top)
     }
 
     private func numberingView(_ photoCount: Int) -> some View {

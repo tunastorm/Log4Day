@@ -12,6 +12,8 @@ import Photos
 
 struct MyLogView: View {
     
+    @Binding var tapSelection: Int
+    
     @ObservedObject var categoryViewModel: CategoryViewModel
     @StateObject private var viewModel = MyLogViewModel()
     
@@ -42,10 +44,14 @@ struct MyLogView: View {
                             if viewModel.output.logList.isEmpty {
                                 HStack {
                                     Spacer()
-                                    Text("등록된 로그가 없어요.\n오늘의 추억을 기록해보세요.")
-                                        .font(.title3)
-                                        .multilineTextAlignment(.center)
-                                        .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
+                                    Button {
+                                        tapSelection = 1
+                                    } label: {
+                                        Text("추억을 기록하러 가기")
+                                            .font(.title3)
+                                            .multilineTextAlignment(.center)
+                                            .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
+                                    }
                                     Spacer()
                                 }
                                 .padding(.vertical, 40)

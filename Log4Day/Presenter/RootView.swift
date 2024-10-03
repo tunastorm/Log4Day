@@ -49,7 +49,7 @@ struct RootView: View {
     private func mainView() -> some View {
         NavigationWrapper(button: Text("")) {
             TabView(selection: $selection) {
-                MyLogView(categoryViewModel: categoryViewModel)
+                MyLogView(tapSelection: $selection, categoryViewModel: categoryViewModel)
                     .tabItem {
                         Image(systemName: selection == 0 ?
                               "photo.on.rectangle.angled" : "photo.on.rectangle")

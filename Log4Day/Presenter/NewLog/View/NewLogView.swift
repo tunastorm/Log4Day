@@ -53,7 +53,6 @@ struct NewLogView: View {
                                 isDeleteMode: $viewModel.output.isDeleteMode, 
                                 cameraPointer: $viewModel.output.cameraPointer,
                                 placeList:  $viewModel.output.placeList,
-//                                photoDict: $viewModel.output.photoDict, 
                                 imageDict: $viewModel.output.imageDict,
                                 coordinateList: $viewModel.output.coordinateList
                 )
@@ -89,6 +88,22 @@ struct NewLogView: View {
     
     private func placeList() -> some View {
         LazyVStack {
+            if !viewModel.output.placeList.isEmpty {
+                VStack {
+                    HStack {
+                        Text("사진")
+                            .padding(.leading, 7)
+                            .padding(.trailing, 21)
+                        Text("플레이스")
+                        Spacer()
+                    }
+                    Rectangle()
+                        .frame(height: 1)
+                        .frame(maxWidth: .infinity)
+//                        .padding(.horizontal, 5)
+                }
+                .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
+            }
             ForEach(viewModel.output.placeList.indices, id: \.self) { index in
                 LogDetailPlaceCell(controller: .newLogView, viewModel: viewModel,
                                 indexInfo: (index, viewModel.output.placeList.count),
@@ -105,7 +120,7 @@ struct NewLogView: View {
         VStack {
             if viewModel.output.placeList.isEmpty {
                 HStack {
-                    Text("오늘의 추억이 남은 장소를 추가해 보세요")
+                    Text("추억이 남은 장소를 추가해 보세요")
                         .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
                 }
                 .padding()
