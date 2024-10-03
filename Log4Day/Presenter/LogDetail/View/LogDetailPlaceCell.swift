@@ -82,8 +82,12 @@ struct LogDetailPlaceCell: View {
                 }
                 if controller == .newLogView {
                     Button {
-                        showPicker.toggle()
-                        viewModel.output.cameraPointer = indexInfo.0
+                        if viewModel.output.imageDict.values.count < 4 {
+                            showPicker.toggle()
+                            viewModel.output.cameraPointer = indexInfo.0
+                        } else {
+                            
+                        }
                     } label: {
                         Image(systemName: "camera")
                             .frame(width: 40, height: 40)

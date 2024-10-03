@@ -53,7 +53,7 @@ struct LogMapView: View {
             viewModel.action(.initialFetch)
         }
         .bottomSheet(bottomSheetPosition: $logDetailViewModel.output.showPlaceListSheet,
-                     switchablePositions: [.dynamic]) {
+                     switchablePositions: [.hidden, .dynamic]) {
             ScrollView {
                 ForEach(logDetailViewModel.output.placeList.indices, id: \.self) { index in
                     LogDetailPlaceCell(controller: .logMap,
@@ -66,8 +66,11 @@ struct LogMapView: View {
             .frame(maxWidth: .infinity)
             .background(.white)
         }
+        .showDragIndicator(false)
+        .enableContentDrag()
         .enableSwipeToDismiss()
-        
+        .enableTapToDismiss()
+        .showCloseButton()
     }
 
 }

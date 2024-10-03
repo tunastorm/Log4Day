@@ -87,6 +87,7 @@
 		BC8007AD2C9D4E3F00D62778 /* SideBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8007AC2C9D4E3F00D62778 /* SideBarView.swift */; };
 		BCDC2A4C2CAD6A0B00FDFF22 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCDC2A4B2CAD6A0B00FDFF22 /* CategoryModel.swift */; };
 		BCDC2A4F2CAE663100FDFF22 /* ImageDownSampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCDC2A4E2CAE663100FDFF22 /* ImageDownSampler.swift */; };
+		BCDC2A512CAEC41000FDFF22 /* BottomSheetHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCDC2A502CAEC41000FDFF22 /* BottomSheetHeaderView.swift */; };
 		BCE2A0EB2C9FDC430045D01B /* PlannerSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE2A0EA2C9FDC430045D01B /* PlannerSheetView.swift */; };
 		BCE2A0ED2C9FEE890045D01B /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE2A0EC2C9FEE890045D01B /* Place.swift */; };
 		BCE2A0EF2C9FEFB10045D01B /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE2A0EE2C9FEFB10045D01B /* Photo.swift */; };
@@ -211,6 +212,7 @@
 		BC8007AC2C9D4E3F00D62778 /* SideBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarView.swift; sourceTree = "<group>"; };
 		BCDC2A4B2CAD6A0B00FDFF22 /* CategoryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		BCDC2A4E2CAE663100FDFF22 /* ImageDownSampler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownSampler.swift; sourceTree = "<group>"; };
+		BCDC2A502CAEC41000FDFF22 /* BottomSheetHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetHeaderView.swift; sourceTree = "<group>"; };
 		BCE2A0EA2C9FDC430045D01B /* PlannerSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerSheetView.swift; sourceTree = "<group>"; };
 		BCE2A0EC2C9FEE890045D01B /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		BCE2A0EE2C9FEFB10045D01B /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
@@ -595,6 +597,7 @@
 				BC404CA72C942170001BA269 /* ListFooterView.swift */,
 				BC395B842CA65F7F0005FC9D /* MarkerView.swift */,
 				BC404CAD2C942D15001BA269 /* BackButton.swift */,
+				BCDC2A502CAEC41000FDFF22 /* BottomSheetHeaderView.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -1020,6 +1023,7 @@
 				BC395B612CA336000005FC9D /* SearchedPlace.swift in Sources */,
 				BC6417242C96EDF30013587A /* SideView.swift in Sources */,
 				BC395B742CA3E2090005FC9D /* SearchPlaceCell.swift in Sources */,
+				BCDC2A512CAEC41000FDFF22 /* BottomSheetHeaderView.swift in Sources */,
 				BC8007AB2C9D4A0300D62778 /* NavigationBar.swift in Sources */,
 				BC404BCF2C9077FC001BA269 /* Log4DayApp.swift in Sources */,
 				BC404C972C9417A4001BA269 /* UIViewControllerWrapper.swift in Sources */,

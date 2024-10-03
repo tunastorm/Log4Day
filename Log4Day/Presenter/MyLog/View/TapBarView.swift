@@ -11,7 +11,6 @@ import BottomSheet
 enum TapInfo : String, CaseIterable {
     case timeline = "타임라인"
     case place = "플레이스"
-//    case waited = "작성중"
 }
 
 struct TapBarView: View {

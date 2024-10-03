@@ -30,10 +30,16 @@ struct NewLogView: View {
             }
         }
         .bottomSheet(bottomSheetPosition: $categoryViewModel.output.showAddSheet,
-                     switchablePositions: [.dynamic]) {
+                     switchablePositions: [.hidden, .dynamic]) {
+            BottomSheetHeaderView(title: "카테고리 추가")
+        } mainContent: {
             AddCategorySheet(isFocused: _addSheetIsFocused, viewModel: categoryViewModel)
         }
+        .showDragIndicator(false)
+        .enableContentDrag()
         .enableSwipeToDismiss()
+        .enableTapToDismiss()
+        .showCloseButton()
         
     }
     

@@ -22,14 +22,14 @@ struct MyLogView: View {
             ZStack {
                 VStack {
                     NavigationBar(title: "MyLog", button:
-                        Button(action: {
-                            withAnimation(.spring()){
-                                categoryViewModel.action(.sideBarButtonTapped)
-                            }
-                        }, label: {
-                            Image(systemName: "tray")
-                                .font(.system(size: 20))
-                        })
+                                    Button(action: {
+                        withAnimation(.spring()){
+                            categoryViewModel.action(.sideBarButtonTapped)
+                        }
+                    }, label: {
+                        Image(systemName: "tray")
+                            .font(.system(size: 20))
+                    })
                     )
                     ScrollView {
                         LazyVStack(pinnedViews: [.sectionHeaders]) {
@@ -72,23 +72,25 @@ struct MyLogView: View {
             viewModel.action(.fetchFirstLastDate)
             viewModel.action(.fetchLogDate(isInitial: true))
         }
-        .bottomSheet(bottomSheetPosition: $viewModel.output.showSaveFourCutSheet, switchablePositions: [.dynamic], content: {
+        .bottomSheet(bottomSheetPosition: $viewModel.output.showSaveFourCutSheet, switchablePositions: [.hidden, .dynamic]) {
+            BottomSheetHeaderView(title: "네컷사진 저장")
+        } mainContent: {
             VStack(alignment: .center) {
                 Button{
                     let authorizationStatus = PHPhotoLibrary.authorizationStatus()
                     switch authorizationStatus {
-                            case .authorized: // 사용자가 앱에 사진 라이브러리에 대한 액세스 권한을 명시 적으로 부여했습니다.
+                    case .authorized: // 사용자가 앱에 사진 라이브러리에 대한 액세스 권한을 명시 적으로 부여했습니다.
+                        UIImageWriteToSavedPhotosAlbum(viewModel.output.fourCutImage, nil, nil, nil)
+                    case .denied: break // 사용자가 사진 라이브러리에 대한 앱 액세스를 명시 적으로 거부했습니다.
+                    case .limited: break // ?
+                    case .notDetermined: // 사진 라이브러리 액세스에는 명시적인 사용자 권한이 필요하지만 사용자가 아직 이러한 권한을 부여하거나 거부하지 않았습니다
+                        PHPhotoLibrary.requestAuthorization { (state) in
+                            if state == .authorized {
                                 UIImageWriteToSavedPhotosAlbum(viewModel.output.fourCutImage, nil, nil, nil)
-                            case .denied: break // 사용자가 사진 라이브러리에 대한 앱 액세스를 명시 적으로 거부했습니다.
-                            case .limited: break // ?
-                            case .notDetermined: // 사진 라이브러리 액세스에는 명시적인 사용자 권한이 필요하지만 사용자가 아직 이러한 권한을 부여하거나 거부하지 않았습니다
-                                PHPhotoLibrary.requestAuthorization { (state) in
-                                    if state == .authorized {
-                                        UIImageWriteToSavedPhotosAlbum(viewModel.output.fourCutImage, nil, nil, nil)
-                                    }
-                                }
-                            case .restricted: break // 앱이 사진 라이브러리에 액세스 할 수있는 권한이 없으며 사용자는 이러한 권한을 부여 할 수 없습니다.
-                            default: break
+                            }
+                        }
+                    case .restricted: break // 앱이 사진 라이브러리에 액세스 할 수있는 권한이 없으며 사용자는 이러한 권한을 부여 할 수 없습니다.
+                    default: break
                     }
                     viewModel.output.showSaveFourCutSheet = .hidden
                 } label: {
@@ -104,9 +106,15 @@ struct MyLogView: View {
             .frame(height: 300)
             .frame(maxWidth: .infinity)
             .background(.white)
-        })
+        }
+        .showDragIndicator(false)
+        .enableContentDrag()
         .enableSwipeToDismiss()
-        .bottomSheet(bottomSheetPosition: $viewModel.output.showSelectLogSheet, switchablePositions: [.dynamic]) {
+        .enableTapToDismiss()
+        .showCloseButton()
+        .bottomSheet(bottomSheetPosition: $viewModel.output.showSelectLogSheet, switchablePositions: [.hidden, .dynamic]) {
+            BottomSheetHeaderView(title: "로그 선택")
+        } mainContent: {
             ScrollView {
                 ForEach(viewModel.output.ofLogList.indices, id: \.self) { index in
                     NavigationLink {
@@ -126,7 +134,11 @@ struct MyLogView: View {
             .frame(maxWidth: .infinity)
             .background(.white)
         }
+        .showDragIndicator(false)
+        .enableContentDrag()
         .enableSwipeToDismiss()
+        .enableTapToDismiss()
+        .showCloseButton()
     }
     
     private func TitleView() -> some View {

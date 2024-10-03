@@ -71,6 +71,7 @@ struct UIMapView: UIViewRepresentable {
     
         if context.coordinator.isDeleted {
             context.coordinator.cameraPointer = placeList.count - 1
+            context.coordinator.isDeleted = false
         } else {
             context.coordinator.cameraPointer = cameraPointer
         }
@@ -177,7 +178,6 @@ struct UIMapView: UIViewRepresentable {
                     marker.iconImage = markerImage(index)
                 }
                 isDeleted = true
-                print("삭제 후 좌표목록:",coordinateList)
             }
             
             guard !isDeleted else { return }

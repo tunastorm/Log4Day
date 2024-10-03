@@ -20,39 +20,47 @@ struct SideBarView: View {
     @FocusState var addSheetIsEditing: Bool
     
     var body: some View {
-        ZStack {
-            Rectangle()
-                .frame(maxWidth: .infinity)
-                .foregroundStyle(.white)
-                .opacity(viewModel.output.showSide ? 0.6 : 0)
-                .onTapGesture {
-                    withAnimation {
-                        viewModel.action(.sideBarButtonTapped)
-                        if viewModel.output.showAddSheet != .hidden {
-                            viewModel.action(.addTapped)
-                            addSheetIsEditing = false
-                        }
-                    }
-                }
-            HStack {
-                switch controller {
-                case .myLog:
-                    SideView(controller: controller, viewModel: viewModel)
-                        .environmentObject(myLogViewModel)
-                case .logMap:
-                    SideView(controller: controller, viewModel: viewModel)
-                        .environmentObject(logMapViewModel)
-                default: Text("")
-                }
+        GeometryReader { proxy in
+            ZStack {
                 Rectangle()
                     .frame(maxWidth: .infinity)
-                    .foregroundStyle(.clear)
+                    .foregroundStyle(.white)
+                    .opacity(viewModel.output.showSide ? 0.6 : 0)
+                    .onTapGesture {
+                        withAnimation {
+                            viewModel.action(.sideBarButtonTapped)
+                            if viewModel.output.showAddSheet != .hidden {
+                                viewModel.action(.addTapped)
+                                addSheetIsEditing = false
+                            }
+                        }
+                    }
+                HStack {
+                    switch controller {
+                    case .myLog:
+                        SideView(controller: controller, viewModel: viewModel)
+                            .environmentObject(myLogViewModel)
+                    case .logMap:
+                        SideView(controller: controller, viewModel: viewModel)
+                            .environmentObject(logMapViewModel)
+                    default: Text("")
+                    }
+                    Rectangle()
+                        .frame(maxWidth: .infinity)
+                        .foregroundStyle(.clear)
+                }
             }
+            .bottomSheet(bottomSheetPosition: $viewModel.output.showAddSheet, switchablePositions: [.hidden, .dynamic]) {
+                BottomSheetHeaderView(title: "카테고리 추가")
+            } mainContent: {
+                AddCategorySheet(isFocused: _addSheetIsEditing, viewModel: viewModel)
+            }
+            .showDragIndicator(false)
+            .enableContentDrag()
+            .enableSwipeToDismiss()
+            .enableTapToDismiss()
+            .showCloseButton()
         }
-        .bottomSheet(bottomSheetPosition: $viewModel.output.showAddSheet, switchablePositions: [.dynamic]) {
-            AddCategorySheet(isFocused: _addSheetIsEditing, viewModel: viewModel)
-        }
-        .enableSwipeToDismiss()
     }
     
 }

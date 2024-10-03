@@ -157,6 +157,7 @@ final class LogDetailViewModel: ObservableObject {
             output.coordinateList.remove(at: output.cameraPointer)
             output.placeList.remove(at: output.cameraPointer)
             output.cameraPointer = output.placeList.count == 0 ? 0 : output.placeList.count-2
+            print("삭제후 카메라 위치:", output.cameraPointer)
         }
         
     }
@@ -178,7 +179,6 @@ final class LogDetailViewModel: ObservableObject {
                 resizedList.append(image)
             }
         }
-        print("다운 샘플링 된 이미지:", resizedList.count)
         output.imageDict[output.cameraPointer] = resizedList
         input.pickedImages.removeAll()
         
