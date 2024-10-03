@@ -59,10 +59,12 @@ struct SearchPlaceCell: View {
             VStack {
                 HStack {
                     Text(place.title.replacingOccurrences(of: "<b>", with: "")
-                                    .replacingOccurrences(of: "</b>", with: ""))
-                        .font(.title3)
-                        .bold()
-                        .foregroundStyle(ColorManager.shared.ciColor.contentColor)
+                                    .replacingOccurrences(of: "</b>", with: "")
+                                    .replacingOccurrences(of: "&amp;", with: "")
+                    )
+                    .font(.title3)
+                    .bold()
+                    .foregroundStyle(ColorManager.shared.ciColor.contentColor)
                     Spacer()
                 }
                 HStack {

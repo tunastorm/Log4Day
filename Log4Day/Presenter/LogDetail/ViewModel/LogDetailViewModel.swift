@@ -150,7 +150,9 @@ final class LogDetailViewModel: ObservableObject {
             return
         }
         
-        let replacedTitle = searched.title.replacingOccurrences(of: "<b>", with: "").replacingOccurrences(of: "</b>", with: "")
+        let replacedTitle = searched.title.replacingOccurrences(of: "<b>", with: "")
+                                          .replacingOccurrences(of: "</b>", with: "")
+                                          .replacingOccurrences(of: "&amp;", with: "")
         
         let place = Place(isVisited: false, hashtag: "", name: replacedTitle, city: "", address: searched.roadAddress, longitude: coordinate.1, latitude: coordinate.0)
         
@@ -178,6 +180,9 @@ final class LogDetailViewModel: ObservableObject {
     }
     
     @objc private func cancelPickedPlaces() {
+        guard input.pickedPlaces.count > 0 else {
+            return
+        }
         let removeSet = IndexSet(input.pickedPlaces)
         input.pickedPlaces.forEach { output.imageDict.removeValue(forKey: $0) }
         output.coordinateList.remove(atOffsets: removeSet)

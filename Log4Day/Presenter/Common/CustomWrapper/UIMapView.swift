@@ -78,7 +78,7 @@ struct UIMapView: UIViewRepresentable {
         cameraPointer = context.coordinator.cameraPointer
         
         //MARK: 오버레이 요소 갱신
-        context.coordinator.exchangeOverlays(coordinateList, imageDict)
+        context.coordinator.exchangeOverlays(coordinateList, imageDict, touchHandler: changeCameraPointer)
         
         guard context.coordinator.coordinateList.count > 0 else {
             return
@@ -120,6 +120,10 @@ struct UIMapView: UIViewRepresentable {
         }
         
     }
+
+    private func changeCameraPointer(new: Int) {
+        cameraPointer = new
+    }
     
     class Coordinator: NSObject, NMFMapViewCameraDelegate {
         
@@ -134,7 +138,7 @@ struct UIMapView: UIViewRepresentable {
         
         // 1. UIMapView와 Coordinator의 cooridnateList를 Set으로 비교
         // 2. 기존 오버레이 요소 중 뺄 것과 새로 추가할 오버레이를 구분해 갱신
-        func exchangeOverlays(_ newCoordList: [NMGLatLng], _ newImage: ImageDict) {
+        func exchangeOverlays(_ newCoordList: [NMGLatLng], _ newImage: ImageDict, touchHandler: @escaping (Int) -> Void) {
             
             // 장소 증감 없는 이벤트 처리
             if coordinateList.count > 0, coordinateList == newCoordList {
@@ -190,6 +194,12 @@ struct UIMapView: UIViewRepresentable {
                     addPhoto(index, newPhoto: photoDict)
                     let iconImage = markerImage(index)
                     let marker = NMFMarker(position: coord, iconImage: iconImage)
+                    let touchPointer = markerList.count
+                    print("터치하면 이동:", touchPointer)
+                    marker.touchHandler = { [weak self] (overlay: NMFOverlay) -> Bool in
+                        touchHandler(touchPointer)
+                        return true
+                    }
                     markerList.append(marker)
                     selectedMarkerToggle()
                     coordinateList.append(coord)

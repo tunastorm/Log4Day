@@ -17,6 +17,7 @@ struct NewLogView: View {
     @ObservedObject var categoryViewModel: CategoryViewModel
     @StateObject private var viewModel = LogDetailViewModel()
     
+    @State private var isInValid = true
     @FocusState private var titleFocused: Bool
     @FocusState private var addSheetIsFocused: Bool
     
@@ -40,7 +41,6 @@ struct NewLogView: View {
         .enableSwipeToDismiss()
         .enableTapToDismiss()
         .showCloseButton()
-        
     }
     
     private func contentView() -> some View {
@@ -48,12 +48,14 @@ struct NewLogView: View {
             NavigationBar(
                 title: "NewLog",
                 button: Button {
-                    viewModel.action(.createLog)
-                    tapSelection = 0
-                } label: {
-                    Text("등록")
-                        .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
-                }
+                        viewModel.action(.createLog)
+                        tapSelection = 0
+                    } label: {
+                        Text("등록")
+                            .foregroundStyle(isInValid ?
+                                             ColorManager.shared.ciColor.subContentColor : ColorManager.shared.ciColor.highlightColor)
+                    }
+                    .disabled(isInValid)
             )
             ScrollView {
                 titleView()
@@ -67,6 +69,10 @@ struct NewLogView: View {
                 placeList()
             }
         }
+        .onChange(
+            of: viewModel.input.title.isEmpty ||
+                viewModel.input.title.replacingOccurrences(of: " ", with: "") == ""
+        ) { self.isInValid = $0 }
         
     }
 
