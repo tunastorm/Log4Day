@@ -20,8 +20,10 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
     private let carouselContent: (Data, CGFloat, Binding<CGFloat>, CGFloat) -> Content
     private let zeroContent: (CGFloat, Binding<CGFloat>, CGFloat) -> Content
     private let overContent: (CGFloat, Binding<CGFloat>, CGFloat) -> Content
+    
     @State private var currentOffset: CGFloat = 0
     @State private var currentIndex: CGFloat = 1
+    @State var isDragging: Bool = false
    
     public init(
         data: Results<Data>,
@@ -99,11 +101,16 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
         .gesture(
             DragGesture()
                 .onEnded { value in
-                    guard viewModel.output.logList.count > 1 else {
+                    print("onEnded")
+                    guard isDragging == false,
+                          viewModel.output.logList.count > 1 else {
+                        print("드래그 중")
                         return
                     }
+                    isDragging = true
+               
                     let offsetX = value.translation.width
-                    withAnimation {
+                    withAnimation(.easeIn(duration: 0.2)) {
                         if offsetX < -50 { // 오른쪽으로 스와이프
                             currentIndex = min(currentIndex + 1, CGFloat(data.count)+1)
                         } else if offsetX > 50 { // 왼쪽으로 스와이프
@@ -111,14 +118,13 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
                         }
                         currentOffset = -currentIndex * nextOffset
                     }
-                    
                     // infinty Scroll
                     if currentIndex > CGFloat(data.count) {
                         currentOffset = -1 * nextOffset
                     } else if currentIndex < 1 {
                         currentOffset = -CGFloat(data.count) * nextOffset
                     }
-                    withAnimation{
+                    withAnimation(.easeIn(duration: 0.2))  {
                         if currentIndex < 1 {
                             currentIndex = CGFloat(data.count)
                         } else if currentIndex > CGFloat(data.count) {
@@ -126,6 +132,9 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
                         }
                     }
                     fetchLogDate()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                        isDragging = false
+                    }
                 }
         )
         .onPress {

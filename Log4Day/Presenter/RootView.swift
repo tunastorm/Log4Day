@@ -57,7 +57,7 @@ struct RootView: View {
                         Text("MyLog")
                     }
                     .tag(0)
-                NewLogView(categoryViewModel: categoryViewModel)
+                NewLogView(tapSelection: $selection, categoryViewModel: categoryViewModel)
                     .tabItem {
                         Image(systemName: selection == 1 ?
                              "pencil.line" : "plus.app")

@@ -158,7 +158,13 @@ struct MyLogView: View {
                             .where({ $0.fourCut.count == 4 })
                             .sorted(byKeyPath: Log.Column.startDate.name, ascending: false)
         return VStack {
-            InfinityCarouselView(data: fourCutLogList, edgeSpacing: 20, contentSpacing: 20, totalSpacing: 20, contentHeight: 500, currentOffset: -(bannerWidth+15),
+            InfinityCarouselView(
+                data: fourCutLogList,
+                edgeSpacing: 20,
+                contentSpacing: 20,
+                totalSpacing: 20,
+                contentHeight: 500,
+                currentOffset: -(bannerWidth+15),
                 carouselContent: { data, index, currentIndex, lastCell in
                 FourCutPictureView(currentIndex: currentIndex, 
                                    index: index,

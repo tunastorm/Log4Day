@@ -43,7 +43,6 @@ final class LogDetailViewModel: ObservableObject {
         var deleteLog = PassthroughSubject<ObjectId, Never>()
         var setLog = PassthroughSubject<ObjectId, Never>()
         var title = ""
-        var deleteMember: [Int] = []
         var pickedImages: [UIImage] = []
     }
     
@@ -51,7 +50,6 @@ final class LogDetailViewModel: ObservableObject {
         var category = ""
         var date = Date()
         var showPlaceListSheet: BottomSheetPosition = .hidden
-        var isDeleteMode: Bool = false
         var cameraPointer = 0
         var tagList: [String] = []
         var placeList: [Place] = []
@@ -155,15 +153,10 @@ final class LogDetailViewModel: ObservableObject {
             output.coordinateList.remove(at: output.coordinateList.count-1)
             output.placeList.remove(at: output.placeList.count-1)
         } else { // 새 로그 작성 화면에서 선택된 셀 해제 시 실행
-            guard input.deleteMember.count > 0 else {
-                return
-            }
-            let places = IndexSet(input.deleteMember)
-            output.coordinateList.remove(atOffsets: places)
-            output.placeList.remove(atOffsets: places)
+            output.imageDict.removeValue(forKey: output.cameraPointer)
+            output.coordinateList.remove(at: output.cameraPointer)
+            output.placeList.remove(at: output.cameraPointer)
             output.cameraPointer = output.placeList.count == 0 ? 0 : output.placeList.count-2
-            input.deleteMember.forEach{ output.imageDict.removeValue(forKey: $0) }
-            input.deleteMember.removeAll()
         }
         
     }
@@ -179,7 +172,14 @@ final class LogDetailViewModel: ObservableObject {
         if !output.imageDict.keys.contains(output.cameraPointer) {
             output.imageDict[output.cameraPointer] = []
         }
-        output.imageDict[output.cameraPointer] = input.pickedImages
+        var resizedList: [UIImage] = []
+        input.pickedImages.forEach {
+            if let image = $0.resize(to: CGSize(width: 0.2, height: 0.2)) {
+                resizedList.append(image)
+            }
+        }
+        print("다운 샘플링 된 이미지:", resizedList.count)
+        output.imageDict[output.cameraPointer] = resizedList
         input.pickedImages.removeAll()
         
     }
@@ -344,12 +344,10 @@ final class LogDetailViewModel: ObservableObject {
 
     private func resetData() {
         input.title = ""
-        input.deleteMember.removeAll()
         input.pickedImages.removeAll()
         output.category = ""
         output.date = Date()
         output.showPlaceListSheet = .hidden
-        output.isDeleteMode = false
         output.cameraPointer = 0
         output.tagList.removeAll()
         output.placeList.removeAll()

@@ -11,6 +11,8 @@ import BottomSheet
 
 struct NewLogView: View {
     
+    @Binding var tapSelection: Int
+    
     // 기본 위치 서울역
     @ObservedObject var categoryViewModel: CategoryViewModel
     @StateObject private var viewModel = LogDetailViewModel()
@@ -19,7 +21,6 @@ struct NewLogView: View {
     @FocusState private var addSheetIsFocused: Bool
     
     var body: some View {
-        
         GeometryReader { proxy in
             ZStack {
                 contentView()
@@ -42,6 +43,7 @@ struct NewLogView: View {
                 title: "NewLog",
                 button: Button {
                     viewModel.action(.createLog)
+                    tapSelection = 0
                 } label: {
                     Text("등록")
                         .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
@@ -50,7 +52,6 @@ struct NewLogView: View {
             ScrollView {
                 titleView()
                 LogNaverMapView(isFull: false,
-                                isDeleteMode: $viewModel.output.isDeleteMode, 
                                 cameraPointer: $viewModel.output.cameraPointer,
                                 placeList:  $viewModel.output.placeList,
                                 imageDict: $viewModel.output.imageDict,
@@ -100,7 +101,6 @@ struct NewLogView: View {
                     Rectangle()
                         .frame(height: 1)
                         .frame(maxWidth: .infinity)
-//                        .padding(.horizontal, 5)
                 }
                 .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
             }
@@ -131,27 +131,18 @@ struct NewLogView: View {
                     SearchPlaceView(newLogViewModel: viewModel)
                 } label: {
                     Text("추가")
-                        .foregroundStyle(viewModel.output.isDeleteMode ? 
-                                         ColorManager.shared.ciColor.subContentColor : ColorManager.shared.ciColor.highlightColor)
+                        .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
                 }
                 .frame(width: 130, height: 40)
                 .border(cornerRadius: 5, stroke: .init(ColorManager.shared.ciColor.subContentColor.opacity(0.2), lineWidth:2))
-                .disabled(viewModel.output.isDeleteMode)
                 
                 if viewModel.output.placeList.count > 0 {
-                    Button( viewModel.output.isDeleteMode ? "선택 삭제" : "삭제") {
-                        if viewModel.output.isDeleteMode {
-                            viewModel.action(.deleteButtonTapped(lastOnly: false))
-                            viewModel.output.isDeleteMode = false
-                        } else {
-                            viewModel.output.cameraPointer = 0
-                            viewModel.output.isDeleteMode = true
-                        }
+                    Button("삭제") {
+                        viewModel.action(.deleteButtonTapped(lastOnly: false))
                     }
                     .frame(width: 130, height: 40)
                     .border(cornerRadius: 5, stroke: .init(ColorManager.shared.ciColor.subContentColor.opacity(0.2), lineWidth:2))
-                    .foregroundStyle(viewModel.output.isDeleteMode ?
-                                     ColorManager.shared.ciColor.highlightColor : ColorManager.shared.ciColor.subContentColor)
+                    .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
                     .padding(.leading, 10)
                 }
                 Spacer()

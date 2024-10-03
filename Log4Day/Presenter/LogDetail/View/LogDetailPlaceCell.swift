@@ -14,7 +14,6 @@ struct LogDetailPlaceCell: View {
     
     @ObservedObject var viewModel: LogDetailViewModel
     @State private var isSelected: Bool = false
-    @State private var isDeleteMember: Bool = false
     @State private var showPicker: Bool = false
     
     var indexInfo: (Int,Int)
@@ -46,28 +45,10 @@ struct LogDetailPlaceCell: View {
             isSelected = viewModel.output.cameraPointer == indexInfo.0
         }
         .onTapGesture {
-            if !viewModel.input.deleteMember.contains(indexInfo.0) {
-                isDeleteMember = false
-            }
-            if viewModel.output.isDeleteMode {
-                if isDeleteMember {
-                    viewModel.input.deleteMember.removeAll(where: { $0 == indexInfo.0 })
-                } else {
-                    viewModel.input.deleteMember.append(indexInfo.0)
-                }
-                isDeleteMember.toggle()
-            } else {
-                viewModel.output.cameraPointer = indexInfo.0
-            }
+            viewModel.output.cameraPointer = indexInfo.0
         }
         .onChange(of: viewModel.output.cameraPointer == indexInfo.0) { isSelected in
             self.isSelected = isSelected
-        }
-        .onChange(of: viewModel.output.isDeleteMode) { isDeletMode in
-            if isDeletMode { self.isSelected = false }
-        }
-        .onChange(of: viewModel.input.deleteMember.contains(indexInfo.0)) { isDeleteMember in
-            self.isDeleteMember = isDeleteMember
         }
     }
 
@@ -75,7 +56,7 @@ struct LogDetailPlaceCell: View {
         Text("\(photoCount)")
             .foregroundStyle(.white)
             .frame(width: 40, height: 40)
-            .background((isDeleteMember || isSelected) ? ColorManager.shared.ciColor.highlightColor : ColorManager.shared.ciColor.subContentColor )
+            .background(isSelected ? ColorManager.shared.ciColor.highlightColor : ColorManager.shared.ciColor.subContentColor )
             .clipShape(Circle())
     }
     
@@ -88,8 +69,8 @@ struct LogDetailPlaceCell: View {
                         Text(place.name)
                             .font(.title3)
                             .bold()
-                            .foregroundStyle(isDeleteMember && viewModel.input.deleteMember.contains(indexInfo.0) || isSelected ?
-                                             ColorManager.shared.ciColor.highlightColor : ColorManager.shared.ciColor.contentColor)
+                            .foregroundStyle(isSelected ?
+                                            ColorManager.shared.ciColor.highlightColor : ColorManager.shared.ciColor.contentColor)
                         Spacer()
                     }
                     HStack {
@@ -116,7 +97,6 @@ struct LogDetailPlaceCell: View {
                                     configuration: pickerConfig(limit))
                             .ignoresSafeArea()
                     })
-                    .disabled(viewModel.output.isDeleteMode)
                 }
             }
             .padding(.vertical)

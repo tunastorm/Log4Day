@@ -32,7 +32,6 @@ struct LogMapView: View {
                     )
                     ZStack {
                         LogNaverMapView(isFull: true,
-                                        isDeleteMode: $logDetailViewModel.output.isDeleteMode,
                                         cameraPointer: $logDetailViewModel.output.cameraPointer,
                                         placeList: $logDetailViewModel.output.placeList,
                                         imageDict:  $logDetailViewModel.output.imageDict,

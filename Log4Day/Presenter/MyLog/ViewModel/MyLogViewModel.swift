@@ -150,6 +150,8 @@ final class MyLogViewModel: ObservableObject {
 
     private func fetchCategorizedLogList() {
         if output.category == "전체" {
+            output.$logList.where = { $0.startDate <= Date() }
+        } else {
             output.$logList.where = { [weak self] in
                 return $0.owner.title == self?.output.category ?? ""
             }
@@ -181,7 +183,6 @@ final class MyLogViewModel: ObservableObject {
         var newCitySet = Set<String>()
         var oldPlaceSet = Set<Place>()
         var newPlaceSet = Set<Place>()
-//        var copyDict =  output.placeDict
         
         output.placeDict.keys.forEach { oldCitySet.insert($0) }
         oldCitySet.forEach {
@@ -211,7 +212,6 @@ final class MyLogViewModel: ObservableObject {
         newCitySet.forEach { output.placeDict[$0] = [] }
         
         newPlaceSet.forEach { output.placeDict[$0.city]?.append($0) }
-//        output.placeDict = copyDict
     }
     
     func showSelectLogSheet(_ indexInfo: (String,Int)) {

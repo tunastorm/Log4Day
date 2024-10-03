@@ -75,7 +75,7 @@ struct FourCutPictureView: View {
         
         let topPadding: CGFloat = 10
         let height = (imageHeight / 2) - topPadding
-        let width = ((backgroundWidthHeight.0 - 10) / 2)-10
+        let width = ((backgroundWidthHeight.0 - 10) / 2) - 10
         let photoCount = photos.count
         return VStack {
             if photoCount == 0 {

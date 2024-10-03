@@ -34,7 +34,6 @@ struct LogDetailView: View {
                 Button {
                     myLogViewModel.action(.deleteLog(id: logId))
                     
-//                    viewModel.action(.deleteLog(log: log))
                 } label: {
                     Label(
                         title: { Text("삭제") },
@@ -75,7 +74,6 @@ struct LogDetailView: View {
         ScrollView {
             titleView()
             LogNaverMapView(isFull: false,
-                            isDeleteMode: $viewModel.output.isDeleteMode,
                             cameraPointer: $viewModel.output.cameraPointer,
                             placeList:  $viewModel.output.placeList,
                             imageDict: $viewModel.output.imageDict,
@@ -116,34 +114,40 @@ struct LogDetailView: View {
                         .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
                 }
                 .padding()
+            } else {
+                VStack {
+                    HStack {
+                        Text("사진")
+                            .padding(.leading, 5)
+                            .padding(.trailing, 20)
+                        Text("플레이스")
+                        Spacer()
+                    }
+                    Rectangle()
+                        .frame(height: 1)
+                        .frame(maxWidth: .infinity)
+                }
+                .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
             }
+            
+            
             HStack {
                 Spacer()
                 NavigationLink {
                     SearchPlaceView(newLogViewModel: viewModel)
                 } label: {
                     Text("추가")
-                        .foregroundStyle(viewModel.output.isDeleteMode ?
-                                         ColorManager.shared.ciColor.subContentColor : ColorManager.shared.ciColor.highlightColor)
+                        .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
                 }
                 .frame(width: 130, height: 40)
                 .border(cornerRadius: 5, stroke: .init(ColorManager.shared.ciColor.subContentColor.opacity(0.2), lineWidth:2))
-                .disabled(viewModel.output.isDeleteMode)
-                
                 if viewModel.output.placeList.count > 0 {
-                    Button( viewModel.output.isDeleteMode ? "선택 삭제" : "삭제") {
-                        if viewModel.output.isDeleteMode {
-                            viewModel.action(.deleteButtonTapped(lastOnly: false))
-                            viewModel.output.isDeleteMode = false
-                        } else {
-                            viewModel.output.cameraPointer = 0
-                            viewModel.output.isDeleteMode = true
-                        }
+                    Button("삭제") {
+                        viewModel.action(.deleteButtonTapped(lastOnly: false))
                     }
                     .frame(width: 130, height: 40)
                     .border(cornerRadius: 5, stroke: .init(ColorManager.shared.ciColor.subContentColor.opacity(0.2), lineWidth:2))
-                    .foregroundStyle(viewModel.output.isDeleteMode ?
-                                     ColorManager.shared.ciColor.highlightColor : ColorManager.shared.ciColor.subContentColor)
+                    .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
                     .padding(.leading, 10)
                 }
                 Spacer()
