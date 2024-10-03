@@ -7,14 +7,18 @@
 
 import SwiftUI
 
-struct NavigationWrapper<Button: View, Content: View>: View {
+struct NavigationWrapper<Trailing: View, Content: View>: View {
     
-    var button: Button?
+    let button: Trailing
     let content: Content
+    let dismissHandler: () -> Void
     
-    init(button: Button? = nil,  @ViewBuilder content: () -> Content) {
-        self.button = button
+    init(@ViewBuilder button: (() -> Trailing),
+         @ViewBuilder content: () -> Content,
+         dismissHandler: @escaping () -> Void) {
+        self.button = button()
         self.content = content()
+        self.dismissHandler = dismissHandler
     }
     
     var body: some View {
@@ -39,11 +43,10 @@ struct NavigationWrapper<Button: View, Content: View>: View {
     }
     
     private func backButton() -> some View {
-        BackButton()
+        BackButton(dismissHandler: dismissHandler)
     }
     
     private func trailingButtons() -> some View {
-        
         HStack {
             button
 //            SettingButton(inNavigationWrapper: true)
@@ -54,13 +57,18 @@ struct NavigationWrapper<Button: View, Content: View>: View {
 }
 
 extension UINavigationController: ObservableObject, UIGestureRecognizerDelegate {
+    
     override open func viewDidLoad() {
         super.viewDidLoad()
         navigationBar.isHidden = true
         interactivePopGestureRecognizer?.delegate = self
     }
-
+    
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        NotificationCenter.default.post(name: NSNotification.Name("DismissedWithSwipe"),
+                                        object: nil,
+                                        userInfo: nil)
         return viewControllers.count > 1
     }
+    
 }

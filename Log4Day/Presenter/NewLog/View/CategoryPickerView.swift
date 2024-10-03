@@ -13,7 +13,7 @@ struct CategoryPickerView: View {
     @ObservedObject var viewModel: LogDetailViewModel
     
     var body: some View {
-        let title = viewModel.output.category == "" ? "없음" : viewModel.output.category
+        let title = viewModel.output.category == "" ? "카테고리 없음" : viewModel.output.category
         return HStack {
             Menu("▼ \(title)") {
                 ForEach(setCategoryList(), id: \.self) { category in
@@ -56,7 +56,7 @@ struct CategoryPickerView: View {
     
     private func setCategoryList() -> [String] {
         var list = Array(categoryViewModel.output.categoryList.map{ $0.title })
-        list.insert("없음", at: 0)
+        list.insert("카테고리 없음", at: 0)
         list.append("추가")
         return list
     }

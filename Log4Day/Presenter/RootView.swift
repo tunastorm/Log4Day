@@ -47,7 +47,9 @@ struct RootView: View {
     }
     
     private func mainView() -> some View {
-        NavigationWrapper(button: Text("")) {
+        NavigationWrapper {
+            Text("")
+        } content: {
             TabView(selection: $selection) {
                 MyLogView(tapSelection: $selection, categoryViewModel: categoryViewModel)
                     .tabItem {
@@ -76,7 +78,7 @@ struct RootView: View {
             }
             .font(.headline)
             .tint(ColorManager.shared.ciColor.highlightColor)
-        }
+        } dismissHandler: {}
     }
 }
 

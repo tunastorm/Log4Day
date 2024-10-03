@@ -17,60 +17,60 @@ struct LogDetailView: View {
     @ObservedObject var myLogViewModel: MyLogViewModel
     @StateObject private var viewModel = LogDetailViewModel()
     
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @FocusState private var titleFocused: Bool
     @FocusState private var addSheetIsFocused: Bool
     
     var body: some View {
-        NavigationWrapper (
-            button: Menu {
-                Button {
-                    viewModel.action(.updateLog(id: logId))
-                } label: {
-                    Label(
-                        title: { Text("수정") },
-                        icon: { Image(systemName: "pencil")}
-                    )
-                }
-                Button {
-                    myLogViewModel.action(.deleteLog(id: logId))
-                    
-                } label: {
-                    Label(
-                        title: { Text("삭제") },
-                        icon: { Image(systemName: "xmark.circle")
-                               
-                        }
-                    )
-                    .foregroundStyle(.red)
-                }
-            } label: {
-                Image(systemName: "square.and.pencil")
-                    .foregroundStyle(.black)
-            }, content: {
-                GeometryReader { proxy in
-                    ZStack {
-                        if proxy.size != .zero {
-                            contentView()
-                        }
-                    }
-                    .onTapGesture {
-                        titleFocused = false
+        NavigationWrapper {
+            Menu {
+               Button {
+                   viewModel.action(.updateLog(id: logId))
+               } label: {
+                   Label(
+                       title: { Text("수정") },
+                       icon: { Image(systemName: "pencil")}
+                   )
+               }
+               Button {
+                   myLogViewModel.action(.deleteLog(id: logId))
+                   presentationMode.wrappedValue.dismiss()
+               } label: {
+                   Label(
+                       title: { Text("삭제") },
+                       icon: { Image(systemName: "xmark.circle")
+                              
+                       }
+                   )
+                   .foregroundStyle(.red)
+               }
+           } label: {
+               Image(systemName: "square.and.pencil")
+                   .foregroundStyle(.black)
+           }
+        } content: {
+            GeometryReader { proxy in
+                ZStack {
+                    if proxy.size != .zero {
+                        contentView()
                     }
                 }
-                .bottomSheet(bottomSheetPosition: $categoryViewModel.output.showAddSheet,
-                             switchablePositions: [.hidden, .dynamic]) {
-                    BottomSheetHeaderView(title: "카테고리 추가")
-                } mainContent: {
-                    AddCategorySheet(isFocused: _addSheetIsFocused, viewModel: categoryViewModel)
+                .onTapGesture {
+                    titleFocused = false
                 }
-                .showDragIndicator(false)
-                .enableContentDrag()
-                .enableSwipeToDismiss()
-                .enableTapToDismiss()
-                .showCloseButton()
-                
             }
-        )
+            .bottomSheet(bottomSheetPosition: $categoryViewModel.output.showAddSheet,
+                         switchablePositions: [.hidden, .dynamic]) {
+                BottomSheetHeaderView(title: "카테고리 추가")
+            } mainContent: {
+                AddCategorySheet(isFocused: _addSheetIsFocused, viewModel: categoryViewModel)
+            }
+            .showDragIndicator(false)
+            .enableContentDrag()
+            .enableSwipeToDismiss()
+            .enableTapToDismiss()
+            .showCloseButton()
+        } dismissHandler: { }
         .onAppear {
             viewModel.action(.setLog(id: logId))
         }

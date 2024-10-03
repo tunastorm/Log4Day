@@ -89,8 +89,8 @@ struct LogDetailPlaceCell: View {
                             
                         }
                     } label: {
-                        Image(systemName: "camera")
-                            .frame(width: 40, height: 40)
+                        Image(systemName: "photo.badge.plus")
+                            .frame(width: 50, height: 50)
                             .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
                     }
                     .padding(.horizontal, 10)

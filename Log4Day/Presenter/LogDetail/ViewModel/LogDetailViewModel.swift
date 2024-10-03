@@ -25,6 +25,7 @@ final class LogDetailViewModel: ObservableObject {
     
     enum Action {
         case placePicked(place: SearchedPlace)
+        case canclePicked
         case photoPicked
         case deleteButtonTapped(lastOnly: Bool)
         case createLog
@@ -36,6 +37,7 @@ final class LogDetailViewModel: ObservableObject {
     struct Input {
         var titleTextFieldReturn = PassthroughSubject<Void, Never>()
         var placePicked = PassthroughSubject<SearchedPlace, Never>()
+        var canclePicked = PassthroughSubject<Void, Never>()
         var photoPicked = PassthroughSubject<Void, Never>()
         var deleteButtonTapped = PassthroughSubject<Bool, Never>()
         var createLog = PassthroughSubject<Void, Never>()
@@ -44,6 +46,7 @@ final class LogDetailViewModel: ObservableObject {
         var setLog = PassthroughSubject<ObjectId, Never>()
         var title = ""
         var pickedImages: [UIImage] = []
+        var pickedPlaces: [Int] = []
     }
     
     struct Output {
@@ -60,6 +63,10 @@ final class LogDetailViewModel: ObservableObject {
     }
     
     init() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(cancelPickedPlaces),
+                                               name: NSNotification.Name("DismissedWithSwipe"),
+                                               object: nil)
         input.placePicked
             .sink { [weak self] searchedPlace in
                 self?.addPickedPlace(searchedPlace)
@@ -97,12 +104,19 @@ final class LogDetailViewModel: ObservableObject {
                 self?.setLog(id: id)
             }
             .store(in: &cancellables)
+        input.canclePicked
+            .sink { [weak self] _ in
+                self?.cancelPickedPlaces()
+            }
+            .store(in: &cancellables)
     }
     
     func action(_ action: Action) {
         switch action {
         case .placePicked(let place):
             input.placePicked.send(place)
+        case .canclePicked:
+            input.canclePicked.send(())
         case .photoPicked:
             input.photoPicked.send(())
         case .deleteButtonTapped(let lastOnly):
@@ -145,6 +159,7 @@ final class LogDetailViewModel: ObservableObject {
         output.placeList.append(place)
         output.coordinateList.append(nmgLatLng)
         output.cameraPointer = output.placeList.count-1
+        input.pickedPlaces.append(output.cameraPointer)
     }
     
     private func deletePickedPlace(_ lastOnly: Bool) {
@@ -160,6 +175,15 @@ final class LogDetailViewModel: ObservableObject {
             print("삭제후 카메라 위치:", output.cameraPointer)
         }
         
+    }
+    
+    @objc private func cancelPickedPlaces() {
+        let removeSet = IndexSet(input.pickedPlaces)
+        input.pickedPlaces.forEach { output.imageDict.removeValue(forKey: $0) }
+        output.coordinateList.remove(atOffsets: removeSet)
+        output.placeList.remove(atOffsets: removeSet)
+        output.cameraPointer = output.placeList.count == 0 ? 0 : output.placeList.count-2
+        input.pickedPlaces.removeAll()
     }
     
     private func addImages() {

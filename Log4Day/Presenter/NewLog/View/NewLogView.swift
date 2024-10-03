@@ -94,7 +94,7 @@ struct NewLogView: View {
     }
     
     private func placeList() -> some View {
-        LazyVStack {
+        VStack {
             if !viewModel.output.placeList.isEmpty {
                 VStack {
                     HStack {

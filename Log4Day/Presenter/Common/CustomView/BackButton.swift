@@ -9,10 +9,13 @@ import SwiftUI
 
 struct BackButton: View {
     
+    var dismissHandler: () -> Void?
+    
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
         Button {
+            dismissHandler()
             self.presentationMode.wrappedValue.dismiss()
         } label: {
             HStack {
@@ -23,8 +26,4 @@ struct BackButton: View {
         .foregroundStyle(.black)
     }
     
-}
-
-#Preview {
-    BackButton()
 }
