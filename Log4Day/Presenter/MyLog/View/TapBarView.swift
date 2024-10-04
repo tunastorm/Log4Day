@@ -24,16 +24,12 @@ struct TapBarView: View {
             Section(header: TopTabbar(animation: animation)
                             .environmentObject(viewModel)
             ) {
-                VStack {
-                    switch viewModel.output.selectedPicker {
-                    case .timeline: timelineList()
-                    case .place: placeList()
-//                    case .waited: waitedList()
-                    }
+                switch viewModel.output.selectedPicker {
+                case .timeline:
+                    timelineList()
+                case .place:
+                    placeList()
                 }
-                .background(.clear)
-                .frame(maxWidth: .infinity)
-                .padding()
             }
         }
         .onAppear {
@@ -42,18 +38,23 @@ struct TapBarView: View {
     }
 
     private func timelineList() -> some View {
-        ForEach(viewModel.output.timeline.indices, id: \.self) { index in
-            NavigationLink {
-                NextViewWrapper(LogDetailView(logId: viewModel.output.timeline[index].id, categoryViewModel: categoryViewModel, myLogViewModel: viewModel))
-            } label: {
-                let log = viewModel.output.timeline[index]
-                return TimelineCell(index: index,
-                                    title: log.title,
-                                    startDate: log.startDate,
-                                    fourCutCount: log.fourCut.count)
-                    .environmentObject(viewModel)
+        LazyVStack {
+            ForEach(viewModel.output.timeline.indices, id: \.self) { index in
+                NavigationLink {
+                    NextViewWrapper(LogDetailView(logId: viewModel.output.timeline[index].id, categoryViewModel: categoryViewModel, myLogViewModel: viewModel))
+                } label: {
+                    let log = viewModel.output.timeline[index]
+                    return TimelineCell(index: index,
+                                        title: log.title,
+                                        startDate: log.startDate,
+                                        fourCutCount: log.fourCut.count)
+                        .environmentObject(viewModel)
+                }
             }
         }
+        .background(.clear)
+        .frame(maxWidth: .infinity)
+        .padding()
     }
     
     private func placeList() -> some View {
@@ -79,6 +80,9 @@ struct TapBarView: View {
                 }
             }
         }
+        .background(.clear)
+        .frame(maxWidth: .infinity)
+        .padding()
     }
     
 //    private func waitedList() -> some View {
@@ -95,28 +99,30 @@ struct TopTabbar: View {
     var animation: Namespace.ID
     
     var body: some View {
-        ZStack(alignment: .bottom) {
-            HStack {
-                ForEach(TapInfo.allCases, id: \.self) { item in
-                    VStack {
-                        Text(item.rawValue)
-                            .font(.headline)
-                            .frame(maxWidth: .infinity/4, minHeight: 30)
-                            .foregroundColor(viewModel.output.selectedPicker == item ?
-                                .mint: .gray)
+//        ZStack(alignment: .bottom) {
+//            
+//        }
+        
+        HStack {
+            ForEach(TapInfo.allCases, id: \.self) { item in
+                LazyVStack {
+                    Text(item.rawValue)
+                        .font(.headline)
+                        .frame(maxWidth: .infinity/4, minHeight: 30)
+                        .foregroundColor(viewModel.output.selectedPicker == item ?
+                            .mint: .gray)
+                        .padding(.horizontal)
+                    if viewModel.output.selectedPicker == item {
+                        Capsule()
+                            .foregroundColor(ColorManager.shared.ciColor.highlightColor)
+                            .frame(height: 3)
+                            .matchedGeometryEffect(id: "info", in: animation)
                             .padding(.horizontal)
-                        if viewModel.output.selectedPicker == item {
-                            Capsule()
-                                .foregroundColor(ColorManager.shared.ciColor.highlightColor)
-                                .frame(height: 3)
-                                .matchedGeometryEffect(id: "info", in: animation)
-                                .padding(.horizontal)
-                        }
                     }
-                    .onTapGesture {
-                        withAnimation(.easeInOut) {
-                            viewModel.action(.tapBarChanged(info: item))
-                        }
+                }
+                .onTapGesture {
+                    withAnimation(.none) {
+                        viewModel.action(.tapBarChanged(info: item))
                     }
                 }
             }

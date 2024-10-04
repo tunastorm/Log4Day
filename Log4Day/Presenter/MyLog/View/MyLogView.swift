@@ -100,10 +100,10 @@ struct MyLogView: View {
                         .cornerRadius(20, corners: .allCorners)
                         .foregroundStyle(.white)
                 }
-                .padding(.top, 100)
+                .padding(.top, 65)
                 Spacer()
             }
-            .frame(height: 300)
+            .frame(height: 250)
             .frame(maxWidth: .infinity)
             .background(.white)
         }
@@ -181,7 +181,8 @@ struct MyLogView: View {
                 FourCutPictureView(currentIndex: currentIndex, 
                                    index: index,
                                    lastCell: lastCell,
-                                   title: data.title,
+                                   title: data.title, 
+                                   date: DateFormatManager.shared.dateToFormattedString(date: data.startDate, format: .dotSeparatedyyyyMMdd),
                                    photos: Array( data.fourCut),
                                    hashTags: "#\(data.places.map { $0.hashtag }.joined(separator: " #"))",
                                    backgroundWidthHeight: (bannerWidth,  bannerHeight), 
@@ -194,6 +195,7 @@ struct MyLogView: View {
                                        index: index,
                                        lastCell: lastCell,
                                        title: title,
+                                       date: DateFormatManager.shared.dateToFormattedString(date: fourCutLogList.last?.startDate ?? Date(), format: .dotSeparatedyyyyMMdd),
                                        photos: Array(fourCutLogList.last?.fourCut ?? List<Photo>()),
                                        hashTags: hashTags,
                                        backgroundWidthHeight: (bannerWidth, bannerHeight),
@@ -206,6 +208,7 @@ struct MyLogView: View {
                                        index: index,
                                        lastCell: lastCell,
                                        title: title,
+                                       date: DateFormatManager.shared.dateToFormattedString(date: fourCutLogList.first?.startDate ?? Date(), format: .dotSeparatedyyyyMMdd),
                                        photos: Array(fourCutLogList.first?.fourCut ?? List<Photo>()),
                                        hashTags: hashTags,
                                        backgroundWidthHeight: (bannerWidth, bannerHeight),

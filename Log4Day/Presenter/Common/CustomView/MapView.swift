@@ -20,7 +20,7 @@ struct LogNaverMapView: View {
                          placeList: $placeList,
                          imageDict: $imageDict,
                          coordinateList: $coordinateList)
-        .frame(height: isFull ? .infinity : 300)
+        .frame(height: isFull ? .infinity : 250)
         .frame(maxWidth: .infinity)
     }
     

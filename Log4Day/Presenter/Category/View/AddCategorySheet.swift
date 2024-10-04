@@ -40,7 +40,7 @@ struct AddCategorySheet: View {
                     }
                 }
             }
-            .padding(.bottom, 80)
+            .padding(.bottom, isFocused ? 40 : 90)
         }
         .frame(height: isFocused ? 170 : 250)
         .animation(.easeInOut, value: isFocused)

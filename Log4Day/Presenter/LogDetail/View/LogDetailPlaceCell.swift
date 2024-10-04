@@ -64,8 +64,8 @@ struct LogDetailPlaceCell: View {
                     }
                     HStack {
                         Text(place.ofPhoto.isEmpty ?
-                             viewModel.output.imageDict[indexInfo.0]?.isEmpty ?? true ?  "사진 없음" : "사진 \(viewModel.output.imageDict[indexInfo.0]?.count ?? 0)"
-                             : "사진 \(place.ofPhoto.count)"
+                             viewModel.output.imageDict[indexInfo.0]?.isEmpty ?? true ? "사진 없음" : "사진 \(viewModel.output.imageDict[indexInfo.0]?.count ?? 0)장"
+                             : "사진 \(place.ofPhoto.count)장"
                         )
                         .font(.caption)
                         .foregroundStyle(ColorManager.shared.ciColor.subContentColor)

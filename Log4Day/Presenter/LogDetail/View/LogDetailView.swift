@@ -26,6 +26,7 @@ struct LogDetailView: View {
             Menu {
                Button {
                    viewModel.action(.updateLog(id: logId))
+                   myLogViewModel.action(.changeCategory)
                } label: {
                    Label(
                        title: { Text("수정") },
@@ -78,15 +79,17 @@ struct LogDetailView: View {
     
     private func contentView() -> some View {
         ScrollView {
-            titleView()
-            LogNaverMapView(isFull: false,
-                            cameraPointer: $viewModel.output.cameraPointer,
-                            placeList:  $viewModel.output.placeList,
-                            imageDict: $viewModel.output.imageDict,
-                            coordinateList: $viewModel.output.coordinateList
-            )
-//            placeButton()
-            placeList()
+            LazyVStack {
+                titleView()
+                LogNaverMapView(isFull: false,
+                                cameraPointer: $viewModel.output.cameraPointer,
+                                placeList:  $viewModel.output.placeList,
+                                imageDict: $viewModel.output.imageDict,
+                                coordinateList: $viewModel.output.coordinateList
+                )
+                placeList()
+//                placeButton()
+            }
         }
     }
 
@@ -163,18 +166,23 @@ struct LogDetailView: View {
     }
     
     private func placeList() -> some View {
-        LazyVStack {
-            ForEach(viewModel.output.placeList.indices, id: \.self) { index in
-                LogDetailPlaceCell(controller: .logDetail,
-                                   viewModel: viewModel,
-                                   indexInfo: (index, viewModel.output.placeList.count),
-                                   place: viewModel.output.placeList[index])
+        VStack {
+            LazyVStack(pinnedViews: [.sectionHeaders]) {
+                Section(header: PlaceListHeader(viewModel: viewModel)) {
+                    ForEach(viewModel.output.placeList.indices, id: \.self) { index in
+                        LogDetailPlaceCell(
+                            controller: .logDetail, 
+                            viewModel: viewModel,
+                            indexInfo: (index, viewModel.output.placeList.count),
+                            place: viewModel.output.placeList[index]
+                        )
+                    }
+                }
             }
         }
         .background(.clear)
         .frame(maxWidth: .infinity)
         .padding()
-        
     }
     
 }

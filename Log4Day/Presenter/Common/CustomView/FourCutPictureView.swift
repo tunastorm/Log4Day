@@ -20,6 +20,8 @@ struct FourCutPictureView: View {
     
     var title: String
     
+    var date: String
+    
     var photos: [Photo]
     
     var hashTags: String
@@ -47,7 +49,7 @@ struct FourCutPictureView: View {
     }
     
     private func contentsView() -> some View {
-        VStack {
+        VStack(alignment: .center) {
             ImageGrid()
             Text(title)
                 .frame(height: 30)
@@ -55,13 +57,12 @@ struct FourCutPictureView: View {
                 .foregroundStyle(.black.opacity(0.8))
                 .padding(.top)
             HStack {
-                Text("No.\(Int(index))")
+                Spacer()
+                Text(date)
                     .font(.system(size: 12))
                     .frame(height: 30)
-                    .frame(alignment: .leading)
                     .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
-                    .padding(.leading)
-                Spacer()
+                    .padding(.horizontal)
             }
         }
         .padding()

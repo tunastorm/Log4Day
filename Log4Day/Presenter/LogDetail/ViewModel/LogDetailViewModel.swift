@@ -25,10 +25,11 @@ final class LogDetailViewModel: ObservableObject {
     
     enum Action {
         case placePicked(place: SearchedPlace)
-        case canclePicked
+        case cancelPickedPlaces
         case photoPicked
         case deleteButtonTapped(lastOnly: Bool)
         case placeEditButtonTapped
+        case cancelPickedImages
         case createLog
         case updateLog(id: ObjectId)
         case deleteLog(id: ObjectId)
@@ -38,10 +39,11 @@ final class LogDetailViewModel: ObservableObject {
     struct Input {
         let titleTextFieldReturn = PassthroughSubject<Void, Never>()
         let placePicked = PassthroughSubject<SearchedPlace, Never>()
-        let canclePicked = PassthroughSubject<Void, Never>()
+        let cancelPickedPlaces = PassthroughSubject<Void, Never>()
         let photoPicked = PassthroughSubject<Void, Never>()
         let deleteButtonTapped = PassthroughSubject<Bool, Never>()
         let placeEditButtonTapped = PassthroughSubject<Void, Never>()
+        let cancelPickedImages = PassthroughSubject<Void, Never>()
         let createLog = PassthroughSubject<Void, Never>()
         let updateLog = PassthroughSubject<ObjectId, Never>()
         let deleteLog = PassthroughSubject<ObjectId, Never>()
@@ -49,6 +51,7 @@ final class LogDetailViewModel: ObservableObject {
         var title = ""
         var pickedImages: [UIImage] = []
         var pickedPlaces: [Int] = []
+        var cancelImages: [Int] = []
     }
     
     struct Output {
@@ -117,9 +120,14 @@ final class LogDetailViewModel: ObservableObject {
             }
             .store(in: &cancellables)
         
-        input.canclePicked
+        input.cancelPickedPlaces
             .sink { [weak self] _ in
                 self?.cancelPickedPlaces()
+            }
+            .store(in: &cancellables)
+        input.cancelPickedImages
+            .sink { [weak self] _ in
+                self?.cancelPickedImages()
             }
             .store(in: &cancellables)
     }
@@ -128,8 +136,8 @@ final class LogDetailViewModel: ObservableObject {
         switch action {
         case .placePicked(let place):
             input.placePicked.send(place)
-        case .canclePicked:
-            input.canclePicked.send(())
+        case .cancelPickedPlaces:
+            input.cancelPickedPlaces.send(())
         case .photoPicked:
             input.photoPicked.send(())
         case .deleteButtonTapped(let lastOnly):
@@ -144,6 +152,8 @@ final class LogDetailViewModel: ObservableObject {
             input.deleteLog.send(id)
         case .setLog(let id):
             input.setLog.send(id)
+        case .cancelPickedImages:
+            input.cancelPickedImages.send(())
         }
     }
     
@@ -223,9 +233,14 @@ final class LogDetailViewModel: ObservableObject {
                 resizedList.append(image)
             }
         }
-        output.imageDict[output.cameraPointer] = resizedList
+        output.imageDict[output.cameraPointer]?.append(contentsOf: resizedList)
         input.pickedImages.removeAll()
-        
+    }
+    
+    private func cancelPickedImages() {
+        let cancelSet = IndexSet(input.cancelImages)
+        output.imageDict[output.cameraPointer]?.remove(atOffsets: cancelSet)
+        input.cancelImages.removeAll()
     }
     
     private func createLog() {

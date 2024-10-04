@@ -81,6 +81,7 @@ struct SideView: View {
         }
         .frame(height: 40)
         .frame(maxWidth: .infinity)
+        .padding(.bottom, 5)
     }
     
     private func deleteButton() -> some View {
@@ -96,9 +97,7 @@ struct SideView: View {
         }
         .padding(.horizontal)
         .alert(LocalizedStringKey("'\(viewModel.output.category)' 카테고리를 삭제하시겠습니까?"), isPresented: $viewModel.output.deleteAlert) {
-            Button("취소", role: .cancel) {
-                
-            }
+            Button("취소", role: .cancel) { }
             Button("삭제", role: .destructive) {
                 viewModel.action(.deleteAlertTapped)
                 deleteResultHandler()

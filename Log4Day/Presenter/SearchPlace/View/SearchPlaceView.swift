@@ -73,7 +73,7 @@ struct SearchPlaceView: View {
                 }
             }
         } dismissHandler: {
-            newLogViewModel.action(.canclePicked)
+            newLogViewModel.action(.cancelPickedPlaces)
         }
     }
 

@@ -109,7 +109,7 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
                     isDragging = true
                
                     let offsetX = value.translation.width
-                    withAnimation(.easeIn(duration: 0.2)) {
+                    withAnimation(.easeIn(duration: 0.1)) {
                         if offsetX < -50 { // 오른쪽으로 스와이프
                             currentIndex = min(currentIndex + 1, CGFloat(data.count)+1)
                         } else if offsetX > 50 { // 왼쪽으로 스와이프
@@ -123,7 +123,7 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
                     } else if currentIndex < 1 {
                         currentOffset = -CGFloat(data.count) * nextOffset
                     }
-                    withAnimation(.easeIn(duration: 0.2))  {
+                    withAnimation(.easeIn(duration: 0.1))  {
                         if currentIndex < 1 {
                             currentIndex = CGFloat(data.count)
                         } else if currentIndex > CGFloat(data.count) {
@@ -131,7 +131,7 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
                         }
                     }
                     fetchLogDate()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                         isDragging = false
                     }
                 }
