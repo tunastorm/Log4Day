@@ -83,7 +83,6 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
                                               contentWidth: contentWidth,
                                               nextOffset: nextOffset, index: CGFloat(index + 1))
                         }
-                        
                         configContentView(contentView: overContent(lastCell + 1, $currentIndex, lastCell),
                                           contentWidth: contentWidth,
                                           nextOffset: nextOffset, index: CGFloat(lastCell + 1))

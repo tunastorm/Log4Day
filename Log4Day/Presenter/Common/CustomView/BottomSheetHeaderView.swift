@@ -15,7 +15,7 @@ struct BottomSheetHeaderView: View {
         HStack {
             Text(title)
                 .font(.title3)
-                .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
+                .foregroundStyle(.secondary)
                 .padding(.leading)
             Spacer()
         }

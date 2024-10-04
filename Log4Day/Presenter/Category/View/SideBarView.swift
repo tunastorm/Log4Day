@@ -25,7 +25,7 @@ struct SideBarView: View {
                 Rectangle()
                     .frame(maxWidth: .infinity)
                     .foregroundStyle(.white)
-                    .opacity(viewModel.output.showSide ? 0.6 : 0)
+                    .opacity(viewModel.output.showSide ? 0.7 : 0)
                     .onTapGesture {
                         withAnimation {
                             viewModel.action(.sideBarButtonTapped)

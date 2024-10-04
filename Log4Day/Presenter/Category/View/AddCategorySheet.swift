@@ -42,7 +42,7 @@ struct AddCategorySheet: View {
             }
             .padding(.bottom, 80)
         }
-        .frame(height: isFocused ? 220 : 300)
+        .frame(height: isFocused ? 170 : 250)
         .animation(.easeInOut, value: isFocused)
         .background(ColorManager.shared.ciColor.backgroundColor)
     }

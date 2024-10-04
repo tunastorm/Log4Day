@@ -52,7 +52,7 @@ struct LogMapView: View {
 //            viewModel.action(.fetchFirstLastDate)
             viewModel.action(.initialFetch)
         }
-        .bottomSheet(bottomSheetPosition: $logDetailViewModel.output.showPlaceListSheet,
+        .bottomSheet(bottomSheetPosition: $logDetailViewModel.output.showPlaceEditSheet,
                      switchablePositions: [.hidden, .dynamic]) {
             ScrollView {
                 ForEach(logDetailViewModel.output.placeList.indices, id: \.self) { index in

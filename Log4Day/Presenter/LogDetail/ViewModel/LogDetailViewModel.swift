@@ -28,6 +28,7 @@ final class LogDetailViewModel: ObservableObject {
         case canclePicked
         case photoPicked
         case deleteButtonTapped(lastOnly: Bool)
+        case placeEditButtonTapped
         case createLog
         case updateLog(id: ObjectId)
         case deleteLog(id: ObjectId)
@@ -35,15 +36,16 @@ final class LogDetailViewModel: ObservableObject {
     }
     
     struct Input {
-        var titleTextFieldReturn = PassthroughSubject<Void, Never>()
-        var placePicked = PassthroughSubject<SearchedPlace, Never>()
-        var canclePicked = PassthroughSubject<Void, Never>()
-        var photoPicked = PassthroughSubject<Void, Never>()
-        var deleteButtonTapped = PassthroughSubject<Bool, Never>()
-        var createLog = PassthroughSubject<Void, Never>()
-        var updateLog = PassthroughSubject<ObjectId, Never>()
-        var deleteLog = PassthroughSubject<ObjectId, Never>()
-        var setLog = PassthroughSubject<ObjectId, Never>()
+        let titleTextFieldReturn = PassthroughSubject<Void, Never>()
+        let placePicked = PassthroughSubject<SearchedPlace, Never>()
+        let canclePicked = PassthroughSubject<Void, Never>()
+        let photoPicked = PassthroughSubject<Void, Never>()
+        let deleteButtonTapped = PassthroughSubject<Bool, Never>()
+        let placeEditButtonTapped = PassthroughSubject<Void, Never>()
+        let createLog = PassthroughSubject<Void, Never>()
+        let updateLog = PassthroughSubject<ObjectId, Never>()
+        let deleteLog = PassthroughSubject<ObjectId, Never>()
+        let setLog = PassthroughSubject<ObjectId, Never>()
         var title = ""
         var pickedImages: [UIImage] = []
         var pickedPlaces: [Int] = []
@@ -52,7 +54,7 @@ final class LogDetailViewModel: ObservableObject {
     struct Output {
         var category = ""
         var date = Date()
-        var showPlaceListSheet: BottomSheetPosition = .dynamic
+        var showPlaceEditSheet: BottomSheetPosition = .hidden
         var cameraPointer = 0
         var tagList: [String] = []
         var placeList: [Place] = []
@@ -84,26 +86,37 @@ final class LogDetailViewModel: ObservableObject {
                 self?.deletePickedPlace(lastOnly)
             }
             .store(in: &cancellables)
+        
+        input.placeEditButtonTapped
+            .sink { [weak self] _ in
+                self?.togglePlaceEditSheet()
+            }
+            .store(in: &cancellables)
+        
         input.createLog
             .sink { [weak self] _ in
                 self?.createLog()
             }
             .store(in: &cancellables)
+        
         input.updateLog
             .sink { [weak self] id in
                 self?.updateLog(id: id)
             }
             .store(in: &cancellables)
+        
         input.deleteLog
             .sink { [weak self] id in
                 self?.deleteLog(id)
             }
             .store(in: &cancellables)
+        
         input.setLog
             .sink { [weak self] id in
                 self?.setLog(id: id)
             }
             .store(in: &cancellables)
+        
         input.canclePicked
             .sink { [weak self] _ in
                 self?.cancelPickedPlaces()
@@ -121,6 +134,8 @@ final class LogDetailViewModel: ObservableObject {
             input.photoPicked.send(())
         case .deleteButtonTapped(let lastOnly):
             input.deleteButtonTapped.send(lastOnly)
+        case .placeEditButtonTapped:
+            input.placeEditButtonTapped.send(())
         case .createLog:
             input.createLog.send(())
         case .updateLog(let id):
@@ -132,8 +147,8 @@ final class LogDetailViewModel: ObservableObject {
         }
     }
     
-    private func showPlaceListSheet() {
-        output.showPlaceListSheet = output.showPlaceListSheet == .dynamicBottom ? .dynamic : .dynamicBottom
+    private func togglePlaceEditSheet() {
+        output.showPlaceEditSheet = output.showPlaceEditSheet == .hidden ? .dynamic : .hidden
     }
     
     private func divideCoordinate(mapX: String, mapY: String) -> (Double, Double)? {
@@ -376,7 +391,7 @@ final class LogDetailViewModel: ObservableObject {
         input.pickedImages.removeAll()
         output.category = ""
         output.date = Date()
-        output.showPlaceListSheet = .hidden
+        output.showPlaceEditSheet = .dynamicBottom
         output.cameraPointer = 0
         output.tagList.removeAll()
         output.placeList.removeAll()

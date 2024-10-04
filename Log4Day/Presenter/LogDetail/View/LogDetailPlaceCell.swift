@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import PhotosUI
 
 struct LogDetailPlaceCell: View {
     
@@ -14,20 +13,10 @@ struct LogDetailPlaceCell: View {
     
     @ObservedObject var viewModel: LogDetailViewModel
     @State private var isSelected: Bool = false
-    @State private var showPicker: Bool = false
     
     var indexInfo: (Int,Int)
     var place: Place
 
-    var pickerConfig: (Int) -> PHPickerConfiguration = { limit in
-          var config = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
-          config.filter = .images
-          config.selection = .ordered
-          config.selectionLimit = limit
-          config.preferredAssetRepresentationMode = .current // 트랜스 코딩을 방지
-          return config
-    }
-    
     var body: some View {
         return cellView()
     }
@@ -53,7 +42,7 @@ struct LogDetailPlaceCell: View {
     }
 
     private func numberingView(_ photoCount: Int) -> some View {
-        Text("\(photoCount)")
+        Text("\(indexInfo.0 + 1)")
             .foregroundStyle(.white)
             .frame(width: 40, height: 40)
             .background(isSelected ? ColorManager.shared.ciColor.highlightColor : ColorManager.shared.ciColor.subContentColor )
@@ -74,33 +63,26 @@ struct LogDetailPlaceCell: View {
                         Spacer()
                     }
                     HStack {
-                        Text(place.address)
-                            .font(.caption)
-                            .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
+                        Text(place.ofPhoto.isEmpty ?
+                             viewModel.output.imageDict[indexInfo.0]?.isEmpty ?? true ?  "사진 없음" : "사진 \(viewModel.output.imageDict[indexInfo.0]?.count ?? 0)"
+                             : "사진 \(place.ofPhoto.count)"
+                        )
+                        .font(.caption)
+                        .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
                         Spacer()
                     }
                 }
-                if controller == .newLogView {
+                if controller == .newLogView, isSelected {
                     Button {
-                        if viewModel.output.imageDict.values.count < 4 {
-                            showPicker.toggle()
-                            viewModel.output.cameraPointer = indexInfo.0
-                        } else {
-                            
-                        }
+                        viewModel.action(.placeEditButtonTapped)
                     } label: {
-                        Image(systemName: "photo.badge.plus")
-                            .frame(width: 50, height: 50)
-                            .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
+                        Text("편집")
+                            .font(.body)
+//                        Image(systemName: "photo.badge.plus")
+//                            .frame(width: 50, height: 50)
+                            .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
                     }
                     .padding(.horizontal, 10)
-                    .sheet(isPresented: $showPicker, content: {
-                        let limit = 4 - viewModel.output.imageDict.values.flatMap{ $0 }.count
-                        return PhotoPicker(viewModel: viewModel,
-                                    isPresented: $showPicker,
-                                    configuration: pickerConfig(limit))
-                            .ignoresSafeArea()
-                    })
                 }
             }
             .padding(.vertical)
