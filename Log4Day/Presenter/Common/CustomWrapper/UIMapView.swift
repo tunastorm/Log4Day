@@ -223,7 +223,9 @@ struct UIMapView: UIViewRepresentable {
         
         func selectedMarkerToggle() {
             let markerCount = markerList.count
-            if cameraPointer <= markerCount {
+            print("마커 목록:", markerCount)
+            print("선택된 마커의 카메라 위치:", cameraPointer)
+            if markerCount > 0, cameraPointer < markerCount {
                 if cameraPointer != lastCameraPointer, lastCameraPointer >= 0, lastCameraPointer <= markerCount {
                     markerList[lastCameraPointer].iconImage = markerImage(lastCameraPointer)
                 }
@@ -260,7 +262,7 @@ struct UIMapView: UIViewRepresentable {
                                         count: imageDict[index]?.count ?? 0,
                                         image: imageDict[index]?.first)
             
-            let size = index == cameraPointer ? 122 : 112
+            let size = index == cameraPointer ? 119 : 109
             let controller = UIHostingController(rootView: markerView)
             controller.view.frame = CGRect(origin: .zero, size: CGSize(width: size, height: size))
             controller.view.backgroundColor = .clear

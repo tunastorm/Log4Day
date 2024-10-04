@@ -59,14 +59,14 @@ struct SearchPlaceView: View {
                         } label: {
                             Text("추가하기")
                                 .foregroundStyle(.white)
+                                .frame(height: 50)
+                                .frame(maxWidth: .infinity)
+                                .background(ColorManager.shared.ciColor.highlightColor)
+                                .cornerRadius(10, corners: .allCorners)
+                                .padding(.top, 10)
+                                .padding(.horizontal)
+                                .padding(.bottom)
                         }
-                        .frame(height: 50)
-                        .frame(maxWidth: .infinity)
-                        .background(ColorManager.shared.ciColor.highlightColor)
-                        .cornerRadius(10, corners: .allCorners)
-                        .padding(.top, 10)
-                        .padding(.horizontal)
-                        .padding(.bottom)
                         Spacer()
                     }
                     .cornerRadius(20, corners: [.topLeft, .topRight])

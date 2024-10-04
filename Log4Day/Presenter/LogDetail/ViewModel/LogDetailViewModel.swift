@@ -241,14 +241,42 @@ final class LogDetailViewModel: ObservableObject {
         input.cancelImages.removeAll()
     }
     
-    private func createLog() {
+    private func setLog(id: ObjectId) {
+        guard let log = repository.fetchItem(object: Log.self, primaryKey: id) else {
+            return
+        }
+        input.title = log.title
+        output.category = log.owner.first?.title ?? ""
+        output.date = log.startDate
+        output.placeList = Array(log.places)
+        output.coordinateList = log.places.map { NMGLatLng(lat: $0.latitude, lng: $0.longitude) }
+        log.fourCut.forEach { [weak self] photo in
+            guard let photoPlace = photo.place else {
+                return
+            }
+            let image = self?.photoManager.loadImageToDocument(filename: photo.name) ?? UIImage(systemName: "photo")!
+            log.places.enumerated().forEach { index, place in
+                if place.id == photoPlace.id {
+                    if let keys = self?.output.imageDict.keys, !keys.contains(index) {
+                        self?.output.imageDict[index] = []
+                    }
+                    self?.output.imageDict[index]?.append(image)
+                }
+            }
+        }
+    }
+    
+    private func setPlacesAndPhotosToLog(log: Log) -> Log {
         
-        let log = Log(title: input.title,
-                      startDate: output.date,
-                      endDate: output.date)
+        if log.fourCut.count > 0 {
+            log.fourCut.removeAll()
+        }
+        
+        if log.places.count > 0 {
+            log.places.removeAll()
+        }
         
         output.placeList.enumerated().forEach { index, place in
-            
             if output.imageDict.keys.contains(index) {
                 output.imageDict[index]?.enumerated().forEach { index, image in
                     let filename = "\(place.id)_\(index)"
@@ -260,6 +288,16 @@ final class LogDetailViewModel: ObservableObject {
             
             log.places.append(place)
         }
+        
+        return log
+    }
+    
+    private func createLog() {
+        var log = Log(title: input.title,
+                      startDate: output.date,
+                      endDate: output.date)
+        
+        log = setPlacesAndPhotosToLog(log: log)
         
         if output.category != "" {
             repository.queryProperty { [weak self] in
@@ -293,37 +331,14 @@ final class LogDetailViewModel: ObservableObject {
         resetData()
     }
     
-    private func setLog(id: ObjectId) {
-        guard let log = repository.fetchItem(object: Log.self, primaryKey: id) else {
-            return
-        }
-        input.title = log.title
-        output.category = log.owner.first?.title ?? ""
-        output.date = log.startDate
-        output.placeList = Array(log.places)
-        output.coordinateList = log.places.map { NMGLatLng(lat: $0.latitude, lng: $0.longitude) }
-        log.fourCut.forEach { [weak self] photo in
-            guard let photoPlace = photo.place else {
-                return
-            }
-            let image = self?.photoManager.loadImageToDocument(filename: photo.name) ?? UIImage(systemName: "photo")!
-            log.places.enumerated().forEach { index, place in
-                if place.id == photoPlace.id {
-                    if let keys = self?.output.imageDict.keys, !keys.contains(index) {
-                        self?.output.imageDict[index] = []
-                    }
-                    self?.output.imageDict[index]?.append(image)
-                }
-            }
-        }
-    }
-    
     private func updateLog(id: ObjectId) {
-        guard let log = repository.fetchItem(object: Log.self, primaryKey: id) else {
+        guard var log = repository.fetchItem(object: Log.self, primaryKey: id) else {
             return
         }
+        
         repository.queryProperty { [weak self] in
-            self?.updateLogCategory(log)
+            log = setPlacesAndPhotosToLog(log: log)
+            self?.updateLogAndCategory(log)
         } completionHandler: { result in
             switch result {
             case .success(let rawStatus):
@@ -336,13 +351,18 @@ final class LogDetailViewModel: ObservableObject {
         }
     }
 
-    private func updateLogCategory(_ log: Log) {
+    private func updateLogAndCategory(_ log: Log) {
         if let owner = log.owner.first {
+            // 카테고리 기존과 동일
             if owner.title == output.category {
                 let filtered = owner.content.filter({ $0.id == log.id })
+                // 프로퍼티 변경사항 수정
                 if filtered.count > 0, let old = filtered.first {
                     old.title = input.title
+                    old.fourCut = log.fourCut
+                    old.places = log.places
                 }
+            // 카테고리 있음 -> 다른 카테고리 or 카테고리 없음으로 변경
             } else {
                 var index: Int?
                 owner.content.enumerated().forEach { idx, old in
@@ -350,16 +370,21 @@ final class LogDetailViewModel: ObservableObject {
                         index = idx
                     }
                 }
+                // 기존 카테고리에서 로그 삭제
                 if let index {
                     owner.content.remove(at: index)
+                    // 변경될 카테고리에 추가
                     if output.category != "" {
                         addLogToCategory(log)
                     }
                 }
+                // 프로퍼티 변경사항 수정
                 updateProperties(log)
             }
+        // 카테고리 없음 -> 특정 카테고리 부여
         } else if output.category != "" {
             addLogToCategory(log)
+        // 프로퍼티만 변경됨
         } else {
             updateProperties(log)
         }
@@ -368,6 +393,8 @@ final class LogDetailViewModel: ObservableObject {
     private func updateProperties(_ log: Log) {
         let old = repository.fetchItem(object: Log.self, primaryKey: log.id)
         old?.title = input.title
+        old?.fourCut = log.fourCut
+        old?.places = log.places
     }
     
     private func addLogToCategory(_ log: Log) {

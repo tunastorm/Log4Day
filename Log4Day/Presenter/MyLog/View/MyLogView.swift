@@ -21,15 +21,18 @@ struct MyLogView: View {
         GeometryReader { proxy in
             ZStack {
                 VStack {
-                    NavigationBar(title: "MyLog", button:
-                                    Button(action: {
-                        withAnimation(.spring()){
-                            categoryViewModel.action(.sideBarButtonTapped)
-                        }
-                    }, label: {
-                        Image(systemName: "tray")
-                            .font(.system(size: 20))
-                    })
+                    NavigationBar(
+                        title: "MyLog",
+                        button: Button(
+                            action: {
+                                withAnimation(.spring()){
+                                    categoryViewModel.action(.sideBarButtonTapped)
+                                }
+                            }, label: {
+                                Image(systemName: "tray")
+                                    .font(.system(size: 20))
+                            }
+                        )
                     )
                     ScrollView {
                         LazyVStack(pinnedViews: [.sectionHeaders]) {

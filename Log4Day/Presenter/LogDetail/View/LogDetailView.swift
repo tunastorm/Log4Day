@@ -8,6 +8,8 @@
 import SwiftUI
 import NMapsMap
 import RealmSwift
+import PhotosUI
+import SwiftUIX
 
 struct LogDetailView: View {
     
@@ -17,19 +19,34 @@ struct LogDetailView: View {
     @ObservedObject var myLogViewModel: MyLogViewModel
     @StateObject private var viewModel = LogDetailViewModel()
     
+    @State private var isInValid = true
+    @State private var showPicker: Bool = false
+    @State private var showCanclePicker: Bool = false
+    @State private var cancelList: [Int] = []
+    
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @FocusState private var titleFocused: Bool
     @FocusState private var addSheetIsFocused: Bool
+    
+    var pickerConfig: (Int) -> PHPickerConfiguration = { limit in
+          var config = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
+          config.filter = .images
+          config.selection = .ordered
+          config.selectionLimit = limit
+          config.preferredAssetRepresentationMode = .current // 트랜스 코딩을 방지
+          return config
+    }
     
     var body: some View {
         NavigationWrapper {
             Menu {
                Button {
                    viewModel.action(.updateLog(id: logId))
+                   myLogViewModel.input.selectedCategory = viewModel.output.category
                    myLogViewModel.action(.changeCategory)
                } label: {
                    Label(
-                       title: { Text("수정") },
+                       title: { Text("로그 수정") },
                        icon: { Image(systemName: "pencil")}
                    )
                }
@@ -38,7 +55,7 @@ struct LogDetailView: View {
                    presentationMode.wrappedValue.dismiss()
                } label: {
                    Label(
-                       title: { Text("삭제") },
+                       title: { Text("로그 삭제") },
                        icon: { Image(systemName: "xmark.circle")
                               
                        }
@@ -71,26 +88,65 @@ struct LogDetailView: View {
             .enableSwipeToDismiss()
             .enableTapToDismiss()
             .showCloseButton()
+            .bottomSheet(bottomSheetPosition: $viewModel.output.showPlaceEditSheet,
+                         switchablePositions: [.dynamic]) {
+                BottomSheetHeaderView(
+                    title: viewModel.output.placeList.count > 0 &&
+                           viewModel.output.cameraPointer >= 0 &&
+                           viewModel.output.cameraPointer < viewModel.output.placeList.count ?
+                           viewModel.output.placeList[viewModel.output.cameraPointer].name : ""
+                )
+            } mainContent: {
+                if viewModel.output.placeList.count > 0 {
+                    editPlaceSheetView()
+                }
+            }
+            .showDragIndicator(false)
+            .enableContentDrag()
+            .enableSwipeToDismiss()
+            .enableTapToDismiss()
+            .showCloseButton()
         } dismissHandler: { }
         .onAppear {
-            viewModel.action(.setLog(id: logId))
+            if viewModel.output.placeList.isEmpty {
+                viewModel.action(.setLog(id: logId))
+            }
         }
     }
     
     private func contentView() -> some View {
-        ScrollView {
-            LazyVStack {
-                titleView()
-                LogNaverMapView(isFull: false,
-                                cameraPointer: $viewModel.output.cameraPointer,
-                                placeList:  $viewModel.output.placeList,
-                                imageDict: $viewModel.output.imageDict,
-                                coordinateList: $viewModel.output.coordinateList
-                )
-                placeList()
-//                placeButton()
+        ZStack {
+            ScrollView {
+                LazyVStack {
+                    titleView()
+                    LogNaverMapView(isFull: false,
+                                    cameraPointer: $viewModel.output.cameraPointer,
+                                    placeList:  $viewModel.output.placeList,
+                                    imageDict: $viewModel.output.imageDict,
+                                    coordinateList: $viewModel.output.coordinateList
+                    )
+                    placeList()
+                    placeButton()
+                }
             }
+            Rectangle()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .foregroundColor(.white)
+                .opacity(viewModel.output.showPlaceEditSheet == .hidden ? 0 : 0.7)
         }
+        .sheet(isPresented: $showPicker, content: {
+            let limit = 4 - viewModel.output.imageDict.values.flatMap{ $0 }.count
+            PhotoPicker(
+                viewModel: viewModel,
+                isPresented: $showPicker,
+                configuration: pickerConfig(limit)
+            )
+            .ignoresSafeArea()
+        })
+        .sheet(isPresented: $showCanclePicker, content: {
+            deleteImageSheet()
+        })
+        
     }
 
     private func titleView() -> some View {
@@ -98,9 +154,19 @@ struct LogDetailView: View {
             HStack {
                 VStack(alignment: .leading) {
                     CategoryPickerView(categoryViewModel: categoryViewModel, viewModel: viewModel)
-                    TextField("", text: $viewModel.input.title)
+                    TextField("제목을 입력하세요", text: $viewModel.input.title)
                         .font(.title3)
                         .focused($titleFocused)
+                        .onChange(
+                            of: viewModel.input.title.isEmpty ||
+                                viewModel.input.title.replacingOccurrences(of: " ", with: "") == "" ||
+                                viewModel.output.placeList.isEmpty
+                        ) { self.isInValid = $0 }
+                        .onSubmit {
+                            self.isInValid = viewModel.input.title.isEmpty ||
+                            viewModel.input.title.replacingOccurrences(of: " ", with: "") == "" ||
+                            viewModel.output.placeList.isEmpty
+                        }
                     Text(DateFormatManager.shared.dateToFormattedString(date: viewModel.output.date,
                                                                         format: .dotSeparatedyyyyMMddDay))
                         .font(.callout)
@@ -110,59 +176,9 @@ struct LogDetailView: View {
                 .padding(.vertical)
                 Spacer()
             }
-
+            
         }
         
-    }
-
-    private func placeButton() -> some View {
-        VStack {
-            if viewModel.output.placeList.isEmpty {
-                HStack {
-                    Text("오늘의 추억이 남은 장소를 추가해 보세요")
-                        .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
-                }
-                .padding()
-            } else {
-                VStack {
-                    HStack {
-                        Text("사진")
-                            .padding(.leading, 5)
-                            .padding(.trailing, 20)
-                        Text("플레이스")
-                        Spacer()
-                    }
-                    Rectangle()
-                        .frame(height: 1)
-                        .frame(maxWidth: .infinity)
-                }
-                .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
-            }
-            
-            
-            HStack {
-                Spacer()
-                NavigationLink {
-                    SearchPlaceView(newLogViewModel: viewModel)
-                } label: {
-                    Text("추가")
-                        .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
-                }
-                .frame(width: 130, height: 40)
-                .border(cornerRadius: 5, stroke: .init(ColorManager.shared.ciColor.subContentColor.opacity(0.2), lineWidth:2))
-                if viewModel.output.placeList.count > 0 {
-                    Button("삭제") {
-                        viewModel.action(.deleteButtonTapped(lastOnly: false))
-                    }
-                    .frame(width: 130, height: 40)
-                    .border(cornerRadius: 5, stroke: .init(ColorManager.shared.ciColor.subContentColor.opacity(0.2), lineWidth:2))
-                    .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
-                    .padding(.leading, 10)
-                }
-                Spacer()
-            }
-            .padding(.top)
-        }
     }
     
     private func placeList() -> some View {
@@ -170,12 +186,9 @@ struct LogDetailView: View {
             LazyVStack(pinnedViews: [.sectionHeaders]) {
                 Section(header: PlaceListHeader(viewModel: viewModel)) {
                     ForEach(viewModel.output.placeList.indices, id: \.self) { index in
-                        LogDetailPlaceCell(
-                            controller: .logDetail, 
-                            viewModel: viewModel,
-                            indexInfo: (index, viewModel.output.placeList.count),
-                            place: viewModel.output.placeList[index]
-                        )
+                        LogDetailPlaceCell(controller: .newLogView, viewModel: viewModel,
+                                        indexInfo: (index, viewModel.output.placeList.count),
+                                        place: viewModel.output.placeList[index])
                     }
                 }
             }
@@ -185,23 +198,198 @@ struct LogDetailView: View {
         .padding()
     }
     
-}
-
-struct HashTagCell: View {
+    private func placeButton() -> some View {
+        VStack {
+            if viewModel.output.placeList.isEmpty {
+                HStack {
+                    Text("장소와 사진을 추가해\n오늘 하루를 네컷 사진으로 기록하세요")
+                        .multilineTextAlignment(.center)
+                        .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
+                }
+                .padding(.horizontal)
+                .padding(.bottom)
+            }
+            HStack {
+                Spacer()
+                NavigationLink {
+                    SearchPlaceView(newLogViewModel: viewModel)
+                } label: {
+                    Text("장소 추가")
+                        .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
+                }
+                .frame(width: 130, height: 40)
+                .border(cornerRadius: 5, stroke: .init(ColorManager.shared.ciColor.subContentColor.opacity(0.2), lineWidth:2))
     
-    var hashTag: String
+                if viewModel.output.placeList.count > 0 {
+                    Button("장소 삭제") {
+                        viewModel.action(.deleteButtonTapped(lastOnly: false))
+                    }
+                    .frame(width: 130, height: 40)
+                    .border(cornerRadius: 5, stroke: .init(ColorManager.shared.ciColor.subContentColor.opacity(0.2), lineWidth:2))
+                    .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
+                    .padding(.leading, 10)
+                }
+                Spacer()
+            }
+            .padding(.bottom)
+        }
+    }
     
-    var body: some View {
-        ZStack(alignment: .center) {
-            RoundedRectangle(cornerRadius: 15)
-                .frame(height: 30)
-                .frame(minWidth: 40)
+    private func editPlaceSheetView() -> some View {
+        print("장소:",viewModel.output.placeList.map{ $0.name })
+        print("카메라 위치:", viewModel.output.cameraPointer)
+        
+        let index = viewModel.output.cameraPointer >= 0 &&
+                    viewModel.output.cameraPointer < viewModel.output.placeList.count - 1 ?
+                    viewModel.output.cameraPointer : viewModel.output.placeList.count - 1
+        let place = viewModel.output.placeList[index]
+        return VStack(alignment: .center) {
+            VStack {
+                HStack {
+                    Text(place.address)
+                        .font(.body)
+                        .multilineTextAlignment(.leading)
+                        .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
+                    Spacer()
+                }
+            }
+            .padding(.top, 20)
+            .padding(.horizontal)
+            HStack {
+                Spacer()
+                Button {
+                    showPicker.toggle()
+                } label: {
+                    Text("사진 추가")
+                }
+                .disabled(viewModel.output.imageDict.values.flatMap({ $0 }).count >= 4)
+                .frame(width: 130, height: 40)
+                .border(cornerRadius: 5, stroke: .init(ColorManager.shared.ciColor.subContentColor.opacity(0.2), lineWidth:2))
                 .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
-            Text("#\(hashTag)")
-                .foregroundStyle(.white)
-                .font(.callout)
-                .padding(.horizontal, 6)
+                Spacer()
+                Button {
+                    showCanclePicker.toggle()
+                } label: {
+                    Text("사진 편집")
+                }
+                .disabled(viewModel.output.imageDict[viewModel.output.cameraPointer]?.count ?? 0 < 1)
+                .frame(width: 130, height: 40)
+                .border(cornerRadius: 5, stroke: .init(ColorManager.shared.ciColor.subContentColor.opacity(0.2), lineWidth:2))
+                .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
+                Spacer()
+            }
+            .padding(.top, 20)
+            .padding(.horizontal)
+            Spacer()
+        }
+        .frame(height: 200)
+        .frame(maxWidth: .infinity)
+        .background(.white)
+    }
+    
+    private func deleteImageSheet() -> some View {
+        let imageList = viewModel.output.imageDict[viewModel.output.cameraPointer] ?? []
+        return VStack {
+            HStack {
+                Button {
+                    showCanclePicker.toggle()
+                } label: {
+                    Image(systemName: "xmark")
+                        .frame(width: 40, height: 40)
+                }
+                .padding(.top)
+                .padding(.horizontal)
+                Text("사진 선택 \(cancelList.count) / \(imageList.count)")
+                    .padding(.top)
+                Spacer()
+            }
+            Rectangle()
+                .frame(height: 1)
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal)
+                .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
+            if viewModel.output.placeList.count > 0 {
+                ScrollView(.horizontal) {
+                    LazyHStack(alignment: .center) {
+                        ForEach(imageList.indices, id: \.self) { index in
+                            ZStack {
+                                VisualEffectBlurView(blurStyle: .systemChromeMaterial, vibrancyStyle: .fill) { }
+                                .frame(width: 300, height: 500)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 0, style: .continuous)
+                                        .stroke(lineWidth: 1)
+                                        .fill(Color.white)
+                                )
+                                .shadow(color: Color.black.opacity(0.3), radius: 4, x: 2, y: 4)
+                                .padding()
+                                .blendMode(.luminosity)
+                                VStack(alignment: .center) {
+                                    Image(uiImage: imageList[index])
+                                        .resizable()
+                                        .frame(width: 280, height: 480)
+                                        .padding(10)
+                                }
+                                .overlay {
+                                    Rectangle()
+                                        .stroke(lineWidth:cancelList.contains(index) ? 10 : 0)
+                                        .fill(ColorManager.shared.ciColor.subContentColor)
+                                        .frame(width: 290, height: 490)
+                                }
+                            }
+                            .padding(.horizontal)
+                            .onPress {
+                                if viewModel.input.cancelImages.contains(index) {
+                                    viewModel.input.cancelImages.removeAll(where: {$0 == index})
+                                    cancelList.removeAll(where: {$0 == index})
+                                } else {
+                                    viewModel.input.cancelImages.append(index)
+                                    cancelList.append(index)
+                                }
+                            }
+                        }
+                    }
+                }
+                .hideIndicator()
+                .padding(.vertical)
+                VStack(alignment: .center) {
+                    Button {
+                        if viewModel.input.cancelImages.count > 0 {
+                            viewModel.action(.cancelPickedImages)
+                        }
+                        showCanclePicker.toggle()
+                    } label: {
+                        Text("삭제하기")
+                            .foregroundStyle(.white)
+                            .frame(height: 50)
+                            .frame(maxWidth: .infinity)
+                            .background(ColorManager.shared.ciColor.highlightColor)
+                            .cornerRadius(10, corners: .allCorners)
+                            .padding(.horizontal)
+                            .padding(.bottom)
+                    }
+                }
+            }
+            
         }
     }
     
 }
+
+//struct HashTagCell: View {
+//    
+//    var hashTag: String
+//    
+//    var body: some View {
+//        ZStack(alignment: .center) {
+//            RoundedRectangle(cornerRadius: 15)
+//                .frame(height: 30)
+//                .frame(minWidth: 40)
+//                .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
+//            Text("#\(hashTag)")
+//                .foregroundStyle(.white)
+//                .font(.callout)
+//                .padding(.horizontal, 6)
+//        }
+//    }
+//    
+//}

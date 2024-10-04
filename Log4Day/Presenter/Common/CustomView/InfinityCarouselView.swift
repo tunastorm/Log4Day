@@ -135,6 +135,9 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
                 }
         )
         .onPress {
+            guard !data.isEmpty else {
+                return
+            }
             let width = UIScreen.main.bounds.width * 0.9
             let height = UIScreen.main.bounds.height * 0.9
             let controller = UIHostingController(rootView: contentView.background(.white))

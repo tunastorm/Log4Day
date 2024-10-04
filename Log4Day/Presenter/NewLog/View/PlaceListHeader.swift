@@ -23,7 +23,7 @@ struct PlaceListHeader: View {
                 Rectangle()
                     .frame(height: 1)
                     .frame(maxWidth: .infinity)
-                    .foregroundStyle(ColorManager.shared.ciColor.contentColor)
+                    .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
             }
         }
         .background(.white)
