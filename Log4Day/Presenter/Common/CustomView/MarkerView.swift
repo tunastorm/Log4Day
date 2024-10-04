@@ -28,10 +28,10 @@ struct MarkerView: View {
                     VStack {
                         HStack {
                             ZStack {
-                                RoundedRectangle(cornerRadius: 6)
+                                Rectangle()
                                     .frame(width: 16, height: 16)
                                     .foregroundStyle(isPointed ? .mint : .white)
-//                                        .cornerRadius(4, corners: .allCorners)
+                                    .cornerRadius(9.2, corners: [.topLeft, .bottomRight])
                                 Text(String(index+1))
                                     .font(.system(size: 10,weight: .bold))
                                     .foregroundStyle(isPointed ? .white : .gray)
@@ -44,10 +44,10 @@ struct MarkerView: View {
                             HStack {
                                 Spacer()
                                 ZStack {
-                                    RoundedRectangle(cornerRadius: 6)
+                                    Rectangle()
                                         .frame(width: 16, height: 16)
                                         .foregroundStyle(isPointed ? .mint : .white)
-    //                                        .cornerRadius(4, corners: .allCorners)
+                                        .cornerRadius(9.2, corners: [.topLeft, .bottomRight])
                                     Image(systemName: "plus")
                                         .font(.system(size: 10,weight: .bold))
                                         .foregroundStyle(isPointed ? .white : .gray)

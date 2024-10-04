@@ -52,7 +52,7 @@ final class LogDetailViewModel: ObservableObject {
     struct Output {
         var category = ""
         var date = Date()
-        var showPlaceListSheet: BottomSheetPosition = .hidden
+        var showPlaceListSheet: BottomSheetPosition = .dynamic
         var cameraPointer = 0
         var tagList: [String] = []
         var placeList: [Place] = []
@@ -133,7 +133,7 @@ final class LogDetailViewModel: ObservableObject {
     }
     
     private func showPlaceListSheet() {
-        output.showPlaceListSheet = output.showPlaceListSheet == .hidden ? .dynamic : .hidden
+        output.showPlaceListSheet = output.showPlaceListSheet == .dynamicBottom ? .dynamic : .dynamicBottom
     }
     
     private func divideCoordinate(mapX: String, mapY: String) -> (Double, Double)? {
