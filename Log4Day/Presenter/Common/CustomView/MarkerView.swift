@@ -81,9 +81,9 @@ struct ImageBubble: View {
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            Ellipse()
-                .frame(width: 20, height: 3)
-                .foregroundColor(.black.opacity(0.5))
+//            Ellipse()
+//                .frame(width: 20, height: 3)
+//                .foregroundColor(.black.opacity(0.5))
             Triangle()
                 .frame(width: 12, height: 8)
                 .foregroundStyle(isPointed ? .mint : .white)

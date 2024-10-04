@@ -60,7 +60,10 @@ struct NewLogView: View {
         .bottomSheet(bottomSheetPosition: $viewModel.output.showPlaceEditSheet,
                      switchablePositions: [.dynamic]) {
             BottomSheetHeaderView(
-                title: viewModel.output.placeList.count > 0 ? viewModel.output.placeList[viewModel.output.cameraPointer].name : ""
+                title: viewModel.output.placeList.count > 0 && 
+                       viewModel.output.cameraPointer >= 0 &&
+                       viewModel.output.cameraPointer < viewModel.output.placeList.count ?
+                       viewModel.output.placeList[viewModel.output.cameraPointer].name : ""
             )
         } mainContent: {
             if viewModel.output.placeList.count > 0 {
@@ -81,6 +84,7 @@ struct NewLogView: View {
                     title: "NewLog",
                     button: Button {
                             viewModel.action(.createLog)
+                            viewModel.output.showPlaceEditSheet = .hidden
                             tapSelection = 0
                         } label: {
                             Text("등록")

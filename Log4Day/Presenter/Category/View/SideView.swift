@@ -112,11 +112,6 @@ struct SideView: View {
             Text("추가하기")
         }
         .padding(.horizontal)
-//        .halfSheet(showSheet: $viewModel.output.showAddSheet) {
-//            AddCategorySheet(viewModel: viewModel)
-//        } onEnd: {
-//            print("Dismiss")
-//        }
     }
     
     private func addResultHandler() {

@@ -78,6 +78,6 @@ struct SettingButton: View {
     }
     
     private func resetData() {
-        print("데이터 초기화!!!")
+//        print("데이터 초기화!!!")
     }
 }

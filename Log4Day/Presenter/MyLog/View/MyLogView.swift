@@ -68,7 +68,7 @@ struct MyLogView: View {
             }
         }
         .onAppear {
-            print(Realm.Configuration.defaultConfiguration.fileURL)
+//            print(Realm.Configuration.defaultConfiguration.fileURL)
             viewModel.action(.fetchFirstLastDate)
             viewModel.action(.fetchLogDate(isInitial: true))
         }

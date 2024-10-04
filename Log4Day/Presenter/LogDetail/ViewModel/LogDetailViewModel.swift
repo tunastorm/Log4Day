@@ -198,10 +198,8 @@ final class LogDetailViewModel: ObservableObject {
             output.imageDict.removeValue(forKey: output.cameraPointer)
             output.coordinateList.remove(at: output.cameraPointer)
             output.placeList.remove(at: output.cameraPointer)
-            output.cameraPointer = output.placeList.count == 0 ? 0 : output.placeList.count-2
-            print("삭제후 카메라 위치:", output.cameraPointer)
         }
-        
+        output.cameraPointer = output.placeList.count <= 1 ? 0 : output.placeList.count-2
     }
     
     @objc private func cancelPickedPlaces() {

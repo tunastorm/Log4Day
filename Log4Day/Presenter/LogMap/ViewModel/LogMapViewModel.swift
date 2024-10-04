@@ -105,14 +105,7 @@ final class LogMapViewModel: ObservableObject {
         
         let nextDate = Calendar.current.date(byAdding: .day, value: 1, to: output.selectedDate)!
 
-        
-//        output.$logList.where {
-//
-//        }
         output.$logList.update()
-        print("패치 후 로그목록:", output.logList.count)
-        print("선택된 날짜:", output.selectedDate)
-        print("선택된 다음 날짜:", nextDate)
         output.logList.forEach { print($0.startDate) }
     }
     

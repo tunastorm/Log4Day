@@ -33,7 +33,7 @@ final class PhotoManager: FileManager {
         do {
             try data.write(to: fileURL)
         } catch {
-            print("file save error", error)
+//            print("file save error", error)
         }
     }
     

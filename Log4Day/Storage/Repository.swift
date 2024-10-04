@@ -26,7 +26,7 @@ final class Repository {
     }()
     
     func detectRealmURL() {
-        print(realm?.configuration.fileURL ?? "")
+//        print(realm?.configuration.fileURL ?? "")
     }
 
     func createItem(_ data: Object, complitionHandler: RepositoryResult) {

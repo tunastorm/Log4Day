@@ -100,10 +100,8 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
         .gesture(
             DragGesture()
                 .onEnded { value in
-                    print("onEnded")
                     guard isDragging == false,
                           viewModel.output.logList.count > 1 else {
-                        print("드래그 중")
                         return
                     }
                     isDragging = true
