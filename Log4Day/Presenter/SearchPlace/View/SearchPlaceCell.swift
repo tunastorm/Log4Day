@@ -55,7 +55,6 @@ struct SearchPlaceCell: View {
     
     private func contentsView() -> some View {
         VStack {
-            Spacer()
             VStack {
                 HStack {
                     Text(place.title.replacingOccurrences(of: "<b>", with: "")
