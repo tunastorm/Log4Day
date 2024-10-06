@@ -15,7 +15,7 @@ struct PlaceCell: View {
     var total: Int
     var placeName: String
     var photoCount: Int
-    var placeAdress: String
+    var createdAt: Date
 
     var body: some View {
         return cellView()
@@ -45,7 +45,7 @@ struct PlaceCell: View {
     }
 
     private func numberingView(_ photoCount: Int) -> some View {
-        Text("\(photoCount)")
+        Text("\(index + 1)")
             .foregroundStyle(.white)
             .frame(width: 40, height: 40)
             .background(photoCount > 0 ? ColorManager.shared.ciColor.highlightColor : ColorManager.shared.ciColor.subContentColor)
@@ -64,7 +64,7 @@ struct PlaceCell: View {
                     Spacer()
                 }
                 HStack {
-                    Text(placeAdress)
+                    Text(DateFormatManager.shared.dateToFormattedString(date: createdAt, format: .dotSeparatedyyyyMMddDay))
                         .font(.caption)
                         .multilineTextAlignment(.leading)
                         .foregroundStyle(ColorManager.shared.ciColor.subContentColor)

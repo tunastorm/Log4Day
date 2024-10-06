@@ -162,10 +162,12 @@ final class LogDetailViewModel: ObservableObject {
     }
     
     private func divideCoordinate(mapX: String, mapY: String) -> (Double, Double)? {
+        
         guard let X = Double(mapX), let Y = Double(mapY) else {
             return nil
         }
         return (Y / 1e7, X / 1e7)
+        
     }
     
     private func addPickedPlace(_ searched: SearchedPlace) {
@@ -254,7 +256,7 @@ final class LogDetailViewModel: ObservableObject {
             guard let photoPlace = photo.place else {
                 return
             }
-            let image = self?.photoManager.loadImageToDocument(filename: photo.name) ?? UIImage(systemName: "photo")!
+            let image = self?.photoManager.loadImageFromDocument(filename: photo.name) ?? UIImage(systemName: "photo")!
             log.places.enumerated().forEach { index, place in
                 if place.id == photoPlace.id {
                     if let keys = self?.output.imageDict.keys, !keys.contains(index) {

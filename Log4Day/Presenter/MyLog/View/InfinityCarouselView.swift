@@ -7,6 +7,7 @@
 
 import SwiftUI
 import RealmSwift
+import SnapKit
 
 struct InfinityCarouselView<Data: Object, Content: View>: View {
     
@@ -140,21 +141,18 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
             }
             let width = UIScreen.main.bounds.width * 0.9
             let height = UIScreen.main.bounds.height * 0.9
-            let controller = UIHostingController(rootView: contentView.background(.white))
-            controller.view.frame = CGRect(origin: .zero, size: CGSize(width: width, height: height))
-            controller.view.backgroundColor = .clear
-
+            let framedController = setFourCutImageFrame(contentView)
+            framedController.view.frame = CGRect(origin: .zero, size: CGSize(width: width, height: height))
             if let rootVC = UIApplication.shared.windows.first?.rootViewController {
-                rootVC.view.insertSubview(controller.view, at: 0)
-//                rootVC.view.backgroundColor = .systemGray
-
+                rootVC.view.insertSubview(framedController.view, at: 0)
+                
                 let renderer = UIGraphicsImageRenderer(size: CGSize(width: width, height: height))
-
+                
                 let fourCutImage = renderer.image { context in
-                    controller.view.layer.render(in: context.cgContext)
+                    framedController.view.layer.render(in: context.cgContext)
                 }
                 
-                controller.view.removeFromSuperview()
+                framedController.view.removeFromSuperview()
                 viewModel.action(.fourCutCellPressed(image: fourCutImage))
             }
         }
@@ -166,6 +164,106 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
         }
         viewModel.input.nowLogDate = DateFormatManager.shared.dateToFormattedString(date: nowLog.startDate, format: .dotSeparatedyyyyMMddDay)
         viewModel.action(.fetchLogDate(isInitial: false))
+    }
+    
+    private func setFourCutImageFrame(_ contentView: Content) -> UIHostingController<some View> {
+        var date = ""
+        
+        if let photoView = contentView as? FourCutPictureView {
+            let rawDate = photoView.photos.first?.owner.first?.startDate ?? Date()
+            date = DateFormatManager.shared.dateToFormattedString(date: rawDate, format: .dotSeparatedyyyyMMddDay)
+        }
+        
+        let edittedContentView = contentView
+                                    .background(.clear)
+                                    .opacity(1.5)
+                    
+        var controller = UIHostingController(rootView: edittedContentView)
+        
+        let dateLabel = {
+            let label = UILabel()
+            label.text = "Date: "
+            label.textAlignment = .left
+            label.font = .systemFont(ofSize: 12)
+            label.textColor = .black
+            label.layer.opacity = 0.25
+            return label
+        }()
+        
+        let photoDateLabel = {
+            let label = UILabel()
+            label.text = date
+            label.textAlignment = .left
+            label.font = .systemFont(ofSize: 14)
+            label.textColor = .black
+            return label
+        }()
+        
+        let lineView = {
+            let view = UIView()
+            view.backgroundColor = .black
+            view.layer.opacity = 0.25
+            return view
+        }()
+        
+        let poweredByLabel = {
+            let label = UILabel()
+            label.text = "Powered By "
+            label.textAlignment = .right
+            label.font = .systemFont(ofSize: 10)
+            label.textColor = .black
+            label.layer.opacity = 0.25
+            return label
+        }()
+        
+        let appTitleLabel = {
+            let label = UILabel()
+            label.text = "Log4Day"
+            label.font = .boldSystemFont(ofSize: 16)
+            label.textAlignment = .right
+            label.textColor = .systemMint
+            label.layer.opacity = 0.75
+            return label
+        }()
+        
+        controller.view.addSubview(poweredByLabel)
+        controller.view.addSubview(appTitleLabel)
+        controller.view.addSubview(dateLabel)
+        controller.view.addSubview(photoDateLabel)
+        controller.view.addSubview(lineView)
+    
+        dateLabel.snp.makeConstraints { make in
+            make.height.equalTo(30)
+            make.width.equalTo(40)
+            make.top.equalToSuperview().offset(80)
+            make.leading.equalToSuperview().inset(20)
+        }
+        photoDateLabel.snp.makeConstraints { make in
+            make.height.equalTo(30)
+            make.width.equalTo(100)
+            make.top.equalToSuperview().offset(80)
+            make.leading.equalTo(dateLabel.snp.trailing)
+        }
+
+        lineView.snp.makeConstraints { make in
+            make.height.equalTo(1)
+            make.top.equalTo(dateLabel.snp.bottom).offset(5)
+            make.horizontalEdges.equalToSuperview().inset(20)
+        }
+        appTitleLabel.snp.makeConstraints { make in
+            make.height.equalTo(20)
+            make.width.equalTo(70)
+            make.bottom.equalToSuperview().inset(45)
+            make.trailing.equalToSuperview().inset(20)
+        }
+        poweredByLabel.snp.makeConstraints { make in
+            make.height.equalTo(20)
+            make.width.equalTo(70)
+            make.bottom.equalToSuperview().inset(43)
+            make.trailing.equalTo(appTitleLabel.snp.leading).offset(-5)
+        }
+    
+        return controller
     }
     
 }

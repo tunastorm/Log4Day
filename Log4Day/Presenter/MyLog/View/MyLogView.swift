@@ -79,7 +79,7 @@ struct MyLogView: View {
             BottomSheetHeaderView(title: "네컷사진 저장")
         } mainContent: {
             VStack(alignment: .center) {
-                Button{
+                Button {
                     let authorizationStatus = PHPhotoLibrary.authorizationStatus()
                     switch authorizationStatus {
                     case .authorized: // 사용자가 앱에 사진 라이브러리에 대한 액세스 권한을 명시 적으로 부여했습니다.
@@ -167,8 +167,9 @@ struct MyLogView: View {
     }
     
     private func photoLogBanner(width: CGFloat) -> some View {
+        print(UIScreen.main.bounds.height)
         let bannerWidth = width-75
-        let bannerHeight: CGFloat = 500
+        let bannerHeight: CGFloat = UIScreen.main.bounds.height - 312
         let fourCutLogList = viewModel.output.logList
                             .where({ $0.fourCut.count == 4 })
                             .sorted(byKeyPath: Log.Column.startDate.name, ascending: false)
@@ -178,10 +179,10 @@ struct MyLogView: View {
                 edgeSpacing: 20,
                 contentSpacing: 20,
                 totalSpacing: 20,
-                contentHeight: 500,
-                currentOffset: -(bannerWidth+15),
+                contentHeight: bannerHeight,
+                currentOffset: -(bannerWidth + 15),
                 carouselContent: { data, index, currentIndex, lastCell in
-                FourCutPictureView(currentIndex: currentIndex, 
+                FourCutPictureView(currentIndex: currentIndex,
                                    index: index,
                                    lastCell: lastCell,
                                    title: data.title, 
@@ -189,7 +190,7 @@ struct MyLogView: View {
                                    photos: Array( data.fourCut),
                                    hashTags: "#\(data.places.map { $0.hashtag }.joined(separator: " #"))",
                                    backgroundWidthHeight: (bannerWidth,  bannerHeight), 
-                                   imageHeight: 400)
+                                   imageHeight: bannerHeight - 100)
                 },
                 zeroContent: { index, currentIndex, lastCell in
                     let title = fourCutLogList.last?.title ?? "오늘의 추억을 네 컷으로 남겨보세요"

@@ -40,17 +40,23 @@ struct FourCutPictureView: View {
     }
     
     private func backgroundView() -> some View {
-        VisualEffectBlurView(blurStyle: .systemChromeMaterial, vibrancyStyle: .fill) { }
-        .frame(width: backgroundWidthHeight.0 , height: backgroundWidthHeight.1)
-        .overlay(RoundedRectangle(cornerRadius: 0, style: .continuous).stroke(lineWidth: 1).fill(Color.white))
-        .shadow(color: Color.black.opacity(0.3), radius: 4, x: 2, y: 4)
-        .padding()
-        .blendMode(.luminosity)
+        ZStack {
+            Rectangle()
+                .frame(width: backgroundWidthHeight.0 , height: backgroundWidthHeight.1)
+                .foregroundStyle(.white)
+            VisualEffectBlurView(blurStyle: .systemChromeMaterial, vibrancyStyle: .fill) { }
+            .frame(width: backgroundWidthHeight.0 , height: backgroundWidthHeight.1)
+            .overlay(RoundedRectangle(cornerRadius: 0, style: .continuous).stroke(lineWidth: 1).fill(Color.white))
+            .shadow(color: Color.black.opacity(0.475), radius: 4, x: 2, y: 4)
+            .padding()
+            .blendMode(.luminosity)
+        }
     }
     
     private func contentsView() -> some View {
         VStack(alignment: .center) {
             ImageGrid()
+                .padding(.top)
             Text(title)
                 .frame(height: 30)
                 .frame(alignment: .leading)
@@ -58,7 +64,7 @@ struct FourCutPictureView: View {
                 .padding(.top)
             HStack {
                 Spacer()
-                Text(date)
+                Text("")
                     .font(.system(size: 12))
                     .frame(height: 30)
                     .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
@@ -102,21 +108,21 @@ struct FourCutPictureView: View {
                 }
             } else {
                 HStack {
-                    Image(uiImage: photoManager.loadImageToDocument(filename: photos[0].name) ?? UIImage(systemName: "photo")!)
+                    Image(uiImage: photoManager.loadImageFromDocument(filename: photos[0].name) ?? UIImage(systemName: "photo")!)
                         .resizable()
                         .frame(width: width, height: height)
                         .background(ColorManager.shared.ciColor.subContentColor)
-                    Image(uiImage: photoManager.loadImageToDocument(filename: photos[1].name) ?? UIImage(systemName: "photo")!)
+                    Image(uiImage: photoManager.loadImageFromDocument(filename: photos[1].name) ?? UIImage(systemName: "photo")!)
                         .resizable()
                         .frame(width: width, height: height)
                         .background(ColorManager.shared.ciColor.subContentColor)
                 }
                 HStack {
-                    Image(uiImage: photoManager.loadImageToDocument(filename: photos[2].name) ?? UIImage(systemName: "photo")!)
+                    Image(uiImage: photoManager.loadImageFromDocument(filename: photos[2].name) ?? UIImage(systemName: "photo")!)
                         .resizable()
                         .frame(width: width, height: height)
                         .background(ColorManager.shared.ciColor.subContentColor)
-                    Image(uiImage: photoManager.loadImageToDocument(filename: photos[3].name) ?? UIImage(systemName: "photo")!)
+                    Image(uiImage: photoManager.loadImageFromDocument(filename: photos[3].name) ?? UIImage(systemName: "photo")!)
                         .resizable()
                         .frame(width: width, height: height)
                         .background(ColorManager.shared.ciColor.subContentColor)

@@ -37,7 +37,7 @@ final class PhotoManager: FileManager {
         }
     }
     
-    func loadImageToDocument(filename: String) -> UIImage? {
+    func loadImageFromDocument(filename: String) -> UIImage? {
         guard let documentDirectory
               /*let path = Bundle.main.path(forResource: filename, ofType: "png")*/ else {
             return nil

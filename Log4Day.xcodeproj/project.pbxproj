@@ -89,6 +89,7 @@
 		BCDC2A4F2CAE663100FDFF22 /* ImageDownSampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCDC2A4E2CAE663100FDFF22 /* ImageDownSampler.swift */; };
 		BCDC2A512CAEC41000FDFF22 /* BottomSheetHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCDC2A502CAEC41000FDFF22 /* BottomSheetHeaderView.swift */; };
 		BCDC2A532CAED48200FDFF22 /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCDC2A522CAED48200FDFF22 /* CustomSearchBar.swift */; };
+		BCE0128B2CB25FCD0028156B /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = BCE0128A2CB25FCD0028156B /* SnapKit */; };
 		BCE2A0EB2C9FDC430045D01B /* PlannerSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE2A0EA2C9FDC430045D01B /* PlannerSheetView.swift */; };
 		BCE2A0ED2C9FEE890045D01B /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE2A0EC2C9FEE890045D01B /* Place.swift */; };
 		BCE2A0EF2C9FEFB10045D01B /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE2A0EE2C9FEFB10045D01B /* Photo.swift */; };
@@ -236,6 +237,7 @@
 				BC395B6A2CA3392C0005FC9D /* Alamofire in Frameworks */,
 				BC4DFDD32C9D64F5002CDC27 /* SwiftUIX in Frameworks */,
 				BC395B4E2CA2DE480005FC9D /* BottomSheet in Frameworks */,
+				BCE0128B2CB25FCD0028156B /* SnapKit in Frameworks */,
 				BC4DFDCE2C9D6105002CDC27 /* RealmSwift in Frameworks */,
 				E1E6BCCB5CF29381A429C5B1 /* Pods_Log4Day.framework in Frameworks */,
 			);
@@ -591,10 +593,8 @@
 			isa = PBXGroup;
 			children = (
 				BC404C8E2C941195001BA269 /* ToolbarButton.swift */,
-				BC404CA92C94218C001BA269 /* FourCutPictureView.swift */,
 				BC404CAB2C942835001BA269 /* ToolBarNavigationLink.swift */,
 				BC404C902C94142D001BA269 /* ToolbarTitle.swift */,
-				BC404CB72C9468DE001BA269 /* InfinityCarouselView.swift */,
 				BC4DFDCA2C9D5C22002CDC27 /* MapView.swift */,
 				BC8007AA2C9D4A0300D62778 /* NavigationBar.swift */,
 				BC4DFDE02C9EA20B002CDC27 /* CalendarView.swift */,
@@ -710,6 +710,8 @@
 			isa = PBXGroup;
 			children = (
 				BC404C752C93E1BF001BA269 /* MyLogView.swift */,
+				BC404CB72C9468DE001BA269 /* InfinityCarouselView.swift */,
+				BC404CA92C94218C001BA269 /* FourCutPictureView.swift */,
 				BC692E042C9D1A9E00374032 /* TapBarView.swift */,
 				BC404CA52C941F0E001BA269 /* TimelineCell.swift */,
 				BC4DFDDE2C9E8F81002CDC27 /* PlaceCell.swift */,
@@ -761,6 +763,7 @@
 				BC4DFDD22C9D64F5002CDC27 /* SwiftUIX */,
 				BC395B4D2CA2DE480005FC9D /* BottomSheet */,
 				BC395B692CA3392C0005FC9D /* Alamofire */,
+				BCE0128A2CB25FCD0028156B /* SnapKit */,
 			);
 			productName = Log4Day;
 			productReference = BC404BCB2C9077FC001BA269 /* Log4Day.app */;
@@ -842,6 +845,7 @@
 				BC4DFDD12C9D64F5002CDC27 /* XCRemoteSwiftPackageReference "SwiftUIX" */,
 				BC395B4C2CA2DE480005FC9D /* XCRemoteSwiftPackageReference "BottomSheet" */,
 				BC395B682CA3392C0005FC9D /* XCRemoteSwiftPackageReference "Alamofire" */,
+				BCE012892CB25FCD0028156B /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = BC404BCC2C9077FC001BA269 /* Products */;
 			projectDirPath = "";
@@ -1230,7 +1234,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Log4Day/Preview Content\"";
 				DEVELOPMENT_TEAM = F8FT97JYZT;
 				ENABLE_PREVIEWS = YES;
@@ -1268,7 +1272,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Log4Day/Preview Content\"";
 				DEVELOPMENT_TEAM = F8FT97JYZT;
 				ENABLE_PREVIEWS = YES;
@@ -1452,6 +1456,14 @@
 				minimumVersion = 0.2.2;
 			};
 		};
+		BCE012892CB25FCD0028156B /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1474,6 +1486,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BC4DFDD12C9D64F5002CDC27 /* XCRemoteSwiftPackageReference "SwiftUIX" */;
 			productName = SwiftUIX;
+		};
+		BCE0128A2CB25FCD0028156B /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BCE012892CB25FCD0028156B /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

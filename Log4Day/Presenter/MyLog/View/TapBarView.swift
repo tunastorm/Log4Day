@@ -72,9 +72,9 @@ struct TapBarView: View {
                         viewModel.action(.placeCellTapped(indexInfo: (key, index)))
                     } label: {
                         let place = (viewModel.output.placeDict[key] ?? [])[index]
-                        return PlaceCell(index: index,
+                        PlaceCell(index: index,
                                   total: (viewModel.output.placeDict[key] ?? []).count,
-                                         placeName:  place.name , photoCount: place.ofPhoto.count, placeAdress: place.address)
+                                  placeName:  place.name , photoCount: place.ofPhoto.count, createdAt: place.createdAt)
                             .environmentObject(viewModel)
                     }
                 }
