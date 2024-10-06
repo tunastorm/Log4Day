@@ -141,18 +141,24 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
             }
             let width = UIScreen.main.bounds.width * 0.9
             let height = UIScreen.main.bounds.height * 0.9
+            
             let framedController = setFourCutImageFrame(contentView)
             framedController.view.frame = CGRect(origin: .zero, size: CGSize(width: width, height: height))
             if let rootVC = UIApplication.shared.windows.first?.rootViewController {
                 rootVC.view.insertSubview(framedController.view, at: 0)
                 
+//                print(rootVC.view.layer.frame.minX, rootVC.view.layer.frame.minY, rootVC.view.layer.frame.maxY, rootVC.view.layer.frame.maxX)
                 let renderer = UIGraphicsImageRenderer(size: CGSize(width: width, height: height))
                 
-                let fourCutImage = renderer.image { context in
+                let rawFourCutImage = renderer.image { context in
                     framedController.view.layer.render(in: context.cgContext)
                 }
                 
                 framedController.view.removeFromSuperview()
+                
+                guard let fourCutImage = cropWithDate(rawFourCutImage) else {
+                    return
+                }
                 viewModel.action(.fourCutCellPressed(image: fourCutImage))
             }
         }
@@ -177,8 +183,9 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
         let edittedContentView = contentView
                                     .background(.clear)
                                     .opacity(1.5)
-                    
+        
         var controller = UIHostingController(rootView: edittedContentView)
+        controller.view.backgroundColor = .white
         
         let dateLabel = {
             let label = UILabel()
@@ -205,28 +212,32 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
             view.layer.opacity = 0.25
             return view
         }()
-        
-        let poweredByLabel = {
-            let label = UILabel()
-            label.text = "Powered By "
-            label.textAlignment = .right
-            label.font = .systemFont(ofSize: 10)
-            label.textColor = .black
-            label.layer.opacity = 0.25
-            return label
-        }()
+//        
+//        let poweredByLabel = {
+//            let label = UILabel()
+//            label.text = "Powered By "
+//            label.textAlignment = .right
+////            label.font = .systemFont(ofSize: 10)
+//            label.font = .systemFont(ofSize: 8)
+//            label.textColor = .black
+//            label.layer.opacity = 0.25
+////            label.backgroundColor = .red
+//            return label
+//        }()
         
         let appTitleLabel = {
             let label = UILabel()
             label.text = "Log4Day"
             label.font = .boldSystemFont(ofSize: 16)
+//            label.font = .boldSystemFont(ofSize: 13)
             label.textAlignment = .right
             label.textColor = .systemMint
             label.layer.opacity = 0.75
+//            label.backgroundColor = .red
             return label
         }()
         
-        controller.view.addSubview(poweredByLabel)
+//        controller.view.addSubview(poweredByLabel)
         controller.view.addSubview(appTitleLabel)
         controller.view.addSubview(dateLabel)
         controller.view.addSubview(photoDateLabel)
@@ -244,7 +255,7 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
             make.top.equalToSuperview().offset(80)
             make.leading.equalTo(dateLabel.snp.trailing)
         }
-
+        
         lineView.snp.makeConstraints { make in
             make.height.equalTo(1)
             make.top.equalTo(dateLabel.snp.bottom).offset(5)
@@ -256,14 +267,79 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
             make.bottom.equalToSuperview().inset(45)
             make.trailing.equalToSuperview().inset(20)
         }
-        poweredByLabel.snp.makeConstraints { make in
-            make.height.equalTo(20)
-            make.width.equalTo(70)
-            make.bottom.equalToSuperview().inset(43)
-            make.trailing.equalTo(appTitleLabel.snp.leading).offset(-5)
-        }
-    
+//        poweredByLabel.snp.makeConstraints { make in
+//            make.height.equalTo(20)
+//            make.width.equalTo(70)
+//            make.bottom.equalToSuperview().inset(43)
+//            make.trailing.equalTo(appTitleLabel.snp.leading).offset(-5)
+//        }
+        
+        
+//        appTitleLabel.snp.makeConstraints { make in
+//            make.height.equalTo(15)
+//            make.width.equalTo(60)
+//            make.bottom.equalToSuperview().inset(100)
+//            make.trailing.equalToSuperview().inset(30)
+//        }
+//        poweredByLabel.snp.makeConstraints { make in
+//            make.height.equalTo(10)
+//            make.width.equalTo(50)
+//            make.bottom.equalToSuperview().inset(100)
+//            make.trailing.equalTo(appTitleLabel.snp.leading)
+//        }
         return controller
     }
     
+    private func cropWithDate(_ image: UIImage) -> UIImage? {
+        
+        let width = UIScreen.main.bounds.width - 25
+        let height = UIScreen.main.bounds.height - 170
+        
+        let cropArea = CGRect(x: 0, y: 60,
+                              width: image.size.width ,
+                              height: image.size.height)
+        
+        var scaledCropArea: CGRect = CGRectMake(
+            cropArea.origin.x * image.scale,
+            cropArea.origin.y * image.scale,
+            width * image.scale,
+            height * image.scale
+        )
+   
+        guard let cgImage = image.cgImage,
+              let croppedImgRef = cgImage.cropping(to: scaledCropArea) else {
+            return nil
+        }
+        
+        return UIImage(cgImage: croppedImgRef, 
+                       scale: image.scale, orientation:
+                        image.imageOrientation)
+    }
+    
+    
+    private func cropJustPolaroid(_ image: UIImage) -> UIImage? {
+        
+        let width = UIScreen.main.bounds.width - 74
+        let height = UIScreen.main.bounds.height - 312
+        
+        let cropArea = CGRect(x: 18, y: 140,
+                              width: image.size.width ,
+                              height: image.size.height)
+        
+        var scaledCropArea: CGRect = CGRectMake(
+            cropArea.origin.x * image.scale,
+            cropArea.origin.y * image.scale,
+            width * image.scale,
+            height * image.scale
+        )
+   
+        guard let cgImage = image.cgImage,
+              let croppedImgRef = cgImage.cropping(to: scaledCropArea) else {
+            return nil
+        }
+        
+        return UIImage(cgImage: croppedImgRef,
+                       scale: image.scale, orientation:
+                        image.imageOrientation)
+    }
 }
