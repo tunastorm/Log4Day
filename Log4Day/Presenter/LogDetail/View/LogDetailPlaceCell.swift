@@ -50,7 +50,8 @@ struct LogDetailPlaceCell: View {
     }
     
     private func contentsView() -> some View {
-        VStack {
+        print("참조한 Photo들:", place.ofPhoto)
+        return VStack {
             Spacer()
             HStack {
                 VStack {
@@ -78,8 +79,6 @@ struct LogDetailPlaceCell: View {
                     } label: {
                         Text("편집")
                             .font(.body)
-//                        Image(systemName: "photo.badge.plus")
-//                            .frame(width: 50, height: 50)
                             .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
                     }
                     .padding(.horizontal, 10)

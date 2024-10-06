@@ -355,6 +355,7 @@ struct LogDetailView: View {
                     Button {
                         if viewModel.input.cancelImages.count > 0 {
                             viewModel.action(.cancelPickedImages)
+                            cancelList.removeAll()
                         }
                         showCanclePicker.toggle()
                     } label: {

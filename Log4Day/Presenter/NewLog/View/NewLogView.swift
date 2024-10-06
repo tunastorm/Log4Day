@@ -44,7 +44,15 @@ struct NewLogView: View {
             }
             .onTapGesture {
                 titleFocused = false
+                isInValid = viewModel.input.title.isEmpty ||
+                            viewModel.input.title.replacingOccurrences(of: " ", with: "") == "" ||
+                            viewModel.output.placeList.isEmpty
             }
+        }
+        .onAppear {
+            isInValid = viewModel.input.title.isEmpty ||
+                        viewModel.input.title.replacingOccurrences(of: " ", with: "") == "" ||
+                        viewModel.output.placeList.isEmpty
         }
         .bottomSheet(bottomSheetPosition: $categoryViewModel.output.showAddSheet,
                      switchablePositions: [.hidden, .dynamic]) {
@@ -134,11 +142,6 @@ struct NewLogView: View {
                     TextField("제목을 입력하세요", text: $viewModel.input.title)
                         .font(.title3)
                         .focused($titleFocused)
-                        .onChange(
-                            of: viewModel.input.title.isEmpty ||
-                                viewModel.input.title.replacingOccurrences(of: " ", with: "") == "" ||
-                                viewModel.output.placeList.isEmpty
-                        ) { self.isInValid = $0 }
                         .onSubmit {
                             self.isInValid = viewModel.input.title.isEmpty ||
                             viewModel.input.title.replacingOccurrences(of: " ", with: "") == "" ||
@@ -326,19 +329,21 @@ struct NewLogView: View {
                     Button {
                         if viewModel.input.cancelImages.count > 0 {
                             viewModel.action(.cancelPickedImages)
+                            cancelList.removeAll()
                         }
                         showCanclePicker.toggle()
                     } label: {
                         Text("삭제하기")
                             .foregroundStyle(.white)
+                            .frame(height: 50)
+                            .frame(maxWidth: .infinity)
+                            .background(ColorManager.shared.ciColor.highlightColor)
+                            .cornerRadius(10, corners: .allCorners)
+                            .padding(.horizontal)
+                            .padding(.bottom)
                     }
                 }
-                .frame(height: 50)
-                .frame(maxWidth: .infinity)
-                .background(ColorManager.shared.ciColor.highlightColor)
-                .cornerRadius(10, corners: .allCorners)
-                .padding(.horizontal)
-                .padding(.bottom)
+    
             }
             
         }
