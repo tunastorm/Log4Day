@@ -29,6 +29,7 @@ final class LogDetailViewModel: ObservableObject {
         case photoPicked
         case deleteButtonTapped(lastOnly: Bool)
         case placeEditButtonTapped
+        case changeLoadingState
         case cancelPickedImages
         case createLog
         case updateLog(id: ObjectId)
@@ -43,6 +44,7 @@ final class LogDetailViewModel: ObservableObject {
         let photoPicked = PassthroughSubject<Void, Never>()
         let deleteButtonTapped = PassthroughSubject<Bool, Never>()
         let placeEditButtonTapped = PassthroughSubject<Void, Never>()
+        let changeLoadingState = PassthroughSubject<Void, Never>()
         let cancelPickedImages = PassthroughSubject<Void, Never>()
         let createLog = PassthroughSubject<Void, Never>()
         let updateLog = PassthroughSubject<ObjectId, Never>()
@@ -65,9 +67,7 @@ final class LogDetailViewModel: ObservableObject {
         var coordinateList: [NMGLatLng] = []
         var createResult: RepositoryResult = RepositoryStatus.idle
         var updateResult: RepositoryResult = RepositoryStatus.idle
-        var isImageLoading: Bool = false
-        var showPicker: Bool = false
-        var showCanclePicker: Bool = false
+        var loadingState: Bool = false
     }
     
     init() {
@@ -123,6 +123,12 @@ final class LogDetailViewModel: ObservableObject {
             }
             .store(in: &cancellables)
         
+        input.changeLoadingState
+            .sink { [weak self] _ in
+                self?.changeLoadingState()
+            }
+            .store(in: &cancellables)
+        
         input.cancelPickedPlaces
             .sink { [weak self] _ in
                 self?.cancelPickedPlaces()
@@ -155,6 +161,8 @@ final class LogDetailViewModel: ObservableObject {
             input.deleteLog.send(id)
         case .setLog(let id):
             input.setLog.send(id)
+        case .changeLoadingState:
+            input.changeLoadingState.send(())
         case .cancelPickedImages:
             input.cancelPickedImages.send(())
         }
@@ -217,6 +225,10 @@ final class LogDetailViewModel: ObservableObject {
         output.placeList.remove(atOffsets: removeSet)
         output.cameraPointer = output.placeList.count == 0 ? 0 : output.placeList.count-2
         input.pickedPlaces.removeAll()
+    }
+    
+    private func changeLoadingState() {
+        output.loadingState.toggle()
     }
     
     private func addImages() {

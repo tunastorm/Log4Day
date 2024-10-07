@@ -50,8 +50,7 @@ struct LogDetailPlaceCell: View {
     }
     
     private func contentsView() -> some View {
-        print("참조한 Photo들:", place.ofPhoto)
-        return VStack {
+        VStack {
             Spacer()
             HStack {
                 VStack {

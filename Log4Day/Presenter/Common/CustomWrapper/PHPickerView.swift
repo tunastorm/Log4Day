@@ -62,17 +62,21 @@ struct PhotoPicker: UIViewControllerRepresentable {
 
             parent.isPresented = false
         
+            viewModel.action(.changeLoadingState)
+            
             let group = DispatchGroup()
-            results.forEach {
+            results.forEach { [weak self] in
                 $0.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (object, error) in
-                    if let image = object as? UIImage {
-                        group.enter()
-                        DispatchQueue.main.async(group: group) {
+                    group.enter()
+                    DispatchQueue.main.async() {
+                        if let image = object as? UIImage {
+                            
                             self?.imageList.append(image)
                             
                             if let imageList = self?.imageList, imageList.count == results.count {
                                 self?.viewModel.input.pickedImages = imageList
                                 self?.viewModel.action(.photoPicked)
+                                self?.viewModel.action(.changeLoadingState)
                             }
                             group.leave()
                         }

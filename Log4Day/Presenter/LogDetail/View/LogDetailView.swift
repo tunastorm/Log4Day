@@ -71,6 +71,7 @@ struct LogDetailView: View {
                 ZStack {
                     if proxy.size != .zero {
                         contentView()
+                        LoadingView(loadingState: $viewModel.output.loadingState)
                     }
                 }
                 .onTapGesture {
@@ -332,7 +333,7 @@ struct LogDetailView: View {
                                 .overlay {
                                     Rectangle()
                                         .stroke(lineWidth:cancelList.contains(index) ? 10 : 0)
-                                        .fill(ColorManager.shared.ciColor.subContentColor)
+                                        .fill(Color.systemMint)
                                         .frame(width: 290, height: 490)
                                 }
                             }

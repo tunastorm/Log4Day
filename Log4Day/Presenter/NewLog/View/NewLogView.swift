@@ -41,6 +41,7 @@ struct NewLogView: View {
         GeometryReader { proxy in
             ZStack {
                 contentView()
+                LoadingView(loadingState: $viewModel.output.loadingState)
             }
             .onTapGesture {
                 titleFocused = false
