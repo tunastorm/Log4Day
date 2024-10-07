@@ -11,6 +11,8 @@
 
 ### | [앱스토어](http://apps.apple.com/kr/app/log4day-%EB%84%A4-%EC%BB%B7-%EC%82%AC%EC%A7%84-%EC%86%8D-%EC%98%A4%EB%8A%98-%ED%95%98%EB%A3%A8/id6736357381)   
 
+
+
 ![title](https://img.notionusercontent.com/s3/prod-files-secure%2Fda5d8819-a24c-4673-97de-9c024056b4fb%2F9015a9b2-34fe-48f1-89b4-35414dfa4c5f%2FappstoreScreenshot.jpeg/size/w=20?exp=1728302975&sig=CPCz5aFIJU8E73PUcqkSnbZq9XXggRPGhjeEW6XWBoU)   
 
 ### | 스크린샷
@@ -97,7 +99,7 @@ iOS 15.0 이상
 
 ### | 이미지 crop
 
-### | Custom InfinityCarouselView
+### | Custom InfinityCarouselView + Image Saving 
 
 ### | Custom SideBar
 
@@ -123,10 +125,7 @@ iOS 15.0 이상
 - WWDC에서 SwiftUI에서 제공하는 Image의 resizable이나 UIGraphicsImageRenderer보다 더 효율적인 방법으로 소개된ImageIO를 사용한 다운샘플링 구현
 - 전 후 성능비교
  
-
 <br>
-
-
 
 회고
 -
@@ -134,11 +133,15 @@ iOS 15.0 이상
 <br>
 
 ### | 성취점
-* 로그 추가/수정/삭제를 담당하는 viewModel을 통해 view가 변경되어도 동일기능의 코드 재사용 가능 
 
+* SwiftUI에서 MVVM 아키텍처 구현
+* 비용효율적으로 최소 사양을 iOS15까지 대응하기 위해 버전별 분기처리 대신 iOS15를 기준으로 코드 작성
+* View에 사용되는 Model 타입별로 viewModel 구현, View가 변경되어도 동일 기능에 대한 코드 재사용성 확보
+* Naver Maps API SDK를
 
-### | 개선 사항
-* 커스텀으로 구현한 무한 페이지네이션의 애니메이션 개선
-* 
+### | 개선사항
+* 생산성을 위해 선택한 단일 viewModel이 동시에 여러 뷰 객체와 이벤트를 주고 받으면서 뷰 객체들간의 이벤트 전파를 중개하고 있는 지금의 구조가 과연 적절한 구조일까.
+* 커스텀으로 구현한 무한 페이지네이션 뷰의 딱딱한 스크롤 애니메이션을 SwiftUI에 어울리게 개선
+* 핵심 기능의 사용이 어렵다는 평가가 있는데 기획의 수정으로 풀어야 할까, 튜토리얼로 대응해줘야할까.  
 
 <br>
