@@ -12,10 +12,10 @@
 
 ### | [앱스토어](http://apps.apple.com/kr/app/log4day-%EB%84%A4-%EC%BB%B7-%EC%82%AC%EC%A7%84-%EC%86%8D-%EC%98%A4%EB%8A%98-%ED%95%98%EB%A3%A8/id6736357381)   
 
-![title](http://img.notionusercontent.com/s3/prod-files-secure%2Fda5d8819-a24c-4673-97de-9c024056b4fb%2F9015a9b2-34fe-48f1-89b4-35414dfa4c5f%2FappstoreScreenshot.jpeg/size/w=20?exp=1728302975&sig=CPCz5aFIJU8E73PUcqkSnbZq9XXggRPGhjeEW6XWBoU)   
+![title](https://img.notionusercontent.com/s3/prod-files-secure%2Fda5d8819-a24c-4673-97de-9c024056b4fb%2F9015a9b2-34fe-48f1-89b4-35414dfa4c5f%2FappstoreScreenshot.jpeg/size/w=20?exp=1728302975&sig=CPCz5aFIJU8E73PUcqkSnbZq9XXggRPGhjeEW6XWBoU)   
 
 ### | 스크린샷
-![title](http://img.notionusercontent.com/s3/prod-files-secure%2Fda5d8819-a24c-4673-97de-9c024056b4fb%2Ff91599ec-de89-4dcc-9ca1-e0b551d7972b%2FApple_iPhone_11_Pro_Max_Screenshot_All.png/size/w=2000?exp=1728301394&sig=IYB76JLQ3GUW423d5HMC1o5s82A3XxlCKwTCYfrRwNw)   
+![title](https://img.notionusercontent.com/s3/prod-files-secure%2Fda5d8819-a24c-4673-97de-9c024056b4fb%2Ff91599ec-de89-4dcc-9ca1-e0b551d7972b%2FApple_iPhone_11_Pro_Max_Screenshot_All.png/size/w=2000?exp=1728301394&sig=IYB76JLQ3GUW423d5HMC1o5s82A3XxlCKwTCYfrRwNw)   
 
 <br>
 
