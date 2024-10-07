@@ -65,6 +65,9 @@ final class LogDetailViewModel: ObservableObject {
         var coordinateList: [NMGLatLng] = []
         var createResult: RepositoryResult = RepositoryStatus.idle
         var updateResult: RepositoryResult = RepositoryStatus.idle
+        var isImageLoading: Bool = false
+        var showPicker: Bool = false
+        var showCanclePicker: Bool = false
     }
     
     init() {
@@ -235,12 +238,14 @@ final class LogDetailViewModel: ObservableObject {
         }
         output.imageDict[output.cameraPointer]?.append(contentsOf: resizedList)
         input.pickedImages.removeAll()
+        togglePlaceEditSheet()
     }
     
     private func cancelPickedImages() {
         let cancelSet = IndexSet(input.cancelImages)
         output.imageDict[output.cameraPointer]?.remove(atOffsets: cancelSet)
         input.cancelImages.removeAll()
+        togglePlaceEditSheet()
     }
     
     private func setLog(id: ObjectId) {
