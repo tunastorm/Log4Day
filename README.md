@@ -11,7 +11,8 @@
 
 ### | [앱스토어](http://apps.apple.com/kr/app/log4day-%EB%84%A4-%EC%BB%B7-%EC%82%AC%EC%A7%84-%EC%86%8D-%EC%98%A4%EB%8A%98-%ED%95%98%EB%A3%A8/id6736357381)   
 
-![title](https://github.com/tunastorm/Log4Day/blob/tunastorm/appstoreScreenshot.jpeg?raw=true)   
+<img src="https://github.com/tunastorm/Log4Day/blob/tunastorm/appstoreScreenshot.jpeg?raw=true" width="200" height="400"/>
+
 
 ### | 스크린샷
 ![title](https://github.com/tunastorm/Log4Day/blob/tunastorm/Apple%20iPhone%2011%20Pro%20Max%20Screenshot%20All.png?raw=true)   
