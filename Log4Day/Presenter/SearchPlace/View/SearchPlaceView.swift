@@ -44,7 +44,7 @@ struct SearchPlaceView: View {
                                 SearchPlaceCell(isPicked: isPicked,
                                                 viewModel: viewModel,
                                                 newLogViewModel: newLogViewModel,
-                                               place: item
+                                                place: item
                                 )
                             }
                         }
