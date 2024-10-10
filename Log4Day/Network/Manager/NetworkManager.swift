@@ -69,8 +69,8 @@ final class NetworkManager {
         case .invalidURL: .clientError
         case .multipartEncodingFailed: .failedRequest
         case .parameterEncodingFailed: .failedRequest
-        case .parameterEncoderFailed:  .failedRequest
-        case .requestAdaptationFailed:  .failedRequest
+        case .parameterEncoderFailed: .failedRequest
+        case .requestAdaptationFailed: .failedRequest
         case .requestRetryFailed: .failedRequest
         case .responseValidationFailed: .invalidResponse
         case .responseSerializationFailed: .invalidData

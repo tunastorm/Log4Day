@@ -58,6 +58,7 @@ final class SearchPlaceViewModel: ObservableObject {
     private func searchPlace() {
         let query = SearchPlaceQuery(query: input.searchKeyword,
                                      sort: SearchPlaceQuery.Sort.random.rawValue)
+        
         NetworkManager.request(PlaceSearch.self,
                                router: .searchPlace(query: query))
         { [weak self] result in

@@ -140,7 +140,7 @@ struct NewLogView: View {
             HStack {
                 VStack(alignment: .leading) {
                     CategoryPickerView(categoryViewModel: categoryViewModel, viewModel: viewModel)
-                    TextField("제목을 입력하세요", text: $viewModel.input.title)
+                    TextField("오늘의 추억을 요약해보세요 (최대 18자)", text: $viewModel.input.title)
                         .font(.title3)
                         .focused($titleFocused)
                         .onSubmit {
@@ -307,7 +307,7 @@ struct NewLogView: View {
                                 .overlay {
                                     Rectangle()
                                         .stroke(lineWidth:cancelList.contains(index) ? 10 : 0)
-                                        .fill(ColorManager.shared.ciColor.subContentColor)
+                                        .fill(Color.systemMint)
                                         .frame(width: 290, height: 490)
                                 }
                             }

@@ -146,8 +146,7 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
             framedController.view.frame = CGRect(origin: .zero, size: CGSize(width: width, height: height))
             if let rootVC = UIApplication.shared.windows.first?.rootViewController {
                 rootVC.view.insertSubview(framedController.view, at: 0)
-                
-//                print(rootVC.view.layer.frame.minX, rootVC.view.layer.frame.minY, rootVC.view.layer.frame.maxY, rootVC.view.layer.frame.maxX)
+
                 let renderer = UIGraphicsImageRenderer(size: CGSize(width: width, height: height))
                 
                 let rawFourCutImage = renderer.image { context in
@@ -249,6 +248,7 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
             make.top.equalToSuperview().offset(80)
             make.leading.equalToSuperview().inset(20)
         }
+        
         photoDateLabel.snp.makeConstraints { make in
             make.height.equalTo(30)
             make.width.equalTo(100)
@@ -261,6 +261,7 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
             make.top.equalTo(dateLabel.snp.bottom).offset(5)
             make.horizontalEdges.equalToSuperview().inset(20)
         }
+        
         appTitleLabel.snp.makeConstraints { make in
             make.height.equalTo(20)
             make.width.equalTo(70)
@@ -273,7 +274,6 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
 //            make.bottom.equalToSuperview().inset(43)
 //            make.trailing.equalTo(appTitleLabel.snp.leading).offset(-5)
 //        }
-        
         
 //        appTitleLabel.snp.makeConstraints { make in
 //            make.height.equalTo(15)

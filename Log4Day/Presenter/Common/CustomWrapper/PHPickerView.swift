@@ -76,14 +76,13 @@ struct PhotoPicker: UIViewControllerRepresentable {
                             if let imageList = self?.imageList, imageList.count == results.count {
                                 self?.viewModel.input.pickedImages = imageList
                                 self?.viewModel.action(.photoPicked)
-                                self?.viewModel.action(.changeLoadingState)
                             }
-                            group.leave()
                         }
+                        group.leave()
                     }
                 }
             }
-           
+            viewModel.action(.changeLoadingState)
         }
         
     }

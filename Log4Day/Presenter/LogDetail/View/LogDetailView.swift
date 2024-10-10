@@ -155,18 +155,14 @@ struct LogDetailView: View {
             HStack {
                 VStack(alignment: .leading) {
                     CategoryPickerView(categoryViewModel: categoryViewModel, viewModel: viewModel)
-                    TextField("제목을 입력하세요", text: $viewModel.input.title)
+                    TextField("오늘의 추억을 요약해보세요 (최대 18자)", text: $viewModel.input.title)
                         .font(.title3)
                         .focused($titleFocused)
                         .onChange(
-                            of: viewModel.input.title.isEmpty ||
-                                viewModel.input.title.replacingOccurrences(of: " ", with: "") == "" ||
-                                viewModel.output.placeList.isEmpty
+                            of: titleIsInValid()
                         ) { self.isInValid = $0 }
                         .onSubmit {
-                            self.isInValid = viewModel.input.title.isEmpty ||
-                            viewModel.input.title.replacingOccurrences(of: " ", with: "") == "" ||
-                            viewModel.output.placeList.isEmpty
+                            self.isInValid = titleIsInValid()
                         }
                     Text(DateFormatManager.shared.dateToFormattedString(date: viewModel.output.date,
                                                                         format: .dotSeparatedyyyyMMddDay))
@@ -373,6 +369,13 @@ struct LogDetailView: View {
             }
             
         }
+    }
+    
+    private func titleIsInValid() -> Bool {
+        return viewModel.input.title.isEmpty ||
+               viewModel.input.title.count > 18 ||
+               viewModel.input.title.replacingOccurrences(of: " ", with: "") == "" ||
+               viewModel.output.placeList.isEmpty
     }
     
 }

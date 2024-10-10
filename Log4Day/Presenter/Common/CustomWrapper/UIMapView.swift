@@ -62,62 +62,118 @@ struct UIMapView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
-        
-        //MARK: 카메라 위치 갱신
-        context.coordinator.lastCameraPointer = context.coordinator.cameraPointer
-        if coordinateList.isEmpty, context.coordinator.lastCameraPointer < 0 {
-            context.coordinator.lastCameraPointer = 0
-        }
-    
-        if context.coordinator.isDeleted {
-            context.coordinator.cameraPointer = placeList.count - 1
-            context.coordinator.isDeleted = false
-        } else {
-            context.coordinator.cameraPointer = cameraPointer
-        }
-        cameraPointer = context.coordinator.cameraPointer
-        
-        //MARK: 오버레이 요소 갱신
-        context.coordinator.exchangeOverlays(coordinateList, imageDict, touchHandler: changeCameraPointer)
-        
-        guard context.coordinator.coordinateList.count > 0 else {
-            return
-        }
-        
-        //MARK: 마커에 맵뷰 할당
-        context.coordinator.markerList.forEach { $0.mapView = uiView.mapView }
-        
-        //MARK: 마커 간의 직선 갱신
-        if let polyline = context.coordinator.polyline, polyline.line.points.count > 1 {
-            polyline.mapView = uiView.mapView
-        } else if let newline = NMFPolylineOverlay(coordinateList) {
-            newline.width = 4
-            newline.color = .systemGray2
-            newline.pattern = [10,6]
-            newline.joinType = .round
-            newline .mapView = uiView.mapView
-            context.coordinator.polyline = newline
-        }
-        
-        //MARK: 카메라 이동 애니메이션
-        if placeList.count > 0 {
-            var pointer = cameraPointer == context.coordinator.cameraPointer ?
-                cameraPointer : context.coordinator.cameraPointer
-        
-            if pointer >= placeList.count {
-                pointer = placeList.count - 1
-            } else if pointer < 0 {
-                pointer = 0
+        DispatchQueue.main.async() {
+            //MARK: 카메라 위치 갱신
+            context.coordinator.lastCameraPointer = context.coordinator.cameraPointer
+            if coordinateList.isEmpty, context.coordinator.lastCameraPointer < 0 {
+                context.coordinator.lastCameraPointer = 0
             }
-
-            let nmgLatlng = NMGLatLng(lat: placeList[pointer].latitude,
-                                      lng: placeList[pointer].longitude)
+        
+            if context.coordinator.isDeleted {
+                context.coordinator.cameraPointer = placeList.count - 1
+                context.coordinator.isDeleted = false
+            } else {
+                context.coordinator.cameraPointer = cameraPointer
+            }
+            cameraPointer = context.coordinator.cameraPointer
             
-            let cameraUpdate = NMFCameraUpdate(scrollTo: nmgLatlng)
-            cameraUpdate.animation = .easeIn
-            cameraUpdate.animationDuration = 1
-            uiView.mapView.moveCamera(cameraUpdate)
+            //MARK: 오버레이 요소 갱신
+            context.coordinator.exchangeOverlays(coordinateList, imageDict, touchHandler: changeCameraPointer)
+            
+            guard context.coordinator.coordinateList.count > 0 else {
+                return
+            }
+            
+            //MARK: 마커에 맵뷰 할당
+            context.coordinator.markerList.forEach { $0.mapView = uiView.mapView }
+            
+            //MARK: 마커 간의 직선 갱신
+            if let polyline = context.coordinator.polyline, polyline.line.points.count > 1 {
+                polyline.mapView = uiView.mapView
+            } else if let newline = NMFPolylineOverlay(coordinateList) {
+                newline.width = 4
+                newline.color = .systemGray2
+                newline.pattern = [10,6]
+                newline.joinType = .round
+                newline .mapView = uiView.mapView
+                context.coordinator.polyline = newline
+            }
+            
+            //MARK: 카메라 이동 애니메이션
+            if placeList.count > 0 {
+                var pointer = cameraPointer == context.coordinator.cameraPointer ?
+                    cameraPointer : context.coordinator.cameraPointer
+            
+                if pointer >= placeList.count {
+                    pointer = placeList.count - 1
+                } else if pointer < 0 {
+                    pointer = 0
+                }
+
+                let nmgLatlng = NMGLatLng(lat: placeList[pointer].latitude,
+                                          lng: placeList[pointer].longitude)
+                
+                let cameraUpdate = NMFCameraUpdate(scrollTo: nmgLatlng)
+                cameraUpdate.animation = .easeIn
+                cameraUpdate.animationDuration = 1
+                uiView.mapView.moveCamera(cameraUpdate)
+            }
         }
+//        //MARK: 카메라 위치 갱신
+//        context.coordinator.lastCameraPointer = context.coordinator.cameraPointer
+//        if coordinateList.isEmpty, context.coordinator.lastCameraPointer < 0 {
+//            context.coordinator.lastCameraPointer = 0
+//        }
+//    
+//        if context.coordinator.isDeleted {
+//            context.coordinator.cameraPointer = placeList.count - 1
+//            context.coordinator.isDeleted = false
+//        } else {
+//            context.coordinator.cameraPointer = cameraPointer
+//        }
+//        cameraPointer = context.coordinator.cameraPointer
+//        
+//        //MARK: 오버레이 요소 갱신
+//        context.coordinator.exchangeOverlays(coordinateList, imageDict, touchHandler: changeCameraPointer)
+//        
+//        guard context.coordinator.coordinateList.count > 0 else {
+//            return
+//        }
+//        
+//        //MARK: 마커에 맵뷰 할당
+//        context.coordinator.markerList.forEach { $0.mapView = uiView.mapView }
+//        
+//        //MARK: 마커 간의 직선 갱신
+//        if let polyline = context.coordinator.polyline, polyline.line.points.count > 1 {
+//            polyline.mapView = uiView.mapView
+//        } else if let newline = NMFPolylineOverlay(coordinateList) {
+//            newline.width = 4
+//            newline.color = .systemGray2
+//            newline.pattern = [10,6]
+//            newline.joinType = .round
+//            newline .mapView = uiView.mapView
+//            context.coordinator.polyline = newline
+//        }
+//        
+//        //MARK: 카메라 이동 애니메이션
+//        if placeList.count > 0 {
+//            var pointer = cameraPointer == context.coordinator.cameraPointer ?
+//                cameraPointer : context.coordinator.cameraPointer
+//        
+//            if pointer >= placeList.count {
+//                pointer = placeList.count - 1
+//            } else if pointer < 0 {
+//                pointer = 0
+//            }
+//
+//            let nmgLatlng = NMGLatLng(lat: placeList[pointer].latitude,
+//                                      lng: placeList[pointer].longitude)
+//            
+//            let cameraUpdate = NMFCameraUpdate(scrollTo: nmgLatlng)
+//            cameraUpdate.animation = .easeIn
+//            cameraUpdate.animationDuration = 1
+//            uiView.mapView.moveCamera(cameraUpdate)
+//        }
         
     }
 
