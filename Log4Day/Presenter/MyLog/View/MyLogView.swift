@@ -222,17 +222,7 @@ struct MyLogView: View {
             .frame(height: bannerHeight)
             .padding(.top, 10)
             .hideIndicator()
-            .environmentObject(viewModel)
-//            .overlay {
-//                GeometryReader { proxy in
-//                    let frame = proxy.frame(in: .global)
-//                    print("x:",frame.origin.x)
-//                    print("y:", frame.origin.y)
-//                    print("ss", frame.)
-//                    return Text("")
-//                }
-//            }
-        
+            .environmentObject(viewModel)        
             ListFooterView(text: viewModel.output.firstLastDate.0, font: .footnote)
                 .padding()
         }

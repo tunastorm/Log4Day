@@ -48,9 +48,9 @@ extension AppDelegate: MessagingDelegate {
         // 현재 등록 토큰 가져오기
         Messaging.messaging().token { token, error in
           if let error = error {
-            print("Error fetching FCM registration token: \(error)")
+//            print("Error fetching FCM registration token: \(error)")
           } else if let token = token {
-            print("FCM registration token: \(token)")
+//            print("FCM registration token: \(token)")
           }
         }
         

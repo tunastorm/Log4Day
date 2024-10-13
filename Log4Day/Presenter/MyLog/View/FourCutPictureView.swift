@@ -31,7 +31,6 @@ struct FourCutPictureView: View {
     var imageHeight: CGFloat
     
     var body: some View {
-//        print(#function, "ForCutPictureView 렌더링")
         return ZStack {
             backgroundView()
             contentsView()

@@ -251,7 +251,6 @@ struct UIMapView: UIViewRepresentable {
                     let iconImage = markerImage(index)
                     let marker = NMFMarker(position: coord, iconImage: iconImage)
                     let touchPointer = markerList.count
-                    print("터치하면 이동:", touchPointer)
                     marker.touchHandler = { [weak self] (overlay: NMFOverlay) -> Bool in
                         touchHandler(touchPointer)
                         return true
@@ -279,8 +278,6 @@ struct UIMapView: UIViewRepresentable {
         
         func selectedMarkerToggle() {
             let markerCount = markerList.count
-            print("마커 목록:", markerCount)
-            print("선택된 마커의 카메라 위치:", cameraPointer)
             if markerCount > 0, cameraPointer < markerCount {
                 if cameraPointer != lastCameraPointer, lastCameraPointer >= 0, lastCameraPointer <= markerCount {
                     markerList[lastCameraPointer].iconImage = markerImage(lastCameraPointer)

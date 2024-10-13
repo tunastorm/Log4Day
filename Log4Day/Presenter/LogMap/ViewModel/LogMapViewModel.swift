@@ -106,7 +106,6 @@ final class LogMapViewModel: ObservableObject {
         let nextDate = Calendar.current.date(byAdding: .day, value: 1, to: output.selectedDate)!
 
         output.$logList.update()
-        output.logList.forEach { print($0.startDate) }
     }
     
 }
