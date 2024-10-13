@@ -19,7 +19,6 @@ struct LogDetailView: View {
     @ObservedObject var myLogViewModel: MyLogViewModel
     @StateObject private var viewModel = LogDetailViewModel()
     
-    @State private var isInValid = true
     @State private var showPicker: Bool = false
     @State private var showCanclePicker: Bool = false
     @State private var cancelList: [Int] = []
@@ -50,6 +49,7 @@ struct LogDetailView: View {
                        icon: { Image(systemName: "pencil")}
                    )
                }
+               .disabled(viewModel.output.inValid)
                Button {
                    myLogViewModel.action(.deleteLog(id: logId))
                    presentationMode.wrappedValue.dismiss()
@@ -75,7 +75,10 @@ struct LogDetailView: View {
                     }
                 }
                 .onTapGesture {
-                    titleFocused = false
+                    if titleFocused {
+                        viewModel.action(.validate)
+                        titleFocused = false
+                    }
                 }
             }
             .bottomSheet(bottomSheetPosition: $categoryViewModel.output.showAddSheet,
@@ -155,14 +158,12 @@ struct LogDetailView: View {
             HStack {
                 VStack(alignment: .leading) {
                     CategoryPickerView(categoryViewModel: categoryViewModel, viewModel: viewModel)
-                    TextField("오늘의 추억을 요약해보세요 (최대 18자)", text: $viewModel.input.title)
+                    TextField("오늘의 추억을 요약해보세요 (최대 15자)", text: $viewModel.input.title)
                         .font(.title3)
+                        .foregroundStyle(viewModel.output.inValid ? .gray : .black)
                         .focused($titleFocused)
-                        .onChange(
-                            of: titleIsInValid()
-                        ) { self.isInValid = $0 }
                         .onSubmit {
-                            self.isInValid = titleIsInValid()
+                            viewModel.action(.validate)
                         }
                     Text(DateFormatManager.shared.dateToFormattedString(date: viewModel.output.date,
                                                                         format: .dotSeparatedyyyyMMddDay))
@@ -233,9 +234,6 @@ struct LogDetailView: View {
     }
     
     private func editPlaceSheetView() -> some View {
-        print("장소:",viewModel.output.placeList.map{ $0.name })
-        print("카메라 위치:", viewModel.output.cameraPointer)
-        
         let index = viewModel.output.cameraPointer >= 0 &&
                     viewModel.output.cameraPointer < viewModel.output.placeList.count - 1 ?
                     viewModel.output.cameraPointer : viewModel.output.placeList.count - 1
@@ -335,11 +333,11 @@ struct LogDetailView: View {
                             }
                             .padding(.horizontal)
                             .onPress {
-                                if viewModel.input.cancelImages.contains(index) {
-                                    viewModel.input.cancelImages.removeAll(where: {$0 == index})
+                                if viewModel.input.editImages.contains(index) {
+                                    viewModel.input.editImages.removeAll(where: {$0 == index})
                                     cancelList.removeAll(where: {$0 == index})
                                 } else {
-                                    viewModel.input.cancelImages.append(index)
+                                    viewModel.input.editImages.append(index)
                                     cancelList.append(index)
                                 }
                             }
@@ -350,8 +348,8 @@ struct LogDetailView: View {
                 .padding(.vertical)
                 VStack(alignment: .center) {
                     Button {
-                        if viewModel.input.cancelImages.count > 0 {
-                            viewModel.action(.cancelPickedImages)
+                        if viewModel.input.editImages.count > 0 {
+                            viewModel.action(.editPickedImages)
                             cancelList.removeAll()
                         }
                         showCanclePicker.toggle()
@@ -371,30 +369,4 @@ struct LogDetailView: View {
         }
     }
     
-    private func titleIsInValid() -> Bool {
-        return viewModel.input.title.isEmpty ||
-               viewModel.input.title.count > 18 ||
-               viewModel.input.title.replacingOccurrences(of: " ", with: "") == "" ||
-               viewModel.output.placeList.isEmpty
-    }
-    
 }
-
-//struct HashTagCell: View {
-//    
-//    var hashTag: String
-//    
-//    var body: some View {
-//        ZStack(alignment: .center) {
-//            RoundedRectangle(cornerRadius: 15)
-//                .frame(height: 30)
-//                .frame(minWidth: 40)
-//                .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
-//            Text("#\(hashTag)")
-//                .foregroundStyle(.white)
-//                .font(.callout)
-//                .padding(.horizontal, 6)
-//        }
-//    }
-//    
-//}

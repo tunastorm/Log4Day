@@ -24,13 +24,15 @@ final class LogDetailViewModel: ObservableObject {
     @Published var output = Output()
     
     enum Action {
+        case moveCameraPointer(pointer: Int)
         case placePicked(place: SearchedPlace)
         case cancelPickedPlaces
         case photoPicked
         case deleteButtonTapped(lastOnly: Bool)
         case placeEditButtonTapped
         case changeLoadingState
-        case cancelPickedImages
+        case editPickedImages
+        case validate
         case createLog
         case updateLog(id: ObjectId)
         case deleteLog(id: ObjectId)
@@ -38,6 +40,7 @@ final class LogDetailViewModel: ObservableObject {
     }
     
     struct Input {
+        let moveCameraPointer = PassthroughSubject<Int, Never>()
         let titleTextFieldReturn = PassthroughSubject<Void, Never>()
         let placePicked = PassthroughSubject<SearchedPlace, Never>()
         let cancelPickedPlaces = PassthroughSubject<Void, Never>()
@@ -46,6 +49,7 @@ final class LogDetailViewModel: ObservableObject {
         let placeEditButtonTapped = PassthroughSubject<Void, Never>()
         let changeLoadingState = PassthroughSubject<Void, Never>()
         let cancelPickedImages = PassthroughSubject<Void, Never>()
+        let validate = PassthroughSubject<Void, Never>()
         let createLog = PassthroughSubject<Void, Never>()
         let updateLog = PassthroughSubject<ObjectId, Never>()
         let deleteLog = PassthroughSubject<ObjectId, Never>()
@@ -53,7 +57,7 @@ final class LogDetailViewModel: ObservableObject {
         var title = ""
         var pickedImages: [UIImage] = []
         var pickedPlaces: [Int] = []
-        var cancelImages: [Int] = []
+        var editImages: [Int] = []
     }
     
     struct Output {
@@ -65,6 +69,8 @@ final class LogDetailViewModel: ObservableObject {
         var placeList: [Place] = []
         var imageDict: [Int:[UIImage]] = [:]
         var coordinateList: [NMGLatLng] = []
+        var editImages: [Int] = []
+        var inValid = true
         var createResult: RepositoryResult = RepositoryStatus.idle
         var updateResult: RepositoryResult = RepositoryStatus.idle
         var loadingState: Bool = false
@@ -75,74 +81,101 @@ final class LogDetailViewModel: ObservableObject {
                                                selector: #selector(cancelPickedPlaces),
                                                name: NSNotification.Name("DismissedWithSwipe"),
                                                object: nil)
+        input.moveCameraPointer
+            .withUnretained(self)
+            .sink { owner, output in
+                owner.moveCameraPointer(pointer: output)
+            }
+            .store(in: &cancellables)
+        
         input.placePicked
-            .sink { [weak self] searchedPlace in
-                self?.addPickedPlace(searchedPlace)
+            .withUnretained(self)
+            .sink { owner, output in
+                owner.addPickedPlace(output)
             }
             .store(in: &cancellables)
         
         input.photoPicked
-            .sink { [weak self] _ in
-                self?.addImages()
+            .withUnretained(self)
+            .sink { owner, _ in
+                owner.addImages()
             }
             .store(in: &cancellables)
         
         input.deleteButtonTapped
-            .sink { [weak self] lastOnly in
-                self?.deletePickedPlace(lastOnly)
+            .withUnretained(self)
+            .sink { owner, output in
+                owner.deletePickedPlace(output)
             }
             .store(in: &cancellables)
         
         input.placeEditButtonTapped
-            .sink { [weak self] _ in
-                self?.togglePlaceEditSheet()
+            .withUnretained(self)
+            .sink { owner, _ in
+                owner.togglePlaceEditSheet()
+            }
+            .store(in: &cancellables)
+        
+        input.validate
+            .withUnretained(self)
+            .sink { owner, _ in
+                owner.validate()
             }
             .store(in: &cancellables)
         
         input.createLog
-            .sink { [weak self] _ in
-                self?.createLog()
+            .withUnretained(self)
+            .sink { owner, _ in
+                owner.createLog()
             }
             .store(in: &cancellables)
         
         input.updateLog
-            .sink { [weak self] id in
-                self?.updateLog(id: id)
+            .withUnretained(self)
+            .sink { owner, output in
+                owner.updateLog(id: output)
             }
             .store(in: &cancellables)
         
         input.deleteLog
-            .sink { [weak self] id in
-                self?.deleteLog(id)
+            .withUnretained(self)
+            .sink { owner, output in
+                owner.deleteLog(output)
             }
             .store(in: &cancellables)
         
         input.setLog
-            .sink { [weak self] id in
-                self?.setLog(id: id)
+            .withUnretained(self)
+            .sink { owner, output in
+                owner.setLog(id: output)
             }
             .store(in: &cancellables)
         
         input.changeLoadingState
-            .sink { [weak self] _ in
-                self?.changeLoadingState()
+            .withUnretained(self)
+            .sink { owner, _ in
+                owner.changeLoadingState()
             }
             .store(in: &cancellables)
         
         input.cancelPickedPlaces
-            .sink { [weak self] _ in
-                self?.cancelPickedPlaces()
+            .withUnretained(self)
+            .sink { owner, _ in
+                owner.cancelPickedPlaces()
             }
             .store(in: &cancellables)
         input.cancelPickedImages
-            .sink { [weak self] _ in
-                self?.cancelPickedImages()
+            .withUnretained(self)
+            .sink { owner, _ in
+                owner.cancelPickedImages()
             }
             .store(in: &cancellables)
     }
     
     func action(_ action: Action) {
         switch action {
+        case .moveCameraPointer(let pointer):
+            input.moveCameraPointer.send(pointer)
         case .placePicked(let place):
             input.placePicked.send(place)
         case .cancelPickedPlaces:
@@ -153,6 +186,8 @@ final class LogDetailViewModel: ObservableObject {
             input.deleteButtonTapped.send(lastOnly)
         case .placeEditButtonTapped:
             input.placeEditButtonTapped.send(())
+        case .validate:
+            input.validate.send(())
         case .createLog:
             input.createLog.send(())
         case .updateLog(let id):
@@ -163,9 +198,13 @@ final class LogDetailViewModel: ObservableObject {
             input.setLog.send(id)
         case .changeLoadingState:
             input.changeLoadingState.send(())
-        case .cancelPickedImages:
+        case .editPickedImages:
             input.cancelPickedImages.send(())
         }
+    }
+    
+    private func moveCameraPointer(pointer: Int) {
+        output.cameraPointer = pointer
     }
     
     private func togglePlaceEditSheet() {
@@ -200,6 +239,7 @@ final class LogDetailViewModel: ObservableObject {
         output.coordinateList.append(nmgLatLng)
         output.cameraPointer = output.placeList.count-1
         input.pickedPlaces.append(output.cameraPointer)
+        validate()
     }
     
     private func deletePickedPlace(_ lastOnly: Bool) {
@@ -213,6 +253,7 @@ final class LogDetailViewModel: ObservableObject {
             output.placeList.remove(at: output.cameraPointer)
         }
         output.cameraPointer = output.placeList.count <= 1 ? 0 : output.placeList.count-2
+        validate()
     }
     
     @objc private func cancelPickedPlaces() {
@@ -225,6 +266,14 @@ final class LogDetailViewModel: ObservableObject {
         output.placeList.remove(atOffsets: removeSet)
         output.cameraPointer = output.placeList.count == 0 ? 0 : output.placeList.count-2
         input.pickedPlaces.removeAll()
+        validate()
+    }
+    
+    private func validate() {
+        output.inValid = input.title.isEmpty ||
+                         input.title.count > 15 ||
+                         input.title.replacingOccurrences(of: " ", with: "") == "" ||
+                         output.placeList.isEmpty
     }
     
     private func changeLoadingState() {
@@ -254,9 +303,9 @@ final class LogDetailViewModel: ObservableObject {
     }
     
     private func cancelPickedImages() {
-        let cancelSet = IndexSet(input.cancelImages)
+        let cancelSet = IndexSet(input.editImages)
         output.imageDict[output.cameraPointer]?.remove(atOffsets: cancelSet)
-        input.cancelImages.removeAll()
+        input.editImages.removeAll()
         togglePlaceEditSheet()
     }
     

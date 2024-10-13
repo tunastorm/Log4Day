@@ -34,7 +34,7 @@ struct LogDetailPlaceCell: View {
             isSelected = viewModel.output.cameraPointer == indexInfo.0
         }
         .onTapGesture {
-            viewModel.output.cameraPointer = indexInfo.0
+            viewModel.action(.moveCameraPointer(pointer: indexInfo.0))
         }
         .onChange(of: viewModel.output.cameraPointer == indexInfo.0) { isSelected in
             self.isSelected = isSelected
@@ -72,16 +72,17 @@ struct LogDetailPlaceCell: View {
                         Spacer()
                     }
                 }
-                if controller == .newLogView, isSelected {
-                    Button {
-                        viewModel.action(.placeEditButtonTapped)
-                    } label: {
-                        Text("편집")
-                            .font(.body)
-                            .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
-                    }
-                    .padding(.horizontal, 10)
+                Button {
+                    viewModel.action(.placeEditButtonTapped)
+                } label: {
+                    Text("편집")
+                        .font(.body)
+                        .foregroundStyle(ColorManager.shared.ciColor.highlightColor)
+                        .opacity((controller == .newLogView && isSelected) ? 1 : 0)
+                        
                 }
+                .padding(.horizontal, 10)
+                .disabled(!(controller == .newLogView && isSelected))
             }
             .padding(.vertical)
             if indexInfo.0 < indexInfo.1 - 1 {

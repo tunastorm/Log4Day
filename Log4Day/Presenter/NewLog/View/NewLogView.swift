@@ -19,7 +19,6 @@ struct NewLogView: View {
     @ObservedObject var categoryViewModel: CategoryViewModel
     @StateObject private var viewModel = LogDetailViewModel()
     
-    @State private var isInValid = true
     @State private var showPicker: Bool = false
     @State private var showCanclePicker: Bool = false
     @State private var cancelList: [Int] = []
@@ -27,7 +26,6 @@ struct NewLogView: View {
     @FocusState private var titleFocused: Bool
     @FocusState private var addSheetIsFocused: Bool
 
-    
     var pickerConfig: (Int) -> PHPickerConfiguration = { limit in
           var config = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
           config.filter = .images
@@ -44,16 +42,14 @@ struct NewLogView: View {
                 LoadingView(loadingState: $viewModel.output.loadingState)
             }
             .onTapGesture {
-                titleFocused = false
-                isInValid = viewModel.input.title.isEmpty ||
-                            viewModel.input.title.replacingOccurrences(of: " ", with: "") == "" ||
-                            viewModel.output.placeList.isEmpty
+                if titleFocused {
+                    viewModel.action(.validate)
+                    titleFocused = false
+                }
             }
         }
         .onAppear {
-            isInValid = viewModel.input.title.isEmpty ||
-                        viewModel.input.title.replacingOccurrences(of: " ", with: "") == "" ||
-                        viewModel.output.placeList.isEmpty
+            viewModel.action(.validate)
         }
         .bottomSheet(bottomSheetPosition: $categoryViewModel.output.showAddSheet,
                      switchablePositions: [.hidden, .dynamic]) {
@@ -97,10 +93,10 @@ struct NewLogView: View {
                             tapSelection = 0
                         } label: {
                             Text("등록")
-                                .foregroundStyle(isInValid ?
+                                .foregroundStyle(viewModel.output.inValid ?
                                                  ColorManager.shared.ciColor.subContentColor : ColorManager.shared.ciColor.highlightColor)
                         }
-                        .disabled(isInValid)
+                        .disabled(viewModel.output.inValid)
                 )
                 ScrollView {
                     LazyVStack {
@@ -140,13 +136,12 @@ struct NewLogView: View {
             HStack {
                 VStack(alignment: .leading) {
                     CategoryPickerView(categoryViewModel: categoryViewModel, viewModel: viewModel)
-                    TextField("오늘의 추억을 요약해보세요 (최대 18자)", text: $viewModel.input.title)
+                    TextField("오늘의 추억을 요약해보세요 (최대 15자)", text: $viewModel.input.title)
                         .font(.title3)
+                        .foregroundStyle(viewModel.output.inValid ? .gray : .black)
                         .focused($titleFocused)
                         .onSubmit {
-                            self.isInValid = viewModel.input.title.isEmpty ||
-                            viewModel.input.title.replacingOccurrences(of: " ", with: "") == "" ||
-                            viewModel.output.placeList.isEmpty
+                            viewModel.action(.validate)
                         }
                     Text(DateFormatManager.shared.dateToFormattedString(date: viewModel.output.date,
                                                                         format: .dotSeparatedyyyyMMddDay))
@@ -313,11 +308,11 @@ struct NewLogView: View {
                             }
                             .padding(.horizontal)
                             .onPress {
-                                if viewModel.input.cancelImages.contains(index) {
-                                    viewModel.input.cancelImages.removeAll(where: {$0 == index})
+                                if viewModel.input.editImages.contains(index) {
+                                    viewModel.input.editImages.removeAll(where: {$0 == index})
                                     cancelList.removeAll(where: {$0 == index})
                                 } else {
-                                    viewModel.input.cancelImages.append(index)
+                                    viewModel.input.editImages.append(index)
                                     cancelList.append(index)
                                 }
                             }
@@ -328,8 +323,8 @@ struct NewLogView: View {
                 .padding(.vertical)
                 VStack(alignment: .center) {
                     Button {
-                        if viewModel.input.cancelImages.count > 0 {
-                            viewModel.action(.cancelPickedImages)
+                        if viewModel.input.editImages.count > 0 {
+                            viewModel.action(.editPickedImages)
                             cancelList.removeAll()
                         }
                         showCanclePicker.toggle()
