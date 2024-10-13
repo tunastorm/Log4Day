@@ -85,6 +85,12 @@
 		BC692E052C9D1A9E00374032 /* TapBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC692E042C9D1A9E00374032 /* TapBarView.swift */; };
 		BC8007AB2C9D4A0300D62778 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8007AA2C9D4A0300D62778 /* NavigationBar.swift */; };
 		BC8007AD2C9D4E3F00D62778 /* SideBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8007AC2C9D4E3F00D62778 /* SideBarView.swift */; };
+		BCBEB8682CBB823B00DFF2C6 /* Publisher+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBEB8672CBB823B00DFF2C6 /* Publisher+Extension.swift */; };
+		BCBEB86A2CBB9A3200DFF2C6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BCBEB8692CBB9A3200DFF2C6 /* GoogleService-Info.plist */; };
+		BCBEB86D2CBB9A9300DFF2C6 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = BCBEB86C2CBB9A9300DFF2C6 /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		BCBEB86F2CBB9A9300DFF2C6 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = BCBEB86E2CBB9A9300DFF2C6 /* FirebaseCrashlytics */; };
+		BCBEB8712CBB9A9300DFF2C6 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = BCBEB8702CBB9A9300DFF2C6 /* FirebaseMessaging */; };
+		BCBEB8732CBB9C4900DFF2C6 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBEB8722CBB9C4900DFF2C6 /* NotificationManager.swift */; };
 		BCDC2A4C2CAD6A0B00FDFF22 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCDC2A4B2CAD6A0B00FDFF22 /* CategoryModel.swift */; };
 		BCDC2A4F2CAE663100FDFF22 /* ImageDownSampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCDC2A4E2CAE663100FDFF22 /* ImageDownSampler.swift */; };
 		BCDC2A512CAEC41000FDFF22 /* BottomSheetHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCDC2A502CAEC41000FDFF22 /* BottomSheetHeaderView.swift */; };
@@ -214,6 +220,10 @@
 		BC692E042C9D1A9E00374032 /* TapBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapBarView.swift; sourceTree = "<group>"; };
 		BC8007AA2C9D4A0300D62778 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		BC8007AC2C9D4E3F00D62778 /* SideBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarView.swift; sourceTree = "<group>"; };
+		BCBEB8672CBB823B00DFF2C6 /* Publisher+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+Extension.swift"; sourceTree = "<group>"; };
+		BCBEB8692CBB9A3200DFF2C6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BCBEB8722CBB9C4900DFF2C6 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		BCBEB8742CBB9DD400DFF2C6 /* Log4Day.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Log4Day.entitlements; sourceTree = "<group>"; };
 		BCDC2A4B2CAD6A0B00FDFF22 /* CategoryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		BCDC2A4E2CAE663100FDFF22 /* ImageDownSampler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownSampler.swift; sourceTree = "<group>"; };
 		BCDC2A502CAEC41000FDFF22 /* BottomSheetHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetHeaderView.swift; sourceTree = "<group>"; };
@@ -236,10 +246,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCBEB8712CBB9A9300DFF2C6 /* FirebaseMessaging in Frameworks */,
 				BC395B6A2CA3392C0005FC9D /* Alamofire in Frameworks */,
 				BC4DFDD32C9D64F5002CDC27 /* SwiftUIX in Frameworks */,
 				BC395B4E2CA2DE480005FC9D /* BottomSheet in Frameworks */,
 				BCE0128B2CB25FCD0028156B /* SnapKit in Frameworks */,
+				BCBEB86D2CBB9A9300DFF2C6 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
+				BCBEB86F2CBB9A9300DFF2C6 /* FirebaseCrashlytics in Frameworks */,
 				BC4DFDCE2C9D6105002CDC27 /* RealmSwift in Frameworks */,
 				E1E6BCCB5CF29381A429C5B1 /* Pods_Log4Day.framework in Frameworks */,
 			);
@@ -298,8 +311,8 @@
 		BC395B382CA265710005FC9D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				BC395B342CA1AB460005FC9D /* NewLogView.swift */,
 				BC395B862CA7C9670005FC9D /* CategoryPickerView.swift */,
+				BC395B342CA1AB460005FC9D /* NewLogView.swift */,
 				BCF2DC2F2CAFBB4D0008CA89 /* PlaceListHeader.swift */,
 			);
 			path = View;
@@ -404,6 +417,7 @@
 		BC404BC22C9077FC001BA269 = {
 			isa = PBXGroup;
 			children = (
+				BCBEB8692CBB9A3200DFF2C6 /* GoogleService-Info.plist */,
 				BC404C842C93F9D3001BA269 /* .gitignore */,
 				BC404BCD2C9077FC001BA269 /* Log4Day */,
 				BC404BDE2C9077FE001BA269 /* Log4DayTests */,
@@ -427,6 +441,8 @@
 		BC404BCD2C9077FC001BA269 /* Log4Day */ = {
 			isa = PBXGroup;
 			children = (
+				BCBEB8742CBB9DD400DFF2C6 /* Log4Day.entitlements */,
+				BCBEB8662CBB822900DFF2C6 /* Extension */,
 				BC404BD22C9077FD001BA269 /* Assets.xcassets */,
 				BC4DFDC72C9D5B3B002CDC27 /* Info.plist */,
 				BC65B4FF2CA02D1100E89223 /* Util */,
@@ -697,6 +713,7 @@
 			children = (
 				BC4DFDDC2C9D98D0002CDC27 /* LocationManager.swift */,
 				BC65B5002CA02D2000E89223 /* DateFormatManager.swift */,
+				BCBEB8722CBB9C4900DFF2C6 /* NotificationManager.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -729,6 +746,14 @@
 				BC4DFDE82C9EBC39002CDC27 /* RepositoryResult.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		BCBEB8662CBB822900DFF2C6 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				BCBEB8672CBB823B00DFF2C6 /* Publisher+Extension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		BCF48DFB2CAD3E7600A9AFD6 /* ForView */ = {
@@ -767,6 +792,9 @@
 				BC395B4D2CA2DE480005FC9D /* BottomSheet */,
 				BC395B692CA3392C0005FC9D /* Alamofire */,
 				BCE0128A2CB25FCD0028156B /* SnapKit */,
+				BCBEB86C2CBB9A9300DFF2C6 /* FirebaseAnalyticsWithoutAdIdSupport */,
+				BCBEB86E2CBB9A9300DFF2C6 /* FirebaseCrashlytics */,
+				BCBEB8702CBB9A9300DFF2C6 /* FirebaseMessaging */,
 			);
 			productName = Log4Day;
 			productReference = BC404BCB2C9077FC001BA269 /* Log4Day.app */;
@@ -849,6 +877,7 @@
 				BC395B4C2CA2DE480005FC9D /* XCRemoteSwiftPackageReference "BottomSheet" */,
 				BC395B682CA3392C0005FC9D /* XCRemoteSwiftPackageReference "Alamofire" */,
 				BCE012892CB25FCD0028156B /* XCRemoteSwiftPackageReference "SnapKit" */,
+				BCBEB86B2CBB9A9300DFF2C6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = BC404BCC2C9077FC001BA269 /* Products */;
 			projectDirPath = "";
@@ -867,6 +896,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC404BD62C9077FD001BA269 /* Preview Assets.xcassets in Resources */,
+				BCBEB86A2CBB9A3200DFF2C6 /* GoogleService-Info.plist in Resources */,
 				BC404C852C93F9D3001BA269 /* .gitignore in Resources */,
 				BC404BD32C9077FD001BA269 /* Assets.xcassets in Resources */,
 			);
@@ -1024,6 +1054,7 @@
 				BC404BD12C9077FC001BA269 /* RootView.swift in Sources */,
 				BC395B3B2CA265920005FC9D /* LogDetailViewModel.swift in Sources */,
 				BC395B5B2CA32CA80005FC9D /* SearchPlaceView.swift in Sources */,
+				BCBEB8682CBB823B00DFF2C6 /* Publisher+Extension.swift in Sources */,
 				BC404CBA2C94B0A5001BA269 /* ColorManager.swift in Sources */,
 				BC404C7D2C93F04D001BA269 /* NavigationWrapper.swift in Sources */,
 				BC404CA62C941F0E001BA269 /* TimelineCell.swift in Sources */,
@@ -1035,6 +1066,7 @@
 				BC692E052C9D1A9E00374032 /* TapBarView.swift in Sources */,
 				BC4DFDF22C9EF933002CDC27 /* FSCalanderView.swift in Sources */,
 				BC4DFDE72C9EBC24002CDC27 /* ManagedObject.swift in Sources */,
+				BCBEB8732CBB9C4900DFF2C6 /* NotificationManager.swift in Sources */,
 				BC395B612CA336000005FC9D /* SearchedPlace.swift in Sources */,
 				BC6417242C96EDF30013587A /* SideView.swift in Sources */,
 				BC395B742CA3E2090005FC9D /* SearchPlaceCell.swift in Sources */,
@@ -1237,6 +1269,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Log4Day/Log4Day.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Log4Day/Preview Content\"";
@@ -1246,10 +1279,12 @@
 				INFOPLIST_FILE = Log4Day/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Log4Day;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "이 어플리케이션은 사용자의 사진을 저장하기 위해 갤러리에 접근할 권한이 필요합니다 ";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1275,6 +1310,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Log4Day/Log4Day.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Log4Day/Preview Content\"";
@@ -1284,10 +1320,12 @@
 				INFOPLIST_FILE = Log4Day/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Log4Day;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "이 어플리케이션은 사용자의 사진을 저장하기 위해 갤러리에 접근할 권한이 필요합니다 ";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1460,6 +1498,14 @@
 				minimumVersion = 0.2.2;
 			};
 		};
+		BCBEB86B2CBB9A9300DFF2C6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.3.0;
+			};
+		};
 		BCE012892CB25FCD0028156B /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -1490,6 +1536,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BC4DFDD12C9D64F5002CDC27 /* XCRemoteSwiftPackageReference "SwiftUIX" */;
 			productName = SwiftUIX;
+		};
+		BCBEB86C2CBB9A9300DFF2C6 /* FirebaseAnalyticsWithoutAdIdSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BCBEB86B2CBB9A9300DFF2C6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
+		BCBEB86E2CBB9A9300DFF2C6 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BCBEB86B2CBB9A9300DFF2C6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+		BCBEB8702CBB9A9300DFF2C6 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BCBEB86B2CBB9A9300DFF2C6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
 		};
 		BCE0128A2CB25FCD0028156B /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
