@@ -21,20 +21,22 @@ class CategoryViewModel: ObservableObject {
     enum Action {
         case sideBarButtonTapped
         case changeTapped
+        case showAddSheet
+        case showDeleteAlert
+        case validate
         case addTapped
         case deleteTapped
-        case addAlertTapped
-        case deleteAlertTapped
         case newCategoryTextFieldReturn
     }
     
     struct Input {
         let sideBarButtonTapped = PassthroughSubject<Void, Never>()
         let changeTapped = PassthroughSubject<Void, Never>()
+        let showAddSheet = PassthroughSubject<Void, Never>()
+        let showDeleteAlert = PassthroughSubject<Void,Never>()
+        let validate = PassthroughSubject<Void, Never>()
         let addTapped = PassthroughSubject<Void, Never>()
-        let deleteTapped = PassthroughSubject<Void,Never>()
-        let addAlertTapped = PassthroughSubject<Void, Never>()
-        let deleteAlertTapped = PassthroughSubject<Void, Never>()
+        let deleteTapped = PassthroughSubject<Void, Never>()
         let newCategoryTextFieldReturn = PassthroughSubject<Void, Never>()
         var selectedCategory = ""
         var nowLogDate = DateFormatManager.shared.dateToFormattedString(date: Date(), format: .dotSeparatedyyyyMMddDay)
@@ -48,6 +50,7 @@ class CategoryViewModel: ObservableObject {
         var showSide = false
         var showAddSheet: BottomSheetPosition = .hidden
         @FocusState var addCategoryTextFieldEditing: Bool
+        var inValid = true
         var deleteAlert: Bool = false
         var addAlert: Bool = false
         var deleteResult: RepositoryResult
@@ -56,44 +59,58 @@ class CategoryViewModel: ObservableObject {
     
     init() {
         input.sideBarButtonTapped
-            .sink { [weak self] _ in
-                self?.toggleShowSide()
+            .withUnretained(self)
+            .sink { owner, _ in
+                owner.toggleShowSide()
             }
             .store(in: &cancellables)
         
         input.changeTapped
-            .sink { [weak self] _ in
-                self?.changeCategory()
+            .withUnretained(self)
+            .sink { owner, _ in
+                owner.changeCategory()
+            }
+            .store(in: &cancellables)
+        
+        input.showAddSheet
+            .withUnretained(self)
+            .sink { owner, _ in
+                owner.showAddSheet()
+            }
+            .store(in: &cancellables)
+        
+        input.showDeleteAlert
+            .withUnretained(self)
+            .sink { owner, _ in
+                owner.showDeleteAlert()
+            }
+            .store(in: &cancellables)
+        
+        input.validate
+            .withUnretained(self)
+            .sink { owner, _ in
+                owner.validation()
             }
             .store(in: &cancellables)
         
         input.addTapped
-            .sink { [weak self] _ in
-                self?.showAddSheet()
+            .withUnretained(self)
+            .sink { owner, _ in
+                owner.addCategory()
             }
             .store(in: &cancellables)
         
         input.deleteTapped
-            .sink { [weak self] _ in
-                self?.showDeleteAlert()
-            }
-            .store(in: &cancellables)
-        
-        input.addAlertTapped
-            .sink { [weak self] _ in
-                self?.addCategory()
-            }
-            .store(in: &cancellables)
-        
-        input.deleteAlertTapped
-            .sink { [weak self] _ in
-                self?.deleteCategory()
+            .withUnretained(self)
+            .sink { owner, _ in
+                owner.deleteCategory()
             }
             .store(in: &cancellables)
         
         input.newCategoryTextFieldReturn
-            .sink { [weak self] _ in
-                self?.addCategory()
+            .withUnretained(self)
+            .sink { owner, _ in
+                owner.addCategory()
             }
             .store(in: &cancellables)
     }
@@ -104,40 +121,47 @@ class CategoryViewModel: ObservableObject {
             input.sideBarButtonTapped.send(())
         case .changeTapped:
             input.changeTapped.send(())
+        case .showAddSheet:
+            input.showAddSheet.send(())
+        case .showDeleteAlert:
+            input.showDeleteAlert.send(())
+        case .validate:
+            input.validate.send(())
         case .addTapped:
             input.addTapped.send(())
         case .deleteTapped:
             input.deleteTapped.send(())
-        case .addAlertTapped:
-            input.addAlertTapped.send(())
-        case .deleteAlertTapped:
-            input.deleteAlertTapped.send(())
         case .newCategoryTextFieldReturn:
             input.newCategoryTextFieldReturn.send(())
         }
     }
 
-    func changeCategory() {
+    private func changeCategory() {
         output.category = input.selectedCategory
     }
     
-    func toggleShowSide() {
+    private func toggleShowSide() {
         output.showSide.toggle()
     }
     
-    func showAddSheet() {
+    private func showAddSheet() {
         output.showAddSheet = output.showAddSheet == .hidden ? .dynamic : .hidden
     }
     
-    func showAddAlert() {
+    private func showAddAlert() {
         output.addAlert.toggle()
     }
     
-    func showDeleteAlert() {
+    private func showDeleteAlert() {
         output.deleteAlert.toggle()
     }
     
-    func addCategory() {
+    private func validation() {
+        let isExist = output.categoryList.map { $0.title }.contains(input.newCategory)
+        output.inValid = isExist || input.newCategory.isEmpty || input.newCategory.count > 7
+    }
+    
+    private func addCategory() {
         let item = Category(title: input.newCategory)
         repository.createItem(item) { result in
             switch result {
@@ -148,6 +172,7 @@ class CategoryViewModel: ObservableObject {
             case .failure(let error): output.addResult = error
             }
         }
+        input.newCategory = ""
     }
     
     func deleteCategory() {

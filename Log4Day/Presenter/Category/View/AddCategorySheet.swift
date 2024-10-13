@@ -18,8 +18,12 @@ struct AddCategorySheet: View {
             HStack(alignment: .center) {
                 VStack {
                     VStack {
-                        TextField("추가할 카테고리 이름을 입력하세요", text: $viewModel.input.newCategory)
+                        TextField("카테고리 이름을 입력하세요 (최대 7자리)", text: $viewModel.input.newCategory)
                             .focused($isFocused)
+                            .foregroundStyle(viewModel.output.inValid ? .gray : .black)
+                            .onSubmit {
+                                viewModel.action(.validate)
+                            }
                         Rectangle()
                             .frame(height: 1)
                             .frame(maxWidth: .infinity)
@@ -31,11 +35,12 @@ struct AddCategorySheet: View {
                         Spacer()
                         Button {
                             viewModel.action(.newCategoryTextFieldReturn)
-                            viewModel.action(.addTapped)
+                            viewModel.action(.showAddSheet)
                             isFocused = false
                         } label: {
                             Text("추가하기")
                         }
+                        .disabled(viewModel.output.inValid)
                         Spacer()
                     }
                 }
@@ -45,6 +50,12 @@ struct AddCategorySheet: View {
         .frame(height: isFocused ? 170 : 250)
         .animation(.easeInOut, value: isFocused)
         .background(ColorManager.shared.ciColor.backgroundColor)
+        .onTapGesture {
+            if isFocused {
+                viewModel.action(.validate)
+                isFocused = false
+            }
+        }
     }
 }
 

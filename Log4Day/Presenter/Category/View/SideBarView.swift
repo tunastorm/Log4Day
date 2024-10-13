@@ -30,7 +30,7 @@ struct SideBarView: View {
                         withAnimation {
                             viewModel.action(.sideBarButtonTapped)
                             if viewModel.output.showAddSheet != .hidden {
-                                viewModel.action(.addTapped)
+                                viewModel.action(.showAddSheet)
                                 addSheetIsEditing = false
                             }
                         }

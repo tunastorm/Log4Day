@@ -27,7 +27,7 @@ struct CategoryPickerView: View {
                         })
                     } else {
                         Button(action: {
-                            categoryViewModel.action(.addTapped)
+                            categoryViewModel.action(.showAddSheet)
                         }, label: {
                             Label {
                                 Text(category)

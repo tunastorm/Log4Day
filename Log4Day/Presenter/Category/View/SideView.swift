@@ -90,7 +90,7 @@ struct SideView: View {
                 // Toast 뷰 구현 가져와서 예외처리
                 return
             }
-            viewModel.action(.deleteTapped)
+            viewModel.action(.showDeleteAlert)
         } label: {
             Text("삭제하기")
                 .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
@@ -99,7 +99,7 @@ struct SideView: View {
         .alert(LocalizedStringKey("'\(viewModel.output.category)' 카테고리를 삭제하시겠습니까?"), isPresented: $viewModel.output.deleteAlert) {
             Button("취소", role: .cancel) { }
             Button("삭제", role: .destructive) {
-                viewModel.action(.deleteAlertTapped)
+                viewModel.action(.deleteTapped)
                 deleteResultHandler()
             }
         }
@@ -107,7 +107,7 @@ struct SideView: View {
     
     private func addButton() -> some View {
         Button {
-            viewModel.action(.addTapped)
+            viewModel.action(.showAddSheet)
         } label: {
             Text("추가하기")
         }
