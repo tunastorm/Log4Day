@@ -9,9 +9,11 @@
 - 카테고리별 로그(일기) 분류 및 네컷사진 이미지 갤러리 저장 지원
 
 
-### | [앱스토어](http://apps.apple.com/kr/app/log4day-%EB%84%A4-%EC%BB%B7-%EC%82%AC%EC%A7%84-%EC%86%8D-%EC%98%A4%EB%8A%98-%ED%95%98%EB%A3%A8/id6736357381)   
+### | 앱스토어   
 
-<img src="https://github.com/tunastorm/Log4Day/blob/tunastorm/ReadmeResource/appstoreScreenshot.jpeg?raw=true" width="200" height="400"/>
+<a href="http://apps.apple.com/kr/app/log4day-%EB%84%A4-%EC%BB%B7-%EC%82%AC%EC%A7%84-%EC%86%8D-%EC%98%A4%EB%8A%98-%ED%95%98%EB%A3%A8/id6736357381">
+ <img src="https://github.com/tunastorm/Log4Day/blob/tunastorm/ReadmeResource/appstoreScreenshot.jpeg?raw=true" width="200" height="400"/>
+</a>
 
 
 ### | 스크린샷
