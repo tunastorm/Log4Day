@@ -98,7 +98,7 @@ iOS 15.0 이상
 
 ### | 프로젝트 구성도 
 
-![title]("")
+![title]("https://github.com/tunastorm/Log4Day/blob/tunastorm/ReadmeResource/%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8C%E1%85%A6%E1%86%A8%E1%84%90%E1%85%B3%20%E1%84%80%E1%85%AE%E1%84%89%E1%85%A5%E1%86%BC%E1%84%83%E1%85%A9.png?raw=true")
 
 
 ### | 장소 검색 후 방문 장소 / 경로 표기 로직 도표
