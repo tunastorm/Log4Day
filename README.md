@@ -15,7 +15,7 @@
 
 
 ### | 스크린샷
-![title](https://github.com/tunastorm/Log4Day/blob/tunastorm/Apple%20iPhone%2011%20Pro%20Max%20Screenshot%20All.png?raw=true)   
+![title](https://github.com/tunastorm/Log4Day/blob/tunastorm/ReadmeResource/Apple%20iPhone%2011%20Pro%20Max%20Screenshot%20All.png?raw=true)   
 
 <br>
 
