@@ -49,17 +49,17 @@ iOS 15.0 이상
 <br>
 
 > ### 추억 관리
-- 방문장소 검색
-- 방문장소 등록 / 삭제
-- 방문장소 이미지 등록 / 삭제
-
-<br>
-
-> ### 추억 관리
 - 카테고리별 로그 조회
 - 로그 상세 조회 / 수정 / 삭제
 - 네 컷 사진 조회 / 갤러리 저장
 - 방문 장소 조회 
+
+<br>
+
+> ### 일기 등록
+- 방문장소 검색
+- 방문장소 등록 / 삭제
+- 방문장소 이미지 등록 / 삭제
 
 <br>
  
@@ -115,11 +115,11 @@ iOS 15.0 이상
 
 <br>
 
-> ### 지도와 사진으로 기록하는 일기:
+> ### Custom Infinity Caroucel View & Convert Cell to UIImage and Save Gallery  
 
 <br>
 
-> ### Custom Infinity Caroucel View & Convert Cell to UIImage and Save Gallery  
+> ### 장소 검색, 지도 동선 표시, 이미지 등록
 
 <br>
 
@@ -128,14 +128,6 @@ iOS 15.0 이상
 <br>
 
 > ### Firebase Cloud Message RemotePush
-
-<br>
-
-> ### UIViewControllerRepresentable
-
-<br>
-
-> ### UIHostingController
 
 <br>
 
