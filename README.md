@@ -3,7 +3,7 @@
 
 <br>
 
-### | 앱스토어   
+> ### 앱스토어   
 <center>
  <div align= "center", href="http://apps.apple.com/kr/app/log4day-%EB%84%A4-%EC%BB%B7-%EC%82%AC%EC%A7%84-%EC%86%8D-%EC%98%A4%EB%8A%98-%ED%95%98%EB%A3%A8/id6736357381">
   <img src="https://github.com/tunastorm/Log4Day/blob/tunastorm/ReadmeResource/appstoreScreenshot.jpeg?raw=true" width="200" height="400"/>
@@ -11,11 +11,11 @@
 </center>
 
 
-### | 스크린샷
+> ### 스크린샷
 ![title](https://github.com/tunastorm/Log4Day/blob/tunastorm/ReadmeResource/Apple%20iPhone%2011%20Pro%20Max%20Screenshot%20All.png?raw=true)   
 
 
-### | 서비스 소개
+> ### 서비스 소개
 
 - 매일의 추억을 지도와 네컷사진으로 기록할 수 있는 어플리케이션
 - 카테고리별 로그(일기) 분류 및 네컷사진 이미지 갤러리 저장 지원
