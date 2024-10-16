@@ -115,7 +115,7 @@ iOS 15.0 이상
 
 <br>
 
-> ### Custom Infinity Caroucel View & Convert Cell to UIImage and Save Gallery  
+> ### Custom Infinity Caroucel View & SwiftUI View의 UIImage 변환 및 갤러리 저장  
 
 <br>
 
