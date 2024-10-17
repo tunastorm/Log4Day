@@ -8,7 +8,7 @@
 </div>
 <br>
 <div align = "center">
-   <img src = "https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white" width="60" height="20">
+   <img src = "https://github.com/user-attachments/assets/1aca363d-17e8-45b0-9e76-6cda7e1d89c3" width="80" height="20">
    <img src = "https://github.com/user-attachments/assets/ef2582ec-ab10-4893-99b9-41eb98571803" width="60" height="20">
    <img src = "https://github.com/user-attachments/assets/b37832bf-28fe-4d51-931c-0d1a3043636e" width="60" height="20">
 </div>
