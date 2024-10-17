@@ -1,30 +1,30 @@
-<div align = "center">
+프로젝트 정보
+-
+
+<br>
+
+<div align = "center"> 
  <img src = "https://github.com/user-attachments/assets/61809e71-67b6-44e0-b6db-1bf0006333ed" width="200" height="200"/>
+</div>
+<br>
+<div  align = "center">
+  <img src = "https://img.shields.io/badge/App_Store-0D96F6?style=for-the-badge&logo=app-store&logoColor=white"> 
+  <img src = "https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white", href="https://apps.apple.com/kr/app/log4day-%EB%84%A4-%EC%BB%B7-%EC%82%AC%EC%A7%84-%EC%86%8D-%EC%98%A4%EB%8A%98-%ED%95%98%EB%A3%A8/id6736357381">
+  <img src = "https://img.shields.io/badge/swift-F54A2A?style=for-the-badge&logo=swift&logoColor=white">
 </div>
 
 
-> ### 앱스토어   
-<center>
- <div align= "center", href="http://apps.apple.com/kr/app/log4day-%EB%84%A4-%EC%BB%B7-%EC%82%AC%EC%A7%84-%EC%86%8D-%EC%98%A4%EB%8A%98-%ED%95%98%EB%A3%A8/id6736357381">
-  <img src="https://github.com/tunastorm/Log4Day/blob/tunastorm/ReadmeResource/appstoreScreenshot.jpeg?raw=true" width="200" height="400"/>
- </div>
-</center>
+<br>
 
-
-> ### 스크린샷
-![title](https://github.com/tunastorm/Log4Day/blob/tunastorm/ReadmeResource/Apple%20iPhone%2011%20Pro%20Max%20Screenshot%20All.png?raw=true)   
-
-
-> ### 서비스 소개
+> ### Log4Day
 
 - 매일의 추억을 지도와 네컷사진으로 기록할 수 있는 어플리케이션
 - 카테고리별 로그(일기) 분류 및 네컷사진 이미지 갤러리 저장 지원
 
 <br>
 
-
-프로젝트 정보
--
+> ### 스크린샷
+![title](https://github.com/tunastorm/Log4Day/blob/tunastorm/ReadmeResource/Apple%20iPhone%2011%20Pro%20Max%20Screenshot%20All.png?raw=true)   
 
 <br>
 
