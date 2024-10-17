@@ -192,6 +192,7 @@ iOS 15.0 이상
 * View - ViewModel - Model간 의존성 역진 및 의존성 주입이 가능한 구조로 변경
 * 네트워크, Realm CRUD 등의 예외처리 및 alert등을 통한 결과 안내 로직 추가
 * ViewModel과 View간의 의존성 해소
+* UI/Unit 테스트 코드의 부재
 * 커스텀으로 구현한 무한 페이지네이션 뷰의 딱딱한 스크롤 애니메이션을 SwiftUI에 어울리게 개선
 
 <br>
