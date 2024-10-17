@@ -1,4 +1,4 @@
-![Download_on_the_App_Store_Badge_KR_RGB_blk_100317](https://github.com/user-attachments/assets/338e1811-008c-4ea3-9794-de94392af06e)프로젝트 정보
+프로젝트 정보
 -
 
 <br>
@@ -8,13 +8,14 @@
 </div>
 <br>
 <div align = "center">
-  <img src = "https://img.shields.io/badge/App_Store-0D96F6?style=for-the-badge&logo=app-store&logoColor=white"> 
-   <img src = "https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white">
-   <img src = "https://img.shields.io/badge/swift-F54A2A?style=for-the-badge&logo=swift&logoColor=white">
+   <img src = "https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white" width="60" height="20">
+   <img src = "https://github.com/user-attachments/assets/ef2582ec-ab10-4893-99b9-41eb98571803" width="60" height="20">
+   <img src = "https://github.com/user-attachments/assets/b37832bf-28fe-4d51-931c-0d1a3043636e" width="60" height="20">
 </div>
+<br>
 <div align="center">
  <a href="https://apps.apple.com/kr/app/log4day-%EB%84%A4-%EC%BB%B7-%EC%82%AC%EC%A7%84-%EC%86%8D-%EC%98%A4%EB%8A%98-%ED%95%98%EB%A3%A8/id6736357381">
-   <img src="https://github.com/user-attachments/assets/322cd07e-b37f-4865-86cf-f76b76c686b9">
+    <img src="https://github.com/user-attachments/assets/338e1811-008c-4ea3-9794-de94392af06e">
  </a>
 </div>
 
@@ -168,7 +169,7 @@ iOS 15.0 이상
 > ### 이미지 다운 샘플링
 - 서비스 기획상 현재 2개의 뷰에서 지도 SDK를 사용해야만 하는 만큼 최소 200MB의 메모리 부하를 디폴트로 감당해야하는 상태. 
 - 원본 이미지를 그대로 사용하게되면 지도뷰에서 장시간 또는 대량의 작업이 일어날 경우 쉽게 메모리에 과도한 부하발생 가능
-- WWDC에서 SwiftUI에서 제공하는 Image의 resizable이나 UIGraphicsImageRenderer보다 더 효율적인 방법으로 소개된ImageIO를 사용한 다운샘플링 구현
+- WWDC에서 SwiftUI에서 제공하는 Image의 resizable이나 UIGraphicsImageRenderer보다 더 효율적인 방법으로 소개된 ImageIO를 사용한 다운샘플링 구현
 - 전 후 성능비교
 
 <br>
