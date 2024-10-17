@@ -1,7 +1,7 @@
+<div align = "center">
+ <img src = "https://github.com/user-attachments/assets/61809e71-67b6-44e0-b6db-1bf0006333ed" width="200" height="200"/>
+</div>
 
-# Log4Day
-
-<br>
 
 > ### 앱스토어   
 <center>
