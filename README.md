@@ -84,7 +84,7 @@ iOS 15.0 이상
 > ### Architecture & Design Pattern
 
 * MVVM, Input-Output
-* Singleton, Router
+* Repository, Router, Singleton
 
 > ### Swift Libraries
 
