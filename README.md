@@ -1,18 +1,21 @@
-프로젝트 정보
+![Download_on_the_App_Store_Badge_KR_RGB_blk_100317](https://github.com/user-attachments/assets/338e1811-008c-4ea3-9794-de94392af06e)프로젝트 정보
 -
 
 <br>
 
-<div align = "center"> 
- <img src = "https://github.com/user-attachments/assets/61809e71-67b6-44e0-b6db-1bf0006333ed" width="200" height="200"/>
+<div align="center">
+  <img src = "https://github.com/user-attachments/assets/61809e71-67b6-44e0-b6db-1bf0006333ed" width="200" height="200"/>
 </div>
 <br>
-<div  align = "center">
-  <a style="text-decoration: none;" href="https://apps.apple.com/kr/app/log4day-%EB%84%A4-%EC%BB%B7-%EC%82%AC%EC%A7%84-%EC%86%8D-%EC%98%A4%EB%8A%98-%ED%95%98%EB%A3%A8/id6736357381", target="_blank">
-   <img src = "https://img.shields.io/badge/App_Store-0D96F6?style=for-the-badge&logo=app-store&logoColor=white"> 
-  </a>
+<div align = "center">
+  <img src = "https://img.shields.io/badge/App_Store-0D96F6?style=for-the-badge&logo=app-store&logoColor=white"> 
    <img src = "https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white">
    <img src = "https://img.shields.io/badge/swift-F54A2A?style=for-the-badge&logo=swift&logoColor=white">
+</div>
+<div align="center">
+ <a href="https://apps.apple.com/kr/app/log4day-%EB%84%A4-%EC%BB%B7-%EC%82%AC%EC%A7%84-%EC%86%8D-%EC%98%A4%EB%8A%98-%ED%95%98%EB%A3%A8/id6736357381">
+   <img src="https://github.com/user-attachments/assets/322cd07e-b37f-4865-86cf-f76b76c686b9">
+ </a>
 </div>
 
 <br>
@@ -88,13 +91,11 @@ iOS 15.0 이상
 * Combine
 * UIKit
 
-> ### Commercial Library & API
-* Naver Maps API V3
-* Naver Open API Search (지역)
-
-> ### OpenSource Libraries
+> ### External Libraries
 
 * Alamofire
+* RealmSwift
+* Naver Maps API V3
 * BottomSheet
 * RealmSwift
 * SnapKit
@@ -113,13 +114,20 @@ iOS 15.0 이상
   <img src="https://github.com/tunastorm/Log4Day/blob/tunastorm/ReadmeResource/%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8C%E1%85%A6%E1%86%A8%E1%84%90%E1%85%B3%20%E1%84%80%E1%85%AE%E1%84%89%E1%85%A5%E1%86%BC%E1%84%83%E1%85%A9.png?raw=true"/>
 </div>
 
+
+> ### SwiftUI와 Combine을 결합한 MVVM Architecture
+
 <br>
 
-> ### Custom Infinity Caroucel View & SwiftUI View의 UIImage 변환 및 갤러리 저장  
+> ### SwiftUI의 AppDelegate와 Realm Migration
 
 <br>
 
-> ### 장소 검색, 지도 동선 표시, 이미지 등록
+> ### UIHostingController, UIGraphicsImageRenderer, CGImage.cropping으로 SwiftUI View를 UIImage로 변환 후 갤러리 저장
+
+<br>
+
+> ### UIViewRepresentable의 Coordinator로 지도 오버레이 객체 관리
 
 <br>
 
@@ -127,29 +135,42 @@ iOS 15.0 이상
 
 <br>
 
-> ### Firebase Cloud Message RemotePush
+> ### Firebase Config 및 RemotePush
 
 <br>
+
+> ### GeometryReader, @NameSpace로 View 객체의 애니메이션 구현 
+
+<br>
+
+> ### @EnvironmentObject, @ObservedObject 어노테이션을 통한 상위 뷰와 하위 뷰의 ViewModel 인스턴스 공유
+
+<br>
+
+> ### SwiftUI에서의 Custom Infinity Carousel View와 Cell에 대한 반복적인 Touch 이벤트 제어
+
+<br> 
+
 
 트러블 슈팅
 -
 
 <br>
 
- > ### 지도 Representable 객체 비동기 처리
-  -  선택된 마커/장소에 대한 이벤트 처리가 1~2초가량 지연되는 이슈
-  -  사용자가 선택한 장소의 위치를 입력받는 프로퍼티에 view의 변경이 없는 viewModel의 변경은 예측되지 않은 동작을 일으킬 수 있다는 보라색 경고 발생
-  - updateView 메서드의 로직을 Main큐에서 비동기처리하도록 개선
-  - 마커 선택 및 장소 셀 선택시 즉각적인 반응 
+> ### 지도 Representable 객체 비동기 처리
+ - 선택된 마커/장소에 대한 이벤트 처리가 1~2초가량 지연되는 이슈
+ - 사용자가 선택한 장소의 위치를 입력받는 프로퍼티에 view의 변경이 없는 viewModel의 변경은 예측되지 않은 동작을 일으킬 수 있다는 보라색 경고 발생
+ - updateView 메서드의 로직을 Main큐에서 비동기 처리하도록 개선
+ - 마커 선택 및 장소 셀 선택 시 즉각적인 반응 
 
 <br>
 
 > ### 이미지 다운 샘플링
-- 서비스 기획상 현재 2개의 뷰에서 지도 SDK를 사용해야만 하는만큼 최소 200MB의 메모리 부하를 디폴트로 감당해야하는 상태. 
+- 서비스 기획상 현재 2개의 뷰에서 지도 SDK를 사용해야만 하는 만큼 최소 200MB의 메모리 부하를 디폴트로 감당해야하는 상태. 
 - 원본 이미지를 그대로 사용하게되면 지도뷰에서 장시간 또는 대량의 작업이 일어날 경우 쉽게 메모리에 과도한 부하발생 가능
 - WWDC에서 SwiftUI에서 제공하는 Image의 resizable이나 UIGraphicsImageRenderer보다 더 효율적인 방법으로 소개된ImageIO를 사용한 다운샘플링 구현
 - 전 후 성능비교
- 
+
 <br>
 
 회고
@@ -169,7 +190,7 @@ iOS 15.0 이상
 > ### 개선사항
 * View - ViewModel - Model간 의존성 역진 및 의존성 주입이 가능한 구조로 변경
 * 네트워크, Realm CRUD 등의 예외처리 및 alert등을 통한 결과 안내 로직 추가
-* 생산성을 위해 선택한 단일 viewModel이 동시에 여러 뷰 객체와 이벤트를 주고 받으면서 뷰 객체들간의 이벤트 전파를 중개하고 있는 지금의 구조가 과연 적절한 구조일까.
+* ViewModel과 View간의 의존성 해소
 * 커스텀으로 구현한 무한 페이지네이션 뷰의 딱딱한 스크롤 애니메이션을 SwiftUI에 어울리게 개선
 
 <br>
