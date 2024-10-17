@@ -124,7 +124,7 @@ iOS 15.0 이상
 
 <br>
 
-> ### UIHostingController, UIGraphicsImageRenderer, CGImage.cropping으로 SwiftUI View를 UIImage로 변환 후 갤러리 저장
+> ### UIHostingController, UIGraphicsImageRenderer, CGImage.cropping으로 SwiftUI View를 UIImage로 변환
 
 <br>
 
