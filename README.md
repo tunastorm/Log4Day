@@ -136,7 +136,7 @@ iOS 15.0 이상
 
 <br>
 
-> ### GeometryReader, @NameSpace로 View 객체의 애니메이션 구현 
+> ### GeometryReader, @NameSpace로 View 객체의 애니메이션 구현
 
 <br>
 
@@ -176,7 +176,7 @@ struct NextViewWrapper<Content: View>: View {
 }
 ```
 
-* NavigationLink 렌더링 시 NextViewWrapper만 렌더링, 다음 화면의 View는 클릭 이벤트 발생시 렌더링
+* NavigationLink 렌더링 시 NextViewWrapper만 렌더링하며 다음 화면의 View는 클릭 이벤트 발생시에 렌더링되어 메모리 부하 감소
   
 ```swift
 private func timelineList() -> some View {
@@ -206,11 +206,13 @@ private func timelineList() -> some View {
 }
 ```
 
+> ### @ObservedResult로 RealmObject 추가 / 수정 / 삭제 후 갱신이 불필요한 @Publish 프로퍼티 구성
+
 <br>
 
+> ### RealmSwift와 FileManager를 사용한 이미지 저장 및 로드
 
->
-
+<br>
 
 트러블 슈팅
 -
@@ -221,7 +223,7 @@ private func timelineList() -> some View {
  - 선택된 마커/장소에 대한 이벤트 처리가 1~2초가량 지연되는 이슈
  - 사용자가 선택한 장소의 위치를 입력받는 프로퍼티에 view의 변경이 없는 viewModel의 변경은 예측되지 않은 동작을 일으킬 수 있다는 보라색 경고 발생
  - updateView 메서드의 로직을 Main큐에서 비동기 처리하도록 개선
- - 마커 선택 및 장소 셀 선택 시 즉각적인 반응 
+ - 마커 선택 및 장소 셀 선택 시 즉각적인 반응
 
 <br>
 
@@ -239,7 +241,6 @@ private func timelineList() -> some View {
 <br>
 
 > ### 성취점
-
 * SwiftUI와 Combine을 결합한 MVVM 아키텍처 구현
 * 최소버전을 iOS 15로 대응하는 데 성공
 * Naver 지도 SDK의 오버레이 객체들을 활용해 지도에 마커, 경로, 사진을 추가하는 로직 구현에 성공
