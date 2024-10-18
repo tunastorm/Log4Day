@@ -116,11 +116,11 @@ iOS 15.0 이상
 </div>
 
 
-> ### SwiftUI와 Combine을 결합한 MVVM Architecture
+> ### SwiftUI와 Combine, Input/Output 패턴으로 MVVM 아키텍처 구현
 
 <br>
 
-> ### SwiftUI의 AppDelegate와 Realm Migration
+> ### iOS 16.0 이상에서 동작하는 Modifire와 이전 버전의 Modifire를 분기하는 Custom Modifire로 최소버전 iOS 15.0 대응
 
 <br>
 
@@ -128,15 +128,11 @@ iOS 15.0 이상
 
 <br>
 
-> ### UIViewRepresentable의 Coordinator로 지도 오버레이 객체 관리
+> ### UIViewRepresentable의 Coordinator에서 지도 Overlay 객체들을 관리해 지도 View의 re-rendering으로 발생하는 @Binding 프로퍼티들의 초기화에 대응
 
 <br>
 
-> ### ImageIO Framework Image DownSampling
-
-<br>
-
-> ### Firebase Config 및 RemotePush
+> ### Document에 저장된 이미지 로드 시 ImageIO Framework의 CGImageSource로 다운샘플링해 메모리 최적화
 
 <br>
 
@@ -150,7 +146,70 @@ iOS 15.0 이상
 
 > ### SwiftUI에서의 Custom Infinity Carousel View와 Cell에 대한 반복적인 Touch 이벤트 제어
 
-<br> 
+<br>
+
+> ### DispatchGroup으로 PHPickerView로 선택한 이미지의 로드 시점 제어
+
+<br>
+
+> ### View를 감싸는 WrapperView로 ForEach로 생성되는 NavigationLink의 메모리 부하 관리
+
+* NextViewWrapper
+
+```swift
+import SwiftUI
+
+struct NextViewWrapper<Content: View>: View {
+    
+    typealias InitContent = () -> Content
+    
+    let view: InitContent
+    
+    var body: some View {
+        view()
+    }
+    
+    init(_ view: @autoclosure @escaping InitContent) {
+        self.view = view
+    }
+    
+}
+```
+
+* NavigationLink 렌더링 시 NextViewWrapper만 렌더링, 다음 화면의 View는 클릭 이벤트 발생시 렌더링
+  
+```swift
+private func timelineList() -> some View {
+      LazyVStack {
+          ForEach(viewModel.output.timeline.indices, id: \.self) { index in
+              NavigationLink {
+                  NextViewWrapper(
+                      LogDetailView(
+                          logId: viewModel.output.ofLogList[index].id,
+                          categoryViewModel: categoryViewModel,
+                          myLogViewModel: viewModel
+                      )
+                  )
+              } label: {
+                  let log = viewModel.output.timeline[index]
+                  return TimelineCell(index: index,
+                                      title: log.title,
+                                      startDate: log.startDate,
+                                      fourCutCount: log.fourCut.count)
+                      .environmentObject(viewModel)
+              }
+          }
+      }
+      .background(.clear)
+      .frame(maxWidth: .infinity)
+      .padding()
+}
+```
+
+<br>
+
+
+>
 
 
 트러블 슈팅
@@ -184,15 +243,12 @@ iOS 15.0 이상
 * SwiftUI와 Combine을 결합한 MVVM 아키텍처 구현
 * 최소버전을 iOS 15로 대응하는 데 성공
 * Naver 지도 SDK의 오버레이 객체들을 활용해 지도에 마커, 경로, 사진을 추가하는 로직 구현에 성공
-* View에 사용되는 Model 타입별로 viewModel 구현, View가 변경되어도 동일 기능에 대한 코드 재사용성 확보
 
 <br>
 
 > ### 개선사항
-* View - ViewModel - Model간 의존성 역진 및 의존성 주입이 가능한 구조로 변경
+* 선언형 UI인 SwiftUi에서 @ObservedObject, @EnvironmentObject와 함께 ViewModel을 사용하는 것이 알맞을까 의문이 듦. MVI나 TCA를 공부해보자. 
 * 네트워크, Realm CRUD 등의 예외처리 및 alert등을 통한 결과 안내 로직 추가
-* ViewModel과 View간의 의존성 해소
-* UI/Unit 테스트 코드의 부재
-* 커스텀으로 구현한 무한 페이지네이션 뷰의 딱딱한 스크롤 애니메이션을 SwiftUI에 어울리게 개선
+* 커스텀으로 구현한 Infinity Carousel View의 딱딱한 스크롤 애니메이션을 SwiftUI에 어울리게 개선
 
 <br>
