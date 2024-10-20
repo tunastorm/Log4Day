@@ -206,7 +206,7 @@ struct iOS15_HideIndicator: ViewModifier {
     }
 ```
 
-* 네컷사진 이미지에 배경 디자인 적용한 UIHostingController 생성
+* 네 컷 사진 이미지에 배경 디자인 적용한 UIHostingController 생성
 ```swift
 private func setFourCutImageFrame(_ contentView: Content) -> UIHostingController<some View> {
         var date = ""
@@ -219,76 +219,49 @@ private func setFourCutImageFrame(_ contentView: Content) -> UIHostingController
         let edittedContentView = contentView
                                     .background(.clear)
                                     .opacity(1.5)
-        
+
+        // UIHostringController의 rootView에 네컷사진 Cell View 할당
         let controller = UIHostingController(rootView: edittedContentView)
+        // UIViewController를 상속하기 때문에 UIViewController의 프로퍼티와 메서드들을 사용할 수 있다. 
         controller.view.backgroundColor = .white
         
         let dateLabel = {
-            let label = UILabel()
-            label.text = "Date: "
-            label.textAlignment = .left
-            label.font = .systemFont(ofSize: 12)
-            label.textColor = .black
-            label.layer.opacity = 0.25
-            return label
+            ......
         }()
         
         let photoDateLabel = {
-            let label = UILabel()
-            label.text = date
-            label.textAlignment = .left
-            label.font = .systemFont(ofSize: 14)
-            label.textColor = .black
-            return label
+            ......
         }()
         
         let lineView = {
-            let view = UIView()
-            view.backgroundColor = .black
-            view.layer.opacity = 0.25
-            return view
+            ......
         }()
         
         let appTitleLabel = {
-            let label = UILabel()
-            label.text = "Log4Day"
-            label.font = .boldSystemFont(ofSize: 16)
-            label.textAlignment = .right
-            label.textColor = .systemMint
-            label.layer.opacity = 0.75
-            return label
+            ......
         }()
-        
+ 
+        // UIHostingController의 view에 필요한 Subview 추가  
         controller.view.addSubview(appTitleLabel)
         controller.view.addSubview(dateLabel)
         controller.view.addSubview(photoDateLabel)
         controller.view.addSubview(lineView)
-    
+
+        // AutoLayout 설정
         dateLabel.snp.makeConstraints { make in
-            make.height.equalTo(30)
-            make.width.equalTo(40)
-            make.top.equalToSuperview().offset(80)
-            make.leading.equalToSuperview().inset(20)
+            ......
         }
         
         photoDateLabel.snp.makeConstraints { make in
-            make.height.equalTo(30)
-            make.width.equalTo(100)
-            make.top.equalToSuperview().offset(80)
-            make.leading.equalTo(dateLabel.snp.trailing)
+            ......
         }
         
         lineView.snp.makeConstraints { make in
-            make.height.equalTo(1)
-            make.top.equalTo(dateLabel.snp.bottom).offset(5)
-            make.horizontalEdges.equalToSuperview().inset(20)
+            ......
         }
         
         appTitleLabel.snp.makeConstraints { make in
-            make.height.equalTo(20)
-            make.width.equalTo(70)
-            make.bottom.equalToSuperview().inset(45)
-            make.trailing.equalToSuperview().inset(20)
+            ......
         }
 
         return controller
@@ -333,6 +306,7 @@ private func setFourCutImageFrame(_ contentView: Content) -> UIHostingController
 > ### UIViewRepresentable의 Coordinator에서 지도 Overlay 객체들을 관리해 지도 View의 re-rendering으로 발생하는 @Binding 프로퍼티들의 초기화에 대응
 
 ```swift
+
 ```
 
 <br>
@@ -677,12 +651,7 @@ private func timelineList() -> some View {
                       )
                   )
               } label: {
-                  let log = viewModel.output.timeline[index]
-                  return TimelineCell(index: index,
-                                      title: log.title,
-                                      startDate: log.startDate,
-                                      fourCutCount: log.fourCut.count)
-                      .environmentObject(viewModel)
+                  ......
               }
           }
       }
@@ -694,14 +663,211 @@ private func timelineList() -> some View {
 
 > ### @ObservedResult로 RealmObject 추가 / 수정 / 삭제 후 갱신이 불필요한 @Publish 프로퍼티 구성
 
+* Output Stuct의 프로퍼티에 @ObservedResult 선언
+
 ```swift
+final class MyLogViewModel: ObservableObject {
+    
+    private let repository = Repository.shared
+    
+    private let photoManager = PhotoManager()
+    
+    private var cancellables = Set<AnyCancellable>()
+    
+    var input = Input()
+    
+    @Published var output = Output()
+    
+    enum Action {
+        case changeCategory
+        ......
+        case fetchCategorizedList
+        ......
+    }
+    
+    struct Input {
+        let changeCategory = PassthroughSubject<Void, Never>()=
+        ......
+        let fetchCategorizedList = PassthroughSubject<Void, Never>()
+        ......
+    }
+    
+    struct Output {
+        ......
+        var category = "전체"
+        @ObservedResults(Log.self) var logList
+        ......
+    }
+    
+    init() {
+        ......
+        input.fetchCategorizedList
+            .sink { [weak self] _ in
+                self?.fetchCategorizedLogList()
+            }
+            .store(in: &cancellables)
+        ......
+    }
+    
+    func action(_ action: Action) {
+        switch action {
+        ......
+        case .fetchCategorizedList:
+            input.fetchCategorizedList.send(())
+        ......
+        }
+    }
+
+    ......
+
+    private func fetchCategorizedLogList() {
+        if output.category == "전체" {
+            output.$logList.where = { $0.startDate <= Date() }
+        } else {
+            output.$logList.where = { [weak self] in
+                return $0.owner.title == self?.output.category ?? ""
+            }
+        }
+        output.$logList.sortDescriptor = .init(keyPath: Log.Column.startDate.name, ascending: false)
+        output.$logList.update()
+        fetchFirstLastDate()
+    }
+
+    ......
+
+}
 ```
+
+
 
 <br>
 
-> ### RealmSwift와 FileManager를 사용한 이미지 저장 및 로드
+> ### RealmSwift와 FileManager를 사용한 이미지 저장 / 삭제
 
+* Repository
 ```swift
+import Foundation
+import RealmSwift
+
+final class Repository {
+    
+    typealias RepositoryResult = (Result<RepositoryStatus, RepositoryError>) -> Void
+    typealias propertyhandler = () -> Void
+    
+    static let shared = Repository()
+    
+    private let photoManager = PhotoManager()
+    
+    private let realm = {
+        do {
+            return try? Realm(configuration: RealmConfiguration.getConfig())
+        } catch {
+            return nil
+        }
+    }()
+
+    ......
+
+    func deleteCategory(_ data: Category, completionHandler: RepositoryResult) {
+        let logs = data.content
+        do {
+            try realm?.write { [weak self] in
+                logs.forEach { log in
+                    log.places.forEach { self?.realm?.delete($0) }
+                    log.fourCut.forEach {
+                        self?.photoManager.removeImageFromDocument(filename: $0.name)
+                        self?.realm?.delete($0)
+                    }
+                    self?.realm?.delete(log)
+                }
+                self?.realm?.delete(data)
+            }
+            completionHandler(.success(RepositoryStatus.deleteSuccess))
+        } catch {
+            completionHandler(.failure(RepositoryError.deleteFailed))
+        }
+    }
+    
+    func deleteLog(_ log: Log, completionHandler: RepositoryResult) {
+        do {
+            try realm?.write { [weak self] in
+                log.places.forEach{ self?.realm?.delete($0) }
+                log.fourCut.forEach {
+                    self?.photoManager.removeImageFromDocument(filename: $0.name)
+                    self?.realm?.delete($0)
+                }
+                self?.realm?.delete(log)
+            }
+            completionHandler(.success(RepositoryStatus.deleteSuccess))
+        } catch {
+            completionHandler(.failure(RepositoryError.deleteFailed))
+            
+        }
+    }
+
+    ......
+
+}
+```
+
+
+* FileManager
+  
+```swift
+import UIKit
+
+final class PhotoManager: FileManager {
+  
+    static let shared = PhotoManager()
+    
+    private var documentDirectory: URL?
+    
+    override init() {
+        self.documentDirectory = FileManager.default.urls(
+            for: .documentDirectory,
+            in: .userDomainMask).first
+    }
+    
+    func saveImageToDocument(image: UIImage, filename: String) {
+        // document 위치 할당
+        guard let documentDirectory else { return }
+        
+        //이미지를 저장할 경로(파일명) 지정
+        let fileURL = documentDirectory.appendingPathComponent("\(filename).png")
+        
+        //이미지 압축
+        guard let data = image.jpegData(compressionQuality: 0.5) else { return }
+        
+        //이미지 파일 저장
+        do {
+            try data.write(to: fileURL)
+        } catch {
+            print("file save error", error)
+        }
+    }
+    
+    func loadImageFromDocument(filename: String) -> UIImage? {
+       ......
+    }
+    
+    func removeImageFromDocument(filename: String) -> Bool? {
+        guard let documentDirectory else { return nil }
+        
+        let fileURL = documentDirectory.appendingPathComponent("\(filename).png")
+        
+        if FileManager.default.fileExists(atPath: fileURL.path) {
+            do {
+                try FileManager.default.removeItem(atPath: fileURL.path)
+                return true
+            } catch {
+                print(#function, "file remove error", error)
+                return false
+            }
+        } else {
+            return nil
+        }
+    }
+}
 
 ```
 
