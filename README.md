@@ -209,63 +209,63 @@ struct iOS15_HideIndicator: ViewModifier {
 * 네 컷 사진 이미지에 배경 디자인 적용한 UIHostingController 생성
 ```swift
 private func setFourCutImageFrame(_ contentView: Content) -> UIHostingController<some View> {
-        var date = ""
-        
-        if let photoView = contentView as? FourCutPictureView {
-            let rawDate = photoView.photos.first?.owner.first?.startDate ?? Date()
-            date = DateFormatManager.shared.dateToFormattedString(date: rawDate, format: .dotSeparatedyyyyMMddDay)
-        }
-        
-        let edittedContentView = contentView
-                                    .background(.clear)
-                                    .opacity(1.5)
-
-        // UIHostringController의 rootView에 네컷사진 Cell View 할당
-        let controller = UIHostingController(rootView: edittedContentView)
-        // UIViewController를 상속하기 때문에 UIViewController의 프로퍼티와 메서드들을 사용할 수 있다. 
-        controller.view.backgroundColor = .white
-        
-        let dateLabel = {
-            ......
-        }()
-        
-        let photoDateLabel = {
-            ......
-        }()
-        
-        let lineView = {
-            ......
-        }()
-        
-        let appTitleLabel = {
-            ......
-        }()
- 
-        // UIHostingController의 view에 필요한 Subview 추가  
-        controller.view.addSubview(appTitleLabel)
-        controller.view.addSubview(dateLabel)
-        controller.view.addSubview(photoDateLabel)
-        controller.view.addSubview(lineView)
-
-        // AutoLayout 설정
-        dateLabel.snp.makeConstraints { make in
-            ......
-        }
-        
-        photoDateLabel.snp.makeConstraints { make in
-            ......
-        }
-        
-        lineView.snp.makeConstraints { make in
-            ......
-        }
-        
-        appTitleLabel.snp.makeConstraints { make in
-            ......
-        }
-
-        return controller
+    var date = ""
+    
+    if let photoView = contentView as? FourCutPictureView {
+        let rawDate = photoView.photos.first?.owner.first?.startDate ?? Date()
+        date = DateFormatManager.shared.dateToFormattedString(date: rawDate, format: .dotSeparatedyyyyMMddDay)
     }
+    
+    let edittedContentView = contentView
+                                .background(.clear)
+                                .opacity(1.5)
+
+    // UIHostringController의 rootView에 네컷사진 Cell View 할당
+    let controller = UIHostingController(rootView: edittedContentView)
+    // UIViewController를 상속하기 때문에 UIViewController의 프로퍼티와 메서드들을 사용할 수 있다. 
+    controller.view.backgroundColor = .white
+    
+    let dateLabel = {
+        ......
+    }()
+    
+    let photoDateLabel = {
+        ......
+    }()
+    
+    let lineView = {
+        ......
+    }()
+    
+    let appTitleLabel = {
+        ......
+    }()
+
+    // UIHostingController의 view에 필요한 Subview 추가  
+    controller.view.addSubview(appTitleLabel)
+    controller.view.addSubview(dateLabel)
+    controller.view.addSubview(photoDateLabel)
+    controller.view.addSubview(lineView)
+
+    // AutoLayout 설정
+    dateLabel.snp.makeConstraints { make in
+        ......
+    }
+    
+    photoDateLabel.snp.makeConstraints { make in
+        ......
+    }
+    
+    lineView.snp.makeConstraints { make in
+        ......
+    }
+    
+    appTitleLabel.snp.makeConstraints { make in
+        ......
+    }
+
+    return controller
+}
 ```
 
 * UIImage Cropping
@@ -275,12 +275,12 @@ private func setFourCutImageFrame(_ contentView: Content) -> UIHostingController
     let width = UIScreen.main.bounds.width - 25
     let height = UIScreen.main.bounds.height - 170
   
-    // UIImage 기준의 cropArea (device의 scale 반영되지 않음)
+    // UIImage size 기준의 crop영역 (device의 scale 반영되지 않음)
     let cropArea = CGRect(x: 0, y: 60,
                           width: image.size.width ,
                           height: image.size.height)
 
-    // device의 scale만큼 CropArea의 크기 확대
+    // UIImage가 생성된 device의 scale만큼 crop영역의 크기 확대
     var scaledCropArea: CGRect = CGRectMake(
         cropArea.origin.x * image.scale,
         cropArea.origin.y * image.scale,
@@ -288,7 +288,7 @@ private func setFourCutImageFrame(_ contentView: Content) -> UIHostingController
         height * image.scale
     )
 
-    // cgImage의 size는 device의 scale이 곱해진 값이므로 scaledCropArea로 cropping 
+    // cgImage의 size는 device의 scale이 반영된 값이므로 scaledCropArea로 cropping 
     guard let cgImage = image.cgImage,
           let croppedImgRef = cgImage.cropping(to: scaledCropArea) else {
         return nil
