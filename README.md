@@ -249,9 +249,186 @@ struct TopTabbar: View {
 
 > ### SwiftUI에서의 Custom Infinity Carousel View와 Cell에 대한 반복적인 Touch 이벤트 제어
 
+
+* 네컷사진 Cell 생성 
+```
+ 
+
+ public var body: some View {
+        return VStack {
+            GeometryReader { geometry in
+                let lastCell = CGFloat(data.count)
+                let baseOffset = contentSpacing + edgeSpacing - totalSpacing
+                let total: CGFloat = geometry.size.width + totalSpacing * 2
+                let contentWidth = total - (edgeSpacing * 2) - (2 * contentSpacing)
+                let nextOffset = contentWidth + contentSpacing
+               
+                if data.count <= 1 {
+                    HStack(alignment: .center) {
+                        Spacer()
+                        if data.isEmpty {
+                            configContentView(contentView: zeroContent(1,$currentIndex, lastCell),
+                                              contentWidth: contentWidth,
+                                              nextOffset: nextOffset, index: 0)
+                        } else {
+                            let view = carouselContent(data[0], 1, $currentIndex, lastCell)
+                            configContentView(contentView: view,
+                                              contentWidth: contentWidth,
+                                              nextOffset: nextOffset, index: CGFloat(0))
+                        }
+                        Spacer()
+                    }
+                } else {
+                    HStack(spacing: contentSpacing) {
+                        // 0, 마지막 순서의 데이터가 들어가는 더미 Cell
+                        configContentView(contentView: zeroContent(0,$currentIndex, lastCell),
+                                          contentWidth: contentWidth,
+                                          nextOffset: nextOffset, index: 0)
+                        // 1 ~ data.count, 사용자에게 노출되는 Cell 
+                        ForEach(0..<data.count, id: \.self) { index in
+                            let view = carouselContent(data[index], CGFloat(index+1), $currentIndex, lastCell)
+                            configContentView(contentView: view,
+                                              contentWidth: contentWidth,
+                                              nextOffset: nextOffset, index: CGFloat(index + 1))
+                        }
+                        // data.count + 1, 첫번째 순서의 데이터가 들어가는 더미 Cell
+                        configContentView(contentView: overContent(lastCell + 1, $currentIndex, lastCell),
+                                          contentWidth: contentWidth,
+                                          nextOffset: nextOffset, index: CGFloat(lastCell + 1))
+                    }
+                    .offset(x: currentOffset + (currentIndex > 0 ? baseOffset : 0))
+                }
+            }
+        }
+       .padding(.horizontal, totalSpacing)
+    }
+```
+
+* 네컷사진 Cell Scroll 및 반복적인 TouchEvent 제어
+```swift
+ private func configContentView(contentView: Content, contentWidth: CGFloat, nextOffset: CGFloat, index: CGFloat) -> some View {
+        contentView
+        .frame(width: contentWidth, height: contentHeight)
+        .gesture(
+            DragGesture()
+                .onEnded { value in
+                    guard isDragging == false,
+                          viewModel.output.logList.count > 1 else {
+                        return
+                    }
+                    isDragging = true
+               
+                    let offsetX = value.translation.width
+                    withAnimation(.easeIn(duration: 0.1)) {
+                        if offsetX < -50 { // 오른쪽으로 스와이프
+                            currentIndex = min(currentIndex + 1, CGFloat(data.count)+1)
+                        } else if offsetX > 50 { // 왼쪽으로 스와이프
+                            currentIndex = max(currentIndex - 1, 0)
+                        }
+                        currentOffset = -currentIndex * nextOffset
+                    }
+                    // infinty Scroll
+                    if currentIndex > CGFloat(data.count) {
+                        currentOffset = -1 * nextOffset
+                    } else if currentIndex < 1 {
+                        currentOffset = -CGFloat(data.count) * nextOffset
+                    }
+                    withAnimation(.easeIn(duration: 0.1))  {
+                        if currentIndex < 1 {
+                            currentIndex = CGFloat(data.count)
+                        } else if currentIndex > CGFloat(data.count) {
+                            currentIndex = 1
+                        }
+                    }
+                    fetchLogDate()
+                    // Drag 이벤트가 완료되어도 0.3초 대기한 후에 isDragging 값 변경해, 이벤트의 중복발생 방지
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        isDragging = false
+                    }
+                }
+        )
+```
+
+
 <br>
 
 > ### DispatchGroup으로 PHPickerView로 선택한 이미지의 로드 시점 제어
+
+```swift
+
+import SwiftUI
+import UIKit
+import PhotosUI
+
+struct PhotoPicker: UIViewControllerRepresentable {
+
+    @ObservedObject var viewModel: LogDetailViewModel
+    
+    @Binding var isPresented: Bool
+    
+    var configuration: PHPickerConfiguration
+    
+    func makeUIViewController(context: Context) -> PHPickerViewController {
+        ......
+    }
+
+    func updateUIViewController(_ uiViewController: PHPickerViewController, context: Context) {
+        ......    
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self, viewModel)
+    }
+ 
+    class Coordinator: PHPickerViewControllerDelegate {
+        
+        @ObservedObject var viewModel: LogDetailViewModel
+        
+        private let parent: PhotoPicker
+        private var selections = [String : PHPickerResult]()
+        private var selectedAssetIdentifiers = [String]()
+        
+        private var imageList: [UIImage] = []
+        
+        init(_ parent: PhotoPicker, _ viewModel: LogDetailViewModel) {
+            self.parent = parent
+            self.viewModel = viewModel
+        }
+
+        func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+
+            parent.isPresented = false
+        
+            viewModel.action(.changeLoadingState)
+
+            // 선택된 이미지들을 로드하기 전에 DispatchGroup 생성
+            let group = DispatchGroup()
+            results.forEach { [weak self] in
+                $0.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (object, error) in
+                    // DispatchGroup에 추가
+                    group.enter()
+                    DispatchQueue.main.async() {
+                        if let image = object as? UIImage {
+                            
+                            self?.imageList.append(image)
+                            
+                            if let imageList = self?.imageList, imageList.count == results.count {
+                                self?.viewModel.input.pickedImages = imageList
+                                self?.viewModel.action(.photoPicked)
+                            }
+                        }
+                        // 이미지 로드 완료 후 DispatchGroup에서 해제
+                        group.leave()
+                    }
+                }
+            }
+            viewModel.action(.changeLoadingState)
+        }
+        
+    }
+    
+}
+```
 
 <br>
 
