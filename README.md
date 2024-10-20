@@ -157,10 +157,172 @@ struct iOS15_HideIndicator: ViewModifier {
 }
 ```
 
-
 <br>
 
 > ### UIHostingController, UIGraphicsImageRenderer, CGImage.cropping으로 SwiftUI View를 UIImage로 변환
+
+* 네컷사진 Cell 터치시 Cell의 View를 UIImage로 변환
+
+```swift
+  private func configContentView(contentView: Content, contentWidth: CGFloat, nextOffset: CGFloat, index: CGFloat) -> some View {
+        contentView
+        .frame(width: contentWidth, height: contentHeight)
+        .gesture(
+            DragGesture()
+                .onEnded { value in
+                   ......
+                }
+        )
+        .onPress {
+            guard !data.isEmpty else {
+                return
+            }
+            let width = UIScreen.main.bounds.width * 0.9
+            let height = UIScreen.main.bounds.height * 0.9
+            
+            let framedController = setFourCutImageFrame(contentView)
+            framedController.view.frame = CGRect(origin: .zero, size: CGSize(width: width, height: height))
+            if let rootVC = UIApplication.shared.windows.first?.rootViewController {
+                rootVC.view.insertSubview(framedController.view, at: 0)
+
+                let renderer = UIGraphicsImageRenderer(size: CGSize(width: width, height: height))
+                
+                let rawFourCutImage = renderer.image { context in
+                    framedController.view.layer.render(in: context.cgContext)
+                }
+                
+                framedController.view.removeFromSuperview()
+                
+                guard let fourCutImage = cropWithDate(rawFourCutImage) else {
+                    return
+                }
+                viewModel.action(.fourCutCellPressed(image: fourCutImage))
+            }
+        }
+    }
+```
+
+* 네컷사진 이미지에 배경 디자인 적용한 UIViewController 생성
+```swift
+private func setFourCutImageFrame(_ contentView: Content) -> UIHostingController<some View> {
+        var date = ""
+        
+        if let photoView = contentView as? FourCutPictureView {
+            let rawDate = photoView.photos.first?.owner.first?.startDate ?? Date()
+            date = DateFormatManager.shared.dateToFormattedString(date: rawDate, format: .dotSeparatedyyyyMMddDay)
+        }
+        
+        let edittedContentView = contentView
+                                    .background(.clear)
+                                    .opacity(1.5)
+        
+        let controller = UIHostingController(rootView: edittedContentView)
+        controller.view.backgroundColor = .white
+        
+        let dateLabel = {
+            let label = UILabel()
+            label.text = "Date: "
+            label.textAlignment = .left
+            label.font = .systemFont(ofSize: 12)
+            label.textColor = .black
+            label.layer.opacity = 0.25
+            return label
+        }()
+        
+        let photoDateLabel = {
+            let label = UILabel()
+            label.text = date
+            label.textAlignment = .left
+            label.font = .systemFont(ofSize: 14)
+            label.textColor = .black
+            return label
+        }()
+        
+        let lineView = {
+            let view = UIView()
+            view.backgroundColor = .black
+            view.layer.opacity = 0.25
+            return view
+        }()
+        
+        let appTitleLabel = {
+            let label = UILabel()
+            label.text = "Log4Day"
+            label.font = .boldSystemFont(ofSize: 16)
+            label.textAlignment = .right
+            label.textColor = .systemMint
+            label.layer.opacity = 0.75
+            return label
+        }()
+        
+        controller.view.addSubview(appTitleLabel)
+        controller.view.addSubview(dateLabel)
+        controller.view.addSubview(photoDateLabel)
+        controller.view.addSubview(lineView)
+    
+        dateLabel.snp.makeConstraints { make in
+            make.height.equalTo(30)
+            make.width.equalTo(40)
+            make.top.equalToSuperview().offset(80)
+            make.leading.equalToSuperview().inset(20)
+        }
+        
+        photoDateLabel.snp.makeConstraints { make in
+            make.height.equalTo(30)
+            make.width.equalTo(100)
+            make.top.equalToSuperview().offset(80)
+            make.leading.equalTo(dateLabel.snp.trailing)
+        }
+        
+        lineView.snp.makeConstraints { make in
+            make.height.equalTo(1)
+            make.top.equalTo(dateLabel.snp.bottom).offset(5)
+            make.horizontalEdges.equalToSuperview().inset(20)
+        }
+        
+        appTitleLabel.snp.makeConstraints { make in
+            make.height.equalTo(20)
+            make.width.equalTo(70)
+            make.bottom.equalToSuperview().inset(45)
+            make.trailing.equalToSuperview().inset(20)
+        }
+
+        return controller
+    }
+```
+
+* UIImage Cropping
+```swift
+ private func cropWithDate(_ image: UIImage) -> UIImage? {
+        
+    let width = UIScreen.main.bounds.width - 25
+    let height = UIScreen.main.bounds.height - 170
+  
+    // UIImage 기준의 cropArea (device의 scale 반영되지 않음)
+    let cropArea = CGRect(x: 0, y: 60,
+                          width: image.size.width ,
+                          height: image.size.height)
+
+    // device의 scale만큼 CropArea의 크기 확대
+    var scaledCropArea: CGRect = CGRectMake(
+        cropArea.origin.x * image.scale,
+        cropArea.origin.y * image.scale,
+        width * image.scale,
+        height * image.scale
+    )
+
+    // cgImage의 size는 device의 scale이 곱해진 값이므로 scaledCropArea로 cropping 
+    guard let cgImage = image.cgImage,
+          let croppedImgRef = cgImage.cropping(to: scaledCropArea) else {
+        return nil
+    }
+    
+    return UIImage(cgImage: croppedImgRef, 
+                   scale: image.scale, orientation:
+                    image.imageOrientation)
+}
+```
+
 
 <br>
 
@@ -244,16 +406,16 @@ struct TopTabbar: View {
 <br>
 
 > ### @EnvironmentObject, @ObservedObject 어노테이션을 통한 상위 뷰와 하위 뷰의 ViewModel 인스턴스 공유
+```swift
 
+```
 <br>
 
-> ### SwiftUI에서의 Custom Infinity Carousel View와 Cell에 대한 반복적인 Touch 이벤트 제어
+> ### SwiftUI에서의 Custom Infinity Carousel View와 Cell에 대한 반복적인 Drag 이벤트 발생 제어
 
 
-* 네컷사진 Cell 생성 
-```
- 
-
+* 네컷사진 Cell 생성
+```swift
  public var body: some View {
         return VStack {
             GeometryReader { geometry in
@@ -304,7 +466,7 @@ struct TopTabbar: View {
     }
 ```
 
-* 네컷사진 Cell Scroll 및 반복적인 TouchEvent 제어
+* 네컷사진 Cell Scroll 및 반복적인 Drag 이벤트 발생 제어
 ```swift
  private func configContentView(contentView: Content, contentWidth: CGFloat, nextOffset: CGFloat, index: CGFloat) -> some View {
         contentView
