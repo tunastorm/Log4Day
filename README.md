@@ -332,9 +332,8 @@ private func setFourCutImageFrame(_ contentView: Content) -> UIHostingController
 
 > ### UIViewRepresentable의 Coordinator에서 지도 Overlay 객체들을 관리해 지도 View의 re-rendering으로 발생하는 @Binding 프로퍼티들의 초기화에 대응
 
-<br>
-
-> ### Document에 저장된 이미지 로드 시 ImageIO Framework의 CGImageSource로 다운샘플링해 메모리 최적화
+```swift
+```
 
 <br>
 
@@ -405,18 +404,59 @@ struct TopTabbar: View {
 }
 ```
 
-
-
 <br>
 
 > ### @EnvironmentObject, @ObservedObject 어노테이션을 통한 상위 뷰와 하위 뷰의 ViewModel 인스턴스 공유
 ```swift
+struct MyLogView: View {
+    
+    @Binding var tapSelection: Int
+    
+    @ObservedObject var categoryViewModel: CategoryViewModel
+    @StateObject private var viewModel = MyLogViewModel()
+    
+    var body: some View {
+        GeometryReader { proxy in
+            ZStack {
+                VStack {
+                    NavigationBar(
+                        ......
+                    )
+                    ScrollView {
+                        LazyVStack(pinnedViews: [.sectionHeaders]) {
+                            Section(header: TitleView()) {
+                               ......
+                            }
+                            if viewModel.output.logList.isEmpty {
+                                ......
+                            } else {
+                                // @StateObject인 MyLogViewModel의 인스턴스 .environmentObject() Modifire로 하위뷰에 공유
+                                // @ObservedObejct인 CategoryViewModel의 인스턴스 하위 뷰의 생성자로 넘겨 공유
+                                TapBarView(categoryViewModel: categoryViewModel)
+                                    .environmentObject(viewModel)
+                            }
+                        }
+                    }
+                    .frame(width: viewModel.output.screenWidth)
+                }
+                // @StateObject인 MyLogViewModel의 인스턴스 .environmentObject() Modifire로 하위뷰에 공유
+                // @ObservedObejct인 CategoryViewModel의 인스턴스 하위 뷰의 생성자로 넘겨 공유
+                SideBarView(controller: .myLog, viewModel: categoryViewModel)
+                    .environmentObject(viewModel)
+            }
+        }
 
+        ......
+
+    }
+
+    ......
+
+}
 ```
 <br>
 
 > ### SwiftUI에서의 Custom Infinity Carousel View와 Cell에 대한 반복적인 Drag 이벤트 발생 제어
-
 
 * 네컷사진 Cell 생성
 ```swift
@@ -654,9 +694,16 @@ private func timelineList() -> some View {
 
 > ### @ObservedResult로 RealmObject 추가 / 수정 / 삭제 후 갱신이 불필요한 @Publish 프로퍼티 구성
 
+```swift
+```
+
 <br>
 
 > ### RealmSwift와 FileManager를 사용한 이미지 저장 및 로드
+
+```swift
+
+```
 
 <br>
 
