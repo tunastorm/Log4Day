@@ -122,6 +122,42 @@ iOS 15.0 이상
 
 > ### iOS 16.0 이상에서 동작하는 Modifire와 이전 버전의 Modifire를 분기하는 Custom Modifire로 최소버전 iOS 15.0 대응
 
+```swift
+extension View {
+    
+    @ViewBuilder
+    func hideIndicator() -> some View {
+        if #available(iOS 16, *) {
+            self.modifier(iOS16_HideIndicator())
+        } else {
+            self.modifier(iOS15_HideIndicator())
+        }
+    }
+    
+}
+
+@available(iOS 16, *)
+struct iOS16_HideIndicator: ViewModifier {
+    
+    func body(content: Content) -> some View {
+        content.scrollIndicators(.hidden)
+    }
+}
+
+
+struct iOS15_HideIndicator: ViewModifier {
+    
+    init() {
+        UITableView.appearance().showsVerticalScrollIndicator = false
+    }
+    
+    func body(content: Content) -> some View {
+        content
+    }
+}
+```
+
+
 <br>
 
 > ### UIHostingController, UIGraphicsImageRenderer, CGImage.cropping으로 SwiftUI View를 UIImage로 변환
@@ -136,7 +172,74 @@ iOS 15.0 이상
 
 <br>
 
-> ### GeometryReader, @NameSpace로 View 객체의 애니메이션 구현
+> ### @NameSpace로 View 객체의 애니메이션 구현
+
+* TabBarView (상위뷰)
+
+```swift
+struct TapBarView: View {
+    
+    @ObservedObject var categoryViewModel: CategoryViewModel
+    @EnvironmentObject var viewModel: MyLogViewModel
+    @Namespace private var animation
+
+    var body: some View {
+        LazyVStack(pinnedViews: [.sectionHeaders]) {
+            Section(header: TopTabbar(animation: animation)
+                            .environmentObject(viewModel)
+            ) {
+                switch viewModel.output.selectedPicker {
+                case .timeline:
+                    timelineList()
+                case .place:
+                    placeList()
+                }
+            }
+        }
+        .onAppear {
+            viewModel.action(.tapBarChanged(info: viewModel.output.selectedPicker))
+        }
+    }
+```
+
+* TabBar (하위 뷰)
+```swift
+struct TopTabbar: View {
+    
+    @EnvironmentObject var viewModel: MyLogViewModel
+    var animation: Namespace.ID
+    
+    var body: some View {
+        HStack {
+            ForEach(TapInfo.allCases, id: \.self) { item in
+                LazyVStack {
+                    Text(item.rawValue)
+                        .font(.headline)
+                        .frame(maxWidth: .infinity/4, minHeight: 30)
+                        .foregroundColor(viewModel.output.selectedPicker == item ?
+                            .mint: .gray)
+                        .padding(.horizontal)
+                    if viewModel.output.selectedPicker == item {
+                        Capsule()
+                            .foregroundColor(ColorManager.shared.ciColor.highlightColor)
+                            .frame(height: 3)
+                            .matchedGeometryEffect(id: "info", in: animation)
+                            .padding(.horizontal)
+                    }
+                }
+                .onTapGesture {
+                    withAnimation(.none) {
+                        viewModel.action(.tapBarChanged(info: item))
+                    }
+                }
+            }
+        }
+        .background(ColorManager.shared.ciColor.backgroundColor)
+    }
+}
+```
+
+
 
 <br>
 
