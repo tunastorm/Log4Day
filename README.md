@@ -456,7 +456,7 @@ struct MyLogView: View {
 ```
 <br>
 
-> ### SwiftUI에서의 Custom Infinity Carousel View와 Cell에 대한 반복적인 Drag 이벤트 발생 제어
+> ### GeometryReader기반 Custom Infinity Carousel View와 Cell에 대한 반복적인 Drag 이벤트 발생 제어
 
 * 네컷사진 Cell 생성
 ```swift
@@ -510,7 +510,7 @@ struct MyLogView: View {
     }
 ```
 
-* 네컷사진 Cell Scroll 및 반복적인 Drag 이벤트 발생 제어
+* 네컷사진 offset으로 Cell Scroll 및 반복적인 Drag 이벤트 발생 제어
 ```swift
  private func configContentView(contentView: Content, contentWidth: CGFloat, nextOffset: CGFloat, index: CGFloat) -> some View {
         contentView
