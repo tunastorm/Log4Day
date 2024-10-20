@@ -161,7 +161,7 @@ struct iOS15_HideIndicator: ViewModifier {
 
 > ### UIHostingController, UIGraphicsImageRenderer, CGImage.cropping으로 SwiftUI View를 UIImage로 변환
 
-* 네컷사진 Cell 터치시 Cell의 View를 UIImage로 변환
+* 네컷사진 Cell 터치시 Cell의 View를 UIImage로 변환하는 전체 로직
 
 ```swift
   private func configContentView(contentView: Content, contentWidth: CGFloat, nextOffset: CGFloat, index: CGFloat) -> some View {
@@ -185,14 +185,18 @@ struct iOS15_HideIndicator: ViewModifier {
             if let rootVC = UIApplication.shared.windows.first?.rootViewController {
                 rootVC.view.insertSubview(framedController.view, at: 0)
 
+                // 이미지 렌더러 생성
                 let renderer = UIGraphicsImageRenderer(size: CGSize(width: width, height: height))
-                
+
+                // 네 컷 사진 이미지 렌더링
                 let rawFourCutImage = renderer.image { context in
+                    // UIHostingController의 view가 가진 layer Tree를 UIGraphicsImageRendererContext에 작성
                     framedController.view.layer.render(in: context.cgContext)
                 }
                 
                 framedController.view.removeFromSuperview()
-                
+      
+                // 네 컷 사진 이미지에서 불필요한 영역 cropping
                 guard let fourCutImage = cropWithDate(rawFourCutImage) else {
                     return
                 }
@@ -202,7 +206,7 @@ struct iOS15_HideIndicator: ViewModifier {
     }
 ```
 
-* 네컷사진 이미지에 배경 디자인 적용한 UIViewController 생성
+* 네컷사진 이미지에 배경 디자인 적용한 UIHostingController 생성
 ```swift
 private func setFourCutImageFrame(_ contentView: Content) -> UIHostingController<some View> {
         var date = ""
