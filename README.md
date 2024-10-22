@@ -104,10 +104,10 @@ iOS 15.0 이상
 > ### SwiftUI와 Combine, Input/Output 패턴으로 MVVM 아키텍처 구현
 
 * ViewModel
-- Input과 Output 구조체에 Subject와 View로 내보낼 데이터를 초기화하고 이를 ViewModel의 input, output 프로퍼티에 초기화
-- init시점에 input 프로퍼티에 초기화된 PassthroughSubject를 구독
-- action 메서드를 통해 View에서 input 이벤트가 전달되면 매칭되는 PassthroughSubject Stream에서 연산을 위한 이벤트를 방출
-- 연산 결과를 output의 프로퍼티에 업데이트하면 output 프로퍼티에 적용된 @Published의 효과로 View에 선언된 @SateObject / @ObservedObject가 작동됨
+  - Input과 Output 구조체에 Subject와 View로 내보낼 데이터를 초기화하고 이를 ViewModel의 input, output 프로퍼티에 초기화
+  - init시점에 input 프로퍼티에 초기화된 PassthroughSubject를 구독
+  - action 메서드를 통해 View에서 input 이벤트가 전달되면 매칭되는 PassthroughSubject Stream에서 연산을 위한 이벤트를 방출
+  - 연산 결과를 output의 프로퍼티에 업데이트하면 output 프로퍼티에 적용된 @Published의 효과로 View에 선언된 @SateObject / @ObservedObject 작동
 
 ```swift
 
@@ -220,7 +220,7 @@ final class MyLogViewModel: ObservableObject {
 
 * View
 - viewModel.action(_ action: Action)을 통해 input 이벤트 전달
-- viewModel.output의 프로퍼티에 변경이 발생했을 때 @StateObject / @ObservedObject의 효과로 새롭게 렌더링 됨 
+- viewModel.output에 변경이 발생했을 때 @StateObject / @ObservedObject의 효과로 새롭게 렌더링되며 이때 output의 변경사항이 반영됨
 
 ```swift
 struct MyLogView: View {
@@ -278,43 +278,7 @@ struct MyLogView: View {
               totalSpacing: 20,
               contentHeight: bannerHeight,
               currentOffset: -(bannerWidth + 15),
-              carouselContent: { data, index, currentIndex, lastCell in
-              FourCutPictureView(currentIndex: currentIndex,
-                                 index: index,
-                                 lastCell: lastCell,
-                                 title: data.title, 
-                                 date: DateFormatManager.shared.dateToFormattedString(date: data.startDate, format: .dotSeparatedyyyyMMdd),
-                                 photos: Array( data.fourCut),
-                                 hashTags: "#\(data.places.map { $0.hashtag }.joined(separator: " #"))",
-                                 backgroundWidthHeight: (bannerWidth,  bannerHeight), 
-                                 imageHeight: bannerHeight - 100)
-              },
-              zeroContent: { index, currentIndex, lastCell in
-                  let title = fourCutLogList.last?.title ?? "오늘의 추억을 네 컷으로 남겨보세요"
-                  let hashTags = "#\(fourCutLogList.last?.places.map { $0.hashtag }.joined(separator: " #") ?? "네컷일기, Log4Day")"
-                  FourCutPictureView(currentIndex: currentIndex,
-                                     index: index,
-                                     lastCell: lastCell,
-                                     title: title,
-                                     date: DateFormatManager.shared.dateToFormattedString(date: fourCutLogList.last?.startDate ?? Date(), format: .dotSeparatedyyyyMMdd),
-                                     photos: Array(fourCutLogList.last?.fourCut ?? List<Photo>()),
-                                     hashTags: hashTags,
-                                     backgroundWidthHeight: (bannerWidth, bannerHeight),
-                                     imageHeight: bannerHeight-100)
-              },
-              overContent: { index, currentIndex, lastCell in
-                  let title = fourCutLogList.first?.title ?? ""
-                  let hashTags = "#\(fourCutLogList.first?.places.map { $0.hashtag }.joined(separator: " #") ?? "")"
-                  FourCutPictureView(currentIndex: currentIndex,
-                                     index: index,
-                                     lastCell: lastCell,
-                                     title: title,
-                                     date: DateFormatManager.shared.dateToFormattedString(date: fourCutLogList.first?.startDate ?? Date(), format: .dotSeparatedyyyyMMdd),
-                                     photos: Array(fourCutLogList.first?.fourCut ?? List<Photo>()),
-                                     hashTags: hashTags,
-                                     backgroundWidthHeight: (bannerWidth, bannerHeight),
-                                     imageHeight: bannerHeight-100)
-              }
+              carouselContent: ......
           )
           .frame(height: bannerHeight)
           .padding(.top, 10)
