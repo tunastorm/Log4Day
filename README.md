@@ -132,15 +132,16 @@ iOS 15.0 이상
 
 > ### UIViewRepresentable의 Coordinator에서 지도 Overlay 객체들을 관리해 지도 View의 re-rendering으로 발생하는 @Binding의 초기화에 대응
 
-* @Binding
-  - 현재 선택된 장소 순서: Int
+* Naver 지도 UIViewRepresentable 구조체에 사용된 @Binding 프로퍼티
+  - 현재 선택된 장소의 index
   - 지도에 표기할 장소정보 배열
-  - 장소 순서와 이미지 배열을 key-value로 갖는 딕셔너리
+  - 장소 index와 이미지 배열을 key-value로 갖는 딕셔너리
   - NMGLatLng(좌표) 배열
  
 * viewModel의 output이 변경되어 현재 선택된 장소 순서가 변경될 때마다 Naver 지도 SDK를 래핑한 UIViewRepresentable 구조체가 새로 렌더링 되어 프로퍼티의 값이 초기화 된다.
+  - 렌더링 직전의 값이 사라지고 초기화 됨
 * 최초 생성 후엔 초기화되지 않는 coordinator 클래스가 @Binding을 통해 업데이트 되는 데이터들의 변경사항을 반영한 뒤 자신의 프로퍼티에 저장해 최신 상태 기억
-* UIViewRepresentable의 updateUIView메서드에서는 cooridnator의 프로퍼티에 저장된 최신 상태를 Naver 지도 뷰에 업데이트하는 작업만 수행    
+* UIViewRepresentable의 updateUIView메서드에서는 cooridnator의 프로퍼티에 저장된 최신 상태를 Naver 지도 뷰에 업데이트하는 작업만 수행
 
 <br>
 
@@ -150,7 +151,7 @@ iOS 15.0 이상
 
 * 애니메이션을 적용할 View들에 matchedGeometryEffect Modifier를 적용하고 각자의 ID 부여하고, Namespace 지정 
 
-* 동일한 Namespace를 공유하는 View들끼리 애니메이션 적용
+* 동일한 Namespace를 공유하는 View들끼리 애니메이션이 적용됨
 
 <br>
 
@@ -160,104 +161,17 @@ iOS 15.0 이상
 
 <br>
 
-> ### GeometryReader기반 Custom Infinity Carousel View와 Cell에 대한 반복적인 Drag 이벤트 발생 제어
+> ### GeometryReader로 구현한 Custom Infinity Carousel View와 Cell에 대한 반복적인 Drag 이벤트 발생 제어
 
-* 네컷사진 Cell 생성
-```swift
- public var body: some View {
-    return VStack {
-        GeometryReader { geometry in
-            let lastCell = CGFloat(data.count)
-            let baseOffset = contentSpacing + edgeSpacing - totalSpacing
-            let total: CGFloat = geometry.size.width + totalSpacing * 2
-            let contentWidth = total - (edgeSpacing * 2) - (2 * contentSpacing)
-            let nextOffset = contentWidth + contentSpacing
-           
-            if data.count <= 1 {
-                HStack(alignment: .center) {
-                    Spacer()
-                    if data.isEmpty {
-                        configContentView(contentView: zeroContent(1,$currentIndex, lastCell),
-                                          contentWidth: contentWidth,
-                                          nextOffset: nextOffset, index: 0)
-                    } else {
-                        let view = carouselContent(data[0], 1, $currentIndex, lastCell)
-                        configContentView(contentView: view,
-                                          contentWidth: contentWidth,
-                                          nextOffset: nextOffset, index: CGFloat(0))
-                    }
-                    Spacer()
-                }
-            } else {
-                HStack(spacing: contentSpacing) {
-                    // 0, 마지막 순서의 데이터가 들어가는 더미 Cell
-                    configContentView(contentView: zeroContent(0,$currentIndex, lastCell),
-                                      contentWidth: contentWidth,
-                                      nextOffset: nextOffset, index: 0)
-                    // 1 ~ data.count, 사용자에게 노출되는 Cell 
-                    ForEach(0..<data.count, id: \.self) { index in
-                        let view = carouselContent(data[index], CGFloat(index+1), $currentIndex, lastCell)
-                        configContentView(contentView: view,
-                                          contentWidth: contentWidth,
-                                          nextOffset: nextOffset, index: CGFloat(index + 1))
-                    }
-                    // data.count + 1, 첫번째 순서의 데이터가 들어가는 더미 Cell
-                    configContentView(contentView: overContent(lastCell + 1, $currentIndex, lastCell),
-                                      contentWidth: contentWidth,
-                                      nextOffset: nextOffset, index: CGFloat(lastCell + 1))
-                }
-                .offset(x: currentOffset + (currentIndex > 0 ? baseOffset : 0))
-            }
-        }
-    }
-   .padding(.horizontal, totalSpacing)
-}
-```
+* GeometryReader기반 Custom Infinity Carousel View
+  - Realm에서 조회한 일기 목록 중 네 장의 사진이 등록되어있는 것만 필터링한 리스트를 @Binding으로 주입
+  - ViewModel에서 전달받은 data의 last를 0번 Cell, first를 data.count + 1번 Cell에 복사한 후,전체 Cell을 HStack에 생성
+  - GeometryReader로 화면의 크기를 구한 후 1개 Cell이 차지할 범위를 지정. 현재 셀의 offset을 기반으로 페이지네이션
+  - 0번 Cell과 마지막 Cell은 1번과 data.count번 Cell의 옆을 채워줄 더미이고 실제 뷰에 표시되는 Cell의 범위는 1번 ~ data.count까지.
+  - 실제 뷰에 표시되는 Cell의 시작과 끝 사이의 이동은 0번 / 마지막 Cell로 이동 후, data.count번 / 1번 Cell로 offset을 옮겨서 구현
 
 * 네컷사진 offset으로 Cell Scroll 및 반복적인 Drag 이벤트 발생 제어
-```swift
- private func configContentView(contentView: Content, contentWidth: CGFloat, nextOffset: CGFloat, index: CGFloat) -> some View {
-        contentView
-        .frame(width: contentWidth, height: contentHeight)
-        .gesture(
-            DragGesture()
-                .onEnded { value in
-                    guard isDragging == false,
-                          viewModel.output.logList.count > 1 else {
-                        return
-                    }
-                    isDragging = true
-               
-                    let offsetX = value.translation.width
-                    withAnimation(.easeIn(duration: 0.1)) {
-                        if offsetX < -50 { // 오른쪽으로 스와이프
-                            currentIndex = min(currentIndex + 1, CGFloat(data.count)+1)
-                        } else if offsetX > 50 { // 왼쪽으로 스와이프
-                            currentIndex = max(currentIndex - 1, 0)
-                        }
-                        currentOffset = -currentIndex * nextOffset
-                    }
-                    // infinty Scroll
-                    if currentIndex > CGFloat(data.count) {
-                        currentOffset = -1 * nextOffset
-                    } else if currentIndex < 1 {
-                        currentOffset = -CGFloat(data.count) * nextOffset
-                    }
-                    withAnimation(.easeIn(duration: 0.1))  {
-                        if currentIndex < 1 {
-                            currentIndex = CGFloat(data.count)
-                        } else if currentIndex > CGFloat(data.count) {
-                            currentIndex = 1
-                        }
-                    }
-                    fetchLogDate()
-                    // Drag 이벤트가 완료되어도 0.3초 대기한 후에 isDragging 값 변경해, 이벤트의 중복발생 방지
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        isDragging = false
-                    }
-                }
-        )
-```
+
 
 
 <br>
