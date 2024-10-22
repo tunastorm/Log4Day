@@ -25,12 +25,8 @@
 
 - 매일의 추억을 지도와 네컷사진으로 기록할 수 있는 서비스
 
-<br>
-
 > ### 스크린샷
 ![title](https://github.com/tunastorm/Log4Day/blob/tunastorm/ReadmeResource/Apple%20iPhone%2011%20Pro%20Max%20Screenshot%20All.png?raw=true)   
-
-<br>
 
 > ### 개발기간 
  2024.09.12 ~ 2024.10.08
