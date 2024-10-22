@@ -180,15 +180,17 @@ iOS 15.0 이상
 > ### DispatchGroup으로 PHPickerView로 선택한 이미지의 로드 시점 제어
 
 * PHPickerViewController의 UIViewControllerRepresentable에서 이미지 로드 시 비동기로 작동
-* PHPickerViewControllerDelegate의 picker( _picker:, didFinishPicking: ) 메서드에서 선택된 사진들을 순회하며 load하기 전에 Dispatchgroup을 생성
-* 사진들을 순회할 때마다 enter()를 실행하고 각 사진들을 UIImage로 변환하여 ViewModel의 input으로 전달한 다음 leave()하는 방식으로 작업완료시점 제어
+* PHPickerViewControllerDelegate의 picker( _picker:, didFinishPicking: ) 메서드에서 선택된 사진들을 순회하며 load하기 전에 DispatchGroup을 생성
+* 사진들을 순회할 때마다 enter()를 실행하고 각 사진들을 UIImage로 변환하여 ViewModel의 input으로 전달한 후 leave()하는 방식으로 작업완료시점 제어
 * 모든 사진들을 ViewModel의 input에 전달한 다음 사진 등록작업 완료 action 전파
 
 <br>
 
 > ### View를 감싸는 WrapperView로 ForEach로 생성되는 NavigationLink의 메모리 부하 관리
 
-* NextViewWrapper
+* 제네릭 타입 매개변수의 제약조건으로 View를 갖고 View를 상속하는 구조체 NextViewWrapper를 선언
+  - 생성자의 view 매개변수에 @autoclosure 키워드를 사용하여 생성자 사용시 입력되는 클로저의 중괄호 묶음 생략
+  - 또한 @escaping 키워드로 클로저 내부의 View를 NextViewWrapper의 view 프로퍼티에 할당할 수 있도록 허용
 
 ```swift
 import SwiftUI
@@ -210,30 +212,9 @@ struct NextViewWrapper<Content: View>: View {
 }
 ```
 
-* NavigationLink 렌더링 시 NextViewWrapper만 렌더링하며 다음 화면의 View는 클릭 이벤트 발생시에 렌더링되어 메모리 부하 감소
-  
-```swift
-private func timelineList() -> some View {
-      LazyVStack {
-          ForEach(viewModel.output.timeline.indices, id: \.self) { index in
-              NavigationLink {
-                  NextViewWrapper(
-                      LogDetailView(
-                          logId: viewModel.output.ofLogList[index].id,
-                          categoryViewModel: categoryViewModel,
-                          myLogViewModel: viewModel
-                      )
-                  )
-              } label: {
-                  ......
-              }
-          }
-      }
-      .background(.clear)
-      .frame(maxWidth: .infinity)
-      .padding()
-}
-```
+* ForEach문 안에서 NavigationLink 렌더링 시 NextViewWrapper만 렌더링하여 메모리 부하 감소
+  - 연결된 화면의 View는 클릭 이벤트 발생시에 렌더링된다
+
 <br>
 
 > ### @ObservedResult로 RealmObject 추가 / 수정 / 삭제 후 갱신이 불필요한 @Publish 프로퍼티 구성
