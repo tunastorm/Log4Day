@@ -166,13 +166,14 @@ iOS 15.0 이상
 * GeometryReader기반 Custom Infinity Carousel View
   - Realm에서 조회한 일기 목록 중 네 장의 사진이 등록되어있는 것만 필터링한 리스트를 @Binding으로 주입
   - ViewModel에서 전달받은 data의 last를 0번 Cell, first를 data.count + 1번 Cell에 복사한 후,전체 Cell을 HStack에 생성
-  - GeometryReader로 화면의 크기를 구한 후 1개 Cell이 차지할 범위를 지정. 현재 셀의 offset을 기반으로 페이지네이션
+  - GeometryReader로 화면의 크기를 구한 후 1개 Cell이 차지할 범위를 지정. Drag 이벤트 발생 시 현재 셀의 offset을 기반으로 페이지네이션
   - 0번 Cell과 마지막 Cell은 1번과 data.count번 Cell의 옆을 채워줄 더미이고 실제 뷰에 표시되는 Cell의 범위는 1번 ~ data.count까지.
   - 실제 뷰에 표시되는 Cell의 시작과 끝 사이의 이동은 0번 / 마지막 Cell로 이동 후, data.count번 / 1번 Cell로 offset을 옮겨서 구현
 
-* 네컷사진 offset으로 Cell Scroll 및 반복적인 Drag 이벤트 발생 제어
-
-
+* 반복적인 Drag 이벤트 발생 제어
+  - @State에 Drag이벤트 진행중인지 체크하는 Bool 선언
+  - Cell에 Drag이벤트 발생시 true
+  - Drag이벤트가 종료될 때 DispatchQueue.main.asyncAfter로 시간을 지연시킨 후 false 할당
 
 <br>
 
