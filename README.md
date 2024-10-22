@@ -858,53 +858,53 @@ struct MyLogView: View {
 * 네컷사진 Cell 생성
 ```swift
  public var body: some View {
-        return VStack {
-            GeometryReader { geometry in
-                let lastCell = CGFloat(data.count)
-                let baseOffset = contentSpacing + edgeSpacing - totalSpacing
-                let total: CGFloat = geometry.size.width + totalSpacing * 2
-                let contentWidth = total - (edgeSpacing * 2) - (2 * contentSpacing)
-                let nextOffset = contentWidth + contentSpacing
-               
-                if data.count <= 1 {
-                    HStack(alignment: .center) {
-                        Spacer()
-                        if data.isEmpty {
-                            configContentView(contentView: zeroContent(1,$currentIndex, lastCell),
-                                              contentWidth: contentWidth,
-                                              nextOffset: nextOffset, index: 0)
-                        } else {
-                            let view = carouselContent(data[0], 1, $currentIndex, lastCell)
-                            configContentView(contentView: view,
-                                              contentWidth: contentWidth,
-                                              nextOffset: nextOffset, index: CGFloat(0))
-                        }
-                        Spacer()
-                    }
-                } else {
-                    HStack(spacing: contentSpacing) {
-                        // 0, 마지막 순서의 데이터가 들어가는 더미 Cell
-                        configContentView(contentView: zeroContent(0,$currentIndex, lastCell),
+    return VStack {
+        GeometryReader { geometry in
+            let lastCell = CGFloat(data.count)
+            let baseOffset = contentSpacing + edgeSpacing - totalSpacing
+            let total: CGFloat = geometry.size.width + totalSpacing * 2
+            let contentWidth = total - (edgeSpacing * 2) - (2 * contentSpacing)
+            let nextOffset = contentWidth + contentSpacing
+           
+            if data.count <= 1 {
+                HStack(alignment: .center) {
+                    Spacer()
+                    if data.isEmpty {
+                        configContentView(contentView: zeroContent(1,$currentIndex, lastCell),
                                           contentWidth: contentWidth,
                                           nextOffset: nextOffset, index: 0)
-                        // 1 ~ data.count, 사용자에게 노출되는 Cell 
-                        ForEach(0..<data.count, id: \.self) { index in
-                            let view = carouselContent(data[index], CGFloat(index+1), $currentIndex, lastCell)
-                            configContentView(contentView: view,
-                                              contentWidth: contentWidth,
-                                              nextOffset: nextOffset, index: CGFloat(index + 1))
-                        }
-                        // data.count + 1, 첫번째 순서의 데이터가 들어가는 더미 Cell
-                        configContentView(contentView: overContent(lastCell + 1, $currentIndex, lastCell),
+                    } else {
+                        let view = carouselContent(data[0], 1, $currentIndex, lastCell)
+                        configContentView(contentView: view,
                                           contentWidth: contentWidth,
-                                          nextOffset: nextOffset, index: CGFloat(lastCell + 1))
+                                          nextOffset: nextOffset, index: CGFloat(0))
                     }
-                    .offset(x: currentOffset + (currentIndex > 0 ? baseOffset : 0))
+                    Spacer()
                 }
+            } else {
+                HStack(spacing: contentSpacing) {
+                    // 0, 마지막 순서의 데이터가 들어가는 더미 Cell
+                    configContentView(contentView: zeroContent(0,$currentIndex, lastCell),
+                                      contentWidth: contentWidth,
+                                      nextOffset: nextOffset, index: 0)
+                    // 1 ~ data.count, 사용자에게 노출되는 Cell 
+                    ForEach(0..<data.count, id: \.self) { index in
+                        let view = carouselContent(data[index], CGFloat(index+1), $currentIndex, lastCell)
+                        configContentView(contentView: view,
+                                          contentWidth: contentWidth,
+                                          nextOffset: nextOffset, index: CGFloat(index + 1))
+                    }
+                    // data.count + 1, 첫번째 순서의 데이터가 들어가는 더미 Cell
+                    configContentView(contentView: overContent(lastCell + 1, $currentIndex, lastCell),
+                                      contentWidth: contentWidth,
+                                      nextOffset: nextOffset, index: CGFloat(lastCell + 1))
+                }
+                .offset(x: currentOffset + (currentIndex > 0 ? baseOffset : 0))
             }
         }
-       .padding(.horizontal, totalSpacing)
     }
+   .padding(.horizontal, totalSpacing)
+}
 ```
 
 * 네컷사진 offset으로 Cell Scroll 및 반복적인 Drag 이벤트 발생 제어
