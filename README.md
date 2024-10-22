@@ -179,81 +179,10 @@ iOS 15.0 이상
 
 > ### DispatchGroup으로 PHPickerView로 선택한 이미지의 로드 시점 제어
 
-```swift
-
-import SwiftUI
-import UIKit
-import PhotosUI
-
-struct PhotoPicker: UIViewControllerRepresentable {
-
-    @ObservedObject var viewModel: LogDetailViewModel
-    
-    @Binding var isPresented: Bool
-    
-    var configuration: PHPickerConfiguration
-    
-    func makeUIViewController(context: Context) -> PHPickerViewController {
-        ......
-    }
-
-    func updateUIViewController(_ uiViewController: PHPickerViewController, context: Context) {
-        ......    
-    }
-    
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self, viewModel)
-    }
- 
-    class Coordinator: PHPickerViewControllerDelegate {
-        
-        @ObservedObject var viewModel: LogDetailViewModel
-        
-        private let parent: PhotoPicker
-        private var selections = [String : PHPickerResult]()
-        private var selectedAssetIdentifiers = [String]()
-        
-        private var imageList: [UIImage] = []
-        
-        init(_ parent: PhotoPicker, _ viewModel: LogDetailViewModel) {
-            self.parent = parent
-            self.viewModel = viewModel
-        }
-
-        func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-
-            parent.isPresented = false
-        
-            viewModel.action(.changeLoadingState)
-
-            // 선택된 이미지들을 로드하기 전에 DispatchGroup 생성
-            let group = DispatchGroup()
-            results.forEach { [weak self] in
-                $0.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (object, error) in
-                    // DispatchGroup에 추가
-                    group.enter()
-                    DispatchQueue.main.async() {
-                        if let image = object as? UIImage {
-                            
-                            self?.imageList.append(image)
-                            
-                            if let imageList = self?.imageList, imageList.count == results.count {
-                                self?.viewModel.input.pickedImages = imageList
-                                self?.viewModel.action(.photoPicked)
-                            }
-                        }
-                        // 이미지 로드 완료 후 DispatchGroup에서 해제
-                        group.leave()
-                    }
-                }
-            }
-            viewModel.action(.changeLoadingState)
-        }
-        
-    }
-    
-}
-```
+* PHPickerViewController의 UIViewControllerRepresentable에서 이미지 로드 시 비동기로 작동
+* PHPickerViewControllerDelegate의 picker( _picker:, didFinishPicking: ) 메서드에서 선택된 사진들을 순회하며 load하기 전에 Dispatchgroup을 생성
+* 사진들을 순회할 때마다 enter()를 실행하고 각 사진들을 UIImage로 변환하여 ViewModel의 input으로 전달한 다음 leave()하는 방식으로 작업완료시점 제어
+* 모든 사진들을 ViewModel의 input에 전달한 다음 사진 등록작업 완료 action 전파
 
 <br>
 
