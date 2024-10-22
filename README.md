@@ -1,4 +1,4 @@
-프로젝트 정보
+<img width="301" alt="스크린샷 2024-10-22 오후 4 56 52" src="https://github.com/user-attachments/assets/77fe9966-d672-4108-b99c-3715f27a7ff3">프로젝트 정보
 -
 
 <br>
@@ -115,10 +115,11 @@ iOS 15.0 이상
   <img src="https://github.com/tunastorm/Log4Day/blob/tunastorm/ReadmeResource/%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8C%E1%85%A6%E1%86%A8%E1%84%90%E1%85%B3%20%E1%84%80%E1%85%AE%E1%84%89%E1%85%A5%E1%86%BC%E1%84%83%E1%85%A9.png?raw=true"/>
 </div>
 
-
 > ### SwiftUI와 Combine, Input/Output 패턴으로 MVVM 아키텍처 구현
 
 * ViewModel
+- Combine의 PassthroughSubject로 input 이벤트 구독
+- 
 
 ```swift
 
@@ -230,7 +231,7 @@ final class MyLogViewModel: ObservableObject {
 ```
 
 * ViewController
-- input 이벤트는 viewModel.action(_ actuin: Action)을 통해 전달
+- input 이벤트는 viewModel.action(_ action: Action)을 통해 전달
 - output 값은 viewModel.output의 프로퍼티들을 통해 전달 받음
 
 ```swift
@@ -1082,6 +1083,7 @@ private func timelineList() -> some View {
       .padding()
 }
 ```
+<br>
 
 > ### @ObservedResult로 RealmObject 추가 / 수정 / 삭제 후 갱신이 불필요한 @Publish 프로퍼티 구성
 
@@ -1159,8 +1161,6 @@ final class MyLogViewModel: ObservableObject {
 
 }
 ```
-
-
 
 <br>
 
@@ -1310,7 +1310,7 @@ final class PhotoManager: FileManager {
 <img width="1064" alt="스크린샷 2024-10-22 오후 4 06 53" src="https://github.com/user-attachments/assets/eca3c4bf-8988-4551-9029-684e5bf87fd8">
  
 * updateView 메서드의 로직을 Main큐에서 비동기 처리하도록 개선
-   
+
 ```swift
 func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
     DispatchQueue.main.async() {
@@ -1339,10 +1339,90 @@ func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
 <br>
 
 > ### 이미지 다운 샘플링
-- 서비스 기획상 현재 2개의 뷰에서 지도 SDK를 사용해야만 하는 만큼 최소 200MB의 메모리 부하를 디폴트로 감당해야하는 상태. 
-- 원본 이미지를 그대로 사용하게되면 지도뷰에서 장시간 또는 대량의 작업이 일어날 경우 쉽게 메모리에 과도한 부하발생 가능
-- WWDC에서 SwiftUI에서 제공하는 Image의 resizable이나 UIGraphicsImageRenderer보다 더 효율적인 방법으로 소개된 ImageIO를 사용한 다운샘플링 구현
-- 전 후 성능비교
+* 서비스 기획상 현재 2개의 뷰에서 지도 SDK를 사용해야만 하는 만큼 최소 200MB 가량의 메모리 부하를 디폴트로 감당해야하는 상태.
+  - 일기 작성 탭의 100MB는 고정, 일기 조회화면의 100MB가량은 화면에서 벗어날 시 해제됨
+    
+|일기작성 탭|일기 조회 화면|
+|------|------|
+|<img width="307" alt="스크린샷 2024-10-22 오후 4 36 55" src="https://github.com/user-attachments/assets/73fed617-7272-444e-9c53-51fc93e2e716">| <img width="306" alt="스크린샷 2024-10-22 오후 4 38 24" src="https://github.com/user-attachments/assets/1045f48c-c8f5-4cda-b8ee-178a0dcc2730">|
+
+* 원본 이미지를 그대로 사용하게되면 지도뷰에서 장시간 또는 대량의 작업이 일어날 경우 쉽게 메모리에 과도한 부하발생 가능
+   - 사용자가 촬영한 사진 4장 등록한 경우
+     
+|일기작성 탭|일기 조회 화면|
+|------|------|
+|<img width="305" alt="스크린샷 2024-10-22 오후 4 54 31" src="https://github.com/user-attachments/assets/f3166cab-7862-4132-ac4d-4a0d0282e798"> | <img width="301" alt="스크린샷 2024-10-22 오후 4 56 52" src="https://github.com/user-attachments/assets/5df9b98f-bdc7-46d9-81ce-3086688d8036">|
+
+* WWDC에서 SwiftUI에서 제공하는 Image의 resizable이나 UIGraphicsImageRenderer보다 더 효율적인 방법으로 소개된 ImageIO를 사용한 다운샘플링 구현
+  - UIImage Extension
+  ```swift
+  import ImageIO
+  import UIKit
+  
+  extension UIImage {
+          
+      func resize(to size: CGSize) -> UIImage? {
+             let options: [CFString: Any] = [
+                 kCGImageSourceShouldCache: false,
+                 kCGImageSourceCreateThumbnailFromImageAlways: true,
+                 kCGImageSourceCreateThumbnailFromImageIfAbsent: true,
+                 kCGImageSourceThumbnailMaxPixelSize: max(size.width, size.height),
+                 kCGImageSourceCreateThumbnailWithTransform: true
+             ]
+             
+             guard let data = pngData(),
+                   let imageSource = CGImageSourceCreateWithData(data as CFData, nil),
+                   let cgImage = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, options as CFDictionary)
+             else { return nil }
+             
+             let resizedImage = UIImage(cgImage: cgImage)
+             return resizedImage
+      }
+     
+  }
+  ```
+
+  - PHPickerView
+  ```swift
+  func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+
+      parent.isPresented = false
+  
+      viewModel.action(.changeLoadingState)
+      
+      let width = ScreenSize.width - 75
+      let height = ScreenSize.height - 312
+    
+      let group = DispatchGroup()
+      results.forEach { [weak self] in
+          $0.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (object, error) in
+              group.enter()
+              DispatchQueue.main.async() {
+                  if let rawImage = object as? UIImage,
+                     // 원본 UIImage를 resize
+                     let image = rawImage.resize(to: CGSize(width: width, height: height)) {
+                      
+                      self?.imageList.append(image)
+                      
+                      if let imageList = self?.imageList, imageList.count == results.count {
+                          self?.viewModel.input.pickedImages = imageList
+                          self?.viewModel.action(.photoPicked)
+                      }
+                  }
+                  group.leave()
+              }
+          }
+      }
+      viewModel.action(.changeLoadingState)
+  }
+  ```  
+* 다운 샘플링 적용 후 사진 4장 추가 시 메모리 부하 개선
+
+|일기작성 탭|일기 조회 화면|
+|------|------|
+|<img width="344" alt="스크린샷 2024-10-22 오후 5 24 50" src="https://github.com/user-attachments/assets/16030903-657b-4383-9894-05a23950b8e4"> | <img width="343" alt="스크린샷 2024-10-22 오후 5 25 59" src="https://github.com/user-attachments/assets/6b5ef375-3960-4f33-9568-a4d355596aea">|
+
+
 
 <br>
 
