@@ -104,8 +104,10 @@ iOS 15.0 이상
 > ### SwiftUI와 Combine, Input/Output 패턴으로 MVVM 아키텍처 구현
 
 * ViewModel
-- Combine의 PassthroughSubject로 input 이벤트 구독
-- 
+- Input과 Output 구조체에 Subject와 View로 내보낼 데이터를 초기화하고 이를 ViewModel의 input, output 프로퍼티에 초기화
+- init시점에 input 프로퍼티에 초기화된 PassthroughSubject를 구독
+- action 메서드를 통해 View에서 input 이벤트가 전달되면 매칭되는 PassthroughSubject Stream에서 연산을 위한 이벤트를 방출
+- 연산 결과를 output의 프로퍼티에 업데이트하면 output 프로퍼티에 적용된 @Published의 효과로 View에 선언된 @SateObject / @ObservedObject가 작동됨
 
 ```swift
 
@@ -216,9 +218,9 @@ final class MyLogViewModel: ObservableObject {
 }
 ```
 
-* ViewController
-- input 이벤트는 viewModel.action(_ action: Action)을 통해 전달
-- output 값은 viewModel.output의 프로퍼티들을 통해 전달 받음
+* View
+- viewModel.action(_ action: Action)을 통해 input 이벤트 전달
+- viewModel.output의 프로퍼티에 변경이 발생했을 때 @StateObject / @ObservedObject의 효과로 새롭게 렌더링 됨 
 
 ```swift
 struct MyLogView: View {
