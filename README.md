@@ -1,4 +1,4 @@
-<img width="301" alt="스크린샷 2024-10-22 오후 4 56 52" src="https://github.com/user-attachments/assets/77fe9966-d672-4108-b99c-3715f27a7ff3">프로젝트 정보
+프로젝트 정보
 -
 
 <br>
