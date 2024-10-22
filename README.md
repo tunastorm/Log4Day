@@ -35,12 +35,8 @@
 > ### 개발기간 
  2024.09.12 ~ 2024.10.08
 
-<br>
-
 > ### 개발인원
 클라이언트(iOS) 1명
-
-<br>
 
 > ### 최소 지원 버전
 iOS 15.0 이상
@@ -58,19 +54,13 @@ iOS 15.0 이상
 - 네 컷 사진 조회 / 갤러리 저장
 - 방문 장소 조회 
 
-<br>
-
 > ### 일기 등록
 - 방문장소 검색
 - 방문장소 등록 / 삭제
 - 방문장소 이미지 등록 / 삭제
-
-<br>
  
 > ### 카테고리 관리
 - 카테고리 추가 / 삭제
-
-<br>
 
 > ### 유저분석 / 에러 탐지 / 푸시 알림 
 
@@ -1346,7 +1336,7 @@ func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
 |------|------|
 |<img width="307" alt="스크린샷 2024-10-22 오후 4 36 55" src="https://github.com/user-attachments/assets/73fed617-7272-444e-9c53-51fc93e2e716">| <img width="306" alt="스크린샷 2024-10-22 오후 4 38 24" src="https://github.com/user-attachments/assets/1045f48c-c8f5-4cda-b8ee-178a0dcc2730">|
 
-* 원본 이미지를 그대로 사용하게되면 지도뷰에서 장시간 또는 대량의 작업이 일어날 경우 쉽게 메모리에 과도한 부하발생 가능
+* 이미지 개수를 최대 4개로 제한했지만 원본 이미지를 그대로 사용하게되면 메모리에 과도한 부하발생
    - 사용자가 촬영한 사진 4장 등록한 경우
      
 |일기작성 탭|일기 조회 화면|
@@ -1399,7 +1389,7 @@ func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
               group.enter()
               DispatchQueue.main.async() {
                   if let rawImage = object as? UIImage,
-                     // 원본 UIImage를 resize
+                     // 원본 UIImage를 resize하여 메모리 최적화
                      let image = rawImage.resize(to: CGSize(width: width, height: height)) {
                       
                       self?.imageList.append(image)
@@ -1415,13 +1405,13 @@ func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
       }
       viewModel.action(.changeLoadingState)
   }
-  ```  
+  ```
+      
 * 다운 샘플링 적용 후 사진 4장 추가 시 메모리 부하 개선
 
 |일기작성 탭|일기 조회 화면|
 |------|------|
 |<img width="344" alt="스크린샷 2024-10-22 오후 5 24 50" src="https://github.com/user-attachments/assets/16030903-657b-4383-9894-05a23950b8e4"> | <img width="343" alt="스크린샷 2024-10-22 오후 5 25 59" src="https://github.com/user-attachments/assets/6b5ef375-3960-4f33-9568-a4d355596aea">|
-
 
 
 <br>
