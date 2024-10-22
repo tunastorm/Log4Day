@@ -118,42 +118,224 @@ iOS 15.0 이상
 
 > ### SwiftUI와 Combine, Input/Output 패턴으로 MVVM 아키텍처 구현
 
-<br>
-
-> ### iOS 16.0 이상에서 동작하는 Modifire와 이전 버전의 Modifire를 분기하는 Custom Modifire로 최소버전 iOS 15.0 대응
+* ViewModel
 
 ```swift
-extension View {
+
+import SwiftUI
+import Combine
+import RealmSwift
+import BottomSheet
+
+final class MyLogViewModel: ObservableObject {
     
-    @ViewBuilder
-    func hideIndicator() -> some View {
-        if #available(iOS 16, *) {
-            self.modifier(iOS16_HideIndicator())
-        } else {
-            self.modifier(iOS15_HideIndicator())
+    private let repository = Repository.shared
+    
+    private let photoManager = PhotoManager()
+    
+    private var cancellables = Set<AnyCancellable>()
+    
+    var input = Input()
+    
+    @Published var output = Output()
+    
+    enum Action {
+        case changeCategory
+        case fetchFirstLastDate
+        case fetchCategorizedList
+        ......
+    }
+    
+    struct Input {
+        let changeCategory = PassthroughSubject<Void, Never>()
+        let fetchFirstLastDate = PassthroughSubject<Void, Never>()
+        let fetchCategorizedList = PassthroughSubject<Void, Never>()
+        ......
+    }
+    
+    struct Output {
+        ......
+        var category = "전체"
+        @ObservedResults(Log.self) var logList
+        ......
+        var firstLastDate: (String, String) = (DateFormatManager.shared.dateToFormattedString(date: Date(), format: .dotSeparatedyyyyMMddDay), "")
+        ......
+    }
+    
+    init() {
+        input.changeCategory
+            .sink { [weak self] _ in
+                self?.changeCategory()
+            }
+            .store(in: &cancellables)
+        
+        input.fetchFirstLastDate
+            .sink { [weak self] _ in
+                self?.fetchFirstLastDate()
+            }
+            .store(in: &cancellables)
+        
+        input.fetchCategorizedList
+            .sink { [weak self] _ in
+                self?.fetchCategorizedLogList()
+            }
+            .store(in: &cancellables)
+        
+        ......
+    }
+    
+    func action(_ action: Action) {
+        switch action {
+        case .changeCategory:
+            input.changeCategory.send(())
+        case .fetchFirstLastDate:
+            input.fetchFirstLastDate.send(())
+        case .fetchCategorizedList:
+            input.fetchCategorizedList.send(())
+        ......
         }
     }
     
+    private func changeCategory() {
+        output.category = input.selectedCategory
+        output.placeDict.removeAll()
+    }
+    
+    private func fetchFirstLastDate() {
+        let sorted = output.logList.sorted(by: {$0.startDate < $1.startDate})
+        guard let first = sorted.first?.startDate, let last = sorted.last?.startDate else {
+            return
+        }
+        let firstDate = DateFormatManager.shared.dateToFormattedString(date: first, format: .dotSeparatedyyyyMMddDay)
+        let lastDate = DateFormatManager.shared.dateToFormattedString(date: last, format: .dotSeparatedyyyyMMddDay)
+        output.firstLastDate = (firstDate, lastDate)
+    }
+
+    private func fetchCategorizedLogList() {
+        if output.category == "전체" {
+            output.$logList.where = { $0.startDate <= Date() }
+        } else {
+            output.$logList.where = { [weak self] in
+                return $0.owner.title == self?.output.category ?? ""
+            }
+        }
+        output.$logList.sortDescriptor = .init(keyPath: Log.Column.startDate.name, ascending: false)
+        output.$logList.update()
+        fetchFirstLastDate()
+    }
+
+    ......
+
 }
+```
 
-@available(iOS 16, *)
-struct iOS16_HideIndicator: ViewModifier {
-    
-    func body(content: Content) -> some View {
-        content.scrollIndicators(.hidden)
-    }
-}
+* ViewController
+- input 이벤트는 viewModel.action(_ actuin: Action)을 통해 전달
+- output 값은 viewModel.output의 프로퍼티들을 통해 전달 받음
 
-
-struct iOS15_HideIndicator: ViewModifier {
+```swift
+struct MyLogView: View {
     
-    init() {
-        UITableView.appearance().showsVerticalScrollIndicator = false
-    }
+    @Binding var tapSelection: Int
     
-    func body(content: Content) -> some View {
-        content
-    }
+    @ObservedObject var categoryViewModel: CategoryViewModel
+    @StateObject private var viewModel = MyLogViewModel()
+    
+    var body: some View {
+        GeometryReader { proxy in
+          ......
+        }
+        .onAppear {
+            viewModel.action(.fetchFirstLastDate)
+            viewModel.action(.fetchLogDate(isInitial: true))
+        }
+        ......
+  }
+  
+  private func TitleView() -> some View {
+      VStack() {
+          HStack {
+              Text("Subject: ")
+                  .font(.footnote)
+                  .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
+              Text(categoryViewModel.output.category)
+                  .font(.title3)
+                  .foregroundStyle(ColorManager.shared.ciColor.contentColor)
+              Spacer()
+              Text("Date: ")
+                  .font(.footnote)
+                  .foregroundStyle(ColorManager.shared.ciColor.subContentColor)
+              Text(viewModel.output.logDate)
+                  .font(.footnote)
+                  .foregroundStyle(ColorManager.shared.ciColor.contentColor)
+          }
+          .padding(.init(top: 10, leading: 20, bottom: 6, trailing: 20))
+      }
+      .background(ColorManager.shared.ciColor.backgroundColor)
+  }
+  
+  private func photoLogBanner(width: CGFloat) -> some View {
+      print(UIScreen.main.bounds.height)
+      let bannerWidth = width-75
+      let bannerHeight: CGFloat = UIScreen.main.bounds.height - 312
+      let fourCutLogList = viewModel.output.logList
+                          .where({ $0.fourCut.count == 4 })
+                          .sorted(byKeyPath: Log.Column.startDate.name, ascending: false)
+      return VStack {
+          InfinityCarouselView(
+              data: fourCutLogList,
+              edgeSpacing: 20,
+              contentSpacing: 20,
+              totalSpacing: 20,
+              contentHeight: bannerHeight,
+              currentOffset: -(bannerWidth + 15),
+              carouselContent: { data, index, currentIndex, lastCell in
+              FourCutPictureView(currentIndex: currentIndex,
+                                 index: index,
+                                 lastCell: lastCell,
+                                 title: data.title, 
+                                 date: DateFormatManager.shared.dateToFormattedString(date: data.startDate, format: .dotSeparatedyyyyMMdd),
+                                 photos: Array( data.fourCut),
+                                 hashTags: "#\(data.places.map { $0.hashtag }.joined(separator: " #"))",
+                                 backgroundWidthHeight: (bannerWidth,  bannerHeight), 
+                                 imageHeight: bannerHeight - 100)
+              },
+              zeroContent: { index, currentIndex, lastCell in
+                  let title = fourCutLogList.last?.title ?? "오늘의 추억을 네 컷으로 남겨보세요"
+                  let hashTags = "#\(fourCutLogList.last?.places.map { $0.hashtag }.joined(separator: " #") ?? "네컷일기, Log4Day")"
+                  FourCutPictureView(currentIndex: currentIndex,
+                                     index: index,
+                                     lastCell: lastCell,
+                                     title: title,
+                                     date: DateFormatManager.shared.dateToFormattedString(date: fourCutLogList.last?.startDate ?? Date(), format: .dotSeparatedyyyyMMdd),
+                                     photos: Array(fourCutLogList.last?.fourCut ?? List<Photo>()),
+                                     hashTags: hashTags,
+                                     backgroundWidthHeight: (bannerWidth, bannerHeight),
+                                     imageHeight: bannerHeight-100)
+              },
+              overContent: { index, currentIndex, lastCell in
+                  let title = fourCutLogList.first?.title ?? ""
+                  let hashTags = "#\(fourCutLogList.first?.places.map { $0.hashtag }.joined(separator: " #") ?? "")"
+                  FourCutPictureView(currentIndex: currentIndex,
+                                     index: index,
+                                     lastCell: lastCell,
+                                     title: title,
+                                     date: DateFormatManager.shared.dateToFormattedString(date: fourCutLogList.first?.startDate ?? Date(), format: .dotSeparatedyyyyMMdd),
+                                     photos: Array(fourCutLogList.first?.fourCut ?? List<Photo>()),
+                                     hashTags: hashTags,
+                                     backgroundWidthHeight: (bannerWidth, bannerHeight),
+                                     imageHeight: bannerHeight-100)
+              }
+          )
+          .frame(height: bannerHeight)
+          .padding(.top, 10)
+          .hideIndicator()
+          .environmentObject(viewModel)        
+          ListFooterView(text: viewModel.output.firstLastDate.0, font: .footnote)
+              .padding()
+      }
+  }
+  
 }
 ```
 
@@ -164,46 +346,46 @@ struct iOS15_HideIndicator: ViewModifier {
 * 네컷사진 Cell 터치시 Cell의 View를 UIImage로 변환하는 전체 로직
 
 ```swift
-  private func configContentView(contentView: Content, contentWidth: CGFloat, nextOffset: CGFloat, index: CGFloat) -> some View {
-        contentView
-        .frame(width: contentWidth, height: contentHeight)
-        .gesture(
-            DragGesture()
-                .onEnded { value in
-                   ......
-                }
-        )
-        .onPress {
-            guard !data.isEmpty else {
-                return
-            }
-            let width = UIScreen.main.bounds.width * 0.9
-            let height = UIScreen.main.bounds.height * 0.9
-            
-            let framedController = setFourCutImageFrame(contentView)
-            framedController.view.frame = CGRect(origin: .zero, size: CGSize(width: width, height: height))
-            if let rootVC = UIApplication.shared.windows.first?.rootViewController {
-                rootVC.view.insertSubview(framedController.view, at: 0)
+private func configContentView(contentView: Content, contentWidth: CGFloat, nextOffset: CGFloat, index: CGFloat) -> some View {
+      contentView
+      .frame(width: contentWidth, height: contentHeight)
+      .gesture(
+          DragGesture()
+              .onEnded { value in
+                 ......
+              }
+      )
+      .onPress {
+          guard !data.isEmpty else {
+              return
+          }
+          let width = UIScreen.main.bounds.width * 0.9
+          let height = UIScreen.main.bounds.height * 0.9
+          
+          let framedController = setFourCutImageFrame(contentView)
+          framedController.view.frame = CGRect(origin: .zero, size: CGSize(width: width, height: height))
+          if let rootVC = UIApplication.shared.windows.first?.rootViewController {
+              rootVC.view.insertSubview(framedController.view, at: 0)
 
-                // 이미지 렌더러 생성
-                let renderer = UIGraphicsImageRenderer(size: CGSize(width: width, height: height))
+              // 이미지 렌더러 생성
+              let renderer = UIGraphicsImageRenderer(size: CGSize(width: width, height: height))
 
-                // 네 컷 사진 이미지 렌더링
-                let rawFourCutImage = renderer.image { context in
-                    // UIHostingController의 view가 가진 layer Tree를 UIGraphicsImageRendererContext에 작성
-                    framedController.view.layer.render(in: context.cgContext)
-                }
-                
-                framedController.view.removeFromSuperview()
-      
-                // 네 컷 사진 이미지에서 불필요한 영역 cropping
-                guard let fourCutImage = cropWithDate(rawFourCutImage) else {
-                    return
-                }
-                viewModel.action(.fourCutCellPressed(image: fourCutImage))
-            }
-        }
-    }
+              // 네 컷 사진 이미지 렌더링
+              let rawFourCutImage = renderer.image { context in
+                  // UIHostingController의 view가 가진 layer Tree를 UIGraphicsImageRendererContext에 작성
+                  framedController.view.layer.render(in: context.cgContext)
+              }
+              
+              framedController.view.removeFromSuperview()
+    
+              // 네 컷 사진 이미지에서 불필요한 영역 cropping
+              guard let fourCutImage = cropWithDate(rawFourCutImage) else {
+                  return
+              }
+              viewModel.action(.fourCutCellPressed(image: fourCutImage))
+          }
+      }
+  }
 ```
 
 * 네 컷 사진 이미지에 배경 디자인 적용한 UIHostingController 생성
@@ -1119,10 +1301,40 @@ final class PhotoManager: FileManager {
 <br>
 
 > ### 지도 Representable 객체 비동기 처리
- - 선택된 마커/장소에 대한 이벤트 처리가 1~2초가량 지연되는 이슈
- - 사용자가 선택한 장소의 위치를 입력받는 프로퍼티에 view의 변경이 없는 viewModel의 변경은 예측되지 않은 동작을 일으킬 수 있다는 보라색 경고 발생
- - updateView 메서드의 로직을 Main큐에서 비동기 처리하도록 개선
- - 마커 선택 및 장소 셀 선택 시 즉각적인 반응
+* 선택된 마커/장소에 대한 이벤트 처리가 1~2초가량 지연되는 이슈
+
+![markerAsync_before-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/b88b48da-8988-49d0-b477-ce3936e0f2d8)
+   
+* 사용자가 선택한 장소의 위치를 입력받는 프로퍼티에 view의 변경이 없는 viewModel의 변경은 예측되지 않은 동작을 일으킬 수 있다는 메모리 이슈 경고 발생
+
+<img width="1064" alt="스크린샷 2024-10-22 오후 4 06 53" src="https://github.com/user-attachments/assets/eca3c4bf-8988-4551-9029-684e5bf87fd8">
+ 
+* updateView 메서드의 로직을 Main큐에서 비동기 처리하도록 개선
+   
+```swift
+func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
+    DispatchQueue.main.async() {
+        //MARK: 카메라 위치 갱신
+        ......
+        
+        //MARK: 오버레이 요소 갱신
+        ......
+        
+        //MARK: 마커에 맵뷰 할당
+        ......
+        
+        //MARK: 마커 간의 직선 갱신
+        ......
+        
+        //MARK: 카메라 이동 애니메이션
+        ......
+    }
+}
+```
+
+* 마커 선택 및 장소 셀 선택 시 반응속도 개선
+
+![markerAsync_After-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/da09cbcb-9b61-430a-b400-b5301844cb67)
 
 <br>
 
