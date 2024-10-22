@@ -1391,7 +1391,7 @@ func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
 <br>
 
 > ### 개선사항
-* 선언형 UI인 SwiftUi에서 @ObservedObject, @EnvironmentObject와 함께 ViewModel을 사용하는 것이 알맞을까 의문이 듦. MVI나 TCA를 공부해보자. 
+* 선언형 UI인 SwiftUI에서 @ObservedObject, @EnvironmentObject와 함께 ViewModel을 여러 View에 걸쳐서 사용하는 것이 알맞을까 의문이 듦. MVI 아키텍처나 TCA를 적용해보고 싶다.
 * 네트워크, Realm CRUD 등의 예외처리 및 alert등을 통한 결과 안내 로직 추가
 * 커스텀으로 구현한 Infinity Carousel View의 딱딱한 스크롤 애니메이션을 SwiftUI에 어울리게 개선
 
