@@ -219,211 +219,26 @@ struct NextViewWrapper<Content: View>: View {
 
 > ### @ObservedResult로 RealmObject 추가 / 수정 / 삭제 후 갱신이 불필요한 @Publish 프로퍼티 구성
 
-* Output Stuct의 프로퍼티에 @ObservedResult 선언
+* ViewModel의 Output Stuct의 프로퍼티에 일기의 목록을 담는 @ObservedResult 선언
 
-```swift
-final class MyLogViewModel: ObservableObject {
-    
-    private let repository = Repository.shared
-    
-    private let photoManager = PhotoManager()
-    
-    private var cancellables = Set<AnyCancellable>()
-    
-    var input = Input()
-    
-    @Published var output = Output()
-    
-    enum Action {
-        case changeCategory
-        ......
-        case fetchCategorizedList
-        ......
-    }
-    
-    struct Input {
-        let changeCategory = PassthroughSubject<Void, Never>()=
-        ......
-        let fetchCategorizedList = PassthroughSubject<Void, Never>()
-        ......
-    }
-    
-    struct Output {
-        ......
-        var category = "전체"
-        @ObservedResults(Log.self) var logList
-        ......
-    }
-    
-    init() {
-        ......
-        input.fetchCategorizedList
-            .sink { [weak self] _ in
-                self?.fetchCategorizedLogList()
-            }
-            .store(in: &cancellables)
-        ......
-    }
-    
-    func action(_ action: Action) {
-        switch action {
-        ......
-        case .fetchCategorizedList:
-            input.fetchCategorizedList.send(())
-        ......
-        }
-    }
+* @ObservedResult는 Environment Value인 realmConfiguration을 따르므로 RealmDB 데이터에 변화가 있을 때에 이를 관찰할 수 있다.
 
-    ......
+* View에서는 viewModel.output을 참조해 @ObservedResult가 변경될 때마다 새로 렌더링되며 데이터를 갱신하며
 
-    private func fetchCategorizedLogList() {
-        if output.category == "전체" {
-            output.$logList.where = { $0.startDate <= Date() }
-        } else {
-            output.$logList.where = { [weak self] in
-                return $0.owner.title == self?.output.category ?? ""
-            }
-        }
-        output.$logList.sortDescriptor = .init(keyPath: Log.Column.startDate.name, ascending: false)
-        output.$logList.update()
-        fetchFirstLastDate()
-    }
-
-    ......
-
-}
-```
+* Repository에서 추가 / 삭제 / 수정이 발생하더라도 별도의 로직 구현없이 실시간으로 View 갱신된다    
 
 <br>
 
 > ### RealmSwift와 FileManager를 사용한 이미지 저장 / 삭제
 
-* Repository
-```swift
-import Foundation
-import RealmSwift
+* Singleton으로 구현한 FileManager 클래스가 이미지 조회 / 저장 / 삭제 담당
+  - View에서의 이미지 조회
+  - ViewMopdel과 Repository에서의 저장 / 삭제 시 호출
 
-final class Repository {
-    
-    typealias RepositoryResult = (Result<RepositoryStatus, RepositoryError>) -> Void
-    typealias propertyhandler = () -> Void
-    
-    static let shared = Repository()
-    
-    private let photoManager = PhotoManager()
-    
-    private let realm = {
-        do {
-            return try? Realm(configuration: RealmConfiguration.getConfig())
-        } catch {
-            return nil
-        }
-    }()
+* Realm의 일기 Object가 등록된 이미지 파일명의 배열을 가짐 
 
-    ......
+* Repository에서 일기 또는 일기의 List를 갖는 카테고리를 삭제할 때 일기가 가진 이미지 목록을 순회하며 삭제. 
 
-    func deleteCategory(_ data: Category, completionHandler: RepositoryResult) {
-        let logs = data.content
-        do {
-            try realm?.write { [weak self] in
-                logs.forEach { log in
-                    log.places.forEach { self?.realm?.delete($0) }
-                    log.fourCut.forEach {
-                        self?.photoManager.removeImageFromDocument(filename: $0.name)
-                        self?.realm?.delete($0)
-                    }
-                    self?.realm?.delete(log)
-                }
-                self?.realm?.delete(data)
-            }
-            completionHandler(.success(RepositoryStatus.deleteSuccess))
-        } catch {
-            completionHandler(.failure(RepositoryError.deleteFailed))
-        }
-    }
-    
-    func deleteLog(_ log: Log, completionHandler: RepositoryResult) {
-        do {
-            try realm?.write { [weak self] in
-                log.places.forEach{ self?.realm?.delete($0) }
-                log.fourCut.forEach {
-                    self?.photoManager.removeImageFromDocument(filename: $0.name)
-                    self?.realm?.delete($0)
-                }
-                self?.realm?.delete(log)
-            }
-            completionHandler(.success(RepositoryStatus.deleteSuccess))
-        } catch {
-            completionHandler(.failure(RepositoryError.deleteFailed))
-            
-        }
-    }
-
-    ......
-
-}
-```
-
-
-* FileManager
-  
-```swift
-import UIKit
-
-final class PhotoManager: FileManager {
-  
-    static let shared = PhotoManager()
-    
-    private var documentDirectory: URL?
-    
-    override init() {
-        self.documentDirectory = FileManager.default.urls(
-            for: .documentDirectory,
-            in: .userDomainMask).first
-    }
-    
-    func saveImageToDocument(image: UIImage, filename: String) {
-        // document 위치 할당
-        guard let documentDirectory else { return }
-        
-        //이미지를 저장할 경로(파일명) 지정
-        let fileURL = documentDirectory.appendingPathComponent("\(filename).png")
-        
-        //이미지 압축
-        guard let data = image.jpegData(compressionQuality: 0.5) else { return }
-        
-        //이미지 파일 저장
-        do {
-            try data.write(to: fileURL)
-        } catch {
-            print("file save error", error)
-        }
-    }
-    
-    func loadImageFromDocument(filename: String) -> UIImage? {
-       ......
-    }
-    
-    func removeImageFromDocument(filename: String) -> Bool? {
-        guard let documentDirectory else { return nil }
-        
-        let fileURL = documentDirectory.appendingPathComponent("\(filename).png")
-        
-        if FileManager.default.fileExists(atPath: fileURL.path) {
-            do {
-                try FileManager.default.removeItem(atPath: fileURL.path)
-                return true
-            } catch {
-                print(#function, "file remove error", error)
-                return false
-            }
-        } else {
-            return nil
-        }
-    }
-}
-
-```
 
 <br>
 
