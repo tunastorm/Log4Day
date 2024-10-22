@@ -157,7 +157,11 @@ iOS 15.0 이상
 
 > ### @EnvironmentObject, @ObservedObject 어노테이션을 통한 상위 뷰와 하위 뷰의 ViewModel 인스턴스 공유
 
-* 
+* SwiftUI에서는 화면을 구성하는 View 객체들을 메서드나 구조체로 분리하는 것이 권장된다.
+* 한 화면을 구성하는 상위 뷰와 하위 뷰들이 같은 ViewModel 인스턴스와 이벤트를 주고받아야 상호 간의 데이터의 일관성이 유지될 수 있다.
+* 하위뷰가 상위뷰가 가진 ViewModel 인스턴스를 전달받기 위해서 필요한 ViewModel 타입의 @EnvironmentObject나 @ObservedObject를 선언
+* 전달되는 ViewModel에 @ObservableObject 프로토콜을 채택하고 상위뷰에서 environmentObject Modifier를 사용하거나 생성자에 뷰모델 인스턴스를 인자로 넘겨 공유
+* 같은 ViewModel을 공유하는 View 간에는 별도의 로직없이도 최신상태 공유 가능.
 
 <br>
 
@@ -386,7 +390,7 @@ func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
 <br>
 
 > ### 개선사항
-* 선언형 UI인 SwiftUI에서 @ObservedObject, @EnvironmentObject와 함께 ViewModel을 여러 View에 걸쳐서 사용하는 것이 알맞을까 의문이 듦. MVI 아키텍처나 TCA를 적용해보고 싶다.
+* 선언형 UI인 SwiftUI에서 @ObservedObject, @EnvironmentObject, ViewModel을 여러 View에 걸쳐서 사용하는 것이 좋은 방향인지 의문이 듦. MVI 아키텍처나 TCA를 적용해보고 싶다.
 * 네트워크, Realm CRUD 등의 예외처리 및 alert등을 통한 결과 안내 로직 추가
 * 커스텀으로 구현한 Infinity Carousel View의 딱딱한 스크롤 애니메이션을 SwiftUI에 어울리게 개선
 
