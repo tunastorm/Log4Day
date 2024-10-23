@@ -121,6 +121,8 @@ iOS 15.0 이상
 * ScrollView indicator 메서드 분기
 * 그 외 iOS15 기준으로 코드 작성
 
+<br>
+
 > ### UIHostingController, UIGraphicsImageRenderer, CGImage.cropping으로 SwiftUI View를 UIImage로 변환
 
 * UIHostingController의 rootView에 SwiftUI View 할당
