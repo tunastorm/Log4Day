@@ -300,14 +300,14 @@ func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
 * 서비스 기획상 현재 2개의 뷰에서 지도 SDK를 사용해야만 하는 만큼 최소 200MB 가량의 메모리 부하를 디폴트로 감당해야하는 상태.
   - 일기 작성 탭의 100MB는 고정, 일기 조회화면의 100MB가량은 화면에서 벗어날 시 해제됨
     
-|일기작성 탭|일기 조회 화면|
+|일기 작성 탭|일기 조회 화면|
 |------|------|
 |<img width="307" alt="스크린샷 2024-10-22 오후 4 36 55" src="https://github.com/user-attachments/assets/73fed617-7272-444e-9c53-51fc93e2e716">| <img width="306" alt="스크린샷 2024-10-22 오후 4 38 24" src="https://github.com/user-attachments/assets/1045f48c-c8f5-4cda-b8ee-178a0dcc2730">|
 
 * 이미지 개수를 최대 4개로 제한했지만 원본 이미지를 그대로 사용하게되면 메모리에 과도한 부하발생
    - 사용자가 촬영한 사진 4장 등록한 경우
      
-|일기작성 탭|일기 조회 화면|
+|일기 작성 탭|일기 조회 화면|
 |------|------|
 |<img width="305" alt="스크린샷 2024-10-22 오후 4 54 31" src="https://github.com/user-attachments/assets/f3166cab-7862-4132-ac4d-4a0d0282e798"> | <img width="301" alt="스크린샷 2024-10-22 오후 4 56 52" src="https://github.com/user-attachments/assets/5df9b98f-bdc7-46d9-81ce-3086688d8036">|
 
@@ -377,7 +377,7 @@ func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
       
 * 다운 샘플링 적용 후 사진 4장 추가 시 메모리 부하 개선
 
-|일기작성 탭|일기 조회 화면|
+|일기 작성 탭|일기 조회 화면|
 |------|------|
 |<img width="344" alt="스크린샷 2024-10-22 오후 5 24 50" src="https://github.com/user-attachments/assets/16030903-657b-4383-9894-05a23950b8e4"> | <img width="343" alt="스크린샷 2024-10-22 오후 5 25 59" src="https://github.com/user-attachments/assets/6b5ef375-3960-4f33-9568-a4d355596aea">|
 
