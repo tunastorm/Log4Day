@@ -128,10 +128,9 @@ iOS 15.0 이상
 * UIHostingController의 rootView에 SwiftUI View 할당
   
 * UIHostingController는 UIViewController를 상속하므로 UIViewController의 프로퍼티와 메서드들 사용해 이미지의 배경에 사용될 뷰 구성
-* UIGraphicsImageRenderer 인스턴스 생성
-* UIHostingController의 view가 가진 layer Tree를 UIGraphicsImageRendererContext에 작성
-* 네 컷 사진 이미지 렌더링하여 UIImage 생성
-* CGImage.cropping을 사용하여 불필요한 영역 crop 가능
+* UIGraphicsImageRenderer 인스턴스 생성 및 UIHostingController의 view가 가진 layer Tree를 UIGraphicsImageRendererContext에 작성
+* 렌더링을 수행하여 UIImage 생성
+* CGImage.cropping을 사용하여 불필요한 영역 crop
    - crop영역 설정 시 현재 사용중인 device의 scale만큼 size를 확대해야 함
    - UIImage의 size는 device의 scale을 반영하지 않은 값을 반환하지만, CGImage는 scale을 반영한 size를 갖기 때문
 * Naver Maps API SDK에서도 위 방식으로 변환한 UIImage로 NMFMarkerImage를 생성해 커스텀 마커 적용
