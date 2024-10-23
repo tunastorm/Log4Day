@@ -26,11 +26,12 @@
 - 매일의 추억을 지도와 네컷사진으로 기록할 수 있는 서비스
 
 > ### 스크린샷
+
 <div align = "center">
-  <img src = "https://github.com/user-attachments/assets/24182eda-ec9c-47d3-9b9b-69c3d4d85886" width="20%" height="auto"></img> 
-  <img src = "https://github.com/user-attachments/assets/d700693e-589d-402b-80bc-5197227b2968" width="20%" height="auto"></img> 
-  <img src = "https://github.com/user-attachments/assets/8380a8cd-32fe-47f5-af67-db1de02b64f7" width="20%" height="auto"></img> 
-  <img src = "https://github.com/user-attachments/assets/58244546-1340-46ae-b7bb-e29cfd6e3667" width="20%" height="auto"></img> 
+  <img src = "https://github.com/user-attachments/assets/b9d33e1a-acd0-49e4-920a-87232061557c" width="22%" height="auto"></img> 
+  <img src = "https://github.com/user-attachments/assets/7c471f75-800a-4064-be92-8c91371221b9" width="22%" height="auto"></img> 
+  <img src = "https://github.com/user-attachments/assets/8380a8cd-32fe-47f5-af67-db1de02b64f7" width="22%" height="auto"></img> 
+  <img src = "https://github.com/user-attachments/assets/c8025332-d3ca-4371-8ffd-da8e594e2856" width="22%" height="auto"></img> 
 </div>
 
 > ### 개발기간 
