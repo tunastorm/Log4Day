@@ -101,11 +101,13 @@ iOS 15.0 이상
 
 <br>
 
-> ### 프로젝트 구성도 
+> ### 프로젝트 구성도
 
 <div align= "center">
-  <img src="https://github.com/tunastorm/Log4Day/blob/tunastorm/ReadmeResource/%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8C%E1%85%A6%E1%86%A8%E1%84%90%E1%85%B3%20%E1%84%80%E1%85%AE%E1%84%89%E1%85%A5%E1%86%BC%E1%84%83%E1%85%A9.png?raw=true"/>
+  <img src="https://github.com/user-attachments/assets/5e70c5e7-17bd-47e9-9382-b455933c3e56" width="80%" height="auto"/>
 </div>
+
+<br>
 
 > ### SwiftUI와 Combine, Input/Output 패턴으로 MVVM 아키텍처 구현
 
