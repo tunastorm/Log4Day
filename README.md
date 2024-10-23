@@ -115,6 +115,12 @@ iOS 15.0 이상
 
 <br>
 
+> ### iOS 16.0 이상에서 동작하는 Modifire와 이전 버전의 Modifire를 분기하는 Custom Modifire로 최소버전 iOS 15.0 대응
+
+* NavigationView와 NavigationStack 분기
+* ScrollView indicator 메서드 분기
+* 그 외 iOS15 기준으로 코드 작성
+
 > ### UIHostingController, UIGraphicsImageRenderer, CGImage.cropping으로 SwiftUI View를 UIImage로 변환
 
 * UIHostingController의 rootView에 SwiftUI View 할당
