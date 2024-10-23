@@ -26,7 +26,13 @@
 - 매일의 추억을 지도와 네컷사진으로 기록할 수 있는 서비스
 
 > ### 스크린샷
-![title](https://github.com/tunastorm/Log4Day/blob/tunastorm/ReadmeResource/Apple%20iPhone%2011%20Pro%20Max%20Screenshot%20All.png?raw=true)   
+
+<div align = "center">
+  <img src = "https://github.com/user-attachments/assets/b9d33e1a-acd0-49e4-920a-87232061557c" width="22%" height="auto"></img> 
+  <img src = "https://github.com/user-attachments/assets/7c471f75-800a-4064-be92-8c91371221b9" width="22%" height="auto"></img> 
+  <img src = "https://github.com/user-attachments/assets/8380a8cd-32fe-47f5-af67-db1de02b64f7" width="22%" height="auto"></img> 
+  <img src = "https://github.com/user-attachments/assets/c8025332-d3ca-4371-8ffd-da8e594e2856" width="22%" height="auto"></img> 
+</div>
 
 > ### 개발기간 
  2024.09.12 ~ 2024.10.08
@@ -95,11 +101,13 @@ iOS 15.0 이상
 
 <br>
 
-> ### 프로젝트 구성도 
+> ### 프로젝트 구성도
 
 <div align= "center">
-  <img src="https://github.com/tunastorm/Log4Day/blob/tunastorm/ReadmeResource/%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8C%E1%85%A6%E1%86%A8%E1%84%90%E1%85%B3%20%E1%84%80%E1%85%AE%E1%84%89%E1%85%A5%E1%86%BC%E1%84%83%E1%85%A9.png?raw=true"/>
+  <img src="https://github.com/user-attachments/assets/5e70c5e7-17bd-47e9-9382-b455933c3e56" width="80%" height="auto"/>
 </div>
+
+<br>
 
 > ### SwiftUI와 Combine, Input/Output 패턴으로 MVVM 아키텍처 구현
 
@@ -183,7 +191,7 @@ iOS 15.0 이상
 
 * 반복적인 Drag 이벤트 발생 제어
   - @State에 Drag이벤트 진행중인지 체크하는 Bool 선언
-  - Cell에 Drag이벤트 발생시 true
+  - Cell에 Drag이벤트 발생시 true, true인 동안 Drag 이벤트 발생하여도 guard 문으로 조기탈출
   - Drag이벤트가 종료될 때 DispatchQueue.main.asyncAfter로 시간을 지연시킨 후 false 할당
 
 <br>
@@ -261,8 +269,10 @@ struct NextViewWrapper<Content: View>: View {
 > ### 지도 Representable 객체 비동기 처리
 * 선택된 마커/장소에 대한 이벤트 처리가 1~2초가량 지연되는 이슈
 
-![markerAsync_before-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/b88b48da-8988-49d0-b477-ce3936e0f2d8)
-   
+<div align = "center">
+  <img src="https://github.com/user-attachments/assets/b88b48da-8988-49d0-b477-ce3936e0f2d8" width="230" height="500">
+</div>
+
 * 사용자가 선택한 장소의 위치를 입력받는 프로퍼티에 view의 변경이 없는 viewModel의 변경은 예측되지 않은 동작을 일으킬 수 있다는 메모리 이슈 경고 발생
 
 <img width="1064" alt="스크린샷 2024-10-22 오후 4 06 53" src="https://github.com/user-attachments/assets/eca3c4bf-8988-4551-9029-684e5bf87fd8">
@@ -292,23 +302,33 @@ func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
 
 * 마커 선택 및 장소 셀 선택 시 반응속도 개선
 
-![markerAsync_After-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/da09cbcb-9b61-430a-b400-b5301844cb67)
+<div align = "center">
+  <img src="https://github.com/user-attachments/assets/da09cbcb-9b61-430a-b400-b5301844cb67" width="230" height="500">
+</div>
 
 <br>
 
 > ### 이미지 다운 샘플링
 * 서비스 기획상 현재 2개의 뷰에서 지도 SDK를 사용해야만 하는 만큼 최소 200MB 가량의 메모리 부하를 디폴트로 감당해야하는 상태.
   - 일기 작성 탭의 100MB는 고정, 일기 조회화면의 100MB가량은 화면에서 벗어날 시 해제됨
-    
+
+<div align = "center"> 
+
 |일기 작성 탭|일기 조회 화면|
 |------|------|
 |<img width="307" alt="스크린샷 2024-10-22 오후 4 36 55" src="https://github.com/user-attachments/assets/73fed617-7272-444e-9c53-51fc93e2e716">| <img width="306" alt="스크린샷 2024-10-22 오후 4 38 24" src="https://github.com/user-attachments/assets/1045f48c-c8f5-4cda-b8ee-178a0dcc2730">|
 
+</div>
+
 * 이미지 개수를 최대 4개로 제한했지만 원본 이미지를 그대로 사용하게 되면 4개만 등록해도 메모리에 과도한 부하발생
+
+<div align = "center"> 
      
 |일기 작성 탭|일기 조회 화면|
 |------|------|
 |<img width="305" alt="스크린샷 2024-10-22 오후 4 54 31" src="https://github.com/user-attachments/assets/f3166cab-7862-4132-ac4d-4a0d0282e798"> | <img width="301" alt="스크린샷 2024-10-22 오후 4 56 52" src="https://github.com/user-attachments/assets/5df9b98f-bdc7-46d9-81ce-3086688d8036">|
+
+</div>
 
 * WWDC에서 SwiftUI에서 제공하는 Image의 resizable이나 UIGraphicsImageRenderer보다 더 효율적인 방법으로 소개된 ImageIO를 사용한 다운샘플링 구현
   - UIImage Extension
@@ -376,10 +396,13 @@ func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
       
 * 다운 샘플링 적용 후 사진 4장 추가 시 메모리 부하 개선
 
+<div align = "center"> 
+
 |일기 작성 탭|일기 조회 화면|
 |------|------|
 |<img width="344" alt="스크린샷 2024-10-22 오후 5 24 50" src="https://github.com/user-attachments/assets/16030903-657b-4383-9894-05a23950b8e4"> | <img width="343" alt="스크린샷 2024-10-22 오후 5 25 59" src="https://github.com/user-attachments/assets/6b5ef375-3960-4f33-9568-a4d355596aea">|
 
+</div>
 
 <br>
 
