@@ -183,7 +183,7 @@ iOS 15.0 이상
 
 * 반복적인 Drag 이벤트 발생 제어
   - @State에 Drag이벤트 진행중인지 체크하는 Bool 선언
-  - Cell에 Drag이벤트 발생시 true
+  - Cell에 Drag이벤트 발생시 true, true인 동안 Drag 이벤트 발생하여도 guard 문으로 조기탈출
   - Drag이벤트가 종료될 때 DispatchQueue.main.asyncAfter로 시간을 지연시킨 후 false 할당
 
 <br>
