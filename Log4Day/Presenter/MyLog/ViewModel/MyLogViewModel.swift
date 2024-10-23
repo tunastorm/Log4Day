@@ -47,7 +47,6 @@ final class MyLogViewModel: ObservableObject {
     }
     
     struct Output {
-        var screenWidth = UIScreen.main.bounds.width
         var category = "전체"
         @ObservedResults(Log.self) var logList
         var timeline: [Log] = []

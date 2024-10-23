@@ -12,7 +12,7 @@ struct PlaceListHeader: View {
     @ObservedObject var viewModel: LogDetailViewModel
     
     var body: some View {
-        VStack{
+        VStack {
             if !viewModel.output.placeList.isEmpty {
                 HStack {
                     Spacer()

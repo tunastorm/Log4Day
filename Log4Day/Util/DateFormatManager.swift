@@ -14,7 +14,6 @@ enum DateFormat {
     case dotSeparatedyyyyMMddHHmm
     case dotSeparatedyyyyMMddDay
 
-    
     var formatString: String {
         return switch self {
         case .hipenSeparatedyyyyMMdd: "yyyy-MM-dd"

@@ -19,4 +19,5 @@ class RealmConfiguration {
         
         return config
     }
+    
 }

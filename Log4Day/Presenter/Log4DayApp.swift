@@ -11,6 +11,7 @@ import FirebaseCore
 import FirebaseMessaging
 
 class AppDelegate: NSObject, UIApplicationDelegate {
+    
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         FirebaseApp.configure()
@@ -27,9 +28,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         
         application.registerForRemoteNotifications()
         
-        
         return true
     }
+    
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
@@ -50,7 +51,7 @@ extension AppDelegate: MessagingDelegate {
           if let error = error {
 //            print("Error fetching FCM registration token: \(error)")
           } else if let token = token {
-//            print("FCM registration token: \(token)")
+            print("FCM registration token: \(token)")
           }
         }
         
@@ -69,8 +70,9 @@ extension AppDelegate: MessagingDelegate {
 
 @main
 struct Log4DayApp: App {
-    
-    @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
+
+    // register app delegate for Firebase setup
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     var body: some Scene {
         WindowGroup {

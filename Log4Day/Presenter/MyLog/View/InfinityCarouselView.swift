@@ -139,8 +139,8 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
             guard !data.isEmpty else {
                 return
             }
-            let width = UIScreen.main.bounds.width * 0.9
-            let height = UIScreen.main.bounds.height * 0.9
+            let width = ScreenSize.width * 0.9
+            let height = ScreenSize.height * 0.9
             
             let framedController = setFourCutImageFrame(contentView)
             framedController.view.frame = CGRect(origin: .zero, size: CGSize(width: width, height: height))
@@ -183,7 +183,7 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
                                     .background(.clear)
                                     .opacity(1.5)
         
-        var controller = UIHostingController(rootView: edittedContentView)
+        let controller = UIHostingController(rootView: edittedContentView)
         controller.view.backgroundColor = .white
         
         let dateLabel = {
@@ -211,32 +211,17 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
             view.layer.opacity = 0.25
             return view
         }()
-//        
-//        let poweredByLabel = {
-//            let label = UILabel()
-//            label.text = "Powered By "
-//            label.textAlignment = .right
-////            label.font = .systemFont(ofSize: 10)
-//            label.font = .systemFont(ofSize: 8)
-//            label.textColor = .black
-//            label.layer.opacity = 0.25
-////            label.backgroundColor = .red
-//            return label
-//        }()
         
         let appTitleLabel = {
             let label = UILabel()
             label.text = "Log4Day"
             label.font = .boldSystemFont(ofSize: 16)
-//            label.font = .boldSystemFont(ofSize: 13)
             label.textAlignment = .right
             label.textColor = .systemMint
             label.layer.opacity = 0.75
-//            label.backgroundColor = .red
             return label
         }()
         
-//        controller.view.addSubview(poweredByLabel)
         controller.view.addSubview(appTitleLabel)
         controller.view.addSubview(dateLabel)
         controller.view.addSubview(photoDateLabel)
@@ -268,32 +253,14 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
             make.bottom.equalToSuperview().inset(45)
             make.trailing.equalToSuperview().inset(20)
         }
-//        poweredByLabel.snp.makeConstraints { make in
-//            make.height.equalTo(20)
-//            make.width.equalTo(70)
-//            make.bottom.equalToSuperview().inset(43)
-//            make.trailing.equalTo(appTitleLabel.snp.leading).offset(-5)
-//        }
-        
-//        appTitleLabel.snp.makeConstraints { make in
-//            make.height.equalTo(15)
-//            make.width.equalTo(60)
-//            make.bottom.equalToSuperview().inset(100)
-//            make.trailing.equalToSuperview().inset(30)
-//        }
-//        poweredByLabel.snp.makeConstraints { make in
-//            make.height.equalTo(10)
-//            make.width.equalTo(50)
-//            make.bottom.equalToSuperview().inset(100)
-//            make.trailing.equalTo(appTitleLabel.snp.leading)
-//        }
+
         return controller
     }
     
     private func cropWithDate(_ image: UIImage) -> UIImage? {
         
-        let width = UIScreen.main.bounds.width - 25
-        let height = UIScreen.main.bounds.height - 170
+        let width = ScreenSize.width - 25
+        let height = ScreenSize.height - 170
         
         let cropArea = CGRect(x: 0, y: 60,
                               width: image.size.width ,
@@ -319,14 +286,14 @@ struct InfinityCarouselView<Data: Object, Content: View>: View {
     
     private func cropJustPolaroid(_ image: UIImage) -> UIImage? {
         
-        let width = UIScreen.main.bounds.width - 74
-        let height = UIScreen.main.bounds.height - 312
+        let width = ScreenSize.width - 74
+        let height = ScreenSize.height - 312
         
         let cropArea = CGRect(x: 18, y: 140,
                               width: image.size.width ,
                               height: image.size.height)
         
-        var scaledCropArea: CGRect = CGRectMake(
+        let scaledCropArea: CGRect = CGRectMake(
             cropArea.origin.x * image.scale,
             cropArea.origin.y * image.scale,
             width * image.scale,

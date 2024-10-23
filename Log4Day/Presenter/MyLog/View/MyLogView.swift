@@ -64,14 +64,13 @@ struct MyLogView: View {
                             }
                         }
                     }
-                    .frame(width: viewModel.output.screenWidth)
+                    .frame(width: ScreenSize.width)
                 }
                 SideBarView(controller: .myLog, viewModel: categoryViewModel)
                     .environmentObject(viewModel)
             }
         }
         .onAppear {
-//            print(Realm.Configuration.defaultConfiguration.fileURL)
             viewModel.action(.fetchFirstLastDate)
             viewModel.action(.fetchLogDate(isInitial: true))
         }
@@ -121,7 +120,12 @@ struct MyLogView: View {
             ScrollView {
                 ForEach(viewModel.output.ofLogList.indices, id: \.self) { index in
                     NavigationLink {
-                        NextViewWrapper(LogDetailView(logId: viewModel.output.ofLogList[index].id, categoryViewModel: categoryViewModel, myLogViewModel: viewModel))
+                        NextViewWrapper(
+                            LogDetailView(
+                                logId: viewModel.output.ofLogList[index].id,
+                                categoryViewModel: categoryViewModel,
+                                myLogViewModel: viewModel)
+                        )
                     } label: {
                         let log = viewModel.output.ofLogList[index]
                         return TimelineCell(index: index,
@@ -167,9 +171,8 @@ struct MyLogView: View {
     }
     
     private func photoLogBanner(width: CGFloat) -> some View {
-        print(UIScreen.main.bounds.height)
         let bannerWidth = width-75
-        let bannerHeight: CGFloat = UIScreen.main.bounds.height - 312
+        let bannerHeight: CGFloat = ScreenSize.height - 312
         let fourCutLogList = viewModel.output.logList
                             .where({ $0.fourCut.count == 4 })
                             .sorted(byKeyPath: Log.Column.startDate.name, ascending: false)

@@ -8,11 +8,9 @@
 import Foundation
 import Alamofire
 
-
 enum NetworkRouter {
     case searchPlace(query: SearchPlaceQuery)
 }
-
 
 extension NetworkRouter: TargetType {
     

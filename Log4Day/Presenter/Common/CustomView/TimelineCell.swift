@@ -82,7 +82,6 @@ struct TimelineCell: View {
                     Spacer()
                 }
                 HStack {
-//                    Text("#\(log.places.compactMap{ $0.hashtag }.joined(separator:" #"))")
                     Text("")
                         .font(.caption)
                         .foregroundStyle(ColorManager.shared.ciColor.subContentColor)

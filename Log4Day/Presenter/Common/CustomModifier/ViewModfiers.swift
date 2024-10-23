@@ -12,15 +12,16 @@ extension View {
     @ViewBuilder
     func hideIndicator() -> some View {
         if #available(iOS 16, *) {
-            self.modifier(Ios16_HideIndicator())
+            self.modifier(iOS16_HideIndicator())
         } else {
-            self.modifier(Ios15_HideIndicator())
+            self.modifier(iOS15_HideIndicator())
         }
     }
+    
 }
 
 @available(iOS 16, *)
-struct Ios16_HideIndicator: ViewModifier {
+struct iOS16_HideIndicator: ViewModifier {
     
     func body(content: Content) -> some View {
         content.scrollIndicators(.hidden)
@@ -28,7 +29,7 @@ struct Ios16_HideIndicator: ViewModifier {
 }
 
 
-struct Ios15_HideIndicator: ViewModifier {
+struct iOS15_HideIndicator: ViewModifier {
     
     init() {
         UITableView.appearance().showsVerticalScrollIndicator = false

@@ -26,8 +26,8 @@ final class PhotoManager: FileManager {
         //이미지를 저장할 경로(파일명) 지정
         let fileURL = documentDirectory.appendingPathComponent("\(filename).png")
         
-        //이미지 압축
-        guard let data = image.jpegData(compressionQuality: 0.5) else { return }
+        //이미지를 data로 변환
+        guard let data = image.pngData() else { return }
         
         //이미지 파일 저장
         do {
@@ -51,8 +51,8 @@ final class PhotoManager: FileManager {
             kCGImageSourceShouldCacheImmediately: true,
             kCGImageSourceCreateThumbnailFromImageAlways: true,
             kCGImageSourceCreateThumbnailFromImageIfAbsent: true,
-            kCGImageSourceThumbnailMaxPixelSize: max(((UIScreen.main.bounds.width - 10) / 2) - 10,
-                                                    (UIScreen.main.bounds.height / 2) - 10 ),
+            kCGImageSourceThumbnailMaxPixelSize: max(((ScreenSize.width - 10) / 2) - 10,
+                                                    (ScreenSize.height / 2) - 10 ),
             kCGImageSourceCreateThumbnailWithTransform: true
         ]
         //이 경로에 실제로 파일이 존재하는 지 확인

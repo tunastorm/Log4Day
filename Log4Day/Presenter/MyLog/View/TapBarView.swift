@@ -99,10 +99,6 @@ struct TopTabbar: View {
     var animation: Namespace.ID
     
     var body: some View {
-//        ZStack(alignment: .bottom) {
-//            
-//        }
-        
         HStack {
             ForEach(TapInfo.allCases, id: \.self) { item in
                 LazyVStack {

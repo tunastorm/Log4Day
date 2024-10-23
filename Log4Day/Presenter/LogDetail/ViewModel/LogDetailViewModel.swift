@@ -461,6 +461,13 @@ final class LogDetailViewModel: ObservableObject {
     private func updateProperties(_ log: Log) {
         let old = repository.fetchItem(object: Log.self, primaryKey: log.id)
         old?.title = input.title
+        // 삭제된 이미지 Document에서 제거하는 로직 필요
+        let newIds = log.fourCut.map{ $0.id }
+        old?.fourCut.forEach { photo in
+            if !newIds.contains(photo.id) {
+                PhotoManager.shared.removeImageFromDocument(filename: photo.name)
+            }
+        }
         old?.fourCut = log.fourCut
         old?.places = log.places
     }
@@ -508,6 +515,5 @@ final class LogDetailViewModel: ObservableObject {
         output.createResult = RepositoryStatus.idle
         output.updateResult = RepositoryStatus.idle
     }
-    
     
 }

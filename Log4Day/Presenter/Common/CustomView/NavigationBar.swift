@@ -37,7 +37,7 @@ struct NavigationBar<CustomButton: View>: View {
 //                SettingButton(inNavigationWrapper: false)
 //                    .padding(.trailing)
             }
-            .frame(width: UIScreen.main.bounds.width)
+            .frame(width: ScreenSize.width)
             .padding(.top, 2)
         }
     }

@@ -39,8 +39,6 @@ struct CategoryPickerView: View {
 
                         })
                     }
-                    
-                    
                 }
             }
             .font(.footnote)

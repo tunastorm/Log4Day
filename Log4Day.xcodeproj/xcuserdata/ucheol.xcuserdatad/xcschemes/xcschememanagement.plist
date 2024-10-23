@@ -28,7 +28,7 @@
 		<key>Log4Day.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>6</integer>
+			<integer>7</integer>
 		</dict>
 		<key>SnapKitPlayground (Playground) 1.xcscheme</key>
 		<dict>
@@ -50,6 +50,24 @@
 			<false/>
 			<key>orderHint</key>
 			<integer>1</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>BC404BCA2C9077FC001BA269</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BC404BDA2C9077FE001BA269</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BC404BE42C9077FE001BA269</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

@@ -51,37 +51,7 @@ final class Repository {
     func fetchAllFiltered<T: Object>(obejct: T.Type, sortKey column: any ManagedObject, acending: Bool = true, query: @escaping (Query<T>) -> Query<Bool>) -> Results<T>? {
         return realm?.objects(obejct).where(query).sorted(byKeyPath: column.name, ascending: acending)
     }
-    
-    func searchCompoundedFilter<T:Object>(objet: T.Type, sortKey column: any ManagedObject, acending: Bool = true, compoundPredicate: NSCompoundPredicate, filter: (Query<T>) -> Query<Bool>) -> Results<T>?  {
-        return realm?.objects(objet).where(filter).filter(compoundPredicate).sorted(byKeyPath: column.name, ascending: acending)
-    }
-    
-    func updateItem<T:Object>(object: T.Type, value: [String: Any], complitionHandler: RepositoryResult) {
-        do {
-            try realm?.write {
-                realm?.create(object, value: value, update: .modified)
-            }
-            complitionHandler(.success(RepositoryStatus.updateSuccess))
-        } catch {
-            complitionHandler(.failure(RepositoryError.updatedFailed))
-        }
-    }
-    
-    @available(iOS 16.0, *)
-    func deleteItem(_ data: Object, fileName: String? = nil, complitionHandler: RepositoryResult) {
-        if let fileName {
-            photoManager.removeImageFromDocument(filename: fileName)
-        }
-        do {
-            try realm?.write {
-                realm?.delete(data)
-            }
-            complitionHandler(.success(RepositoryStatus.deleteSuccess))
-        } catch {
-            complitionHandler(.failure(RepositoryError.deleteFailed))
-        }
-    }
-    
+
     func deleteCategory(_ data: Category, completionHandler: RepositoryResult) {
         let logs = data.content
         do {

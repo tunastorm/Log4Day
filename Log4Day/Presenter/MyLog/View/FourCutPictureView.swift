@@ -74,11 +74,7 @@ struct FourCutPictureView: View {
     }
     
     private func ImageGrid() -> some View {
-//        let isLastToFirst = index == 1 && currentIndex == lastCell + 1
-//        let isFirstToLast = index == lastCell && currentIndex == 0
-//        let height = (index == currentIndex || (isFirstToLast || isLastToFirst)) ? imageHeight : imageHeight * 0.7
-//        let topPadding: CGFloat = (index == currentIndex || (isFirstToLast || isLastToFirst)) ? 10 : 25
-        
+
         let topPadding: CGFloat = 10
         let height = (imageHeight / 2) - topPadding
         let width = ((backgroundWidthHeight.0 - 10) / 2) - 10

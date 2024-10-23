@@ -25,7 +25,6 @@ struct PhotoPicker: UIViewControllerRepresentable {
 
     func updateUIViewController(_ uiViewController: PHPickerViewController, context: Context) {
         
-        
     }
     
     func makeCoordinator() -> Coordinator {
@@ -47,11 +46,7 @@ struct PhotoPicker: UIViewControllerRepresentable {
         // selections은 딕셔너리이기 때문에 순서가 없습니다. 그래서 따로 식별자를 담을 배열 생성
         private var selectedAssetIdentifiers = [String]()
         
-        private var imageList: [UIImage] = [] {
-            didSet {
-                
-            }
-        }
+        private var imageList: [UIImage] = []
         
         init(_ parent: PhotoPicker, _ viewModel: LogDetailViewModel) {
             self.parent = parent
@@ -64,12 +59,16 @@ struct PhotoPicker: UIViewControllerRepresentable {
         
             viewModel.action(.changeLoadingState)
             
+            let width = ScreenSize.width - 75
+            let height = ScreenSize.height - 312
+          
             let group = DispatchGroup()
             results.forEach { [weak self] in
                 $0.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (object, error) in
                     group.enter()
                     DispatchQueue.main.async() {
-                        if let image = object as? UIImage {
+                        if let rawImage = object as? UIImage, 
+                           let image = rawImage.resize(to: CGSize(width: width, height: height)) {
                             
                             self?.imageList.append(image)
                             

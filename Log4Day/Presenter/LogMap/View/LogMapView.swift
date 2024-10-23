@@ -49,7 +49,6 @@ struct LogMapView: View {
             }
         }
         .onAppear {
-//            viewModel.action(.fetchFirstLastDate)
             viewModel.action(.initialFetch)
         }
         .bottomSheet(bottomSheetPosition: $logDetailViewModel.output.showPlaceEditSheet,

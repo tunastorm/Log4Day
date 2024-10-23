@@ -21,5 +21,4 @@ struct GeocodingQuery: Encodable {
         case BCODE
     }
     
-    
 }
