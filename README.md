@@ -304,8 +304,7 @@ func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
 |------|------|
 |<img width="307" alt="스크린샷 2024-10-22 오후 4 36 55" src="https://github.com/user-attachments/assets/73fed617-7272-444e-9c53-51fc93e2e716">| <img width="306" alt="스크린샷 2024-10-22 오후 4 38 24" src="https://github.com/user-attachments/assets/1045f48c-c8f5-4cda-b8ee-178a0dcc2730">|
 
-* 이미지 개수를 최대 4개로 제한했지만 원본 이미지를 그대로 사용하게되면 메모리에 과도한 부하발생
-   - 사용자가 촬영한 사진 4장 등록한 경우
+* 이미지 개수를 최대 4개로 제한했지만 원본 이미지를 그대로 사용하게 되면 4개만 등록해도 메모리에 과도한 부하발생
      
 |일기 작성 탭|일기 조회 화면|
 |------|------|
