@@ -207,29 +207,9 @@ iOS 15.0 이상
 
 > ### View를 감싸는 WrapperView로 ForEach로 생성되는 NavigationLink의 메모리 부하 관리
 
-* 제네릭 타입 매개변수의 제약조건으로 View를 갖고 View를 상속하는 구조체 NextViewWrapper를 선언
+* 제네릭 타입 매개변수의 제약조건으로 View를 갖고 프로퍼티로 다음화면에 사용할 View를 갖는 NextViewWrapper를 선언
   - 생성자의 view 매개변수에 @autoclosure 키워드를 사용하여 생성자 사용시 입력되는 클로저의 중괄호 묶음 생략
   - 또한 @escaping 키워드로 클로저 내부의 View를 NextViewWrapper의 view 프로퍼티에 할당할 수 있도록 허용
-
-```swift
-import SwiftUI
-
-struct NextViewWrapper<Content: View>: View {
-    
-    typealias InitContent = () -> Content
-    
-    let view: InitContent
-    
-    var body: some View {
-        view()
-    }
-    
-    init(_ view: @autoclosure @escaping InitContent) {
-        self.view = view
-    }
-    
-}
-```
 
 * ForEach문 안에서 NavigationLink 렌더링 시 NextViewWrapper만 렌더링하여 메모리 부하 감소
   - 연결된 화면의 View는 클릭 이벤트 발생시에 렌더링된다
