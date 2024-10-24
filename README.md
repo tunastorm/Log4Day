@@ -253,7 +253,7 @@ iOS 15.0 이상
   <img src="https://github.com/user-attachments/assets/b88b48da-8988-49d0-b477-ce3936e0f2d8" width="230" height="500">
 </div>
 
-* 사용자가 선택한 장소의 위치를 입력받는 프로퍼티에 view의 변경이 없는 viewModel의 변경은 예측되지 않은 동작을 일으킬 수 있다는 메모리 이슈 경고 발생
+* 사용자가 선택한 장소의 index를 입력받는 프로퍼티에 view의 변경이 없는 viewModel의 변경은 예측되지 않은 동작을 일으킬 수 있다는 메모리 이슈 경고 발생
 
 <img width="1064" alt="스크린샷 2024-10-22 오후 4 06 53" src="https://github.com/user-attachments/assets/eca3c4bf-8988-4551-9029-684e5bf87fd8">
  
