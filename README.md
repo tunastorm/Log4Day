@@ -207,29 +207,9 @@ iOS 15.0 이상
 
 > ### View를 감싸는 WrapperView로 ForEach로 생성되는 NavigationLink의 메모리 부하 관리
 
-* 제네릭 타입 매개변수의 제약조건으로 View를 갖고 View를 상속하는 구조체 NextViewWrapper를 선언
+* 제네릭 타입 매개변수의 제약조건으로 View를 갖고 프로퍼티로 다음화면에 사용할 View를 갖는 NextViewWrapper를 선언
   - 생성자의 view 매개변수에 @autoclosure 키워드를 사용하여 생성자 사용시 입력되는 클로저의 중괄호 묶음 생략
   - 또한 @escaping 키워드로 클로저 내부의 View를 NextViewWrapper의 view 프로퍼티에 할당할 수 있도록 허용
-
-```swift
-import SwiftUI
-
-struct NextViewWrapper<Content: View>: View {
-    
-    typealias InitContent = () -> Content
-    
-    let view: InitContent
-    
-    var body: some View {
-        view()
-    }
-    
-    init(_ view: @autoclosure @escaping InitContent) {
-        self.view = view
-    }
-    
-}
-```
 
 * ForEach문 안에서 NavigationLink 렌더링 시 NextViewWrapper만 렌더링하여 메모리 부하 감소
   - 연결된 화면의 View는 클릭 이벤트 발생시에 렌더링된다
@@ -273,7 +253,7 @@ struct NextViewWrapper<Content: View>: View {
   <img src="https://github.com/user-attachments/assets/b88b48da-8988-49d0-b477-ce3936e0f2d8" width="230" height="500">
 </div>
 
-* 사용자가 선택한 장소의 위치를 입력받는 프로퍼티에 view의 변경이 없는 viewModel의 변경은 예측되지 않은 동작을 일으킬 수 있다는 메모리 이슈 경고 발생
+* 사용자가 선택한 장소의 index를 입력받는 프로퍼티에 view의 변경이 없는 viewModel의 변경은 예측되지 않은 동작을 일으킬 수 있다는 메모리 이슈 경고 발생
 
 <img width="1064" alt="스크린샷 2024-10-22 오후 4 06 53" src="https://github.com/user-attachments/assets/eca3c4bf-8988-4551-9029-684e5bf87fd8">
  
@@ -419,7 +399,8 @@ func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
 <br>
 
 > ### 개선사항
-* 선언형 UI인 SwiftUI에서 @ObservedObject, @EnvironmentObject, ViewModel을 여러 View에 걸쳐서 사용하는 것이 좋은 방향인지 의문이 듦. MVI 아키텍처나 TCA를 적용해보고 싶다.
+* 선언형 UI인 SwiftUI에서 @ObservedObject, @EnvironmentObject, ViewModel을 여러 View에 걸쳐서 사용하는 것이 좋은 방향인지 의문이 듦.
+  MVI 아키텍처나 TCA를 학습해보면 좋을 것 같다.
 * 네트워크, Realm CRUD 등의 예외처리 및 alert등을 통한 결과 안내 로직 추가
 * 커스텀으로 구현한 Infinity Carousel View의 딱딱한 스크롤 애니메이션을 SwiftUI에 어울리게 개선
 
