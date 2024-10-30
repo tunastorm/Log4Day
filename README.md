@@ -403,5 +403,6 @@ func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
   MVI 아키텍처나 TCA를 학습해보면 좋을 것 같다.
 * 네트워크, Realm CRUD 등의 예외처리 및 alert등을 통한 결과 안내 로직 추가
 * 커스텀으로 구현한 Infinity Carousel View의 딱딱한 스크롤 애니메이션을 SwiftUI에 어울리게 개선
+* 지도 SDK 같이 메모리 사용량이 큰 객체를 사용하는 뷰는 탭바에서 최소 한 번의 depth를 주어 사용한다면 메모리 최적화에 유리할 것으로 보임   
 
 <br>
